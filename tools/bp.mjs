@@ -62,10 +62,15 @@ const NOT_PRODUCT = ['design/concept/concept.html', 'design/concept/directions.h
   'design/concept/logo.html', 'design/overview.html'];
 const notProductHit = new Set();
 
-const EXCUSED = [
-  { n: 939, file: 'coach-session.css', why: 'коуч-спліт-в\'ю, предмет кроку 5 - складати його в кроці 4 означало б вирішити те, заради чого існує окремий крок' },
-  { n: 940, file: 'coach-session.css', why: 'та сама пара, друга половина' },
-];
+/* 10.5 CLOSED THE ONLY TWO ENTRIES THIS LIST EVER HELD, and the idle control is
+   what said so: the moment step 5 folded `coach-session`'s 939/940 onto the shell
+   point, the run failed with «оголошений виняток не покриває нічого». That is the
+   check working, not breaking - a list that keeps naming numbers nobody writes any
+   more reads as coverage and is worse than no list. The entries are removed rather
+   than commented out; the record of why they existed is in `responsive.md` and in
+   `docs/decisions.md`, which is where history lives.
+   The array stays, empty, because the next stage will owe it something. */
+const EXCUSED = [];
 
 const strip = s => s.replace(/\/\*[\s\S]*?\*\//g, m => '\n'.repeat((m.match(/\n/g) || []).length));
 const lineOf = (s, i) => s.slice(0, i).split('\n').length;

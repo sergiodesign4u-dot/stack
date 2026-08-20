@@ -680,11 +680,54 @@
    `!important`. */
 .coach .clsplit{ display: grid; gap: var(--space-24); }
 .coach .cldetail{ display: none; }
+
+/* THE SPLIT ASKS ABOUT THE PLACE, AND THE FIRST WRITING ASKED ABOUT THE SCREEN.
+   `@media (min-width: 860px)` turned two panes on at the viewport width where the
+   SHELL ran out of room, not where this frame gained any: the account shell takes
+   its own 268px nav column, so at a 860 viewport `.acc-main` is a 528px box and the
+   detail pane came out 224px - narrower than the rail beside it and narrower than a
+   phone. The critique's own question was the right one: name the smallest panel
+   worth opening, then derive the point from it.
+
+   41rem IS THAT DERIVATION, NOT A DEVICE. The smallest panel worth opening is the
+   width at which `.cd-row` still holds its label and value side by side, which is
+   this file's own container threshold, `22rem`. Add the rail and the gap:
+
+       17.5rem (rail) + 1.5rem (--space-24) + 22rem (the smallest useful panel) = 41rem
+
+   The relation is written here because the query cannot hold it: `@container`, like
+   `@media`, is resolved before custom properties, so `calc()` and `var()` are both
+   unavailable inside the condition. The literal is the promise, this comment is the
+   source. In the product that lands the split at roughly a 960 viewport instead of
+   860 - later, and for a reason that is about this frame rather than about a device.
+
+   AND IT IS BOTH QUESTIONS, NOT ONE - which is the correction the instrument forced.
+   A bare `@container` turned the split ON below 860 and OFF between 860 and 960, and
+   the reason is the thing this stage already wrote down: THE PLACE IS NOT MONOTONIC
+   IN THE VIEWPORT. Below 860 the shell has no nav column at all, so `.acc-main` is
+   the full 828 and the container test passes; at 860 the shell takes its 268 and the
+   box drops to 528, so the same test fails. The split appeared, vanished, and came
+   back. So the two questions are asked in the order they actually rank: `@media`
+   first, because the split belongs to the DESKTOP SHELL - at 828px of room with a
+   pill-scroller navigation the composition would be a desktop split under a mobile
+   shell - and `@container` inside it, because even in that shell the room is not
+   guaranteed. Between 860 and roughly 960 the coach now gets the desktop shell and a
+   single-column list, and that is the honest answer: there is no room for a second
+   pane, and opening one anyway is what produced the 224px panel this repair removed.
+
+   AND THE PLACER DECLARES THE CONTAINER, not the component: `container-type` sits on
+   `.acc-main` in `account-shell.css`, because the place is not a property of the
+   thing standing in it. Measured before declaring it, on all three clients screens:
+   zero `position: fixed` descendants inside `.acc-main`, so the `contain: layout`
+   that `inline-size` implies re-anchors nothing. That is the same test the page
+   frame FAILED at round 4, which is why the mascot never got one. */
 @media (min-width: 860px){
-  .coach .clsplit{ grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr); align-items: start; }
-  .coach .clsplit .clist{ grid-template-columns: minmax(0, 1fr); }
-  /* the panel follows the eye down a long list rather than scrolling away from it */
-  .coach .cldetail{ display: block; position: sticky; top: var(--space-16); }
+  @container (min-width: 41rem){
+    .coach .clsplit{ grid-template-columns: minmax(0, 17.5rem) minmax(0, 1fr); align-items: start; }
+    .coach .clsplit .clist{ grid-template-columns: minmax(0, 1fr); }
+    /* the panel follows the eye down a long list rather than scrolling away from it */
+    .coach .cldetail{ display: block; position: sticky; top: var(--space-16); }
+  }
 }
 
 /* THE SELECTED ROW, and it is a BORDER rather than a fill. `--line-action` is the
@@ -693,10 +736,49 @@
    accent the screen is allowed - the list's own «Додати клієнта». */
 .coach .ccard[aria-current="true"]{ border-color: var(--line-action); }
 .coach .clsplit .ccard{ cursor: pointer; }
+/* A 280px CARD THAT IS A CONTROL HAS TO SAY SO BEFORE IT IS CLICKED. The first
+   writing gave the card `cursor: pointer` and nothing else, so the only feedback
+   was the pointer - and a pointer is not visible until the mouse is already on the
+   target. `--bg-hover` is the same ground every other hovered row in the system
+   takes; no border appears and no size changes, because a state may not move the
+   layout (rule 12). */
+.coach .clsplit .ccard:hover{ background: var(--bg-hover); }
+
+/* THE NAME IS THE CONTROL. A card carrying `role="button"` also carried two real
+   links inside it, and a button may not contain interactive content - the reader
+   was told «button» and then walked into «Профіль» and «Нова сесія». So the ARIA
+   claim moved onto the client's name, which is the only accessible name this
+   control would ever want, and the card kept the whole-surface click for the mouse,
+   where it costs no claim at all. The button carries no chrome of its own: it IS
+   the name, and `.ccard-nm` above still says how a name looks. */
+.coach .ccard-sel{ font: inherit; color: inherit; letter-spacing: inherit;
+  background: none; border: 0; padding: 0; margin: 0; text-align: left;
+  cursor: pointer; }
+
+/* AND THE TWO NEW CONTROLS DECLARE THEIR OWN RING. Step 5 invented a focusable
+   control and a focus target and declared neither, so both fell through to Chrome's
+   default `auto 1px rgb(0,95,204)` - the blue `base.css` says exists in no palette
+   of this system. Both take `--ring-focus-control`, the same ring every other
+   control in the system takes, in both themes at once because the token is paired. */
+.coach .ccard-sel:focus-visible,
+.coach .cldetail .ch-name:focus-visible{ outline: none;
+  box-shadow: var(--ring-focus-control); border-radius: var(--radius-4); }
+
+/* the coach's own note, promoted out of the data table into the panel */
+.coach .cldetail .cc-note{ margin-top: var(--space-12); }
 
 /* THE STATE THAT NEVER EXISTED ON A PHONE. There is no «nothing is selected» on a
    one-screen-at-a-time flow: you are either in the list or in a client. The split
    invents it, so the string is new product copy and lives in `microcopy.md` like
-   every other string, not here. */
-.coach .cldetail-empty{ border: 1px dashed var(--line-strong); border-radius: var(--radius-12);
-  padding: var(--space-32) var(--space-24); text-align: center; }
+   every other string, not here.
+
+   AND IT HAS NO RULE HERE, WHICH IS THE REPAIR. The first writing gave it a private
+   `.cldetail-empty` - dashed border, radius-12, centred - which is `.emptybox.mini`
+   spelled again in a component file, and the price was paid immediately and in
+   silence: the markup already carried `.et` and `.es`, but those are written as
+   `.emptybox .et` in `empty-state.css`, so under a private parent they matched
+   nothing. Heading and body rendered at the same size and read as one paragraph, on
+   a screen every instrument called clean, because no instrument asks whether a
+   heading looks like a heading. The state now IS `.emptybox mini` and the private
+   rule is deleted rather than corrected: a component the system already owns does
+   not get a second edition inside another component's file. */

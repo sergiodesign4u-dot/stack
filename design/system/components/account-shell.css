@@ -44,6 +44,23 @@
    the deletion is worth twelve rules of comment - the file now describes the
    cabinet and only the cabinet. */
 .acc{ display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-24); margin-top: var(--space-16); }
+
+/* THE PLACER DECLARES THE CONTAINER, AND THE SHELL IS THE PLACER. `.acc-main` is the
+   cell every account and coach screen stands in, and it is the reason a viewport
+   width says nothing useful about the room a screen actually has: this shell takes a
+   268px nav column beside it, so a screen inside it is always ~300px narrower than
+   the window that contains it. Stage 10 step 5 paid for that twice - once when
+   `--grid-col-min-panel` had to drop from 22rem to 19rem, and once when the coach
+   split opened a 224px detail pane at the shell's own point. A component asking
+   `@media` inside this cell is asking the wrong question, and now it does not have to.
+
+   `.acc-main` had no rule of its own at all before this - it was a bare grid cell -
+   so this is the whole rule, and `container-type: inline-size` is the whole of it.
+   Safe here and measured before it was written: zero `position: fixed` descendants
+   inside `.acc-main` on every screen that uses it, so the `contain: layout` implied
+   by `inline-size` re-anchors nothing. The page frame failed that same test at round
+   4, with twelve component files putting fixed elements inside it. */
+.acc-main{ container-type: inline-size; }
 /* ONE GAP, ONE DECISION - step 8.8, owner: «сильно много пустого пространства
    между крошками и карточкой». Measured at 390 on coach-home and on account:
    `.crumb` closes with `padding-bottom: 12` and `.acc` opened with

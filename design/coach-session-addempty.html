@@ -50,18 +50,17 @@
     <a class="btn--outline btn--s btn" href="coach-home.html">Зберегти й вийти</a>
   </div>
 
-  <!-- CLIENT TABS (each with a per-client subtotal) -->
-  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
-    <button class="ctab on" role="tab" aria-selected="true">
-      <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
-    </button>
-    <button class="ctab" role="tab" aria-selected="false">
-      <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
-    </button>
-    <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
-  </div>
-
   <div class="cs-grid">
+    <!-- CLIENT TABS (each with a per-client subtotal) -->
+    <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+      <button class="ctab on" role="tab" aria-selected="true" data-client="andriy">
+        <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
+      </button>
+      <button class="ctab" role="tab" aria-selected="false" data-client="maria">
+        <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
+      </button>
+      <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
+    </div>
 
     <!-- ACTIVE-CLIENT PANEL -->
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
@@ -194,7 +193,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addempty');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addempty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
 </script>
 </body>
 </html>

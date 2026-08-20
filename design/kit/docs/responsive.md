@@ -739,6 +739,143 @@ numbers, the four documents that are not product - is itself checked for coverin
 12, and `architecture.md` section J, «A new ADAPTATION». Rule 12 is the one no grep can see and
 every reader needs: **a COUNT and a BEHAVIOUR may step at a point, a SIZE may not.**
 
+## Step 5 - the new behaviour, and it is the only one the stage builds
+
+The audit named eight behaviours for the wide width and seven were already standing in code after
+round 4. The eighth is this one: **split view in the coach flow, 39 screens in the audit and 11 in
+this behaviour.** The source is not a preference. The primary job says literally «build a complete
+order for each client in one session», and on a phone the coach walks back and forth between the
+list of clients and one client's basket, losing the place each time.
+
+**The threshold for a split view is not the pattern threshold and the pack says so.** A pattern needs
+three screens; a split view needs *two or more list-and-detail pairs, or one pair of the main flow*,
+because it drags in a new state, focus management and history. Both conditions hold here, and the
+two pairs are different questions rather than the same one twice:
+
+| pair | the many | the one | frame |
+|---|---|---|---|
+| clients | `.clist`, saved clients | `.cldetail`, that client's goal, contacts, notes | `.clsplit` |
+| session | `.ctabs`, the clients in this session | `.cs-panel`, that client's basket | `.cs-grid` |
+
+### The detail screen is NOT cancelled, and that is the pack's rule rather than a courtesy
+
+`coach-client.html` keeps its own URL, its own breadcrumbs and its SEO block A-E. Below the point
+«Профіль» is a plain link to it, exactly as before; above the point the same record ALSO appears
+beside the list. A shared link still opens the full screen. The split adds a second way to see a
+client, it does not replace the first one.
+
+### The panel opens EMPTY, and the string is new product copy
+
+There is no «nothing is selected» on a one-screen-at-a-time flow: you are either in the list or in a
+client. The split invents the state, so it is written by `voice.md`'s rules and lives in
+`microcopy.md` with the other interface strings - six rows, and `voice.html` was rebuilt the same
+step. Auto-selecting the first client was the other option and was not taken: it puts a record on
+screen nobody asked for, and on a list whose order changes it is a different record every visit.
+
+### The frame and the panel have ONE edition, and it is a function
+
+Three clients screens carry the same list. A panel copy-pasted into three files is three editions,
+and the third drifts first - so `wfClientSplit()` in `design/_nav.js` finds `.clist`, wraps it in
+`.clsplit` and builds `.cldetail` itself. A screen calls the function and states nothing about width.
+
+**No list means no split, and that is the rule rather than an omission.** `coach-clients-empty` and
+`coach-clients-error` have no cards, so there is nothing to stand a client beside and the emptybox
+keeps its full width. `coach-clients-loading` DOES get the frame, because without it the page jumps
+at 860 the moment data arrives: the list would fold from its own columns into a rail and a panel
+would appear from nowhere. The skeleton variant is read off `aria-busy`, not off the file name.
+
+Three product links moved out of the html and into that function - `coach-client.html`,
+`coach-session.html`, `../wireframes/coach-client-edit.html` - and `tools/links.mjs` cannot see a
+link a page writes at runtime, which its own header states. All three targets are still written
+statically on other product pages, so no path lost its check; the count moved 5346 -> 5343 and every
+one of the three is still resolved from somewhere else.
+
+### The session pair closed the last off-registry number in the system
+
+`coach-session.css` held 940 and 939 through all four rounds, deliberately: they were step 5's to
+spend. The client strip moved INSIDE `.cs-grid` on all eight session screens, and from
+`--bp-shell-wide` it becomes a vertical rail in a left `20rem` column with the session total under
+it - the total summarises exactly that list - while the active client's basket takes the rest. The
+tab's 1px overhang, which exists to glue a tab to the panel below it, is switched off in the rail,
+where there is no panel below it to glue to.
+
+**`tools/bp.mjs` then failed, and that is the idle control working.** Its `EXCUSED` array still named
+939 and 940 after those numbers stopped existing, and a list that names what nobody writes reads as
+coverage. The array is empty now. **The system is 117 queries on FOUR widths - 619, 620, 859, 860 -
+and nothing else**, against the 27 different acting widths and zero tokens the census found at step 1.
+
+### What it measures, after the critique repaired it
+
+The split no longer turns on at the shell's point. It asks two questions in the order they rank -
+`@media (min-width: 860px)` first, because a two-pane workspace belongs to the DESKTOP SHELL, and
+`@container (min-width: 41rem)` inside it, because even in that shell the room is not guaranteed.
+
+**41rem is a derivation, not a device.** The smallest panel worth opening is the width at which
+`.cd-row` still holds label and value side by side, which is this file's own container threshold,
+22rem. Add the rail and the gap: `17.5rem + 1.5rem + 22rem = 41rem`. The relation is written in the
+comment because the query cannot hold it - `@container`, like `@media`, resolves before custom
+properties, so `calc()` and `var()` are both unavailable in the condition.
+
+| | before the critique | after |
+|---|---|---|
+| turns on at | 860 viewport | **990** viewport, where `.acc-main` first reaches 658 |
+| detail pane there | **224px**, narrower than the 280 rail | **354px**, wider than the rail's floor |
+| what decides | the window | the box the shell actually leaves |
+
+**The bare container query was WRONG first, and the instrument caught it inside one run.** Asking
+only `@container` turned the split ON below 860 and OFF between 860 and 960: below 860 the shell has
+no nav column, so `.acc-main` is the full 828 and the test passes; at 860 the shell takes its 268 and
+the box drops to 528. The split appeared, vanished and came back. **The place is not monotonic in the
+viewport** - the same fact that forced `--grid-col-min-panel` down to 19rem at step 4 - and a single
+container gate cannot see it. Hence two gates.
+
+**What remains, and it is the stand's, not the product's.** Swept at 10px from 320 to 1600 the
+coloured copy transitions three times: on at 990 (box 658), OFF at 1080 (box 532), on again at 1210
+(box 662). The 1080 drop is the STAND's own roadmap rail appearing and reflowing the page. In the
+product there is no such rail and the sweep is one transition at 990. The instrument prints every
+transition with the box that caused it, so this cannot quietly become normal; the rail itself is
+listed in `backlog.md` as the thing that would remove it.
+
+The session pair, measured on `coach-session`: 859 keeps the full-width strip above the panel; 860
+gives `320 rail | 488 basket`; 900 `320 | 528`; 1280 `320 | 692`; 1440 `320 | 828`. Nothing clips at
+any width. **On a phone nothing changed at all**, which is the right answer there: one client is
+visible at a time anyway.
+
+### What found the defect that no instrument found
+
+`.cldetail-empty` was a private rule in `coach-clients.css` - dashed border, `radius-12`, centred -
+which is `.emptybox.mini` spelled a second time inside another component's file. The price was paid
+immediately and in silence: the markup already carried `.et` and `.es`, but `empty-state.css` writes
+them as `.emptybox .et`, so under a private parent they matched nothing. Heading and body rendered at
+the same size and read as one paragraph, on a screen every instrument called clean, because **no
+instrument asks whether a heading looks like a heading.** It was found by opening the page. The state
+is now `.emptybox mini` and the private rule is deleted rather than corrected.
+
+### The instrument: `tools/split.mjs`
+
+A split makes two claims at once - the frame really has two columns, and the two panes really sit in
+them - and neither is visible in css, so both are asked of `getBoundingClientRect`. The other half is
+the roll-call: it walks the whole product corpus and fails on any page that carries the LIST and
+stands outside a frame, which is the check that would have caught the seven session screens this step
+converted and the one that will catch the eighth when somebody adds it.
+
+Five failure classes, each introduced on purpose and reverted:
+
+| class | proved by | what it printed |
+|---|---|---|
+| carrier outside its frame | moving `.ctabs` back out on `coach-session-oos` | `.ctabs поза .cs-grid (рамка є, список не в ній)` |
+| a declared frame nobody carries | renaming `.clsplit` to `.no-such-frame` in the registry | `оголошена рамка не стоїть на жодній сторінці продукту` |
+| one column above the point | dropping the second track from `.cs-grid` | `широка ширина, а колонок 1` |
+| clipping inside the frame | the same edit | `обрізано ctabs 118>0` |
+| the page scrolls sideways | `min-width: 1700px` on `.cldetail` | `горизонтальна прокрутка сторінки` |
+
+Two wrong versions are written in its header. The roll-call was first a **grep over the source** - it
+answered correctly on the session screens and would answer «no split» on three of the four clients
+screens, which have one, because `wfClientSplit()` builds their frame at load and neither class exists
+in those files at all. And the first session measurement **injected the layout it was measuring**: it
+pushed an override stylesheet in instead of moving the viewport, then reported the rail at 320 and the
+basket at 488 with the two swapped, plus a `qa-row 324 > 258` clip that exists at no width.
+
 ## Container thresholds
 
 **Empty after round 1, and that is the answer rather than an omission.** No atom needed one: an
@@ -763,6 +900,22 @@ component files put fixed elements inside it - the buy bar, the drawers, the toa
 banner. Declaring the container there would have re-anchored all of them to fix a decoration.
 So the section stays empty, `tools/bp.mjs` fails the run on `@container` without a `container-type`
 anywhere, and the day a placer exists that holds nothing fixed, the mascot is the first candidate.
+
+**Step 5 opened it, with exactly one entry, and it is the placer rule working rather than an
+exception to it.**
+
+| threshold | declared on | asked by | what changes |
+|---|---|---|---|
+| `22rem` | `.coach .cdetails` | `.coach .cd-row` | the label-and-value rows fold from `160px 1fr` to one column |
+| `41rem` | `.acc-main` (`account-shell.css`) | `.coach .clsplit` | the split opens, inside `@media (min-width: 860px)`. Added by the critique repair; the number is `17.5 + 1.5 + 22`, the rail plus the gap plus the smallest panel worth opening |
+
+`.cdetails` could be a container where the page frame could not, and the difference is the whole
+rule: it holds no `position: fixed` descendant, so `contain: layout` re-anchors nothing. And the
+question is genuinely about the PLACE - the same client data card stands full width on
+`coach-client.html` and in a 224px pane beside the list, and `@media` cannot tell those apart because
+both happen at the same viewport width. **The block stands AFTER the base rule it overrides**: same
+specificity, later declaration wins, and the first writing put it above and drew nothing at all. The
+measurement that caught it read «265 into 190, unchanged».
 
 ### Numbers still owed to a later round
 

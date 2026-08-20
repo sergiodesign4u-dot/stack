@@ -2156,31 +2156,195 @@ function uivBar(){
    BELOW THE POINT THE SCRIPT DOES NOTHING. There is no second pane to fill, the
    cards are not selectable, and «Профіль» is a plain link to a real screen with a
    real URL. The detail screen is not cancelled by this - it is what a phone gets,
-   and what a shared link opens. */
+   and what a shared link opens.
+
+   THE SPLIT FRAME AND THE PANEL HAVE ONE EDITION, AND IT IS THIS FUNCTION.
+   Three clients screens carry the same list; a panel copy-pasted into three
+   files is three editions, and the third drifts first. A screen calls this and
+   nothing else - the frame is built around whatever `.clist` it already has.
+
+   NO LIST -> NO SPLIT, and that is the rule, not an omission. `empty` and
+   `error` have no cards, so there is nothing to stand a client beside; the
+   emptybox keeps the full width it always had. `loading` DOES get the frame,
+   because without it the page would jump at 860 the moment data arrives: the
+   list would fold from its own columns into a rail and a panel would appear
+   from nowhere. The skeleton variant is read off `aria-busy`, not off the
+   file name, so the screen states nothing about width. */
+/* THE SESSION STRIP CLAIMED TO BE A TABLIST AND WAS NOT ONE. Every `.ctab` carried
+   `role="tab"` and `aria-selected`, and no handler existed anywhere in this file:
+   clicking «Марія» changed nothing, arrows did nothing, and no state file rendered a
+   different active client. A screen reader was promised a widget the DOM could not
+   deliver, and `.ctab.add` sat inside that tablist as a plain link with no role at
+   all. The split's threshold is argued on TWO list-and-detail pairs, so one of the
+   two being a picture is not a cosmetic problem.
+
+   IT BECOMES THE SAME SELECTION MODEL THE CLIENTS RAIL USES, which is the other half
+   of the repair. The same act - pick one of many - was modelled twice in one step:
+   `role="button"` + `aria-current` on one screen, `role="tab"` + `aria-selected` on
+   the next. A tab is now a real destination carrying `?client=`, the contract this
+   step invented, and the current one is marked with `aria-current` exactly like the
+   current client card. One model, one mark, one contract, and every claim in the DOM
+   is one the DOM keeps.
+
+   WHAT IT DOES NOT DO, said out loud: it does not swap panels in place. The second
+   client's basket exists in the corpus (`cart-coach.html` authors Марія's two items
+   and her 1 160 subtotal), but transplanting it into the session panel is authoring a
+   new screen STATE, which is stage 12's work and not a critique repair. A link to the
+   session focused on a client is honest about that; a tablist that switches nothing
+   was not. */
+function wfSessionTabs() {
+  var strip = document.querySelector('.ctabs');
+  if (!strip) return;
+  strip.removeAttribute('role');
+
+  var tabs = [].slice.call(strip.querySelectorAll('.ctab[data-client]'));
+  if (!tabs.length) return;
+
+  tabs.forEach(function (t) {
+    var id = t.getAttribute('data-client');
+    var on = t.classList.contains('on');
+    var a = document.createElement('a');
+    a.className = t.className;
+    a.setAttribute('data-client', id);
+    a.setAttribute('href', 'coach-session.html?client=' + encodeURIComponent(id));
+    if (on) a.setAttribute('aria-current', 'true');
+    a.innerHTML = t.innerHTML;
+    t.parentNode.replaceChild(a, t);
+  });
+
+  /* arrows walk the strip, because a rail of destinations is still a rail */
+  strip.addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp'
+      && e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    var all = [].slice.call(strip.querySelectorAll('.ctab'));
+    var i = all.indexOf(e.target.closest('.ctab'));
+    if (i < 0) return;
+    e.preventDefault();
+    var next = all[i + (e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : -1)];
+    if (next) next.focus();
+  });
+}
+
 function wfClientSplit() {
-  var wrap = document.querySelector('.clsplit');
-  if (!wrap) return;
-  var list   = wrap.querySelector('.clist');
-  var empty  = wrap.querySelector('#clDetailEmpty');
-  var body   = wrap.querySelector('#clDetailBody');
-  if (!list || !body) return;
+  var list = document.querySelector('.clist');
+  if (!list) return;
+
+  var wrap = list.parentNode;
+  if (!wrap || !wrap.classList.contains('clsplit')) {
+    wrap = document.createElement('div');
+    wrap.className = 'clsplit';
+    list.parentNode.insertBefore(wrap, list);
+    wrap.appendChild(list);
+  }
+
+  var busy  = !!list.closest('[aria-busy="true"]');
+  var aside = document.createElement('aside');
+  aside.className = 'cldetail';
+  aside.id = 'clDetail';
+
+  if (busy) {
+    /* THE SKELETON DRAWS THE STATE THAT ACTUALLY ARRIVES, and the first writing did
+       not: it drew an avatar and a filled data card, and then the data landed and the
+       panel was the EMPTY prompt. A skeleton is a promise about the next frame, so
+       promising a record where a prompt is coming is the one lie a loading state can
+       tell. It is now the empty box's own shape, in the empty box's own class. */
+    aside.innerHTML =
+      '<div class="emptybox mini skpulse" aria-hidden="true">' +
+        '<div class="skline m"></div><div class="skline l"></div>' +
+      '</div>';
+    wrap.appendChild(aside);
+    return;
+  }
+
+  /* THE PANEL IS A COMPLEMENTARY LANDMARK AND A LANDMARK NEEDS A NAME. Without one a
+     screen reader announces «complementary» and nothing else. `aria-live` was here
+     from the start; the name was not. */
+  aside.setAttribute('aria-live', 'polite');
+  aside.setAttribute('aria-label', 'Вибраний клієнт');
+  aside.innerHTML =
+    '<div class="emptybox mini" id="clDetailEmpty">' +
+      '<div class="et">Оберіть клієнта</div>' +
+      /* ONE VERB, NOT TWO. The first writing said «Оберіть» in the heading and
+         «Виберіть» eight words later, for the same act, in a string this step wrote. */
+      '<div class="es">Тут буде його ціль, історія замовлень і нотатки, ' +
+      'і звідси починається сесія.</div>' +
+    '</div>' +
+    '<div id="clDetailBody" hidden>' +
+      '<div class="ch"><div class="ch-id">' +
+        '<div class="ch-av" id="clAv">А</div>' +
+        '<div><h2 class="ch-name" id="clName" tabindex="-1">Андрій</h2>' +
+        '<span class="ch-goal" id="clGoal">Ціль: Набір маси</span></div>' +
+      '</div>' +
+      '<a class="ch-edit" href="../wireframes/coach-client-edit.html" ' +
+        'onclick="openClientEdit();return false">Редагувати клієнта</a></div>' +
+      /* THE COACH'S OWN NOTE IS OUT OF THE TABLE. «Алергія на лактозу» is the most
+         reputation-relevant string on this screen and it rendered as grey row four of
+         four. `.cc-note` is the component `coach-client.html` already uses for exactly
+         this - the system owned the shape, the panel just was not using it. */
+      '<p class="cc-note" id="clNoteBox" hidden><b>Нотатка тренера:</b> ' +
+        '<span id="clNote"></span></p>' +
+      '<section class="cdetails" aria-label="Дані клієнта">' +
+        '<div class="cd-h">Дані клієнта</div>' +
+        '<dl class="cd-list">' +
+          '<div class="cd-row"><dt>Ціль</dt><dd id="clGoal2">Набір маси</dd></div>' +
+          /* THE ROWS ARE ORDER FACTS NOW, NOT A CONTACT CARD. The rail card already
+             carried «8 замовлень · останнє 12 черв. 2026» and the panel that details it
+             dropped both and offered a phone number instead - the detail was less
+             domain-relevant than the summary above it. Phone and e-mail moved behind
+             «Профіль», where the whole record lives. */
+          '<div class="cd-row"><dt>Замовлень</dt><dd id="clOrders">–</dd></div>' +
+          '<div class="cd-row"><dt>Останнє замовлення</dt><dd id="clLast">–</dd></div>' +
+        '</dl>' +
+      '</section>' +
+      '<div class="cc-cta actions">' +
+        '<a class="btn--accent btn" href="coach-session.html" id="clSession">Нова сесія</a>' +
+        '<a class="btn--outline btn" href="coach-client.html" id="clFull">Профіль</a>' +
+      '</div>' +
+    '</div>';
+  wrap.appendChild(aside);
+
+  var empty  = aside.querySelector('#clDetailEmpty');
+  var body   = aside.querySelector('#clDetailBody');
 
   var rem = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-  var raw = getComputedStyle(document.documentElement).getPropertyValue('--bp-shell-wide').trim();
-  var px  = /rem$/.test(raw) ? parseFloat(raw) * rem : parseFloat(raw);
-  var wide = window.matchMedia('(min-width: ' + px + 'px)');
 
   function cards() { return [].slice.call(list.querySelectorAll('.ccard[data-client]')); }
 
+  /* ONE LABEL PER DESTINATION, AND THE ID TRAVELS WITH IT. Two names for one place
+     («Профіль» / «Уся картка клієнта», «Нова сесія» / «Почати сесію») doubled the
+     vocabulary of an Operate surface; worse, every one of those links threw the
+     selected client away at the exact moment the coach acted, which is the
+     wrong-athlete error designed in. `?client=` is this step's own contract - the
+     screen has it and must not drop it. */
+  function withClient(href, id) {
+    var base = String(href).split('?')[0].split('#')[0];
+    return base + '?client=' + encodeURIComponent(id);
+  }
+
   function fill(card) {
     var g = function (n) { return card.getAttribute('data-' + n) || ''; };
+    var id = g('client');
     body.querySelector('#clAv').textContent    = g('name').charAt(0);
     body.querySelector('#clName').textContent  = g('name');
-    body.querySelector('#clGoal').textContent  = '🎯 Ціль: ' + g('goal');
+    /* THE CHIP TAKES THE ICON, NOT THE EMOJI. `marks.js` has already swapped the
+       card's `🎯` for a monochrome glyph by the time this runs, so writing the raw
+       emoji through `textContent` put the only colour object on the screen two pixels
+       from its own correct icon. The mark is written as markup and re-marked. */
+    var chip = body.querySelector('#clGoal');
+    chip.innerHTML = '🎯 Ціль: ' + g('goal');
+    /* the PARENT, not the chip: `uivLeadMark` collects hosts with `querySelectorAll`
+       inside the scope it is handed, and an element is not its own descendant - the
+       first writing passed the chip and the emoji survived, which is exactly the
+       defect being repaired */
+    if (window.uivMarks) uivMarks(chip.parentNode);
     body.querySelector('#clGoal2').textContent = g('goal');
-    body.querySelector('#clPhone').textContent = g('phone');
-    body.querySelector('#clMail').textContent  = g('mail');
-    body.querySelector('#clNote').textContent  = g('note');
+    body.querySelector('#clOrders').textContent = g('orders') || '–';
+    body.querySelector('#clLast').textContent   = g('last') || '–';
+    var note = g('note'), box = body.querySelector('#clNoteBox');
+    body.querySelector('#clNote').textContent = note;
+    box.hidden = !note;
+    body.querySelector('#clSession').setAttribute('href', withClient('coach-session.html', id));
+    body.querySelector('#clFull').setAttribute('href', withClient('coach-client.html', id));
     body.hidden = false;
     if (empty) empty.hidden = true;
   }
@@ -2191,15 +2355,44 @@ function wfClientSplit() {
     cards().forEach(function (c) { c.removeAttribute('aria-current'); });
   }
 
+  /* THE CARD IS NOT A BUTTON, AND CALLING IT ONE WAS AN ARIA CLAIM THE DOM COULD NOT
+     KEEP. Each card carries two real links - «Профіль» and «Нова сесія» - and a
+     `role="button"` may not contain interactive content: a screen reader is told
+     «button» and then walks into two links inside it. The control is the client's
+     NAME, which is also the only accessible name this control could ever want. Mouse
+     users keep the whole card, because that costs no ARIA claim at all. */
+  function selector(card) { return card.querySelector('.ccard-sel'); }
+
+  cards().forEach(function (c) {
+    var nm = c.querySelector('.ccard-nm');
+    if (nm && !nm.querySelector('.ccard-sel')) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'ccard-sel';
+      b.textContent = nm.textContent.trim();
+      nm.textContent = '';
+      nm.appendChild(b);
+    }
+    /* the card's own links carry the id too, so the rail acts on the same contract
+       the panel does */
+    var cid = c.getAttribute('data-client');
+    [].slice.call(c.querySelectorAll('.ccard-acts a')).forEach(function (a) {
+      a.setAttribute('href', withClient(a.getAttribute('href'), cid));
+    });
+  });
+
   function select(card, moveFocus) {
     if (!card) return;
-    cards().forEach(function (c) { c.removeAttribute('aria-current'); });
+    cards().forEach(function (c) {
+      c.removeAttribute('aria-current');
+      var b = selector(c); if (b) b.setAttribute('aria-pressed', 'false');
+    });
     card.setAttribute('aria-current', 'true');
+    var sb = selector(card); if (sb) sb.setAttribute('aria-pressed', 'true');
     fill(card);
-    var id = card.getAttribute('data-client');
     try {
       var u = new URL(location.href);
-      u.searchParams.set('client', id);
+      u.searchParams.set('client', card.getAttribute('data-client'));
       history.replaceState(null, '', u);
     } catch (e) {}
     /* focus goes to the heading of what just appeared, not to the panel box: a
@@ -2207,29 +2400,28 @@ function wfClientSplit() {
     if (moveFocus) { var h = body.querySelector('#clName'); if (h) h.focus(); }
   }
 
-  /* the whole card is the control, EXCEPT its own links: «Профіль» and «Нова
-     сесія» are real destinations and must keep working as destinations. */
+  /* THE WIDTH QUESTION IS ASKED OF THE OUTPUT, not of a token through `matchMedia`.
+     The split now turns on by PLACE (`@container` on `.acc-main`), and no media query
+     can report a container's state - but the stylesheet already answers it, because
+     the panel is `display: none` until the place is wide enough. Asking the computed
+     style is both shorter and impossible to drift from the css. */
+  function wide() { return getComputedStyle(aside).display !== 'none'; }
+
   list.addEventListener('click', function (e) {
-    if (!wide.matches) return;
-    if (e.target.closest('a, button')) return;
+    if (!wide()) return;
+    if (e.target.closest('a')) return;
     var card = e.target.closest('.ccard[data-client]');
-    if (card) select(card, true);
+    if (card) select(card, !!e.target.closest('.ccard-sel'));
   });
 
-  /* and the keyboard, because a card is not a link and Tab must still reach it */
-  cards().forEach(function (c) {
-    c.setAttribute('tabindex', '0');
-    c.setAttribute('role', 'button');
-  });
   list.addEventListener('keydown', function (e) {
-    if (!wide.matches) return;
+    if (!wide()) return;
     var card = e.target.closest && e.target.closest('.ccard[data-client]');
-    if (!card) return;
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(card, true); }
+    if (!card || !e.target.closest('.ccard-sel')) return;
     if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
       e.preventDefault();
       var all = cards(), i = all.indexOf(card) + (e.key === 'ArrowDown' ? 1 : -1);
-      if (all[i]) { all[i].focus(); select(all[i], false); }
+      if (all[i]) { var b = selector(all[i]); if (b) b.focus(); select(all[i], false); }
     }
   });
 
@@ -2237,22 +2429,34 @@ function wfClientSplit() {
   body.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
     var cur = list.querySelector('.ccard[aria-current="true"]');
-    if (cur) cur.focus();
+    var b = cur && selector(cur);
+    if (b) b.focus();
   });
 
   function sync() {
-    if (!wide.matches) { clear(); return; }
+    if (!wide()) { clear(); return; }
     var want = null;
     try { want = new URL(location.href).searchParams.get('client'); } catch (e) {}
     var card = want ? list.querySelector('.ccard[data-client="' + want + '"]') : null;
+    /* AN ID THAT MATCHES NOBODY IS AN ANSWER, NOT A SHRUG. A stale or foreign
+       `?client=` used to fall through to the generic prompt and keep the bogus id in
+       the URL for ever, so the coach saw «Оберіть клієнта» with no idea the link had
+       failed. It is now said, and the URL is cleaned. */
+    if (want && !card) {
+      empty.querySelector('.et').textContent = 'Клієнта не знайдено';
+      empty.querySelector('.es').textContent =
+        'Посилання вело на клієнта, якого немає у вашому списку. Оберіть когось зі списку ліворуч.';
+      try { var u2 = new URL(location.href); u2.searchParams.delete('client');
+            history.replaceState(null, '', u2); } catch (e) {}
+    }
     /* THE PANEL OPENS EMPTY AND THAT IS THE DECISION. Auto-selecting the first
        client would put a record on screen that nobody asked for, and on a list
        whose order changes it would be a different record each visit. The empty
        state is a real state with a real string, not a placeholder. */
     if (card) select(card, false);
   }
-  if (wide.addEventListener) wide.addEventListener('change', sync);
-  else if (wide.addListener) wide.addListener(sync);
+  /* the place, not the screen: a resize of the WINDOW is still what moves the box */
+  window.addEventListener('resize', sync);
   sync();
 }
 

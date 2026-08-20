@@ -56,8 +56,10 @@ components had no row at all and two rows pointed at files that no longer exist.
 read out of the file itself: the `@media` numbers it holds after the comments are stripped, plus
 `ramp` when it carries a `clamp()` and `fluid` when it carries `auto-fit`, `auto-fill`, `minmax()`
 or `flex-wrap`. `620` and `860` are the two registry points, and a mirror (`619`, `859`) reads as
-its point because it is the same decision written from the other side. `step 5` is the one pair of
-numbers deliberately left off the registry - `coach-session`'s split-view.
+its point because it is the same decision written from the other side, and `@container` names a
+threshold about the PLACE rather than the screen. **The column no longer holds a `step 5` cell:** the
+one pair deliberately left off the registry, `coach-session`'s 939/940, was spent by step 5 and folded
+onto 859/860, so every cell in the column now names a registry number, a ramp, a fill or a container.
 
 **It was filled after all four rounds and not before, on purpose.** A column filled for one level of
 four says «unknown» about the other three in a shape that reads like «nothing to say». Atoms were
@@ -164,8 +166,8 @@ the unscoped base form, not the component.
 |---|---|---|---|---|---|
 | Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 620 · fluid | 8 | 972 |
 | Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 620 · 860 · fluid | 5 | 914 |
-| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 620 · 860 · step 5 · fluid | 8 | 855 |
-| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 620 · 860 · fluid | 10 | 638 |
+| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 620 · 860 · fluid | 8 | 883 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 620 · 860 · fluid · @container | 10 | 785 |
 | Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 620 · 860 · fluid | 1 | 537 |
 | Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | fluid | 3 | 426 |
 | Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 620 · fluid | 3 | 448 |
@@ -174,7 +176,7 @@ the unscoped base form, not the component.
 | Блок покупки | `buy-box.css` | `.bb` | 620 · fluid | 4 | 292 |
 | Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 620 | 3 | 261 |
 | Обране тренера | `coach-wishlist.css` | `.cw-note` | – | 1 | 278 |
-| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 620 · 860 · fluid | 33 | 251 |
+| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 620 · 860 · fluid | 33 | 268 |
 | Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 620 | 5 | 216 |
 | Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 860 | 5 | 184 |
 | Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 620 | 13 | 115 |
@@ -197,7 +199,7 @@ the unscoped base form, not the component.
 | Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | – | 82 | 16 |
 | Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | – | 2 | 102 |
 
-**34 files, 8255 lines.**
+**34 files, 8350 lines.**
 
 ### Three things this table did not say, found at 8.29 and closed at 8.37
 

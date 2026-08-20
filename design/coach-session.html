@@ -40,17 +40,22 @@
   </div>
 
   <!-- CLIENT TABS (each with a per-client subtotal) -->
-  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
-    <button class="ctab on" role="tab" aria-selected="true">
-      <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
-    </button>
-    <button class="ctab" role="tab" aria-selected="false">
-      <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
-    </button>
-    <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
-  </div>
 
+  <!-- STAGE 10 STEP 5: the client strip moved INSIDE the grid. Below the point it
+       is the same horizontal strip it always was, above the panel; from
+       `--bp-shell-wide` it becomes a vertical rail in the left column with the
+       session total under it, and the active client's basket stands beside it.
+       That is the audit's «split view clients + that client basket». -->
   <div class="cs-grid">
+    <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+      <button class="ctab on" role="tab" aria-selected="true" data-client="andriy">
+        <span class="ctn">Андрій</span><span class="cts">2 320 ₴</span><span class="ctg">Набір маси</span>
+      </button>
+      <button class="ctab" role="tab" aria-selected="false" data-client="maria">
+        <span class="ctn">Марія</span><span class="cts">1 160 ₴</span><span class="ctg">Схуднення</span>
+      </button>
+      <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
+    </div>
 
     <!-- ACTIVE-CLIENT PANEL -->
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
@@ -160,7 +165,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html');
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html'); wfSessionTabs();
         uivFixLinks(); uivBar(); uivChrome();</script>
 </body>
 </html>

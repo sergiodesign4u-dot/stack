@@ -31,6 +31,7 @@ node tools/inert.mjs [--apply]           which private rules can go, decided by 
 node tools/tab-walk.mjs [pages...]       press Tab and see where focus actually lands
 node tools/comp-width.mjs [--md] [level] what each component knows about width
 node tools/grid-sweep.mjs [file.css]     how many columns a grid really has, width by width
+node tools/split.mjs [--frame .sel]      does the split view split, and does every screen have it
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
@@ -1401,3 +1402,54 @@ and every one was on `design/concept/*` or `design/overview.html` - the presenta
 pages and the hub, which `dead-sel.mjs` and `theme.mjs` both name out loud for the same
 reason. An instrument that treats a presentation page as a product screen reports drift
 that does not exist, and after the second such report a reader stops looking.
+
+## `split.mjs` - does the split view split, and does every screen that could have it have it
+
+Stage 10 step 5 is the only place in the stage where a LOOK appears that did not exist
+before: above `--bp-shell-wide` a list of records and one open record stand side by side.
+That is two claims at once - the frame really has two columns, and the two panes really
+sit in them - and neither is visible in the css, because the frame is one `minmax()`
+column in the base rule and two under a query, and whether a child landed in the second
+column is a fact about the OUTPUT. Both are asked of `getBoundingClientRect`, at the
+point minus one, at the point, at the point plus forty and at 1440, with the point read
+off `:root` at runtime so this file holds no copy of 860.
+
+**The roll-call is the other half, and it is the half that catches the real defect.** A
+split that works on one screen and is missing on its six siblings is worse than no
+split: the coach meets it, learns it, and then it disappears on the screen where the
+session is loading. So the walk covers the whole product corpus and fails on any page
+that carries the LIST and stands outside a frame.
+
+```
+node tools/split.mjs                     both frames, the whole product corpus
+node tools/split.mjs --frame .clsplit    one of them
+node tools/split.mjs -v                  name every page, not just the count
+```
+
+**Five failure classes, each introduced on purpose and reverted:** a carrier outside its
+frame, a declared frame nobody carries, one column above the point, a clipped box inside
+the frame, and the page scrolling sideways. **Every declared list is itself checked** -
+the two-row frame registry fails the run if a row covers nothing, exactly as loudly as an
+uncovered page.
+
+**A third wrong version, and it is the one worth reading.** The check used to assert
+WHERE the split turns on - four probes around `--bp-shell-wide` - which is a media query
+written into the instrument. The moment the clients frame started asking about its PLACE
+it failed nine times on a frame behaving correctly, and it could never have seen the
+defect that actually shipped in that change: a bare `@container` turned the split ON
+below 860 and OFF between 860 and 960, because the shell takes a nav column there and the
+box is not monotonic in the viewport. Four probes never saw it. It now declares each
+frame's own RULE - «two columns exactly when the viewport is at least X and my box is at
+least Y» - and sweeps 320 to 1600 at 10px checking the frame is a pure function of it,
+printing every transition with the box that caused it. It also separates findings below
+the 360 floor from failures, and prints them rather than dropping them.
+
+**Two earlier wrong versions, written down in the file.** The roll-call was first a **grep over
+the source**, which answered correctly on the eight session screens and would answer «no
+split» on three of the four clients screens, which have one: `wfClientSplit()` builds
+their frame at load, so neither class exists in those files at all. A question about
+structure can only be asked of the DOM. And the first session measurement **injected the
+layout it was measuring** - it pushed an override stylesheet in instead of moving the
+viewport, then reported the client rail at 320 and the basket at 488 with the two
+swapped, plus a `qa-row 324 > 258` clip that exists at no width. A probe that changes the
+page is measuring the probe.

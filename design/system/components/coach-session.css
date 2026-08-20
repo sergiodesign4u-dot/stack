@@ -248,8 +248,36 @@
 .coach .cs-grid{ display: grid; grid-template-columns: minmax(0, 1fr);
   gap: 20px;                       /* [?] 20px has no rung; the ladder is 16/24 */
   margin-top: 18px; }              /* [?] 18px has no rung; the ladder is 16/24 */
-@media (min-width: 940px){
-  .coach .cs-grid{ grid-template-columns: minmax(0,1fr) 320px; align-items: start; }
+@media (min-width: 860px){
+  /* 10.5: 940/939 -> 860/859, and the pair that round 3 held on purpose is resolved
+   here rather than there, because folding it in a component round would have
+   decided the thing step 5 exists to decide.
+   THE STRIP BECOMES A RAIL. Below the point the clients are a horizontal scroller
+   above the panel - right for a phone, where you see one client at a time anyway.
+   From the point they stand in a column with the session total under them, and the
+   active client's basket takes the rest: all clients and one basket at once, which
+   is the job stated literally - «build a complete order for each client in one
+   session». Measured on `coach-session` with the fold forced: the basket comes out
+   488 at 860, 528 at 900, 692 at 1280, and clips nothing at any of them.
+   THE TOTAL SITS UNDER THE CLIENTS BECAUSE IT SUMS THEM. It listed the same names
+   and the same sums in a second place on the right; now the list and its total are
+   one column and read as one thing. */
+  /* `auto 1fr` ON THE ROWS, and without it the summary hung 96px below the rail.
+     The panel spans both rows, so with implicit `auto auto` the two rows SPLIT the
+     panel's height between them and row one grew far past the tabs standing in it.
+     Naming the rows makes row one hug the strip and row two take the remainder,
+     which is what «the total sits under the list it totals» meant in the first
+     place. Measured before: tabs ended at 495, the summary began at 591. */
+  .coach .cs-grid{ grid-template-columns: 20rem minmax(0, 1fr);
+    grid-template-rows: auto 1fr; align-items: start; }
+  .coach .cs-grid > .ctabs{ grid-column: 1; grid-row: 1; flex-direction: column;
+    overflow-x: visible; border-bottom: 0; padding-bottom: 0; }
+  /* the tab's 1px overhang is what glues it to a panel directly underneath; in a
+     rail there is no panel underneath, so the trick is switched off rather than
+     left to draw a stray line */
+  .coach .cs-grid > .ctabs .ctab{ margin-bottom: 0; border-bottom: 1px solid var(--line-strong); }
+  .coach .cs-grid > .cs-summ{ grid-column: 1; grid-row: 2; }
+  .coach .cs-grid > .cs-panel{ grid-column: 2; grid-row: 1 / span 2; }
 }
 
 /* THE PANEL IS DRAWN AS THE BODY OF THE TAB STRIP AND IT DOES NOT TOUCH IT.
@@ -583,7 +611,7 @@
    scrolls under the header instead of stopping below it. Reported, not moved:
    the number answers to the header's height, and that is measured in a browser
    on a coloured screen this flow does not have yet. */
-@media (min-width: 940px){
+@media (min-width: 860px){
   .coach .cs-summ{ position: sticky; top: var(--space-16); }
 }
 .coach .cs-summ-h{ font-size: var(--fs-16);       /* was 15px; step 5.6, «ties go UP (15 -> 16)» */
@@ -656,7 +684,7 @@
 .coach .cs-bar .bt{ min-width: 0; font-size: var(--fs-12); color: var(--text-secondary); }
 .coach .cs-bar .bt b{ display: block; font-weight: var(--fw-black);
   color: var(--text-primary); }
-@media (min-width: 940px){
+@media (min-width: 860px){
   .coach .cs-bar{ display: none; }
 }
 /* `.coach .cs-panel{ margin-bottom: 76px }` DELETED, with both of its overrides
@@ -789,7 +817,7 @@
    132 is reported, not copied. (The 61 above is the opposite case and stays
    transferred: it is a number about ANOTHER element, which this bar cannot
    measure for itself.) */
-@media (max-width: 939px){
+@media (max-width: 859px){
   body.coach:has(.cs-bar){ padding-bottom: 89px; }
 }
 @media (max-width: 859px){

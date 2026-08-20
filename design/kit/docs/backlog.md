@@ -1622,3 +1622,107 @@ and «Кошик» (a cart), and wears a generic container glyph. A set of four 
 their job and one does not reads as a gap rather than as a choice. This is an addition to the icon
 set, which is stage 08's territory and `design/kit/icons.html`'s page: a new glyph, its row in the
 set, and the same 30-size / 6-weight discipline every other mark in the set carries.
+
+## ~~The split turns on by SCREEN and the frame needs PLACE~~ - CLOSED by the critique repair
+
+**Measured on `design/coach-clients.html`, the split frame and its two columns:**
+
+| viewport | `.clsplit` | rail (fixed `17.5rem`) | detail |
+|---|---|---|---|
+| 860 | 528 | 280 | **224** |
+| 960 | 628 | 280 | 324 |
+| 1024 | 692 | 280 | 388 |
+| 1280 | 732 | 280 | 428 |
+| 1440 and up | 868 | 280 | 564 |
+
+From 860 to about 1010 **the detail is narrower than the list**, and at the point it is 224px -
+narrower than a phone. It is not broken: `.cdetails` carries a container threshold at `22rem`, so the
+label-and-value rows fold to one column and the panel reads. But the cause is the same one that set
+`--grid-col-min-panel` to 19rem instead of 22rem at step 4: the account shell takes its own 268px nav
+column, so `.acc-main` at a 860 viewport is a 528px box.
+
+**`@media` asks about the SCREEN; this frame needs an answer about the PLACE.** The ladder's own
+answer is `container-type: inline-size` on `.acc-main` and `@container` on `.clsplit`, which would
+turn the split on when there is room for it rather than when the window is wide. Two reasons it was
+not taken inside step 5, and both are the owner's to weigh:
+
+1. It changes WHEN the split appears, which is a decision said out loud rather than a refactor.
+2. The coloured corpus cannot measure it honestly. The stand's own roadmap rail appears at 1076 and
+   drops `.acc-main` from 692 back to 528, so a container query would flicker off and on while
+   browsing the design copies and be right in the product. The measurement would have to be taken
+   with the rail suppressed, which is a change to how the copies are viewed.
+
+Cost if taken: one `container-type` on `.acc-main`, one query moved in `coach-clients.css`, and
+`wfClientSplit()` stops reading `--bp-shell-wide` through `matchMedia` and asks the OUTPUT instead -
+`getComputedStyle(pane).display !== 'none'` - which is what this repository asks everywhere else.
+Check first that nothing `position: fixed` lives inside `.acc-main`: `contain: layout` would
+re-anchor it, which is exactly why the page frame could not become a container at round 4.
+
+**CLOSED, and the cost was one line more than the estimate above.** Measured first: zero
+`position: fixed` descendants inside `.acc-main` on all three clients screens, so the container was
+safe. `.acc-main` had no rule of its own at all - it was a bare grid cell - so `container-type:
+inline-size` is the whole of its rule. The estimate was wrong in one place: a BARE `@container` is
+not enough, because the place is not monotonic in the viewport. It turned the split on below 860
+(no nav column there, so the box is the full 828) and off between 860 and 960 (the shell takes its
+268 and the box drops to 528) - the split appeared, vanished and came back, and the sweep caught it
+inside one run. The rule is now `@media (min-width: 860px)` with `@container (min-width: 41rem)`
+nested inside: the shell first, because a two-pane workspace belongs to the desktop shell, then the
+room. The split opens at a 990 viewport with a 354px detail pane, and the 224px is gone.
+
+## The stand's roadmap rail reflows the product page, and now it changes WHICH layout you see
+
+Measured on `design/coach-clients.html`, swept at 10px from 320 to 1600: the split opens at 990
+(`.acc-main` 658), **closes at 1080** (`.acc-main` 532) and opens again at 1210 (662). The 1080 drop
+is the stand's own roadmap rail appearing at 1076 and pushing the page: the coloured copies are
+~216px narrower than production above that width.
+
+**This was always true and it never mattered until now.** Every width this stage measured was
+measured with the rail in the page, but with `@media` the rail only shifted pixel numbers. With
+`@container` it decides which LAYOUT the page gets, so a viewing aid now has a vote on the product's
+composition. In the product there is no rail and the sweep is a single transition at 990.
+
+Three ways out, none of them free:
+1. **The rail overlays instead of reflowing.** Correct in principle - it is chrome for looking at the
+   product, not part of it - but it would cover content at exactly the widths where it appears.
+2. **The rail is suppressed for measurement**, and every instrument opens pages with it off. Cheap
+   for the instruments, but then nobody ever LOOKS at what the instruments measure.
+3. **Leave it and keep printing it.** What is in place today: `tools/split.mjs` prints every
+   transition with the box that caused it, so the flicker is in the output of every run rather than
+   in somebody's memory.
+
+## 20 stand pages describe a width the component no longer has - stage 10, owed to step 6
+
+Measured across all 84 component stand pages, comparing the `(min|max-width: Npx)` numbers written on
+the page against the numbers the component file actually holds after comments are stripped: **22
+pages named a width that is not in their own file, and step 5 repaired the two it touched, leaving
+20.**
+
+| page | says | the file holds |
+|---|---|---|
+| `account-shell` | 640, 959, 960 | 620, 859, 860 |
+| `auth-dialog` | 719, 720, 899, 900 | 859, 860 |
+| `checkout-form` | 479, 480, 559 | 619, 620, 860 |
+| `coach-cabinet` | 520, 640, 720 | 619, 620 |
+| `coach-landing` | 559, 980 | 619, 620, 860 |
+| `coach-verify` | 520, 760 | 620, 860 |
+| `footer` | 479, 720 | 619, 860 |
+| `menu` | 859 | 619 |
+| `pdp-tabs` | 1180 | 860 |
+| `system-page` | 720 | 620, 859 |
+| `trust-strip` | 479 | 619, 859, 860 |
+| `buy-box`, `city-dialog` | 479 | 619 |
+| `hero` | 720 | 860 |
+| `address-card`, `button`, `field`, `loyalty-rung`, `product-grid`, `restock-note` | various | the file holds none at all |
+
+**Not all 20 are defects, and that is why this is a list rather than a fix.** A stand page is allowed
+to name history - «було 720, стало 640» is a record, and a record may keep the old number. What is not
+allowed is a RULE that names it: `coach-clients` held `(min-width: 640px) -> .clist у дві колонки` in
+its «Межі» table, presented as the current boundary, four rounds after that number stopped existing.
+Separating the two needs a reading of each page, not a regex.
+
+**Nothing checks this today, and the gap has a shape.** `tools/bp.mjs` deliberately excludes the stand
+from its subject - «у стенді, і це не предмет: 17» - because a stand page legitimately shows CSS that
+is not the product's. So the numbers the stand writes in PROSE are checked by nobody, and stage 10
+moved 27 of them. The check is cheap (the comparison above is fifteen lines) and belongs either as a
+fifth class in `bp.mjs` with the stand as an explicit second subject, or in `inventory.mjs`, which
+already reads every stand page and every component file and already fails on meta drift.

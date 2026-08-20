@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Клієнти тренера</h1>
 <p class="kp-lead">Вузол 5.3 - збережений список людей, і вузол 5.4 - картка однієї з них. Це серце locked-рішення «тренер як покупець»: без цього списку тренерський канал не існує. Два екрани в одному файлі, бо три з чотирьох частин у них однакові й лише різного розміру.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">638 рядків</span><span class="kp-tag">56 селекторів</span><span class="kp-tag">221 оголошення</span><span class="kp-tag">10 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">785 рядків</span><span class="kp-tag">71 селектор</span><span class="kp-tag">250 оголошень</span><span class="kp-tag">10 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Список і картка - одна людина двічі</div>
 <p class="kp-p">Файл тримає дві половини, і вони не випадкові сусіди. <code>.ccard</code> - це <b>підсумок людини</b> в списку, <code>.ch-*</code> - <b>та сама людина, відкрита</b>. Аватар, ім'я і чип цілі є в обох, просто різного розміру:</p>
@@ -39,10 +39,10 @@
 <p class="kp-p">Розмітку знято з кольорових екранів через <code>tools/demo.mjs</code>, разом із класом <code>coach</code> на <code>&lt;body&gt;</code>. Список показано на <b>732</b> - ширина колонки кабінету на 1280; картка на <b>860</b>, бо вона живе не в кабінеті, а на власній сторінці.</p>
 
 <div class="kp-frame-wrap"><iframe class="kp-frame" src="demo/coach-clients.html" style="width:1180px" data-w="1180" title="Клієнти тренера - список"></iframe></div>
-<div class="kp-cap">Вузол 5.3: <code>.cl-top</code> з <code>.cl-h1</code>, <code>.cl-sub</code>, <code>.cl-acts</code> · <code>.cl-tools</code> з <code>.cl-search</code> · <code>.clist</code> у дві колонки від 640</div>
+<div class="kp-cap">Вузол 5.3: <code>.cl-top</code> з <code>.cl-h1</code>, <code>.cl-sub</code>, <code>.cl-acts</code> · <code>.cl-tools</code> з <code>.cl-search</code> · <code>.clist</code> у дві колонки від 620, а від 860 - у рейку поруч із клієнтом</div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Шапка</b> <code>.cl-top</code> - заголовок і дія в один ряд, що переноситься. <code>.cl-h1</code> ділить правило з <code>.ch-name</code>: одне ім'я для заголовка сторінки на обох екранах</span></div>
 <div class="a"><i>2</i><span><b>Пошук</b> <code>.cl-search</code> - <b>зібраний руками <code>field-grp</code></b>, до якого атом не дотягується: розмітка не носить його класів. Коробка вже на щаблі атома, але група - ні</span></div>
-<div class="a"><i>3</i><span><b>Сітка</b> <code>.clist</code> - одна колонка, від 640 дві. Картка <code>.ccard</code> ділить рамку, радіус і тінь із <code>.ocard</code> і <code>.cdetails</code>: <b>один фініш для збереженого запису</b></span></div>
+<div class="a"><i>3</i><span><b>Сітка</b> <code>.clist</code> - одна колонка, від 620 дві, а від <code>--bp-shell-wide</code> одна знову, бо там вона стоїть рейкою в лівій колонці спліта. Картка <code>.ccard</code> ділить рамку, радіус і тінь із <code>.ocard</code> і <code>.cdetails</code>: <b>один фініш для збереженого запису</b></span></div>
 <div class="a"><i>4</i><span><b>Мета-рядок</b> <code>.ccard-meta</code> з <code>.dot</code> - «8 замовлень · останнє 12 черв. 2026». Крапка тут <b>намальована</b>, а не набрана: <code>accept.mjs</code> ловить набрані двійники окремою перевіркою</span></div>
 <div class="a"><i>5</i><span><b>Чип цілі</b> <code>.ccard-goal</code> - <b>дев'яте ім'я чипа</b>, і мітка з підписом стоять на одній центральній лінії з кроку 8.8</span></div></div>
 
@@ -117,9 +117,11 @@
 
 <section class="kp-sec"><div class="kp-sh">Межі</div>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Умова</th><th>Що змінює</th></tr></thead><tbody>
-<tr><td><code>(min-width: 640px)</code></td><td><code>.clist</code> у дві колонки</td></tr>
+<tr><td><code>(min-width: 620px)</code></td><td><code>.clist</code> у дві колонки. <b>Було 640</b> - етап 10, раунд 3</td></tr>
 <tr><td><code>(min-width: 860px)</code></td><td>відступ 14 вмикається лише тут - <b>нижче 860 він малював і не мав</b></td></tr>
-<tr><td><code>(max-width: 520px)</code></td><td>ряд дій картки перестає бути рядом</td></tr>
+<tr><td><code>(min-width: 860px)</code> <b>+</b> <code>@container (min-width: 41rem)</code></td><td><b>спліт-в'ю, етап 10 крок 5, перероблено після критики:</b> <code>.clsplit</code> стає <code>17.5rem</code> + решта, <code>.clist</code> усередині повертається в одну колонку, <code>.cldetail</code> перестає бути <code>display:none</code> і стає липкою. <b>Двоє воріт, і порядок має значення:</b> спершу оболонка, бо двопанельне робоче місце належить десктопній оболонці, потім місце, бо навіть у ній воно не гарантоване. <code>41rem = 17.5 + 1.5 + 22</code> - рейка, зазор і найменша панель, яку варто відкривати. Відкривається на в'юпорті <b>990</b> з панеллю 354px; до правки було 860 і 224px</td></tr>
+<tr><td><code>(max-width: 619px)</code></td><td>ряд дій картки перестає бути рядом. <b>Було 520</b> - етап 10, раунд 3</td></tr>
+<tr><td><code>@container (max-width: 22rem)</code></td><td><b>перший контейнерний поріг системи.</b> Рядки <code>.cd-row</code> складаються з <code>160px 1fr</code> в одну колонку, коли вузька сама КАРТКА, а не екран: та сама картка даних стоїть на всю ширину на <code>coach-client.html</code> і в панелі 224px поруч зі списком, і <code>@media</code> їх не розрізнить, бо в'юпорт в обох випадках той самий</td></tr>
 </tbody></table></div>
 <p class="kp-p"><b>41 позначка <code>[?]</code></b> - найбільше у всій системі, і всі про геометрію: 9, 11, 14, 15, 21, 56, 160. Відступи мають два правила, що суперечать одне одному на тих самих числах, тож жодне з них не рухається без рішення. Окремо названо <b>160</b> - колонка підписів у списку даних клієнта: це <b>єдине 160 у системі</b>, а <code>spec-table.css</code> малює ту саму пару <code>dt</code>/<code>dd</code> зі своєю власною відповіддю.</p></section>
 

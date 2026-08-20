@@ -10123,3 +10123,146 @@ Four changes, and the third is the one that made the other three possible:
 
 Plus the census section moved to the foot of `overview.html`: it is the record of what the product
 looked like BEFORE the system, and it was standing between the reader and the system itself.
+
+---
+
+## Stage 10 step 5 - the split view, and the two frames it needed (2026-08-21)
+
+The width audit of step 1 named eight behaviours for the wide screen. Seven were already standing in
+code after the four component rounds; the eighth was the coach split view, 39 screens in the audit
+and 11 in the behaviour. The source is the primary job, which says literally «build a complete order
+for each client in one session»: on a phone the coach walks back and forth between the list of
+clients and one client's basket and loses the place each time.
+
+**The pack's threshold for a split view is not the pattern threshold, and both halves of it hold
+here.** A pattern needs three screens; a split needs two or more list-and-detail pairs, or one pair
+of the main flow, because it drags in a new state, focus management and history. There are two pairs
+and they are different questions: the saved clients list beside one client's record, and the session
+strip beside that client's basket.
+
+**Decided: the detail screen is not cancelled.** `coach-client.html` keeps its URL, breadcrumbs and
+SEO block. Below the point «Профіль» is a plain link to it; above the point the record ALSO appears
+beside the list. This is the pack's rule and the reason is a shared link, which must still open a
+whole screen.
+
+**Decided: the panel opens empty, and the string is new product copy.** Auto-selecting the first
+client was the alternative and was rejected: it puts a record on screen nobody asked for, and on a
+list whose order changes it is a different record every visit. Six rows went to `microcopy.md` and
+`voice.html` was rebuilt the same step.
+
+**Decided: the frame and the panel have one edition, and it is `wfClientSplit()` in `design/_nav.js`,
+not markup in three files.** The function finds `.clist`, wraps it and builds `.cldetail` itself, so
+a screen states nothing about width. The rule that falls out of it: **no list means no split.**
+`coach-clients-empty` and `-error` have no cards, so nothing stands beside anything; `-loading` DOES
+get the frame, because without it the page jumps at 860 the moment data arrives. The skeleton variant
+is read off `aria-busy`, never off a file name.
+
+**Decided: the client strip moves inside the session grid.** From `--bp-shell-wide` it is a vertical
+rail in a left `20rem` column with the session total under it - the total summarises exactly that
+list - and the basket takes the rest. This spent 940/939, the last pair in the system deliberately
+left off the registry, and `tools/bp.mjs` immediately failed because its `EXCUSED` list no longer
+covered anything. That is the idle control working as designed; the array is empty now. **The whole
+of `design/system/` is 117 queries on four widths: 619, 620, 859, 860.**
+
+**Not decided, and it is the owner's: the split turns on by SCREEN when the frame needs PLACE.** At
+the point the detail pane is 224px, narrower than the rail and narrower than a phone, because the
+account shell takes its own 268px nav column. It reads - `.cdetails` carries the system's first
+container threshold at `22rem` and folds its rows - but `@media` is answering the wrong question. The
+ladder's own answer is `container-type` on `.acc-main`, and it was not taken inside this step for two
+reasons: it changes WHEN the split appears, and the coloured corpus cannot measure it honestly
+because the stand's roadmap rail appears at 1076 and drops the box from 692 back to 528. Written up
+in `backlog.md` with its cost.
+
+**Found by opening the page, not by any instrument: `.cldetail-empty` was `.emptybox.mini` written a
+second time inside another component's file.** The markup carried `.et` and `.es`, but `empty-state.css`
+writes them as `.emptybox .et`, so under a private parent they matched nothing and heading and body
+rendered at the same size. Every instrument called the screen clean, because none of them asks whether
+a heading looks like a heading. The private rule was deleted rather than corrected.
+
+**Also measured, and owed to step 6: 22 of the 84 component stand pages describe a width their own
+file no longer holds.** Step 5 repaired the two it touched. The other 20 are listed in `backlog.md`
+with the distinction that makes them a list rather than a fix: a stand page may name history, but not
+as a current rule. Nothing checks this today - `bp.mjs` excludes the stand from its subject on
+purpose - and stage 10 moved 27 of those numbers.
+
+**New instrument: `tools/split.mjs`.** It asks `getBoundingClientRect` whether the frame really has
+two columns and whether the two panes really sit in them, and it rolls the whole product corpus for
+any page that carries the list and stands outside a frame. Five failure classes, each proved by being
+introduced on purpose. Two wrong versions in its header: a grep over the source, which would have
+answered «no split» on three clients screens that have one, because their frame is built at load; and
+a probe that injected the layout it was measuring and reported the two session columns swapped.
+
+---
+
+## The critique of step 5, and what it changed (2026-08-21)
+
+`/impeccable critique` ran as two isolated agents on the split view - the only place in stage 10
+where a look appeared that did not exist before. Score 24/40. Nothing was P0. The verdict that
+mattered was not a defect list: **the specificity was SPLIT and the halves were inverted.** The
+session pair is authored for the coach channel and got layout only; the clients pair is a contact
+list with the labels changed and got all the new interaction engineering. Every repair below follows
+from that one sentence.
+
+**The panel now answers the coach's question.** Rows were Ціль / Телефон / E-mail / Нотатки while
+the card above it carried «8 замовлень · останнє 12 черв. 2026» - the detail dropped both order
+facts and offered a phone number, so it was less domain-relevant than the summary it detailed. Rows
+are now Ціль · Замовлень · Останнє замовлення; the coach's own note is promoted out of row four into
+a marked `.cc-note` strip, the component `coach-client.html` already used for exactly this; phone
+and e-mail moved behind «Профіль». No value was invented - both new rows come from the card's own
+meta line, which the rail was already printing.
+
+**One label per destination, and the id travels with it.** «Почати сесію» / «Нова сесія» and «Уся
+картка клієнта» / «Профіль» were two names for one place each, doubling the vocabulary of an Operate
+surface; worse, every one of those links dropped the selected client at the moment the coach acted,
+which is the wrong-athlete error designed in. The panel now uses the card's labels, and
+`wfClientSplit()` stamps `?client=` onto the panel's actions AND onto each card's own two links.
+
+**The card is not a button.** `role="button"` contained two real links, which the role forbids: the
+reader was told «button» and walked into «Профіль» and «Нова сесія». The claim moved onto the
+client's NAME - the only accessible name this control would ever want - and the card kept the
+whole-surface click for the mouse, which costs no ARIA claim.
+
+**The session strip claimed `role="tablist"` and no handler existed anywhere.** Clicking a tab
+changed nothing. It is now the SAME selection model the clients rail uses: a real destination
+carrying `?client=`, with the current one marked by `aria-current`. That also closes the consistency
+break where one step modelled «pick one of many» twice, two different ways, on two adjacent screens.
+Said out loud: it does not swap panels in place. Марія's basket exists in `cart-coach.html`, but
+transplanting it into the session panel is authoring a new screen STATE, which is stage 12's work.
+
+**Both new controls declare their own ring.** They fell through to Chrome's `auto 1px rgb(0,95,204)`,
+the blue `base.css` says exists in no palette of this system. Both take `--ring-focus-control`.
+
+**The split now asks about the PLACE, and this is the decision the backlog was holding.**
+`container-type: inline-size` on `.acc-main` - the placer, which had no rule of its own at all - and
+`@container (min-width: 41rem)` on `.clsplit`. **41rem is derived, not chosen:** `17.5rem` rail +
+`1.5rem` gap + `22rem`, the file's own container threshold and therefore the smallest panel worth
+opening. The split opens at a 990 viewport with a 354px pane; the 224px pane is gone.
+
+**And the first version of that was wrong, which is the finding of the repair.** A BARE `@container`
+turned the split on below 860 and off between 860 and 960: the place is not monotonic in the
+viewport, because below 860 the shell has no nav column and above it takes 268. The split appeared,
+vanished and came back. The rule is two gates in rank order - `@media` for the shell, `@container`
+for the room - and the sweep caught it inside one run.
+
+**`tools/split.mjs` was rebuilt around that, and its third wrong version is written in its header.**
+It used to assert WHERE the split turns on, four probes around the point - a media query written
+into the instrument, which failed nine times on a frame that was behaving correctly and could never
+have seen the flicker. It now declares each frame's own RULE and sweeps 320 to 1600 at 10px, checking
+that the frame is a pure function of that rule at every width, and printing every transition with the
+box that caused it. It also separates findings below the 360 floor from failures: four session
+screens clip between 320 and 350, and a `git stash` against the pre-step-5 tree proved every one of
+them identical on the baseline.
+
+**Open, and it is the stand's rather than the product's.** The stand's roadmap rail appears at 1076
+and reflows the page, so in the coloured copies the split closes at 1080 and reopens at 1210. That
+was always true and never mattered while the rule was a media query; now a viewing aid has a vote on
+the product's composition. Three ways out are costed in `backlog.md`; what stands today is the third,
+which is that every run prints it.
+
+Also repaired: the loading skeleton drew a filled record where an empty prompt was coming; a stale or
+foreign `?client=` fell silently into the generic prompt and now says «Клієнта не знайдено» and
+cleans the URL; the panel had no accessible name; «Оберіть» and «Виберіть» were two verbs for one
+act; the goal chip rendered a raw emoji two pixels from its own correct icon, because `uivMarks` was
+handed the chip and collects hosts by `querySelectorAll`, which does not include the element itself;
+and the session rail hung its summary 96px below the strip, because the panel spans both rows and
+implicit `auto auto` split its height between them.

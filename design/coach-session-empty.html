@@ -46,12 +46,11 @@
     <a class="btn--outline btn--s btn" href="coach-home.html">Зберегти й вийти</a>
   </div>
 
-  <!-- CLIENT TABS - none yet, only the add-tab -->
-  <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
-    <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
-  </div>
-
   <div class="cs-grid">
+    <!-- CLIENT TABS - none yet, only the add-tab -->
+    <div class="ctabs" role="tablist" aria-label="Клієнти сесії">
+      <a class="ctab add" href="coach-session-addclient.html">＋ Клієнт</a>
+    </div>
 
     <!-- EMPTY-SESSION PROMPT -->
     <section class="cs-panel" aria-label="Порожня сесія">
@@ -97,7 +96,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'empty');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'empty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
 </script>
 </body>
 </html>
