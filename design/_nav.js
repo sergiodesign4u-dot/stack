@@ -135,7 +135,7 @@ if(typeof UIV_P === 'undefined'){
 /* every wireframe glyph that appears in the chrome/menus/cards → its icon key.
    ★ is only mapped for the chrome (Бонуси); card rating ★ is never touched. */
 var UIV_EMOJI = {
-  '🏠':'home','👤':'user','♡':'heart','♥':'heart','❤️':'heart','☆':'star','★':'star',
+  '🏠':'home','👤':'user','♡':'heart','♥':'heart','❤️':'heart','☆':'star','★':'star','◉':'coin',
   /* 🔎 U+1F50E is a row this map was missing, one codepoint from the 🔍 U+1F50D
      beside it - step 7.96. `coach-clients.html` types the tilted lens in its
      search field, so the coach flow drew its one search mark with the font while

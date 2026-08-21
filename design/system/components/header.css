@@ -83,6 +83,35 @@
 .wfh-search{ display: none; flex: 1; }
 .wfh-sp{ flex: 1; }
 .wfh-actions{ display: none; align-items: center; gap: var(--space-8); }
+
+/* THE ACTION WORDS YIELD BEFORE THE SEARCH DOES, and the owner chose which of the two
+   repairs this is. Measured on `index.html`: between the shell point and roughly 1010
+   the search input collapsed to 44px and showed «Пс» of «Пошук товарів, брендів...».
+   The row at 1020 holds logo 65 + nav 198 + search 281 + actions 408 and four gaps,
+   and the actions spend 408 of that on WORDS - at 859 they are already icons only, so
+   the words are the part the row can afford to lose.
+
+   IT IS A CONTAINER QUESTION AND NOT A POINT, which is why no third breakpoint was
+   needed for it. The row is what runs out of room, and the row's width is not the
+   window's: it is capped at 1200 and padded, so a media query would be answering
+   about the wrong box. The threshold is the sum the row must hold with the words in:
+
+       65 (logo) + 198 (nav) + 18rem (the search floor) + 408 (actions with words)
+       + 4 gaps = about 63rem of content box
+
+   THE WORDS ARE HIDDEN FROM THE EYE, NOT FROM THE READER. `display: none` would have
+   taken the accessible name off four controls whose only text this is - «Увійти» is
+   the whole name of that button - and traded a cramped field for four nameless icons.
+   The five declarations are the classic visually-hidden pattern and `menu.css` already
+   carries the same five on `.menu-src`; the system wants one shared utility for it and
+   that order is in `backlog.md` rather than invented here. */
+.wfh-main{ container-type: inline-size; }
+.wfh-search{ flex: 1 1 18rem; min-width: 0; }
+@container (max-width: 63rem){
+  .wfh-actions .wfh-act .lbl,
+  .wfh-actions .wfh-act .cap{ position: absolute; width: 1px; height: 1px; padding: 0;
+    margin: -1px; overflow: hidden; clip-path: inset(50%); border: 0; }
+}
 /* the ROW action's label, scoped at step 7.18. Unscoped it also reached the
    stacked caption, and header.css loads after stack-action.css - so at an
    equal specificity tie the organism would have overridden the atom it is

@@ -177,7 +177,7 @@ function uivTrailMark(root){
 var UIV_SIGN_ONLY = {
   '✕':'close', '×':'close', '✖':'close', '⨯':'close',
   '＋':'plus', '+':'plus', '－':'minus', '−':'minus',
-  '★':'star', '☆':'star', '♥':'heart', '♡':'heart',
+  '★':'star', '☆':'star', '♥':'heart', '♡':'heart', '◉':'coin',
   '▦':'grid', '☰':'list',
   /* step 7.96. The tick had NO ROW AT ALL, in either map, while `icons.js` has
      drawn `check` since 7.11 - so `<span class="m">✓</span>` in the coach's

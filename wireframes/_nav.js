@@ -1887,7 +1887,7 @@ function wfHeader(role, opts) {
       <div class="wfh-actions">
         ${acctHTML}
         <a class="btn--ghost btn--s btn--stack wfh-act stack" href="${favHref}"><span class="g">♡${favBadge}</span><span class="lbl">Обране</span></a>
-        <a class="btn--outline btn--s wfh-act numbtn" href="${bonusHref}"><span class="g">★</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
+        <a class="btn--outline btn--s wfh-act numbtn" href="${bonusHref}"><span class="g">◉</span><span class="t"><span class="cap">Бонуси</span><span class="val">${bonusVal}</span></span></a>
         ${cartActHTML}
       </div>
     </div>

@@ -1583,7 +1583,7 @@ it is the owner's: either the eyebrow stops reading `--text-action` on a photo t
 tile gets a scrim role of its own. Choosing here would fold a value change into a step about patterns.
 
 
-## The header search collapses between the shell point and ~1010 - found by the owner, stage 10
+## ~~The header search collapses between the shell point and ~1010~~ - the owner chose, and it is HALF closed
 
 **Measured on `design/index.html`, the search input's own width:**
 
@@ -1615,13 +1615,51 @@ as the restock row's 26px e-mail field, one level up.
 The shell's form was chosen by the owner at step 3 and its height is what three components measure
 themselves against, so neither repair belongs inside a component round.
 
-## The bonus action has no bonus icon - noticed by the owner, stage 10
+**CHOSEN: let the action labels go, keep one line.** Implemented as a CONTAINER question, not a
+point, so no third breakpoint was needed: the row is what runs out of room and its width is not the
+window's (capped at 1200 and padded), so a media query would have measured the wrong box.
+`container-type: inline-size` on `.wfh-main`, `flex: 1 1 18rem` on the search, and at
+`@container (max-width: 63rem)` the words go. The threshold is the sum the row must hold with them
+in: `65 (logo) + 198 (nav) + 18rem (search floor) + 408 (actions with words) + 4 gaps`.
+
+**The words are hidden from the EYE, not from the reader.** `display: none` would have stripped the
+accessible name off four controls whose only text this is - «Увійти» is the whole name of that
+button - trading a cramped field for four nameless icons. The five declarations are the classic
+visually-hidden pattern.
+
+**HALF closed, and the estimate above was wrong about the other half.** It said the search would get
+those 408px. Measured after: the actions give back **44**, not 408 (408 -> 364), because the buttons
+keep their icons, padding and badges. The field goes 44 -> 88 at the point, 84 -> 128 at 900,
+204 -> 238 at 1010, and the words return at 1040. So it doubled and it is still cramped between 860
+and ~960, and what eats the rest is `.wfh-nav` (198) plus the four action boxes (364) - neither of
+which is the search's to spend.
+
+**The cheap next step is microcopy, not layout.** At the same container threshold the placeholder
+could shorten from «Пошук товарів, брендів...» to «Пошук» - at 88px the long one shows «Пс» and the
+short one is fully legible. That is a product string, so it belongs to `microcopy.md` and to a
+decision, not to a component rule.
+
+## The system has five visually-hidden declarations written twice
+
+`menu.css` carries them on `.menu-src` and `header.css` now carries the same five on the action
+labels. It is the classic pattern and it is correct in both places, but a second copy is how a third
+one starts. The system wants ONE utility - a class in `base.css`, or a `%`-style placeholder - and
+both sites point at it. Small, mechanical, and it belongs to whoever next opens `base.css`.
+
+## ~~The bonus action has no bonus icon~~ - CLOSED, the owner chose a new coin
 
 «БОНУСИ / Отримати» in the header action row stands beside «Увійти» (a person), «Обране» (a heart)
 and «Кошик» (a cart), and wears a generic container glyph. A set of four marks where three name
 their job and one does not reads as a gap rather than as a choice. This is an addition to the icon
 set, which is stage 08's territory and `design/kit/icons.html`'s page: a new glyph, its row in the
 set, and the same 30-size / 6-weight discipline every other mark in the set carries.
+
+**CLOSED.** The set had 67 marks and not one of them named MONEY, so «Бонуси» wore `star` while the
+three actions beside it named their job. The new `coin` is two concentric circles on the set's own
+24x24 grid at stroke 1.9 - no sparkle and no plus, because the voice forbids celebrating a balance.
+It needed no row anywhere: `icons.html` renders the set live from `design/system/icons.js` and says
+so on the page, «другої копії набору немає ніде», so the glyph appeared on the stand the moment it
+existed. Verified in the browser. The `★` in the header markup became `◉`, mapped in both mark maps.
 
 ## ~~The split turns on by SCREEN and the frame needs PLACE~~ - CLOSED by the critique repair
 

@@ -177,6 +177,12 @@ var UIV_P = {
      close enough for two round-capped lines to merge into a lump at 20px. A 3.2
      half-diagonal opens it to 2.06. */
   gem:'<path d="M12 3.2 20.8 12 12 20.8 3.2 12z"/><path d="M12 8.8 15.2 12 12 15.2 8.8 12z"/>',
+  /* bonus balance in the header action row - stage 10, the owner's call. The set had
+     69 marks and not one of them named MONEY, so «Бонуси» wore a star while the three
+     actions beside it named their job (a person, a heart, a cart). A coin is the one
+     shape that says «hryvnias that accumulated» without celebrating them, which the
+     voice forbids: two concentric circles, no sparkle, no plus. */
+  coin:'<circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="4.4"/>',
   /* certificate / document with a verified mark (PDP trust strip) */
   doc:'<path d="M6 3.6h7.4L18 8.2V20a.6.6 0 0 1-.6.6H6a.6.6 0 0 1-.6-.6V4.2A.6.6 0 0 1 6 3.6z"/><path d="M13.2 3.8v4.6h4.6"/><path d="M8.6 14.1l2.1 2.1 4.4-4.6"/>',
   /* auth dialog (node 1.x): the SMS with the code, the one-time-code lock,

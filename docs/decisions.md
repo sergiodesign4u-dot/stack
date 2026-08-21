@@ -10266,3 +10266,37 @@ act; the goal chip rendered a raw emoji two pixels from its own correct icon, be
 handed the chip and collects hosts by `querySelectorAll`, which does not include the element itself;
 and the session rail hung its summary 96px below the strip, because the panel spans both rows and
 implicit `auto auto` split its height between them.
+
+---
+
+## Two debts the owner closed by deciding (2026-08-21)
+
+**The header search collapsed to 44px between the shell point and ~1010, and both repairs were SHELL
+decisions.** The owner chose: let the action labels go, keep one line. It became a CONTAINER question
+rather than a point, so no third breakpoint was needed - the row is what runs out of room and its
+width is not the window's, being capped at 1200 and padded, so a media query would have measured the
+wrong box. `container-type: inline-size` on `.wfh-main`, `flex: 1 1 18rem` on the search, and the
+words go at `@container (max-width: 63rem)`, which is the sum the row must hold with them in:
+`65 + 198 + 18rem + 408 + 4 gaps`.
+
+The words are hidden from the EYE and not from the reader. `display: none` would have stripped the
+accessible name off four controls whose only text this is, trading a cramped field for four nameless
+icons.
+
+**Half closed, and the estimate was wrong about the other half - said out loud rather than quietly.**
+The backlog predicted the search would get those 408px. Measured after: the actions give back **44**,
+not 408, because the buttons keep their icons, padding and badges. The field goes 44 -> 88 at the
+point and the words return at 1040. It doubled and it is still cramped between 860 and ~960, and
+what eats the rest is the nav (198) plus the four action boxes (364), neither of which is the
+search's to spend. The cheap next step is microcopy - shortening the placeholder at the same
+threshold - and that is a product string, so it belongs to a decision rather than to a component.
+
+**The bonus action wore a star while the three actions beside it named their job.** The owner chose a
+new mark rather than borrowing one. The set had 67 glyphs and not one of them named MONEY. `coin` is
+two concentric circles on the set's own 24x24 grid at stroke 1.9 - no sparkle, no plus, because the
+voice forbids celebrating a balance. It needed no row anywhere: `icons.html` renders the set live
+from `icons.js` and says so on the page, so the glyph reached the stand the moment it existed.
+
+**And it opened one new debt, which is the honest cost.** `header.css` now writes the same five
+visually-hidden declarations `menu.css` already writes on `.menu-src`. Correct in both places, but a
+second copy is how a third starts; the system wants one utility and both sites pointing at it.
