@@ -10300,3 +10300,51 @@ from `icons.js` and says so on the page, so the glyph reached the stand the mome
 **And it opened one new debt, which is the honest cost.** `header.css` now writes the same five
 visually-hidden declarations `menu.css` already writes on `.menu-src`. Correct in both places, but a
 second copy is how a third starts; the system wants one utility and both sites pointing at it.
+
+---
+
+## The debts pass, and three of its four findings were about the checks (2026-08-21)
+
+**The dark-theme hole is closed, and the diagnosis in the backlog was wrong about the mechanism.**
+It said the tile paints its ground with `--bg-page` in `banner.css:108`. Measured: it is
+`--bg-inverse` in `hero.css:29`. «Inverse» means «opposite of the page», so the whole family flips
+coherently - charcoal in light, warm-50 in dark, with `--text-oninverse` flipping to match. The one
+thing that does not flip is `--text-action`, so the same orange met a dark ground (5.45) and then a
+pale one (2.97).
+
+Owner's choice: the tile gets a ground of its own. A new semantic family whose **two halves are
+deliberately equal** - `--bg-media`, `--text-onmedia`, `--text-onmedia-muted`, `--line-media`. That
+is not a missing pair; both halves are written and the equality is the decision. The argument is that
+a promo panel is a PICTURE surface and the two tiles beside it carry photographs, which do not learn
+a theme: the strip was already half theme-independent and the first tile was the odd one out.
+Measured after: 5.45 in both themes.
+
+**The 20 stand pages are closed, and 11 of the 49 ghost numbers were legal.** Read page by page
+rather than by regex, because the backlog itself said a regex cannot tell a record from a rule.
+Nine pages carried a stale CURRENT claim and were rebuilt - mostly the «У файлі N медіа-умов»
+section, which enumerates the file's conditions as fact, and which is now GENERATED from the file
+rather than typed. Eight pages name history, which is legal. Three style their own demo tables with
+their own queries, which is the stand's layout and not the component's - the first measurement
+counted those wrongly, and saying so is the point.
+
+**And it is checked now, which was the actual finding.** `inventory.mjs` gained class H2. Both legal
+classes are declared as lists and both are idle-controlled: a page in either list that no longer
+carries a ghost fails the run as loudly as an undeclared one. Both failure classes were proved by
+being introduced on purpose and reverted.
+
+**The hover added an hour earlier to fix a missing hover state drew nothing at all**, and
+`tools/vars.mjs` caught it in the same pass. The rule reached for `--bg-hover` - the name stage 08's
+own prose uses for this role - and that token is declared nowhere. An undefined custom property is
+the quietest failure CSS has: the declaration becomes invalid at computed-value time, the background
+lands on its initial value, and nothing is raised. Fixed by REUSE rather than by declaring:
+`--bg-sunken` is what every other hovered row in this system takes, and a card in a rail is a row in
+a list. **The open question is the prose, not the code** - stage 08's documentation names a state
+token that has never existed, so the next reader will reach for it again.
+
+**Two smaller ones.** «Обране» duplicated between the mobile top bar and the tab bar was WITHDRAWN on
+verification: at 360 there is exactly one visible carrier, because the header actions are hidden
+below the shell point. And the search placeholder now shortens to «Пошук» on the narrow row - it asks
+the OUTPUT rather than copying the threshold, checking whether the action label beside it has been
+clipped away, because a container's state cannot be read by `matchMedia` and 63rem must not exist in
+two editions. `aria-label` never changes, so what a screen reader announces is the same at every
+width.

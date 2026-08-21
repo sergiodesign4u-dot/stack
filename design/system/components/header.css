@@ -102,15 +102,14 @@
    THE WORDS ARE HIDDEN FROM THE EYE, NOT FROM THE READER. `display: none` would have
    taken the accessible name off four controls whose only text this is - «Увійти» is
    the whole name of that button - and traded a cramped field for four nameless icons.
-   The five declarations are the classic visually-hidden pattern and `menu.css` already
-   carries the same five on `.menu-src`; the system wants one shared utility for it and
-   that order is in `backlog.md` rather than invented here. */
+   The five declarations live once, as `.vh` in `base.css`; this rule composes them
+   rather than repeating them, which is what the second writing of them here bought. */
 .wfh-main{ container-type: inline-size; }
 .wfh-search{ flex: 1 1 18rem; min-width: 0; }
 @container (max-width: 63rem){
   .wfh-actions .wfh-act .lbl,
   .wfh-actions .wfh-act .cap{ position: absolute; width: 1px; height: 1px; padding: 0;
-    margin: -1px; overflow: hidden; clip-path: inset(50%); border: 0; }
+    margin: -1px; overflow: hidden; clip-path: inset(50%); border: 0; }   /* = .vh */
 }
 /* the ROW action's label, scoped at step 7.18. Unscoped it also reached the
    stacked caption, and header.css loads after stack-action.css - so at an

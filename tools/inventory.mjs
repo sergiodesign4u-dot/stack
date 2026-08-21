@@ -441,6 +441,47 @@ say('META СТЕНДА РОЗІЙШЛАСЬ ІЗ ФАЙЛОМ', metaBad,
 say('ЧИСЛО ПРАВИЛЬНЕ, ЗАКІНЧЕННЯ НІ', metaForm,
   ([p, , tag, kind, n]) => p.padEnd(20) + ('«' + tag + '»').padEnd(22) + '-> ' + n + ' ' + form(n, kind));
 say('ЧИСЛОВИЙ ТЕГ, ЯКОГО ЦЯ ПЕРЕВІРКА НЕ ДІСТАЄ', metaUnreached, x => x);
+
+/* ---------- H2: the WIDTHS a stand page names, against the widths its file holds
+   Stage 10 moved 27 acting boundaries and nobody noticed that the stand still
+   described the old ones: 20 of the 84 component pages named a width their own file
+   no longer had - `account-shell` said 640/959/960 against 620/859/860, `auth-dialog`
+   said 719/720/899/900 against 859/860. `bp.mjs` cannot see this, and deliberately:
+   it excludes the stand from its subject because a stand page legitimately SHOWS css
+   that is not the product's. So the prose the stand writes about width was checked by
+   nobody, and it is the documentation of the system.
+
+   TWO CLASSES ARE LEGAL AND BOTH ARE DECLARED, so neither can quietly swallow a real
+   drift. A stand page may name HISTORY - «Було `@media (min-width: 720px)`» is a
+   record, and a record keeps its old number - and three pages style their own demo
+   tables with their own queries, which are the STAND's layout and not the component's.
+   Everything else is a page describing a system that no longer exists.
+
+   THE LISTS BELOW ARE IDLE-CONTROLLED. A page named here that no longer carries any
+   ghost fails the run exactly as loudly as an undeclared one: a permission that covers
+   nothing reads as coverage. */
+const WIDTH_HISTORY = ['account-shell', 'address-card', 'auth-dialog', 'buy-box',
+  'loyalty-rung', 'product-grid', 'restock-note', 'trust-strip'];
+const WIDTH_STAND_OWN = ['button', 'field', 'menu'];
+const widthsOf = t => new Set([...t.matchAll(/\((?:min|max)-width:\s*(\d+)px/g)].map(m => m[1]));
+const widthBad = [], widthIdle = [];
+for (const f of readdirSync(kitDir).filter(x => x.endsWith('.html')).sort()) {
+  const page = f.replace(/\.html$/, '');
+  const cssPath = join(ROOT, 'design/system/components', page + '.css');
+  if (!existsSync(cssPath)) continue;
+  const real = widthsOf(readFileSync(cssPath, 'utf8').replace(/\/\*[\s\S]*?\*\//g, ''));
+  const said = widthsOf(readFileSync(join(kitDir, f), 'utf8'));
+  const ghosts = [...said].filter(w => !real.has(w));
+  const excused = WIDTH_HISTORY.includes(page) || WIDTH_STAND_OWN.includes(page);
+  if (ghosts.length && !excused) widthBad.push(page.padEnd(20) + 'каже ' + ghosts.sort((a, b) => a - b).join(',') +
+    '   у файлі ' + ([...real].sort((a, b) => a - b).join(',') || 'нема'));
+  if (!ghosts.length && excused) widthIdle.push(page + '  (у списку дозволених, але привидів немає)');
+}
+say('СТЕНД ОПИСУЄ ШИРИНУ, ЯКОЇ У ФАЙЛІ НЕМАЄ', widthBad, x => x);
+say('ДОЗВІЛ, ЯКИЙ НІЧОГО НЕ ПОКРИВАЄ', widthIdle, x => x);
+console.log('ширини стенда: ' + (widthBad.length + widthIdle.length === 0
+  ? 'чисто · ' + WIDTH_HISTORY.length + ' сторінок називають історію, ' + WIDTH_STAND_OWN.length + ' стилюють власне демо, і кожен запис покриває бодай один привид'
+  : 'ПРОВАЛІВ ' + (widthBad.length + widthIdle.length)));
 console.log('\nсторінок стенда з компонентом: ' + metaPages + ' · числових тегів на них: ' + metaTags +
   ' · поза предметом (не сторінка компонента): ' + metaNoComponent.length);
 

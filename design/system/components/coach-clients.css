@@ -739,10 +739,20 @@
 /* A 280px CARD THAT IS A CONTROL HAS TO SAY SO BEFORE IT IS CLICKED. The first
    writing gave the card `cursor: pointer` and nothing else, so the only feedback
    was the pointer - and a pointer is not visible until the mouse is already on the
-   target. `--bg-hover` is the same ground every other hovered row in the system
-   takes; no border appears and no size changes, because a state may not move the
-   layout (rule 12). */
-.coach .clsplit .ccard:hover{ background: var(--bg-hover); }
+   target. No border appears and no size changes, because a state may not move the
+   layout (rule 12).
+
+   AND THE FIRST WRITING OF THIS RULE DREW NOTHING, which `tools/vars.mjs` caught in
+   the same pass. It reached for `--bg-hover`, the name stage 08's own prose uses for
+   this role - and that token is declared NOWHERE. An undefined custom property is the
+   quietest failure CSS has: the declaration becomes invalid at computed-value time,
+   the background lands on its initial value, and the browser says nothing. The hover
+   that was added to fix a missing hover state was itself invisible. The ground is
+   `--bg-sunken`, which is what every other hovered row in this system already takes -
+   `.menu-opt`, `.wfh-langmenu a`, `.wfh-cabmenu a` - and a card in a rail is a row in
+   a list. Reused rather than declared: the system had the answer and the prose had a
+   different name for it. */
+.coach .clsplit .ccard:hover{ background: var(--bg-sunken); }
 
 /* THE NAME IS THE CONTROL. A card carrying `role="button"` also carried two real
    links inside it, and a button may not contain interactive content - the reader

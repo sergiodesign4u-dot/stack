@@ -873,6 +873,29 @@
                                           dark surfaces. Charcoal was KEPT here
                                           deliberately and not replaced by the
                                           accent. decision */
+  /* ---- MEDIA PANEL, and it is the one family in this file whose two halves are
+     DELIBERATELY EQUAL ------------------------------------------------------------
+     `theme.mjs` found exactly one form broken BY the dark theme out of 276 pages: the
+     eyebrow «Акція тижня» on the first home promo tile, 5.45 in light and 2.97 in
+     dark. The role itself was perfectly paired - the failure was on the SURFACE,
+     which is the third axis stage 08 wrote down, and this is its first real catch.
+     The tile stood on `--bg-inverse`, and «inverse» means «opposite of the page», so
+     it flips: charcoal in light, warm-50 in dark. `--text-action` does not flip - it
+     is the brand's orange in both themes - so the same ink met a dark ground and then
+     a pale one, and only one of those readings works.
+
+     A PROMO PANEL IS A PICTURE, AND A PICTURE DOES NOT INVERT. The two tiles beside
+     this one carry actual photographs, and a photograph does not learn a theme; the
+     strip was already half theme-independent and the first tile was the odd one. So
+     this family has the SAME VALUE in both themes on purpose. That is not a missing
+     pair - the pair exists and both halves are written - it is a pair whose two sides
+     are equal because the surface underneath them is the same object in both themes.
+     Named `media` rather than `promo` because what it describes is the surface, not
+     the campaign standing on it. Owner decision, stage 10, debts pass. */
+  --bg-media:           var(--charcoal);        /* the picture panel's ground, both themes */
+  --text-onmedia:       var(--white);           /* the display line on it, both themes */
+  --text-onmedia-muted: var(--scrim-white-66);  /* the caption under it, both themes */
+  --line-media:         var(--charcoal);        /* its edge, both themes */
   --bg-action:    var(--orange-500);   /* 31 uses - the single action fill: .navbtn,
                                           .wfh-search .go, .wff-news button. Ink on
                                           it is 5.4:1. plate pixel */
@@ -1256,6 +1279,13 @@
   --bg-surface:      var(--warm-900);
   --bg-sunken:       var(--warm-850);
   --bg-inverse:      var(--warm-50);      /* inverse means «opposite of the page», so it flips too */
+  /* the media panel does NOT flip - see the block in `:root`. Both halves written,
+     both halves equal, and that equality is the decision rather than an omission. */
+  --bg-media:           var(--charcoal);        /* the picture panel's ground, both themes */
+  --text-onmedia:       var(--white);           /* the display line on it, both themes */
+  --text-onmedia-muted: var(--scrim-white-66);  /* the caption under it, both themes */
+  --line-media:         var(--charcoal);        /* its edge, both themes */
+
   --bg-action:       var(--orange-500);   /* does not invert */
   --bg-success:      var(--green-950);
   --bg-danger:       var(--red-950);

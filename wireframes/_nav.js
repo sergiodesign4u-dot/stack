@@ -1876,7 +1876,7 @@ function wfHeader(role, opts) {
         <a class="btn--ghost btn--s navlink" href="quiz.html">✦ Квіз</a>
       </nav>
       <form class="field-grp field-grp--s wfh-search" role="search" action="search.html">
-        <input class="field field--s" type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
+        <input class="field field--s" type="search" placeholder="Пошук товарів, брендів…" data-ph-short="Пошук" aria-label="Пошук">
         <button class="btn--accent btn--s go" type="submit">Знайти</button>
       </form>
       <div class="wfh-mi">
@@ -1914,6 +1914,35 @@ function wfHeader(role, opts) {
     document.body.appendChild(tb);
   }
   tb.innerHTML = wfTabbarHTML(role, { cart: cartN, fav: favN });
+  wfSearchPlaceholder();
+}
+
+/* THE PLACEHOLDER FOLLOWS THE LABELS, AND IT ASKS THE OUTPUT RATHER THAN THE NUMBER.
+   `header.css` hides the action words at `@container (max-width: 63rem)`, and the
+   placeholder must shorten at exactly the same moment - «Пошук товарів, брендів…» in
+   an 88px field shows «Пс». Copying 63rem into a `matchMedia` here would be a second
+   edition of the threshold, and a container's state cannot be asked of `matchMedia`
+   anyway. So the question is put to the RESULT: if the label next to the field has
+   been clipped away, the row is in its narrow form, and the short string goes in.
+   One threshold, written once, in the stylesheet that owns it.
+
+   The long string stays in the DOM as `data-ph-short`'s counterpart and the
+   `aria-label` never changes, so what a screen reader announces is the same at every
+   width. Both strings live in `microcopy.md`. */
+function wfSearchPlaceholder() {
+  var input = document.querySelector('.wfh-search input');
+  var probe = document.querySelector('.wfh-actions .wfh-act .lbl');
+  if (!input || !probe) return;
+  var long = input.getAttribute('placeholder');
+  var short = input.getAttribute('data-ph-short') || long;
+  function sync() {
+    var narrow = probe.getBoundingClientRect().width <= 1;
+    var want = narrow ? short : long;
+    if (input.getAttribute('placeholder') !== want) input.setAttribute('placeholder', want);
+  }
+  if (window.ResizeObserver) new ResizeObserver(sync).observe(document.querySelector('.wfh-main'));
+  window.addEventListener('resize', sync);
+  sync();
 }
 
 function wfFooter() {

@@ -1558,7 +1558,7 @@ dead»: on `goal` BOTH cells are `<span>` - the grey original writes them that w
 while still advertising `cursor: pointer`. It is a defect of the frozen grey layer, and it needs the
 owner rather than a coloured patch.
 
-## List 6 - the one hole the dark theme opened, stage 09 step 6
+## ~~List 6 - the one hole the dark theme opened~~ - CLOSED by the owner, stage 10 debts pass
 
 `tools/theme.mjs` over 276 of 280 coloured pages, ink against its own ground, threshold 4.5:1.
 **35 forms sit under it. 34 of them fail in the LIGHT theme too**, which means they are older than
@@ -1578,9 +1578,24 @@ its footing while the role itself is perfectly paired. **A role can have both ha
 the pair is about the token, the contrast is about the SURFACE it lands on**, which is the third axis
 stage 08 wrote down and this is its first real catch.
 
-Not fixed here. It is a value decision in the form the project requires - variable, value, why - and
-it is the owner's: either the eyebrow stops reading `--text-action` on a photo tile, or the photo
-tile gets a scrim role of its own. Choosing here would fold a value change into a step about patterns.
+Not fixed there. It was a value decision in the form the project requires - variable, value, why - and
+it was the owner's: either the eyebrow stops reading `--text-action` on a photo tile, or the photo
+tile gets a ground of its own.
+
+**CHOSEN: the tile gets its own ground, and the diagnosis above was wrong about the mechanism.** It
+said `--bg-page` in `banner.css:108`. Measured: it is `--bg-inverse` in `hero.css:29`. «Inverse»
+means «opposite of the page», so the whole family flips coherently - charcoal in light, warm-50 in
+dark, with `--text-oninverse` flipping to match. The one thing that does NOT flip is
+`--text-action`, the brand's orange, so the same ink met a dark ground and then a pale one.
+
+A new semantic family, **whose two halves are deliberately equal**: `--bg-media`, `--text-onmedia`,
+`--text-onmedia-muted`, `--line-media`. That is not a missing pair - both halves are written and the
+equality is the decision. The argument is that a promo panel is a PICTURE surface, and the two tiles
+beside this one carry actual photographs, which do not learn a theme; the strip was already half
+theme-independent and the first tile was the odd one out.
+
+Measured after: **5.45 in both themes**, ground identical, heading 17.04 in both. `theme.mjs` had
+found exactly one form broken BY the theme across 276 pages, and it is now zero.
 
 
 ## ~~The header search collapses between the shell point and ~1010~~ - the owner chose, and it is HALF closed
@@ -1764,3 +1779,39 @@ is not the product's. So the numbers the stand writes in PROSE are checked by no
 moved 27 of them. The check is cheap (the comparison above is fifteen lines) and belongs either as a
 fifth class in `bp.mjs` with the stand as an explicit second subject, or in `inventory.mjs`, which
 already reads every stand page and every component file and already fails on meta drift.
+
+
+## ~~20 stand pages describe a width the component no longer has~~ - CLOSED, and 11 of the 20 were legal
+
+Read page by page rather than by regex, because the backlog's own note said a regex could not tell a
+record from a rule. The 49 ghost numbers across 20 pages split three ways:
+
+- **9 pages carried a STALE CURRENT CLAIM** and were rebuilt. Twelve of them were the «У файлі N
+  медіа-умов» section, which enumerates the file's conditions as fact - `account-shell` listed
+  640/959/960 against the file's 620/859/860, `auth-dialog` 719/720/899/900 against 859/860. Those
+  lists are now GENERATED from the file rather than typed. Three more were «Межі» tables presented as
+  current rules: `coach-cabinet`, `coach-landing`, `coach-verify`. `product-grid`'s list went to
+  zero, and a «У файлі 0 медіа-умов» reads as a bug, so that one is written in words.
+- **8 pages name HISTORY**, which is legal and stays: «Було `@media (min-width: 720px)`», «Крок 7.26
+  вийняв звідси», «обидва блоки структурної половини, які не грають ніколи».
+- **3 pages style their own demo tables** with their own queries - `button`, `field`, `menu`. Those
+  are the STAND's layout, not the component's, and the first measurement counted them wrongly.
+
+**And it is checked now, which was the actual finding.** `inventory.mjs` gained class H2: it already
+reads every stand page and every component file, so the comparison is fifteen lines. Both legal
+classes are declared as lists and both are idle-controlled - a page in either list that no longer
+carries a ghost fails the run as loudly as an undeclared one. Both failure classes were proved by
+being introduced on purpose and reverted.
+
+## The hover that was added to fix a missing hover state drew nothing
+
+Caught by `tools/vars.mjs` in the same pass that introduced it. The new `.ccard:hover` reached for
+`--bg-hover` - the name stage 08's own prose uses for this role - and **that token is declared
+nowhere.** An undefined custom property is the quietest failure CSS has: the declaration becomes
+invalid at computed-value time, the background lands on its initial value, and nothing is raised.
+
+Fixed by reuse rather than by declaring: `--bg-sunken` is what every other hovered row in this system
+already takes - `.menu-opt`, `.wfh-langmenu a`, `.wfh-cabmenu a` - and a card in a rail is a row in a
+list. **The open question is the prose, not the code:** stage 08's documentation names a state token
+that has never existed, so the next reader will reach for it again. Either the token gets declared
+with both themes, or the prose stops naming it.

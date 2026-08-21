@@ -172,7 +172,7 @@ the unscoped base form, not the component.
 | Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | fluid | 3 | 426 |
 | Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 620 · fluid | 3 | 448 |
 | Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 620 · 860 · ramp · fluid | 26 | 375 |
-| Хедер | `header.css` | `.wfh` | 860 · fluid | 82 | 364 |
+| Хедер | `header.css` | `.wfh` | 860 · fluid | 82 | 392 |
 | Блок покупки | `buy-box.css` | `.bb` | 620 · fluid | 4 | 292 |
 | Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 620 | 3 | 261 |
 | Обране тренера | `coach-wishlist.css` | `.cw-note` | – | 1 | 278 |
@@ -189,7 +189,7 @@ the unscoped base form, not the component.
 | Таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | 860 | 82 | 80 |
 | Модалка відгуку | `review-modal.css` | `.pm` | – | 3 | 59 |
 | Рейка фільтрів | `filter-rail.css` | `.frail`, `.hrail` | 860 | 11 | 57 |
-| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 860 · ramp | 4 | 55 |
+| Головний блок | `hero.css` | `.hero`, `.hvert`, `.hside` | 860 · ramp | 4 | 62 |
 | Мега-меню | `mega-menu.css` | `.mega`, `.catov` | 860 · fluid | 82 | 43 |
 | Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | 620 · fluid | 0 | 42 |
 | Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | 620 · fluid | 82 | 39 |
@@ -199,7 +199,7 @@ the unscoped base form, not the component.
 | Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | – | 82 | 16 |
 | Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | – | 2 | 102 |
 
-**34 files, 8350 lines.**
+**34 files, 8482 lines.**
 
 ### Three things this table did not say, found at 8.29 and closed at 8.37
 

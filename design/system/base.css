@@ -113,3 +113,19 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
    The ring inside the panel is untouched: every control there keeps its own
    `:focus-visible` from its own component. */
 [tabindex="-1"].open:focus{ outline: none; }
+
+/* VISUALLY HIDDEN, AND THE SYSTEM GETS ONE EDITION OF IT. Two files were writing the
+   same five declarations: `menu.css` on `.menu-src`, and `header.css` on the action
+   labels the moment stage 10 made the words yield to the search. Both were correct
+   and that is exactly the problem - a second copy is how a third one starts, and the
+   third is always the one that drops a declaration and takes the element out of the
+   accessibility tree instead of only out of the picture.
+
+   THE FIVE ARE NOT INTERCHANGEABLE. `clip-path: inset(50%)` hides the paint,
+   `width`/`height: 1px` keeps a box (a zero box is skipped by some readers), the
+   negative margin pulls it out of flow, `overflow: hidden` stops the text drawing
+   outside its 1px, and `position: absolute` stops it occupying a line. Drop any one
+   and it either reappears or disappears from the reader too. `display: none` is the
+   thing this exists INSTEAD OF: it takes the accessible name with it. */
+.vh{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip-path: inset(50%); border: 0; }
