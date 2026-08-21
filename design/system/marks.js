@@ -452,6 +452,56 @@ function uivMarks(root){
   uivSignMark(root);
   uivSepGlyph(root);
   uivWrapDrCat();
+  uivPhotoName(root);
+}
+
+/* ============================================================
+   THE PHOTO PLACEHOLDER WAS THE ACCESSIBLE NAME OF EVERY PRODUCT LINK.
+   Step 10.6b, found by the browser half of the step-6 critique.
+
+   Since stage 04 a product photo has been a box with the word «фото» in it, and
+   in colour that box is painted with a `background-image` while the word is
+   turned transparent. Invisible to the eye, and still the only text inside an
+   `<a>` - so the accessible name of the link to a product WAS «фото», or «фото
+   Популярне» when the card carried a badge. Measured across the coloured corpus:
+   222 occurrences on 35 of 92 pages, against 28 `<img>` in the whole folder. A
+   screen reader offering the links of a category page read «фото» twenty-four
+   times in a row. WCAG 1.1.1 and 2.4.4.
+
+   ONE EDITION RATHER THAN 142 EDITS. Writing an `aria-label` into every card in
+   every file is the hand fix `CLAUDE.md` names: it does not survive the next
+   clone, and the fifty screens still waiting for colour would arrive carrying the
+   defect. THE FIRST WRITING PUT IT IN `wireframes/_nav.js`, which was wrong for a
+   reason worth keeping: that file is the prototype's CHROME, and the stand pages
+   deliberately do not load it - so `accept.mjs` immediately failed four kit pages
+   whose demo cards still named a link «фото». This file is the one both the
+   product and the stand load (91 screens and all 103 stand pages), which is
+   exactly the set that should behave the same. The grey corpus keeps the word,
+   and that is right: there the box IS the structure being shown.
+
+   THE NAME IS READ OFF THE CARD, NOT INVENTED. Every one of these links has a
+   sibling that already names the same destination; if none is found the link is
+   left exactly as it was rather than labelled with a guess. The badge is kept and
+   appended, because «Популярне» is the one piece of content that exists ONLY
+   inside this link. */
+var UIV_PH_NAME = ['.nm', '.lnm', '.ci-nm', '.cl-nm', '.oc-nm', '.od-nm', '.qa-nm',
+                   '.li-nm', '.rk-nm', '.hd-nm', '.cs-nm'];
+function uivPhotoName(root){
+  var scope = root || document;
+  var links = scope.querySelectorAll('a:not([aria-label])');
+  [].forEach.call(links, function(a){
+    /* the link's OWN text, with the badge span left out - that is what the
+       accessible name is made of, and it is the thing being replaced */
+    var own = '';
+    [].forEach.call(a.childNodes, function(n){ if(n.nodeType === 3) own += n.nodeValue; });
+    if(own.trim() !== 'фото') return;
+    var host = a.closest('article, li, .pcard, .pcard-l, .ci, .ocard, .ccard') || a.parentNode;
+    var nm = null;
+    for(var i = 0; i < UIV_PH_NAME.length && !nm; i++) nm = host.querySelector(UIV_PH_NAME[i]);
+    if(!nm || !nm.textContent.trim()) return;        /* no name found -> leave it alone */
+    var tag = a.querySelector('.tag');
+    a.setAttribute('aria-label', nm.textContent.trim() + (tag ? ', ' + tag.textContent.trim() : ''));
+  });
 }
 
 /* the stand has no `uivChrome`, so nothing would ever call the passes there */

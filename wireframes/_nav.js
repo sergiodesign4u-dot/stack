@@ -543,7 +543,13 @@ function wfDrawerHTML() {
     '<a class="dr-link" href="content-returns.html">Повернення</a>' +
     '<a class="dr-link" href="content-about.html">Про нас</a>' +
     '<a class="dr-link" href="content-contacts.html">Контакти</a>' +
-    '<a class="dr-link" href="account.html">★ Бонуси</a>' +
+    /* the coin, not the star - the owner's call at step 10.6b, and it belongs to
+       the DESTINATION rather than to the header. The set had no mark for MONEY, so
+       the bonus action wore a star while the three actions beside it named their
+       job; the header took the coin in the debts pass and these two carriers of the
+       same action did not, so the same row read differently depending on width.
+       The rating stars in this file are untouched: the decision was about money. */
+    '<a class="dr-link" href="account.html">◉ Бонуси</a>' +
     '<a class="dr-link" href="auth.html" onclick="closeBurger();openAuth(\'phone\');return false">👤 Увійти / Реєстрація</a>' +
     '</div></nav>';
 }
@@ -1164,7 +1170,7 @@ function profSave() { wfToast('ok', 'Зміни збережено'); }
 const WF_ACC_LINKS = [
   { k: 'overview',  href: 'account.html',           ic: '▦', label: 'Огляд' },
   { k: 'orders',    href: 'account-orders.html',     ic: '📦', label: 'Замовлення', ct: '12' },
-  { k: 'loyalty',   href: 'account-loyalty.html',    ic: '★', label: 'Знижки та бонуси' },
+  { k: 'loyalty',   href: 'account-loyalty.html',    ic: '◉', label: 'Знижки та бонуси' },
   { k: 'wishlist',  href: 'account-wishlist.html',   ic: '♡', label: 'Обране', ct: '6' },
   { k: 'addresses', href: 'account-addresses.html',  ic: '📍', label: 'Адреси', ct: '2' },
   { k: 'profile',   href: 'account-profile.html',    ic: '👤', label: 'Профіль' },
@@ -2102,7 +2108,6 @@ function wfPdpSpy() {
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', wfPdpSpy);
 else wfPdpSpy();
 window.addEventListener('load', wfPdpSpy);
-
 /* ============================================================
    OPEN PANELS: where focus goes, where it stays, and what Escape reaches.
    Step 7.85, and it is the same defect three other places in this system already

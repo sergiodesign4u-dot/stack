@@ -179,7 +179,14 @@
 /* step 6.3: the local copy of the outline finish is gone - colour, border and
    hover are the finish now. This file keeps what is the strip's own: type and
    padding for a button standing in a promo row. */
-.tbanners .tbn{  border-radius:var(--radius-12); box-shadow:var(--elevation-1);
+/* 10.6b: the elevation is a `box-shadow` on a LINK, at (0,2,0) in a file that
+   loads after base.css - so it tied with the system's focus floor and won on
+   source order, and five trust banners on the home screen answered Tab with
+   nothing at all. Same class as `cart-drawer.css` and `account-shell.css`:
+   the resting shadow says what it meant - EXCEPT while the link is answering
+   the keyboard. */
+.tbanners .tbn:not(:focus-visible){ box-shadow:var(--elevation-1); }
+.tbanners .tbn{  border-radius:var(--radius-12);
   transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
 .tbanners .tbn:hover{ border-color:var(--line-action); transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .tbanners .tbim{ height:104px; background:var(--bg-sunken) center/cover no-repeat; }

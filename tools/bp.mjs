@@ -133,6 +133,39 @@ const containerUsers = sysCss.filter(f => /@container/.test(strip(readFileSync(j
 if (containerUsers.length && !hasType)
   bad.push({ f: containerUsers.join(', '), ln: 0, why: '@container без жодного оголошеного container-type - компонент тихо завжди виглядає як у широкому місці', txt: '' });
 
+/* ---------- THE CONTAINER-THRESHOLD REGISTRY, ASKED BOTH WAYS ----------
+
+   A container threshold is deliberately NOT a token: it is local to one place,
+   and a token would promise it is shared. But «not a token» was quietly reading
+   as «not written down anywhere», and `responsive.md` says the opposite in
+   writing - the section «Container thresholds» exists precisely so a reader can
+   tell a place threshold from a point invented for somebody's device. Nothing
+   checked it. The debts pass put `63rem` into `header.css` and the section went
+   on listing two rows for three thresholds, which is the shape a registry always
+   fails in: it is right the afternoon it is typed.
+
+   BOTH DIRECTIONS, because either one alone is half a check. A threshold in the
+   css with no row is an undeclared decision. A row naming a number no file holds
+   is an entry that covers nothing, and it fails as loudly - that is the same idle
+   control every declared list in this repository carries. */
+const REG_MD = readFileSync(join(ROOT, 'design/kit/docs/responsive.md'), 'utf8');
+const regSec = REG_MD.slice(REG_MD.indexOf('## Container thresholds'));
+const regEnd = regSec.indexOf('\n### ');
+const regRows = [...regSec.slice(0, regEnd === -1 ? regSec.length : regEnd)
+  .matchAll(/^\| `(\d+(?:\.\d+)?rem)` \|/gm)].map(m => m[1]);
+const inCss = [];
+for (const f of sysCss) {
+  const s = strip(readFileSync(join(ROOT, f), 'utf8'));
+  for (const m of s.matchAll(/@container[^{]*?(\d+(?:\.\d+)?rem)/g))
+    inCss.push({ n: m[1], f, ln: lineOf(s, m.index) });
+}
+for (const c of inCss)
+  if (!regRows.includes(c.n))
+    bad.push({ f: c.f, ln: c.ln, why: `контейнерний поріг ${c.n} немає в реєстрі «Container thresholds» responsive.md - його неможливо відрізнити від точки під пристрій`, txt: '' });
+for (const r of regRows)
+  if (!inCss.some(c => c.n === r))
+    bad.push({ f: 'design/kit/docs/responsive.md', ln: 0, why: `реєстр називає поріг ${r}, якого не несе жоден файл design/system - запис не покриває нічого`, txt: '' });
+
 for (const f of NOT_PRODUCT) {
   if (!existsSync(join(ROOT, f)))
     bad.push({ f, ln: 0, why: 'оголошено «не продукт», а файла немає - список показує покриття, якого нема', txt: '' });
@@ -157,4 +190,5 @@ if (bad.length) {
 } else {
   console.log(`\nчисто: кожен @media продукту дає число реєстру, жоден файл екрана не несе запиту, жодного var() у запиті`);
 }
+console.log(`\nконтейнерні пороги: ${inCss.length} у системі · ${regRows.length} у реєстрі responsive.md · ${inCss.map(c => c.n).join(', ') || '-'}`);
 process.exit(bad.length ? 1 : 0);

@@ -5362,6 +5362,11 @@ step 6.1 from the measured button clusters (34 / 44 / 52 / 62) and superseded at
 whose own comment says «64 and not the 62 above», and then left standing. The scale's
 own rule, four lines further down the same file: a step that cannot be named cannot
 be used by accident, and that is the only thing that keeps a scale a scale.
+**Closed at 10.6b by removal, two stages after it was first written down.** The rung
+is out of `tokens.css` and out of the `geometry.html` ladder. What the delay cost is
+worth naming: the stand had been printing «--size-62: 0» in plain sight the whole
+time, so this was never hidden - it was READ and not acted on, which is the failure
+mode a report has and a failing check does not.
 
 **6. `--text-price-was` is declared and nothing reads it.** Both instruments.
 Known since 7.36, deliberate, waiting on stage 09 for a said-out-loud removal.

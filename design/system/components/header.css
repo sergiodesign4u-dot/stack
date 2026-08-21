@@ -10,7 +10,7 @@
    which is why the fallback is 0 and the header needs to know no more than that.
    The value is published by design/_stand.css. Step 7.26. */
 .wfh{ position: sticky; top: var(--shell-top, 0px); z-index: 30; background: var(--bg-page); }
-.wfh-in{ max-width: 1200px; margin: 0 auto; display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); }
+.wfh-in{ max-width: var(--container-page); margin: 0 auto; display: flex; align-items: center; gap: var(--space-12); padding: var(--space-16) var(--space-16); }
 .wfh-meta{ display: none; font-size: var(--fs-12); color: var(--text-secondary); }
 .wfh-meta .wfh-in{ padding: var(--space-8) var(--space-16); gap: var(--space-16); }
 .wfh-meta a{ color: var(--text-secondary); }
@@ -18,7 +18,7 @@
 .wfh-lang-wrap{ position: relative; }
 .wfh-lang{ cursor: pointer; }
 .wfh-langmenu{ display: none; position: absolute; right: 0; top: 100%; z-index: 46; margin-top: var(--space-8);
-  min-width: 152px; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
+  min-width: 9.5rem; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
 .wfh-langmenu.open{ display: block; }
 .wfh-langmenu a{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12);
@@ -46,7 +46,7 @@
   /* the middle column may now shrink to nothing - `minmax(420px, 1fr)` was a
      floor that no max-width could get under, which is why the panel overflowed
      instead of narrowing. 940 stays as the ceiling it always was. */
-  grid-template-columns: 226px minmax(0, 1fr) 196px; width: auto; max-width: 940px;
+  grid-template-columns: 226px minmax(0, 1fr) 196px; width: auto; max-width: 58.75rem;
   background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); margin-top: var(--space-8); overflow: hidden; }
 .wfh.mega-open .wfh-mega, .wfh.mega-pinned .wfh-mega{ display: grid; }
@@ -102,8 +102,15 @@
    THE WORDS ARE HIDDEN FROM THE EYE, NOT FROM THE READER. `display: none` would have
    taken the accessible name off four controls whose only text this is - «Увійти» is
    the whole name of that button - and traded a cramped field for four nameless icons.
-   The five declarations live once, as `.vh` in `base.css`; this rule composes them
-   rather than repeating them, which is what the second writing of them here bought. */
+   The five declarations live once, as `.vh` in `base.css`. THIS RULE REPEATS THEM,
+   and the earlier wording here - «composes them rather than repeating them» - was
+   simply not true of the code under it. Plain CSS has no way to apply a class
+   conditionally, and the hiding here IS conditional: it happens inside a container
+   query and nowhere else, so no markup class can express it. So the repeat stays,
+   and what changes is that it is now CHECKED rather than promised: `tools/dupe.mjs`
+   holds the declaration block of `.vh` as the one original, names every declared
+   repeat with its reason, and fails the run both when a repeat drifts from the
+   original and when a declared repeat has stopped existing. */
 .wfh-main{ container-type: inline-size; }
 .wfh-search{ flex: 1 1 18rem; min-width: 0; }
 @container (max-width: 63rem){
@@ -138,13 +145,13 @@
    fixed by copy, so it is the one that can set a floor. The old 96 was below
    every one of the four and therefore never bound anything.
    If «Отримати» is ever re-worded, re-measure this number. */
-.wfh-act.numbtn{ min-width: 124px; justify-content: flex-start; }
+.wfh-act.numbtn{ min-width: 7.75rem; justify-content: flex-start; }
 .wfh-act.numbtn:hover .t .val{ color: var(--text-body); }
 .wfh-act.numbtn:hover .t .cap{ color: var(--text-secondary); }
 /* step 7.18: `flex-direction`, the caption's weight and its ink went to the atom. */
 .wfh-cab{ position: relative; }
 .wfh-cabmenu{ display: none; position: absolute; right: 0; top: 100%; z-index: 45; margin-top: var(--space-8);
-  min-width: 230px; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
+  min-width: 14.375rem; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
 .wfh-cabmenu.open{ display: block; }
 .wfh-cabmenu .cab-head{ padding: var(--space-12) var(--space-16) var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }

@@ -84,13 +84,13 @@ Corpus: all 141 screens of `wireframes/`, read together with `research/docs/jtbd
 
 | category | screens |
 |---|---:|
-| THE SAME | 64 |
+| THE SAME | 62 |
 | WIDER, grid | 24 |
-| WIDER, air | 14 |
+| WIDER, air | 16 |
 | NEW BEHAVIOUR | 39 |
 
 **39 is far past the three or four the method expects, and here is the honest reading.** 39 is a
-count of SCREENS. The count of BEHAVIOURS is **eight**, and seven of them already stand in the code:
+count of SCREENS. The count of BEHAVIOURS is **eight**, and after step 5 all eight stand in the code:
 
 1. the shell changes the carrier of its top-level navigation at 860 (4 screens)
 2. the catalogue rail opens from the home screen (1)
@@ -99,11 +99,23 @@ count of SCREENS. The count of BEHAVIOURS is **eight**, and seven of them alread
 5. the PDP puts gallery and buy box side by side and drops the sticky buy bar (4)
 6. the cart is a panel instead of a drawer at 620 (3)
 7. checkout puts form and summary side by side (3)
-8. **split view for the coach flow - MISSING (11 screens)**
+8. **split view for the coach flow - built at step 5 (11 screens)**
 
-Only the eighth is new work, and its source is not a preference: the product's main job says
+Only the eighth was new work, and its source is not a preference: the product's main job says
 literally «build a complete order for each client **in one session**», and on a phone the coach walks
-back and forth between the client list and that client's basket. It is the candidate for step 5.
+back and forth between the client list and that client's basket.
+
+**The count stayed 11 and the membership changed, which is the part worth saying out loud.** The
+audit had put the two DETAIL screens inside the eleven (`coach-client`, `coach-client-loading`) and
+left the two empty session states outside it. Step 5 decided the opposite on both counts, and the
+decision came from the pack's own rule rather than from taste: a split view does not cancel the
+detail screen, so `coach-client` keeps its own URL, its breadcrumbs and its SEO block and takes the
+900px container instead - and the session strip carries the frame in EVERY state, because a page that
+grew a second column the moment its data arrived would jump under the coach's hands. So the eleven
+are now three clients screens and all eight session screens, and the two detail screens moved to
+WIDER. Measured, not asserted: `.cs-grid` resolves `328px` at 360 and `320px 692px` at 1280 on
+`coach-session-empty` and `coach-session-addempty` too, and `.cc-wrap` goes 360 -> 900 with
+`.cdetails` at 868.
 
 | screen | what the person does | category | by what | job or barrier |
 |---|---|---|---|---|
@@ -157,18 +169,18 @@ back and forth between the client list and that client's basket. It is the candi
 | `checkout-loading` | waits, or reads that the payment failed | THE SAME | container | – |
 | `checkout-loggedin` | places the order | NEW BEHAVIOUR · in the code | point 860 (form and summary side by side) | Job 2, finish the first purchase without wandering |
 | `checkout-noaddr` | places the order | NEW BEHAVIOUR · in the code | point 860 (form and summary side by side) | Job 2, finish the first purchase without wandering |
-| `coach-client` | keeps the client list and opens a profile | NEW BEHAVIOUR · MISSING | point 860, split view list + detail | MAIN JOB, build a complete order for each client in one session |
+| `coach-client` | keeps the client list and opens a profile | WIDER · air | container (`.cdetails` 22rem) + `.cc-wrap` 900 | MAIN JOB, build a complete order for each client in one session |
 | `coach-client-edit` | fills or confirms a client card in a dialog | THE SAME | container | – |
 | `coach-client-edit-confirm` | fills or confirms a client card in a dialog | THE SAME | container | – |
 | `coach-client-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
 | `coach-client-error` | reads an error and retries | THE SAME | container | – |
-| `coach-client-loading` | keeps the client list and opens a profile | NEW BEHAVIOUR · MISSING | point 860, split view list + detail | MAIN JOB, build a complete order for each client in one session |
+| `coach-client-loading` | keeps the client list and opens a profile | WIDER · air | container (`.cdetails` 22rem) + `.cc-wrap` 900 | MAIN JOB, build a complete order for each client in one session |
 | `coach-client-new` | fills or confirms a client card in a dialog | THE SAME | container | – |
-| `coach-clients` | keeps the client list and opens a profile | NEW BEHAVIOUR · MISSING | point 860, split view list + detail | MAIN JOB, build a complete order for each client in one session |
-| `coach-clients-cap` | keeps the client list and opens a profile | NEW BEHAVIOUR · MISSING | point 860, split view list + detail | MAIN JOB, build a complete order for each client in one session |
+| `coach-clients` | keeps the client list and opens a profile | NEW BEHAVIOUR · in the code | point 860 + container 41rem, split view list + detail | MAIN JOB, build a complete order for each client in one session |
+| `coach-clients-cap` | keeps the client list and opens a profile | NEW BEHAVIOUR · in the code | point 860 + container 41rem, split view list + detail | MAIN JOB, build a complete order for each client in one session |
 | `coach-clients-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
 | `coach-clients-error` | reads an error and retries | THE SAME | container | – |
-| `coach-clients-loading` | keeps the client list and opens a profile | NEW BEHAVIOUR · MISSING | point 860, split view list + detail | MAIN JOB, build a complete order for each client in one session |
+| `coach-clients-loading` | keeps the client list and opens a profile | NEW BEHAVIOUR · in the code | point 860 + container 41rem, split view list + detail | MAIN JOB, build a complete order for each client in one session |
 | `coach-home` | looks over the coach cabinet | WIDER · grid | fluid (auto-fit) + container | – |
 | `coach-home-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
 | `coach-home-error` | reads an error and retries | THE SAME | container | – |
@@ -182,14 +194,14 @@ back and forth between the client list and that client's basket. It is the candi
 | `coach-orders-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
 | `coach-orders-error` | reads an error and retries | THE SAME | container | – |
 | `coach-orders-loading` | goes through the list of orders | WIDER · grid | fluid | – |
-| `coach-session` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
-| `coach-session-addclient` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
-| `coach-session-addempty` | sees an empty state and the one way out of it | THE SAME | container | – |
-| `coach-session-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
-| `coach-session-loading` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
-| `coach-session-newclient` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
-| `coach-session-oos` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
-| `coach-session-priceblock` | builds orders for several clients in one session | NEW BEHAVIOUR · MISSING | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session-addclient` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session-addempty` | sees an empty state and the one way out of it | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | – |
+| `coach-session-empty` | sees an empty state and the one way out of it | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | – |
+| `coach-session-loading` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session-newclient` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session-oos` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
+| `coach-session-priceblock` | builds orders for several clients in one session | NEW BEHAVIOUR · in the code | point 860, split view clients + that client basket | MAIN JOB, literally: build a complete order for each client in one session |
 | `coach-tariff` | compares the two tiers side by side | WIDER · grid | fluid (flex-wrap) | – |
 | `coach-tariff-cancel` | confirms cancelling the tier in a dialog | THE SAME | container | – |
 | `coach-tariff-free` | compares the two tiers side by side | WIDER · grid | fluid (flex-wrap) | – |
@@ -403,11 +415,40 @@ them onto these. Both tokens are in `rem` so a point answers the reader's own fo
 the window: somebody who set their browser to 20px sits at a «desktop» width with a mobile amount of
 text per line.
 
+### Neither point token is read by a single `var()`, and that is the shape of the rule, not a leak
+
+Step 6's own idle-control class - «a `--bp-*` token nothing reads» - fires on both of them, and it
+should be answered rather than muted. `@media` cannot read a custom property, so a point token can
+NEVER have a `var()` reader; if it had one, the rule carrying it would be silently dead. The reader
+is `tools/bp.mjs`, which parses the registry out of `tokens.css` and demands that every query in
+`design/system/` give back one of these two numbers. That is a real reader and a stricter one than
+`var()` would be - `var()` would only prove the token is mentioned, while `bp.mjs` proves that every
+literal in the product agrees with it.
+
+**So the pair is a named tension, not a defect, and it is written here so the next reader does not
+"fix" it by inventing a fake reader.** The one thing that would make it a defect is the registry
+losing its checker: a token nothing reads AND nothing verifies is drift with a nice name.
+
+### `design/overview.html` is the one page in the coloured folder that does not wear the system
+
+It carries its own `<style>` block - 31 rules, its own font stack, its own `@media (min-width: 860px)`
+and an accent that exists in no token - and it does not load `system/index.css`. **This is a decision
+taken at step 7.33 and it was recorded only inside a comment in the file itself**, which is why three
+separate audits have re-found it as if it were new. It is recorded here now, where the registry is.
+
+The reason is that the page is a HUB, not a screen: it is the index of the coloured folder, read by
+whoever is deciding, and it predates the system it indexes. `tools/bp.mjs` carries it in `NOT_PRODUCT`
+beside the three stage-06 concept pages, and that list is idle-controlled - a name on it that stops
+existing, or that stops carrying a query, fails the run. The open question, and it is the owner's:
+either the hub moves onto the system like every page it links to, or the decision stops living in a
+code comment and becomes a line in `DESIGN.md`. What must not happen is a fourth audit finding it
+again.
+
 ## The container and the line measure
 
 | token | value | first reader | the rest |
 |---|---|---|---|
-| `--container-page` | `75rem` (1200px) | `design/_stand.css .wf-page`, the page frame of every coloured screen since stage 07 | `.co-wrap` (1200) and `.cc-wrap` (900) still write their own number; step 4 |
+| `--container-page` | `75rem` (1200px) | `design/_stand.css .wf-page`, the page frame of every coloured screen since stage 07 | **step 6 closed it**: the ten places that wrote `max-width: 1200px` by hand now read `var(--container-page)`, and 48 more container ceilings went from `px` to `rem` in the same pass |
 | `--container-text` | `68ch` | `seo-text.css` `.lintro` and `.seotext p` | the `content-*` prose is still grey; stage 12 |
 
 `--grid-col-min` is `12.5rem` (200px), read out of `product-grid.css`, which already wrote
@@ -901,13 +942,30 @@ banner. Declaring the container there would have re-anchored all of them to fix 
 So the section stays empty, `tools/bp.mjs` fails the run on `@container` without a `container-type`
 anywhere, and the day a placer exists that holds nothing fixed, the mascot is the first candidate.
 
-**Step 5 opened it, with exactly one entry, and it is the placer rule working rather than an
-exception to it.**
+**Step 5 opened it, and it is the placer rule working rather than an exception to it. Three
+entries now: two from step 5 and its critique, one from the debts pass.**
 
 | threshold | declared on | asked by | what changes |
 |---|---|---|---|
 | `22rem` | `.coach .cdetails` | `.coach .cd-row` | the label-and-value rows fold from `160px 1fr` to one column |
 | `41rem` | `.acc-main` (`account-shell.css`) | `.coach .clsplit` | the split opens, inside `@media (min-width: 860px)`. Added by the critique repair; the number is `17.5 + 1.5 + 22`, the rail plus the gap plus the smallest panel worth opening |
+| `63rem` | `.wfh-main` (`header.css`) | `.wfh-actions .wfh-act .lbl` and `.cap` | the four action words go visually hidden and the search field takes the room back. Added by the debts pass; the number is the sum the ROW must hold with the words in - `65` logo + `198` nav + `18rem` search floor + `408` actions + four gaps |
+
+**`63rem` is the entry that says why this section exists at all.** The header search collapsed to
+44px between the shell point and roughly 1010, and the obvious repair was a third point. It is not a
+question about the screen: the ROW runs out of room, and the row's width is not the window's - the
+same header sits inside a page frame that a wide viewport does not hand over whole. So the threshold
+went on `.wfh-main`, and a number that would have been a device in `@media` is a sum in `@container`.
+
+**The words are hidden from the EYE, not from the reader.** `display: none` would have stripped the
+accessible name off four controls whose only text this is; the five-declaration clip pattern keeps
+them in the accessibility tree. That is `.vh` in `base.css`, and `header.css` names the utility it
+is equal to rather than pretending it invented the shape.
+
+**And the estimate about the other half was wrong, which is recorded rather than quietly corrected.**
+The prediction was that the actions would give back 408px. They give back 44: the buttons keep their
+icons, their padding and their badges, so the field goes 44 -> 88 at the point and the words return
+at 1040.
 
 `.cdetails` could be a container where the page frame could not, and the difference is the whole
 rule: it holds no `position: fixed` descendant, so `contain: layout` re-anchors nothing. And the
@@ -924,3 +982,74 @@ measurement that caught it read «265 into 190, unchanged».
 | `max-width: 959` | `skeleton.css` | the chip strip width, already carrying a `[?]`. It mirrors `account-shell.css`'s 960, which is the account shell's own boundary and belongs to the organism round; resolving one without the other would split a pair |
 | `max-width: 639` | `order-row.css` | **CLOSED at round 2, and the debt had been misfiled.** `order-row` is a molecule, not an organism, so the number was owed to round 2 rather than to round 3. Folded onto 619, the mirror of `--bp-grid-2col`, on both of the file's blocks |
 | 7 numbers | `trust-strip.css`, `seo-text.css` | held on three owner questions, listed under round 2. They are the only off-registry widths left at the molecule level |
+
+---
+
+## Step 6 - the critique, by class, with a status on every row
+
+Two instruments plus a third: Claude with the project's apparatus and a browser, Codex read-only over
+the source, `/impeccable audit` as an isolated browser agent. Sets taken independently, dedup after.
+
+| class | found | who found it | fixed | withdrawn | recorded, not taken |
+|---|---:|---|---:|---:|---:|
+| the audit table stale about its own delivery | 13 rows | Claude (11), Codex (2) | 13 | – | – |
+| a stand page describing a file it no longer matches | 6 | Claude (`roles`, `inventory`), Codex | 6 | – | – |
+| a container threshold outside the registry | 1 | both | 1 | – | – |
+| a token nothing reads | 3 | Codex | 1 removed | 2 | – |
+| the reading measure ignored by running text | 5 selectors | impeccable | 5 | – | – |
+| `px` where the rule says `rem` | 58 | Codex | 58 | – | – |
+| the same declaration block written twice | 6 groups | Codex, Claude | 1 | – | 5 |
+| a control with no focus ring | 51 + 4 + 2 | impeccable, Claude | all | – | – |
+| the ring firing on `:focus` | 2 rules | impeccable | 2 | – | – |
+| a link whose accessible name is a placeholder | 222 | impeccable | 222 | – | – |
+| a suppressed scrollbar with no affordance | 3 | impeccable | 3 | – | – |
+| an image loaded eagerly into a closed panel | 1 (2.28 MB) | impeccable | 1 | – | – |
+| an `<img>` with no lazy hint and no dimensions | 28 | impeccable | 28 | – | – |
+| a landmark with no accessible name | 1 | impeccable | 1 | – | – |
+| touch target under the floor | 3 | impeccable | – | 3 | – |
+| em dash in an output file | 13 | Codex | – | 13 | – |
+| inline width on a screen | 28 | Codex | 1 | 20 | 7 |
+| style declared on a screen | 80 | Codex, Claude | – | – | 80 |
+| typography switched at a point | 29 | Claude, Codex | – | – | 29 |
+| asset weight | 9.34 MB on one page | impeccable | 2.28 MB | – | the rest |
+| **breaks between the points** | **not measured** | the sweep, deferred by the owner | – | – | – |
+
+**The last row is the hole and it is not a zero.** `tools/split.mjs` does sweep 91 pages at 129
+widths, but only for the frames it declares - never for an arbitrary element, the navigation carriers
+or the line measure. 84 of the 92 coloured pages and all 103 stand pages have not been walked width
+by width.
+
+## Step 6 - the contract of this stage as a checklist
+
+The third instrument, and it is deliberately a SEPARATE table from the one above: the two instruments
+that found the defects both read what EXISTS, so a gate that was skipped is invisible to both - a step
+that did not happen is in no file and on no page.
+
+| gate of the pack | status | note |
+|---|---|---|
+| entry gate run before step 1 | done | 84 components, 1 pattern, two token levels, 142 grey screens, 92 coloured |
+| one step, shown, waited | done | six steps, each shown |
+| review standing at step 2, before components | done | tokens and the ladder accepted before round 1 |
+| two points, in `rem`, named by the CHANGE | done | `--bp-grid-2col` 38.75rem, `--bp-shell-wide` 53.75rem. No third point |
+| every `@media` gives a registry number | done | `tools/bp.mjs`, 117 queries, four numbers |
+| no `@media` in a screen file | done | `bp.mjs`; the one hit, `design/overview.html`, is declared and now written into the registry as well as its own comment |
+| `container-type` declared by the PLACER | done | three thresholds, three placers, all named |
+| container thresholds listed in `responsive.md` | **done at step 6** | `63rem` was missing; `bp.mjs` now asks both directions |
+| type ramp fluid through `clamp()` with a `rem` term | done at step 2 | and **29 declarations still switch type inside a query** - recorded, not taken, with the reason |
+| no adaptive `px` left | **done at step 6** | 58 converted; the 120 inside query conditions stay by the pack's own rule |
+| shell resolved by the A/B/C fork | done | form A, owner's call, measured with `tab-walk` |
+| exactly one top-level carrier at any width | done | `tab-walk`, 4 pages × 2 widths, 0 findings |
+| **width sweep 320-1600** | **NOT DONE - owner deferred it until after Animation** | the main instrument of the stage. The class it owns has no findings and that is a hole |
+| idle control on both sides | done | every declared list in every instrument carries one, and each was proved by being broken |
+| wide width checked in the DARK theme | done | `theme.mjs`, 277 of 281 pages, 0 broken by the theme |
+| zero difference at 360 | done | `accept` 282/0; `proof.mjs --against HEAD` moved nothing across 40 screens |
+| every desktop difference explained by an audit row | **partly** | the five reading-measure caps and the three scroll masks are explained here; they are new at step 6 and the audit table predates them |
+| critique on two instruments | done | Claude and Codex, sets independent, Codex read-only in the job record |
+| the contract as a third instrument | done | this table |
+| `/impeccable audit` | done | isolated browser agent, 15 findings and 6 self-withdrawn |
+| pixel proof section for stage 10 | **partly** | the 360 half is proved; the sweep frames need the sweep |
+| README status, `/_nav.js` `wip` removed, closing ritual | **NOT DONE** | the stage cannot be closed while its main instrument has not run |
+
+**Not everything is green, and the two red rows are the same decision.** The sweep is the stage's
+main instrument and the owner moved it after Animation; the closing ritual waits on it. Saying that
+here is the point of the table - both other instruments would have reported a clean stage.

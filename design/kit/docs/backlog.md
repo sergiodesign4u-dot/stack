@@ -1654,7 +1654,143 @@ could shorten from «Пошук товарів, брендів...» to «Пош�
 short one is fully legible. That is a product string, so it belongs to `microcopy.md` and to a
 decision, not to a component rule.
 
-## The system has five visually-hidden declarations written twice
+## ~~The system has five visually-hidden declarations written twice~~ - CLOSED, and asking the question found five more
+
+**Closed at step 10.6b, and the shape of the closing matters more than the item.** The five
+declarations had FOUR editions, not two: `.vh` in `base.css`, `.menu-src` in `menu.css`,
+`header.css` inside its container query, and an inline `style=` on `checkout.html:52` that was not
+even a correct copy - `clip: rect(0 0 0 0)`, the deprecated form, with `padding`, `margin` and
+`border` missing. Two of the four are gone: `menu.js` now puts `vh` on the element beside its
+`menu-src` marker, and the checkout label takes the class. `header.css` KEEPS its copy, and the
+reason is mechanical rather than lazy: the hiding there is conditional - it happens inside
+`@container (max-width: 63rem)` and nowhere else - and plain CSS cannot apply a class conditionally,
+so no markup class can express it.
+
+**The header's comment used to say it «composes them rather than repeating them», which was simply
+not true of the code under it.** It repeats them. What changed is that the equality is now CHECKED
+rather than promised.
+
+## Withdrawn on verification at step 6, and left visible
+
+A withdrawn finding stays here, or it comes back next time in the same words.
+
+**The three phone header actions are 21x32, under the WCAG 2.2 floor** - withdrawn. The audit measured
+`getBoundingClientRect` of the anchor, which does not include an absolutely-positioned pseudo-element.
+`header.css` carries `.wfh-mi a::after{ inset: -6px -8px }`, and a hit test at 360 confirms it: the box
+is 21x32, the **hit area is 35x42**, and all four corners of that area return the link from
+`elementFromPoint`. 35 and 42 both clear the 24x24 minimum. Both are under the 44x44 AAA target, which
+is a smaller point and one the spacing exception already softens.
+
+**An em dash in `design/kit/docs/consolidation.md:8794`** - withdrawn. The line is ABOUT the em dash:
+it quotes the table-cell form as the thing being forbidden. All five files in the tree that hold one
+are quoting the rule. **The hole underneath it was real and is closed:** the rule was enforced on
+rendered screens only, and `tools/typo.mjs` now asks the whole tree, with each quotation declared by
+COUNT so a real one added beside it fails the run.
+
+**Twenty inline `style="width:82%"` on rating bars and `width:62%` on the loyalty bar** - withdrawn as
+adaptation defects. A bar's percentage is a value, and a static prototype has no server to compute it.
+
+**`--bp-grid-2col` and `--bp-shell-wide` are read by no `var()`** - withdrawn, and written into the
+registry so it is not re-found. `@media` cannot read a custom property, so a point token can never
+have a `var()` reader; if it had one the rule carrying it would be silently dead. The reader is
+`tools/bp.mjs`, which is a stricter one than `var()` would be.
+
+**Six items the browser audit withdrew on its own re-measurement**, and they are worth keeping because
+four of the six are the same mistake: reading a value before it settled or without its ancestors.
+`.pbrand` «clipped» (it is an ellipsis); `span.lbl` collapsed to 1px (the deliberate clip pattern);
+the coach search input's height as a touch target (the target is the wrapping 44x328 label); the
+header search having no focus ring (the first read sampled mid-transition); 342 focusables including
+the closed mega menu (own-element `display`, ignoring ancestors - `checkVisibility` gives 111); and
+`design/content-loyalty.html`, which does not exist.
+
+## What step 6 measured and did NOT take, with the numbers instead of the adjectives
+
+Three things came out of the step-6 critique that are real, measured, and not stage 10's work.
+Each carries the number that would let somebody decide, rather than a word like «large».
+
+### 1. Eighty inline style declarations on the coloured screens
+
+`design/*.html` holds **108** `style="…"` attributes. The classification matters, because most of a
+raw count like that is not a defect:
+
+| kind | count | verdict |
+|---|---:|---|
+| a bar percentage (`width:82%` on a rating bar, `width:62%` on the loyalty bar) | 20 | **not a defect.** A percentage is a VALUE, and a static prototype has no server to compute it |
+| skeleton heights | 7 | borderline - they are the shape of the placeholder, and the placeholder is the component |
+| the visually-hidden pattern, inline | 1 | **closed at 10.6b** - it takes `.vh` now, and it was not even a correct copy |
+| **style declared on a screen** | **80** | **the defect.** Colour, weight, margin, flex, and `font-size:13.5px` / `12.5px`, which are not values on the ramp at all |
+
+**Why it is not taken here.** The ban - «a screen declares no styles of its own» - is stage 08's, and
+closing it means deciding, for each of the 80, whether the screen wanted something the system lacks
+(then it is an order for the system) or repeated something the system has (then it is a class swap).
+That is the same three-list sweep stage 08 ran on the sample and stage 12 will run on the corpus, and
+doing it here would do it twice. **Nothing measures it today** - `private-css.mjs` counts rules in
+`<style>` blocks and has never looked at the attribute - so the count above is the first one taken.
+
+### 2. Twenty-nine typography switches at a point, and nothing can tell the three kinds apart
+
+`font-size`, `line-height` or `letter-spacing` inside a width query, in 12 files. The pack calls this
+a defect by class, and by class it is - but reading the 29 shows three different things:
+
+- the element EXISTS only in that place (`cat-overlay` is the mobile overlay, its 14 declarations are
+  its only ones) - not a switch at all;
+- a genuine switch (`product-card` drops the name from `--fs-14` below 620);
+- `base.css:86`, `font-size: var(--fs-16)` on `textarea` and `select` below 859, which is the iOS
+  zoom guard and must not be touched.
+
+**Telling them apart needs the OUTPUT, not the source:** does the computed `font-size` of that element
+actually change across the point? That is a browser question and the instrument for it does not exist.
+Recorded rather than guessed, because converting the second kind to `clamp()` and the first kind by
+mistake would flatten a component that never had a ramp.
+
+### 3. The visual assets are 2048x2048 PNGs rendered at thumbnail size
+
+Measured over the wire at 1280, cache cleared:
+
+| page | images | transferred |
+|---|---:|---:|
+| `index` | 21 | **9.34 MB** |
+| `checkout` | 4 | **6.11 MB** |
+| `product` | 10 | 1.00 MB |
+
+Four files are almost all of it: `product-creatine.png` 2 446 389 B, `product-whey.png` 2 386 308 B,
+`mascot-face-reassure.png` 1 736 820 B, `product-preworkout.png` 1 571 458 B. The three product shots
+are **2048x2048**; they are painted as `background-image` on cards that are never wider than a few
+hundred pixels.
+
+**What step 6 did take:** the 2.28 MB PNG that was being injected into the CLOSED mega menu at boot on
+every page that has one - measured `rendered "0x0"`, `natural "2048x2048"` - now loads on first open.
+And all 28 `<img>` in the folder got `loading="lazy"`, `decoding="async"` and their intrinsic
+`width`/`height`, so none of them reflows the page as it arrives. **What it did not take:** re-encoding
+the owner's brand assets. A `background-image` cannot be lazy-loaded declaratively, so the fix is
+smaller files or a `image-set()` ladder, and both change what stage 06 produced. That is an owner
+decision and a build step, which is stage 13.
+
+## Six blocks the system writes twice, and the new instrument that found five of them
+
+`tools/dupe.mjs` reduces every rule in `design/system/` to its declarations, normalised and sorted,
+and asks which blocks appear in two different files. It reports from four declarations up and fails
+the run from six up - because `color; font-size; line-height; margin` is a sentence in the language,
+while six identical declarations are the same OBJECT written twice.
+
+**Today: 30 groups over 71 places in the idiom range, and six groups above the failing floor.** All
+six are declared with the reason CSS could not share them, and one of the six is genuinely finished
+(the `.vh` pair above). The other five are real work and they are NOT stage 10's:
+
+| the block | where | what it is |
+|---|---|---|
+| square photo frame, 10 declarations | `.oc-ph` (`coach-clients.css`) = `.qa-ph` (`coach-session.css`) | one object under two names - the shape rule of step 7.68, «a box that frames a product photograph is square» |
+| the same frame, larger | `.od-ph` (`coach-order.css`) = `.cl-ph` (`coach-session.css`) | the same object under two more names, so four in total |
+| panel section label, 6 | `.city-lbl` (`city-dialog.css`) = `.dr-lbl` (`nav-drawer.css`) | two mobile panels, one label shape |
+| link-list column heading, 6 | `.wff-col h4` (`footer.css`) = `.wfh-mega .mgt` (`header.css`) | the footer column and the mega-menu column |
+| the wordmark, 6 | `.co-logo::before` (`checkout-form.css`) = `.wfh-logo::before` (`header.css`) | **this one is probably correct as it stands** - the checkout header is a REDUCED header with no nav, no search and no actions, and reaching into `header.css` for one glyph would make the reduced header depend on the full one |
+
+**Why it is not taken here.** Extracting a shared photo frame or a shared label is adding a COMPONENT,
+and this repository charges five things for that: a css file, a stand page, a registry row, an
+inventory row and an `@import` in its own level group. That is stage 12's work on a corpus that is
+half grey, not stage 10's on the adaptive layer. What stage 10 owes is the instrument, and it is
+built: if any of the four names drifts from its twin, the run now fails and says which.
+
 
 `menu.css` carries them on `.menu-src` and `header.css` now carries the same five on the action
 labels. It is the classic pattern and it is correct in both places, but a second copy is how a third

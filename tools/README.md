@@ -32,10 +32,14 @@ node tools/tab-walk.mjs [pages...]       press Tab and see where focus actually 
 node tools/comp-width.mjs [--md] [level] what each component knows about width
 node tools/grid-sweep.mjs [file.css]     how many columns a grid really has, width by width
 node tools/split.mjs [--frame .sel]      does the split view split, and does every screen have it
+node tools/dupe.mjs [--census]          the same declaration block, written twice
+node tools/typo.mjs                     the three-dash and apostrophe rule, over the whole tree
+node tools/focus.mjs [--all|pages]      press Tab on every control and read the ring it draws
 ```
 
-`accept`, `states`, `css-comments`, `vars`, `links`, `theme` and `roles` exit
-non-zero on a finding, so they compose.
+`accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
+`inventory`, `dupe`, `typo` and `focus` exit non-zero on a finding, so they
+compose.
 
 ---
 
@@ -1402,6 +1406,116 @@ and every one was on `design/concept/*` or `design/overview.html` - the presenta
 pages and the hub, which `dead-sel.mjs` and `theme.mjs` both name out loud for the same
 reason. An instrument that treats a presentation page as a product screen reports drift
 that does not exist, and after the second such report a reader stops looking.
+
+## `focus.mjs` - press Tab on every control and read the ring it actually draws
+
+`DESIGN.md` section 7 says the ring is the system's and fires on `focus-visible`,
+never `focus`. Seventeen component files declared that; sixty-seven did not, so
+what a control showed on Tab depended on which file happened to own it. Measured
+on `coach-clients.html` at 1280 before step 10.6b: of 80 visible focusables,
+**51 drew Chrome's own `1px rgb(0, 95, 204)`** and two drew the system's. That
+blue is a fixed value in the user agent - it does not follow the dark theme, so
+a keyboard user on a dark surface gets a blue line on near-black.
+
+**The css cannot answer this, which is why the tool exists.** The failure that
+started it is invisible in any grep: `cart-drawer.css` writes `box-shadow: none`
+on `.cd-foot > .btn--outline` to take the outline finish's box off a link-shaped
+action. That is (0,2,0), the same as `.btn--outline:focus-visible` in
+`button.css`, and cart-drawer loads later - a tie goes to source order and the
+focus ring is deleted, in every state, permanently. Two files, both correct on
+their own; the defect exists only in the resolved output. Four more of the same
+class turned up on `.acc-link[aria-current]`, `.tbanners .tbn`, and the
+`aria-disabled` off state.
+
+**The ring may live on an ancestor.** The header search is a `.field-grp` around
+a `.field`: the input carries none by design and the group carries the halo. So
+an element showing nothing is asked again about its nearest three ancestors
+before it counts as unanswered.
+
+**Wrong version 1: it read the ring immediately after `focus()`.** The ring
+transitions - `box-shadow .15s` - so a read at 0 ms samples the transparent start
+and calls a correct control dead. The first run said 24 of 111 had no ring and
+all 24 were mid-transition. The fix is not a longer wait, which would put a
+corpus walk into hours: transitions are switched OFF in the page before the walk,
+because the question is about the resting focus style, never the animation.
+
+**Wrong version 2: it enumerated focusables by their own `display`,** which
+ignores ancestors - so every link inside the closed mega menu counted, 342
+candidates instead of 111.
+
+Today: **19 071 controls across 91 pages at two widths, 0 in the UA blue, 0 with
+no ring at all.** Proved able to go red by removing the floor from `base.css` for
+one run: 158 of 215 fell straight back to the browser's blue.
+
+## `typo.mjs` - the three-dash rule, asked of the whole tree instead of the screens
+
+`CLAUDE.md` says U+2014 appears nowhere in project output and that the product
+uses one apostrophe form. Both rules were enforced - **on rendered screens**, by
+`accept.mjs`, in a browser. That is where they were easy to check, not where the
+rule says. An em dash in an md, in a css comment, or inside a js string on a page
+`accept.mjs` never opens went unasked for the whole project. Every md here is
+read by whoever builds next, and `docs/decisions.md` is what the handoff stage
+reads as the record.
+
+**The exceptions carry a COUNT, not a pass.** Six files legitimately hold an em
+dash because the sentence is ABOUT the em dash - `CLAUDE.md` stating the rule,
+`accept.mjs` holding the literal it searches for, `decisions.md` quoting the form
+it replaced 3 621 times. A file-level mute would then hide a real one added
+beside the quotation, which is the likeliest way this class ever comes back. So
+each entry declares how many, and a change in either direction fails the run.
+
+**This file holds neither character as a literal.** Both are built from their code
+points and every mention is by name. A checker that has to declare itself as an
+exception has given itself the one mute nobody will ever question.
+
+**Wrong version: the first draft skipped `tools/`,** on the argument that the
+instruments are not product. But `accept.mjs` holds the em dash as the literal it
+searches for - so the one file guaranteed to contain the character would have
+been the one file never asked about it.
+
+Today: 13 em dashes in 6 files and 2 curly apostrophes in 2, every one of them a
+declared quotation of the rule. Three failure modes were proved by being
+introduced and reverted: a real one in an undeclared file, a real one added
+beside a declared quotation, and a declared quotation removed.
+
+## `dupe.mjs` - the same declaration block, written twice
+
+A design system's claim is that a shape is decided once. That claim does not die
+in a refactor, it dies in one honest copy: somebody needs the visually-hidden
+pattern in a second place, writes the five declarations again because CSS has no
+way to share them, and leaves a comment saying `= .vh`. The comment is true the
+day it is written, nothing asks again, and the THIRD copy reads the second as
+precedent rather than the first. That is exactly what happened here - the pattern
+reached `menu.css`, then `header.css`, then an inline `style=` on `checkout.html`
+that was not even a correct copy: `clip: rect(0 0 0 0)`, the deprecated form,
+with `padding`, `margin` and `border` missing.
+
+Every rule in `design/system/` is reduced to its declarations, normalised and
+sorted, so neither order nor whitespace can hide an equality. Then two floors,
+and the second one is why the check is usable at all:
+
+| floor | what happens |
+|---|---|
+| **4 declarations** | reported and counted. `color; font-size; line-height; margin` is a sentence in the language, not a shared decision - 30 groups over 71 places today |
+| **6 declarations** | fails the run unless the group is declared. From six up, two blocks are the same OBJECT written twice, and somebody had to decide that |
+
+Six groups are declared, each with the reason CSS could not share it, and each
+under three tests at once: every named site must still exist, every site the
+duplicate actually has must be named, and all of them must still be EQUAL. The
+third is the one the whole tool is for - a repeat that drifts leaves a comment
+behind claiming an equality that is gone.
+
+**Wrong version 1: it compared whole rule texts.** Two rules differing only in a
+trailing comment, or in the order of `padding` and `margin`, are the same
+decision written twice, and text comparison answered «different» to both.
+
+**Wrong version 2: the floor was two declarations**, which made every
+`display:flex; align-items:center` in the system a finding - 200+ of them, all
+correct. A gate that fails on 81 correct idioms is a gate somebody mutes.
+
+All three failure modes were proved by being introduced on purpose and reverted:
+a repeat drifted by one pixel of `margin`, a seventh site added to a declared
+group, and a declared site removed.
 
 ## `split.mjs` - does the split view split, and does every screen that could have it have it
 

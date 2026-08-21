@@ -133,7 +133,10 @@ if(typeof UIV_P === 'undefined'){
   window.uivBrandSvg = function(){ return ''; };
 }
 /* every wireframe glyph that appears in the chrome/menus/cards → its icon key.
-   ★ is only mapped for the chrome (Бонуси); card rating ★ is never touched. */
+   ★ is only mapped for the chrome, and after 10.6b the one chrome star left is
+   the footer's «Оцініть нас у Google»: the bonus action took ◉ on all three of
+   its carriers - header, burger drawer and the account rail. Card rating ★ is
+   never touched. */
 var UIV_EMOJI = {
   '🏠':'home','👤':'user','♡':'heart','♥':'heart','❤️':'heart','☆':'star','★':'star','◉':'coin',
   /* 🔎 U+1F50E is a row this map was missing, one codepoint from the 🔍 U+1F50D
@@ -567,9 +570,24 @@ function uivChrome(){
   });
   /* mega-menu "Вибір місяця" card → a real product photo. ui-visual only:
      greyscale keeps the «фото» placeholder in _nav.js untouched. */
-  document.querySelectorAll('.ms-feat .ms-ph').forEach(function(ph){
-    if(ph.dataset.uiv) return; ph.dataset.uiv = '1';
-    ph.innerHTML = '<img src="visuals/product-whey.png" alt="Gold Standard 100% Whey">';
+  /* 10.6b: THIS USED TO RUN AT BOOT, AND IT COST 2.28 MB ON EVERY PAGE THAT HAS A
+     MEGA MENU. The card lives inside the mega panel, which is CLOSED at load, so
+     the image was fetched, decoded and then rendered at 0x0 - measured on index at
+     both 360 and 1280: `rendered "0x0"`, `natural "2048x2048"`. The menu is opened
+     by a minority of visits and by none of them before first paint.
+     Injected on first open instead. `once` because the panel is not rebuilt, and
+     the existing `dataset.uiv` guard still does the per-element half. */
+  var wfMegaImg = function(){
+    document.querySelectorAll('.ms-feat .ms-ph').forEach(function(ph){
+      if(ph.dataset.uiv) return; ph.dataset.uiv = '1';
+      ph.innerHTML = '<img src="visuals/product-whey.png" alt="Gold Standard 100% Whey"'
+        + ' width="2048" height="2048" decoding="async">';
+    });
+  };
+  document.querySelectorAll('.wfh-cat, .wfh-mega, .hrail').forEach(function(el){
+    el.addEventListener('pointerenter', wfMegaImg, { once: true });
+    el.addEventListener('focusin', wfMegaImg, { once: true });
+    el.addEventListener('click', wfMegaImg, { once: true });
   });
   /* product-card corner badge → a typed chip: Популярне = dark + ★, Новинка = accent + ✦ */
   document.querySelectorAll('.pcard .ph .tag, .pcard-l .lph .tag').forEach(function(t){
@@ -2117,7 +2135,12 @@ function uivBar(){
         '<div class="us-tagrow"><span class="uiv-tag">ui-visual</span>' +
           '<span class="us-cap">кольорова копія мови</span></div>' +
       '</div>' +
-      '<nav class="us-nav">' + states + '</nav>' +
+      /* 10.6b: the stand rail was the ONE <nav> on every coloured page with no
+         accessible name, while all four of its neighbours have one -
+         wfh-nav «Головна навігація», wf-tabbar «Основна навігація», crumb
+         «Хлібні крихти», acc-links «Розділи кабінету». A screen reader
+         listing landmarks read «navigation» with nothing after it. */
+      '<nav class="us-nav" aria-label="Стани цього екрана">' + states + '</nav>' +
       '<div class="us-foot">' +
         '<a href="concept/concept.html">← Мова продукту (Концепт)</a>' +
         '<a href="../wireframes/' + cur + '">Сірий оригінал ↗</a>' +

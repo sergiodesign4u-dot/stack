@@ -95,13 +95,13 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Width | Screens | Lines |
 |---|---|---|---|---|---|
-| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | ramp | 86 | 590 |
-| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 620 | 8 | 166 |
+| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | ramp | 86 | 612 |
+| Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | 620 | 8 | 169 |
 | Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | – | 44 | 418 |
 | Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | 860 · fluid | 82 | 320 |
 | Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | fluid | 81 | 270 |
 | Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | 860 · fluid | 11 | 275 |
-| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | – | 85 | 260 |
+| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | – | 85 | 269 |
 | Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | – | 82 | 218 |
 | Чекбокс | `checkbox.css` | `.cb`, `.optin` | – | 8 | 210 |
 | Радіо | `radio.css` | `.co-radio`, `.co-opt` | fluid | 9 | 196 |
@@ -124,24 +124,24 @@ the unscoped base form, not the component.
 > так - у `consolidation.md`.
 
 
-**23 files, 4467 lines.**
+**23 files, 4501 lines.**
 
 ## Molecules (level 2)
 
 | Component | css file | Anchors | Width | Screens | Lines |
 |---|---|---|---|---|---|
 | Картка товару | `product-card.css` | `.pcard`, `.packlabel` | 620 · 860 · fluid | 21 | 383 |
-| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 620 · ramp · fluid | 6 | 262 |
+| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | 620 · ramp · fluid | 6 | 269 |
 | Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | 620 · 860 · fluid | 2 | 241 |
 | Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | 620 · 860 · ramp · fluid | 5 | 225 |
-| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 620 · fluid | 2 | 193 |
+| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | 620 · fluid | 2 | 195 |
 | Рядок кошика | `cart-row.css` | `.ci` | fluid | 11 | 169 |
 | Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | fluid | 19 | 157 |
 | Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | fluid | 6 | 145 |
 | Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | 620 · 860 · fluid | 3 | 133 |
 | Галерея | `gallery.css` | `.gal`, `.pmini` | 860 | 4 | 131 |
 | Блок опису | `desc-block.css` | `.pdesc`, `.pd` | – | 2 | 118 |
-| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | fluid | 26 | 125 |
+| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | fluid | 26 | 134 |
 | Запитання | `qa-item.css` | `.qaitem` | – | 2 | 104 |
 | Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | fluid | 2 | 133 |
 | Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | fluid | 3 | 101 |
@@ -158,26 +158,26 @@ the unscoped base form, not the component.
 | Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | 620 | 4 | 26 |
 | Схожі товари | `related.css` | `.relbox`, `.relrow` | fluid | 2 | 14 |
 
-**27 files, 3384 lines.**
+**27 files, 3402 lines.**
 
 ## Organisms (level 3)
 
 | Component | css file | Anchors | Width | Screens | Lines |
 |---|---|---|---|---|---|
 | Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | 620 · fluid | 8 | 972 |
-| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 620 · 860 · fluid | 5 | 914 |
-| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 620 · 860 · fluid | 8 | 883 |
-| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 620 · 860 · fluid · @container | 10 | 785 |
+| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | 620 · 860 · fluid | 5 | 916 |
+| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | 620 · 860 · fluid | 8 | 889 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | 620 · 860 · fluid · @container | 10 | 809 |
 | Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | 620 · 860 · fluid | 1 | 537 |
 | Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | fluid | 3 | 426 |
 | Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | 620 · fluid | 3 | 448 |
-| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 620 · 860 · ramp · fluid | 26 | 375 |
-| Хедер | `header.css` | `.wfh` | 860 · fluid | 82 | 392 |
+| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | 620 · 860 · ramp · fluid | 26 | 377 |
+| Хедер | `header.css` | `.wfh` | 860 · @container · fluid | 82 | 399 |
 | Блок покупки | `buy-box.css` | `.bb` | 620 · fluid | 4 | 292 |
 | Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | 620 | 3 | 261 |
 | Обране тренера | `coach-wishlist.css` | `.cw-note` | – | 1 | 278 |
-| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 620 · 860 · fluid | 33 | 268 |
-| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 620 | 5 | 216 |
+| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | 620 · 860 · fluid | 33 | 294 |
+| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | 620 | 5 | 228 |
 | Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | 860 | 5 | 184 |
 | Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | 620 | 13 | 115 |
 | Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | 860 | 0 | 97 |
@@ -199,7 +199,7 @@ the unscoped base form, not the component.
 | Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | – | 82 | 16 |
 | Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | – | 2 | 102 |
 
-**34 files, 8482 lines.**
+**34 files, 8561 lines.**
 
 ### Three things this table did not say, found at 8.29 and closed at 8.37
 
@@ -212,11 +212,18 @@ All three were the same defect wearing three faces: **a declared list with no id
    rows now, and `tools/inventory.mjs` fails the run if a fourteenth ever appears without one.
 2. **`upsell.css` was filed as a molecule here and called «рівень 3» in its own file header**, with
    its stand page's eyebrow saying «рівень 2». Three published claims, and the header was the odd
-   one out. **The ladder settles it, not the count of witnesses:** the panel is a bordered block
-   with a heading, a line of text and one `btn--accent` - atoms only, so level 2. The header is
-   corrected in the file, with the reasoning beside it. THE IMPORT GROUP PROVES NOTHING either way,
-   and that stands as the finding it was: the coach group in `index.css` is a SCOPE group, not a
-   level group, so any file put there loses the one place its level was readable.
+   one out. The ladder was read at 8.37 and gave level 2: the panel is a bordered block with a
+   heading, a line of text and one `btn--accent` - atoms only. **THE OWNER OVERRULED THAT AT 8.57,
+   and the file, the stand page and this table all sit at level 3 today.** The argument that lost is
+   kept in the file header rather than deleted, because the shape of the disagreement is the useful
+   part: nesting alone makes the panel a molecule, and the owner ranked it instead as a
+   self-contained block of the coach flow - something the coach meets whole, not a part another
+   component assembles. This paragraph said «the header is corrected in the file» for two stages
+   after that stopped being true, which is the same failure it was written to record: **a note about
+   a decision outlives the decision, and the note is what the next reader believes.** THE IMPORT
+   GROUP PROVES NOTHING either way, and that stands as the finding it was: the coach group in
+   `index.css` is a SCOPE group, not a level group, so any file put there loses the one place its
+   level was readable - which is why the owner's call rested on one agreeing placement, not two.
 3. **The «Lines» column was a step-5 snapshot** - and so was `Screens`, which nobody had suspected.
    66 of 73 line counts and 58 of 73 screen counts were wrong, some of them by an order of
    magnitude in the direction that flatters a grep: `header.css` read 5 screens and carries 82.

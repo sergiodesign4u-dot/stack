@@ -226,7 +226,10 @@ function uivMenuFromSelect(sel, opts){
   host.className = 'menu menu--field';
   sel.parentNode.insertBefore(host, sel);
   host.appendChild(sel);
-  sel.classList.add('menu-src');
+  /* 10.6b: `vh` comes from base.css, `menu-src` stays as the MARKER menu.js
+     queries. Before this the marker also carried its own copy of the five
+     visually-hidden declarations in menu.css - the first of what became three. */
+  sel.classList.add('menu-src', 'vh');
   sel.setAttribute('tabindex', '-1');
   sel.setAttribute('aria-hidden', 'true');
 

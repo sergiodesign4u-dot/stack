@@ -576,8 +576,18 @@
   --size-32: 32px;
   /* added at step 6.1 from the measured height of every button in the product:
      the clusters sit at 34, 40-47, 49-54 and 59-64, so the ladder that covers
-     them with no step moving more than 3px is 34 / 44 / 52 / 62. */
-  --size-52: 52px;   --size-62: 62px;
+     them with no step moving more than 3px is 34 / 44 / 52 / 62.
+     10.6b: `--size-62` IS GONE, and it is a removal rather than a correction.
+     6.7 replaced the top rung with 64 in its own comment below - «64 and not the
+     62 above» - and left 62 standing, so the ladder published a step that no rule
+     could ever pick: every reader either wanted 64 or wanted 52. Three separate
+     passes found it and none of them acted (`consolidation.md`, finding 5 of
+     stage 09 step 6, and `geometry.html`, which honestly printed «--size-62: 0»
+     on the stand for two stages). A scale whose steps are not all reachable is
+     not a scale, it is a list of numbers - and the file's own rule four lines
+     down says exactly that. Nothing read it: `var(--size-62)` returned zero
+     across every css, html and js in `design/`. */
+  --size-52: 52px;
   /* step 6.7. The button ladder became 40 / 52 / 64 - an equal 12px rung -
      once the height stopped being an accident of padding plus a reading
      line-height. 64 and not the 62 above: the measured L was 63.8, and the

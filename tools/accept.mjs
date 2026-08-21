@@ -12,6 +12,7 @@
      em dash           `-` in a sentence, `–` for a range and an empty cell,
                        `—` NOWHERE in project output (CLAUDE.md)
      curly apostrophe  one apostrophe form in the product: `'`
+     ph                a link whose accessible name is the photo placeholder
      doubled separator the crumb draws its slash in CSS; a typed one shows twice
 
    THE CRUMB CHECK ASKS «IS IT DRAWN TWICE», NOT «IS IT TYPED», and that is the
@@ -93,6 +94,20 @@ const M = `(() => {
     em: (t.match(/\\u2014/g)||[]).length,
     curly: (t.match(/[\\u2019\\u02BC]/g)||[]).length,
     crumbBad: crumbBad,
+    /* A LINK WHOSE ACCESSIBLE NAME IS THE PLACEHOLDER. Since stage 04 a product
+       photo has been a box with the word «фото» in it; in colour the box gets a
+       background-image and the word goes transparent. Invisible to the eye and
+       still the only text inside an <a> - so the link to a product was NAMED
+       «фото». 222 of them on 35 of 92 pages, found by the browser half of the
+       step-6 critique and by nothing here, because every question this file asked
+       was about what a page LOOKS like. The name is a computed fact and belongs
+       in the same pass. wfPhotoName() reads the name off the card - and note the
+       comment holds no backtick, because this whole block is inside a template
+       literal and one would end it. */
+    ph: [...document.querySelectorAll('a')].filter(a => {
+      const n = (a.getAttribute('aria-label') || a.textContent || '').trim();
+      return /^фото$|^фото[\s,]/.test(n);
+    }).length,
     svg: document.querySelectorAll('svg').length
   });
 })()`;
@@ -102,10 +117,10 @@ for (const p of PAGES) {
   const s = await newSession(conn);
   await conn.send('Page.addScriptToEvaluateOnNewDocument', { source: ERRS }, s.sessionId);
   const d = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/design/${p}.html`, W, 844, M, s.inflight));
-  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0 && !d.idleBad;
+  const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0 && !d.idleBad && d.ph === 0;
   if (!ok) bad++;
   console.log((ok ? 'OK   ' : 'FAIL ') + p.padEnd(20) + 'over=' + String(d.over).padEnd(4) + 'em=' + String(d.em).padEnd(3)
-    + 'curly=' + String(d.curly).padEnd(3) + 'dot=' + String(d.dots).padEnd(3) + 'svg=' + String(d.svg).padEnd(4)
+    + 'curly=' + String(d.curly).padEnd(3) + 'dot=' + String(d.dots).padEnd(3) + 'ph=' + String(d.ph).padEnd(3) + 'svg=' + String(d.svg).padEnd(4)
     + (d.dots ? ' DOT:' + d.dotsWhat.join(', ') : '')
     + (d.crumbBad ? ' CRUMB:' + d.crumbBad : '') + (d.idleBad ? ' IDLE:' + d.idleBad : '') + (d.errs.length ? ' ERR:' + JSON.stringify(d.errs) : ''));
   await conn.send('Target.closeTarget', { targetId: s.targetId });

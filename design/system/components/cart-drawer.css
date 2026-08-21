@@ -24,7 +24,7 @@
    the screen, different content, and `dr-lock` is added only by `openBurger()`.
    A reader looking for the menu had to already know it was filed under the
    cart. */
-.cart-behind{ max-width: 1200px; margin: 0 auto; padding: var(--space-24) var(--space-16) 60px; }
+.cart-behind{ max-width: var(--container-page); margin: 0 auto; padding: var(--space-24) var(--space-16) 60px; }
 .cart-behind h2{ font-size: var(--fs-20); margin-bottom: var(--space-4); }
 .cart-behind p{ font-size: var(--fs-14); color: var(--text-secondary); }
 .cart-behind .ph-grid{ display: grid; grid-template-columns: repeat(2,1fr); gap: var(--space-12); margin-top: var(--space-16); }
@@ -34,7 +34,7 @@
 .cart-behind .ph-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); height: 150px; }
 .cart-drawer{
   position: fixed; top: var(--shell-top, 0px); right: 0; bottom: 0; z-index: 61;
-  width: 100%; max-width: 420px; background: var(--bg-page); display: flex; flex-direction: column; 
+  width: 100%; max-width: 26.25rem; background: var(--bg-page); display: flex; flex-direction: column; 
 }
 .cd-head{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); border-bottom: 1px solid var(--line-hair); }
 .cd-head h1{ display: flex; align-items: baseline; gap: var(--space-8); }
@@ -194,8 +194,20 @@
    and `.cd-blocked` have carried their own `margin-top` since before this step.
    The primary joins them rather than the foot inventing a second mechanism. */
 .cd-foot > .cd-cta, .cd-foot > .cd-fix{ margin-top: var(--space-12); }
+/* 10.6b: `:not(:focus-visible)` ON THE RESET, AND IT IS A CLASS RATHER THAN A BUG.
+   `box-shadow: none` written on a CONTROL at (0,2,0) in a file that loads after
+   button.css beats `.btn--outline:focus-visible`, which is (0,2,0) too - a tie
+   goes to source order. The reset was meant to take the outline finish's BOX off
+   a link-shaped action; what it also took off was the focus ring, in every state,
+   permanently. Measured: focus this control with `:focus-visible` matching and
+   read it after the transition settles - `box-shadow: none`, while the same
+   `.btn--outline` two elements away rings correctly.
+   The repair is not a stronger focus rule, because that would have to be written
+   again in the next file that resets a shadow. It is the reset saying what it
+   meant: take the box off, EXCEPT while the control is answering the keyboard. */
+.cd-foot > .btn--outline:not(:focus-visible){ box-shadow: none; }
 .cd-foot > .btn--outline{
-  border-color: transparent; background: none; box-shadow: none;
+  border-color: transparent; background: none;
   min-height: var(--size-38); padding-top: var(--space-8); padding-bottom: var(--space-8);
   color: var(--text-secondary); text-decoration: underline;
   text-decoration-color: var(--line-strong); text-underline-offset: 3px;

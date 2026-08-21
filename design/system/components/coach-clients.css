@@ -253,6 +253,18 @@
    was described as losing. Above 860 there is no zoom to trigger and the
    designed size stands, exactly the split field.css states for `.field--s`. */
 .coach .cl-search input{ flex: 1; border: none; outline: none; font-family: inherit; background: transparent; }
+/* 10.6b: `outline: none` WITH NOTHING IN ITS PLACE, on the primary control of the
+   screen the coach opens every day. Measured before the repair: focus the input,
+   read the wrapper and the input again after the transition settles - identical,
+   `changed: false`, while `.btn--accent` in the same run went from none to the
+   ring. The border does not move either, because the input has none: the visible
+   control is the LABEL around it, so that is what has to show the state.
+   `:has(:focus-visible)` and not `:focus-within`, for the reason field.css now
+   states: the wrapper is clickable, and a mouse click should not raise a ring. */
+.coach .cl-search:has(:focus-visible){
+  border-color: var(--line-action);
+  box-shadow: var(--ring-focus);
+}
 @media (min-width: 860px){
   .coach .cl-search input{ font-size: var(--fs-14); }
 }
@@ -363,7 +375,7 @@
    the number 7.70 folded to 860 everywhere it was a BREAKPOINT, and this page is
    the reading column of a coach's client, which is the same kind of column
    seo-text.css caps at 760. */
-.coach .cc-wrap{ max-width: 900px; }
+.coach .cc-wrap{ max-width: 56.25rem; }
 
 /* `.ch` IS `.cl-top` PLUS A MARGIN. Byte for byte the same five declarations -
    flex, flex-start, space-between, 14px, wrap - and then `margin: 8px 0 6px`.
@@ -409,6 +421,8 @@
   border-radius: var(--radius-8); padding: 9px 15px;   /* [?] 9px and 15px have no rung; the ladder is 8/12/16 */
   white-space: nowrap; }
 
+/* 10.6b: the reading measure. Measured at 1600 across the corpus, this line ran to 98.3 characters - `--container-text` is 68ch and had exactly TWO readers in the whole system, both in seo-text.css, so every other block of running text simply grew with the window. Five selectors were over the measure and this is one of them. */
+.coach .cc-note{ max-width: var(--container-text); }
 .coach .cc-note{ font-size: var(--fs-14);   /* grey 12.5 -> 13 -> 14, the third of the five */
   color: var(--text-secondary);
   line-height: var(--lh-airy);   /* grey 1.55. The base rhythm moved 1.55 -> 1.6 at step 5.6, said out loud, and every 1.55 in the product moved with it */

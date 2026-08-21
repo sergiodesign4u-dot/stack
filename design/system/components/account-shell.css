@@ -115,6 +115,26 @@
     -webkit-overflow-scrolling: touch; scrollbar-width: none;
  }
   .acc-links::-webkit-scrollbar{ display: none; }
+  /* 10.6b: THE RAIL HID 925 OF ITS 1253 PIXELS AND SAID NOTHING ABOUT IT.
+     Measured at 360 on `account.html`: `clientWidth 328, scrollWidth 1253`, so
+     74% of the account navigation stood off-screen - and the scrollbar is
+     suppressed two lines above, deliberately, because a native bar under a row of
+     chips is ugly on every platform that still draws one. Suppressing the bar is
+     fine; suppressing it AND giving nothing in its place is what made the rail
+     read as a complete list of five sections rather than the start of thirteen.
+     The mask is the affordance, and it costs no element and no token: the strip
+     fades at whichever edge still has content behind it. `mask-image` rather than
+     a gradient overlay because the rail sits on two different grounds - the page
+     at 360 and the card above 860 - and an overlay would have to know which.
+     `--fade-*` is a family this system already has, but a mask needs alpha rather
+     than a colour, so the stops are `#000`/`transparent`, which are not values in
+     the design sense: they are the mask's on and off. */
+  .acc-links{
+    -webkit-mask-image: linear-gradient(to right, transparent 0, #000 var(--space-16),
+      #000 calc(100% - var(--space-24)), transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0, #000 var(--space-16),
+      #000 calc(100% - var(--space-24)), transparent 100%);
+  }
   /* 8.10 - THE FLOOR, AND IT IS MISSING ONLY HERE. Measured across the 13 screens
      that draw this rail: 40.39 tall at 390, 3.61 short of the touch minimum, on a
      control that is a chip in a horizontal scroller - the hardest kind to hit,
@@ -151,6 +171,8 @@
    (coach-home, coach-clients, coach-orders), 17 grey behind them. */
 .coach-newcta{ margin-top: var(--space-12); }
 .acc-h1{ color: var(--text-primary); }
+/* 10.6b: the reading measure. Measured at 1600 across the corpus, this line ran to 98.3 characters - `--container-text` is 68ch and had exactly TWO readers in the whole system, both in seo-text.css, so every other block of running text simply grew with the window. Five selectors were over the measure and this is one of them. */
+.acc-sub{ max-width: var(--container-text); }
 .acc-sub{ font-size: var(--fs-14); margin-top: var(--space-4); }
 .acc-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
 @media (min-width: 620px){
@@ -235,7 +257,11 @@
 .acc-link.logout:hover{ color:var(--text-danger); }
 .acc-link.logout:hover .ic{ color:var(--text-danger); }
 @media (max-width: 859px){
-  .acc-link[aria-current="page"]{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-onaction-ink); box-shadow:none; }
+  /* 10.6b: the same class as cart-drawer.css - a `box-shadow: none` on a
+     focusable at (0,2,0) deletes the focus ring for good. The current page
+     of the account rail is a link, and below the shell point it had none. */
+  .acc-link[aria-current="page"]{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-onaction-ink); }
+  .acc-link[aria-current="page"]:not(:focus-visible){ box-shadow:none; }
   .acc-link[aria-current="page"] .ic{ color:var(--text-body); }
   .acc-link[aria-current="page"] .ct{ border-color:var(--line-hair); color:var(--text-body); }
 }

@@ -143,6 +143,7 @@ SECTIONS.forEach((s, i) => {
     const cell = cells[cells.length - 3] || '';
     const sc = cell.match(/^\d+/);
     rows.push({ file, level: s.level, lines: Number(cells[cells.length - 2]),
+      width: cells[cells.length - 4] || '',
       screens: sc ? Number(sc[0]) : (/^–/.test(cell) ? null : 0), raw: line });
   }
 });
@@ -201,13 +202,76 @@ const hubCards = new Set([...hubHtml.matchAll(/class="kp-card" href="([a-z0-9-]+
 const regPages = [];
 const navEarly = readFileSync(join(ROOT, 'design/kit/_nav.js'), 'utf8');
 for (const m of navEarly.matchAll(/"page":\s*"([a-z0-9-]+)\.html"/g)) regPages.push(m[1]);
-const hubMissing = [...new Set(regPages)].filter(x => !hubCards.has(x));
+/* THE HUB CANNOT CARD ITSELF, AND THE FIRST VERSION OF THIS LINE SAID IT COULD.
+   `overview.html` stands in the stand's registry like every other page, so it
+   arrived in `regPages`, found no `kp-card` pointing at itself - a page does not
+   link to the page you are already on - and was reported as a missing card at
+   every run since stage 09. A finding that is present on every run is not a
+   finding: it is noise the next reader learns to scroll past, and the real
+   missing card (`responsive.html`, stage 10's own roadmap page) sat underneath
+   it for two steps being read as the same noise. The exclusion is ONE name and
+   it carries its own idle control below: if the hub is ever renamed, or if it
+   stops being the file this check reads, the run fails rather than quietly
+   excusing a page that is no longer the hub. */
+const HUB_SELF = 'overview';
+if (!HUB.endsWith(`/${HUB_SELF}.html`))
+  { console.error(`hub-self: виняток «${HUB_SELF}» більше не є хабом (${HUB})`); process.exit(2); }
+if (!regPages.includes(HUB_SELF))
+  { console.error(`hub-self: виняток «${HUB_SELF}» не покриває нічого - його немає в реєстрі стенда`); process.exit(2); }
+const hubMissing = [...new Set(regPages)].filter(x => !hubCards.has(x) && x !== HUB_SELF);
 const hubOrphan = [...hubCards].filter(x => !regPages.includes(x));
 /* the headings count their own group, and they are a second claim about the same
    set - so they are asked separately rather than trusted */
 const hubHeads = [...hubHtml.matchAll(/<div class="kp-sh">([^<]+)<b>(\d+) \/ (\d+)<\/b><\/div>([\s\S]*?)<\/section>/g)]
   .map(m => ({ name: m[1].trim(), said: Number(m[2]), real: (m[4].match(/class="kp-card"/g) || []).length }))
   .filter(h => h.said !== h.real);
+
+/* ---------- THE Width COLUMN, RE-DERIVED RATHER THAN TRUSTED ----------
+
+   `inventory.md` promises the column is DERIVED, not typed, and at step 4 it was:
+   every cell was read out of its own file after the comments were stripped. Then
+   the column stood still for two steps while the files moved under it. The debts
+   pass put a `@container` into `header.css`, and the header's cell went on saying
+   «860 · fluid» - a claim about the place the file no longer made. Nothing raised
+   it, because a derived column with no derivation left behind is exactly as
+   trustworthy as a typed one, and reads more so.
+
+   The derivation is the document's own, quoted from `inventory.md` section
+   «Width»: the `@media` numbers the file holds after comments are stripped, a
+   mirror (619, 859) reading as its point, plus `@container` for a threshold about
+   the PLACE, `ramp` for a `clamp()` and `fluid` for `auto-fit`, `auto-fill`,
+   `minmax()` or `flex-wrap`. `–` means «deliberately does not adapt», so it is
+   the empty derivation, not a missing value.
+
+   WRONG VERSION: THE FIRST COMPARISON ASKED `comp-width.mjs` INSTEAD OF THE FILE,
+   and reported 63 drifts out of 84 - three quarters of the table wrong, which is
+   the shape of an instrument error rather than a finding. `comp-width.mjs` has a
+   vocabulary of its own: it reports `container` for any `max-width` and does not
+   report `clamp()` at all, while this column reports `ramp` for `clamp()` and has
+   no word for `max-width`. Two sides that differ in more than the thing being
+   measured prove nothing. Reading the css directly, with the column's own words,
+   gives one. */
+const stripCss = s => s.replace(/\/\*[\s\S]*?\*\//g, ' ');
+const widthOf = file => {
+  const cssPath = [join(ROOT, 'design/system/components', file), join(ROOT, 'design/system/patterns', file)]
+    .find(existsSync);
+  if (!cssPath) return null;
+  const css = stripCss(readFileSync(cssPath, 'utf8'));
+  const pts = [];
+  for (const m of css.matchAll(/@media[^{]*?(\d+)px/g)) {
+    const p = ({ 619: 620, 859: 860 })[Number(m[1])] ?? Number(m[1]);
+    if (!pts.includes(p)) pts.push(p);
+  }
+  const out = pts.sort((a, b) => a - b).map(String);
+  if (/@container/.test(css)) out.push('@container');
+  if (/clamp\(/.test(css)) out.push('ramp');
+  if (/auto-fit|auto-fill|minmax\(|flex-wrap/.test(css)) out.push('fluid');
+  return out;
+};
+const partsOf = cell => cell.split('·').map(x => x.trim()).filter(x => x && x !== '\u2013');
+const wrongWidth = rows.filter(r => files.includes(r.file))
+  .map(r => ({ r, want: widthOf(r.file) }))
+  .filter(x => x.want && partsOf(x.r.width).sort().join(' · ') !== [...x.want].sort().join(' · '));
 
 const wrongLines = rows.filter(r => files.includes(r.file) && r.lines !== linesOf(r.file));
 const wrongLevel = rows.filter(r => files.includes(r.file) && levelOf(r.file) !== null && levelOf(r.file) !== r.level);
@@ -226,6 +290,8 @@ say('ЗАГОЛОВОК ХАБА РАХУЄ НЕ ТЕ', hubHeads, h => h.name + 
 say('ПАТЕРН БЕЗ РЯДКА В ІНВЕНТАРІ', patNoRow, f => f);
 say('ПАТЕРН БЕЗ СТОРІНКИ СТЕНДА', patNoPage, f => f);
 say('РЯДОК ПАТЕРНА БЕЗ ФАЙЛА', patRowNoFile, f => f);
+say('КОЛОНКА Width РОЗІЙШЛАСЬ З ФАЙЛОМ', wrongWidth,
+  x => x.r.file.padEnd(24) + 'у таблиці ' + (x.r.width || '–') + ' · у файлі ' + (x.want.join(' · ') || '–'));
 say('КОЛОНКА Lines РОЗІЙШЛАСЬ', wrongLines, r => r.file.padEnd(24) + 'у файлі ' + r.lines + ' · на диску ' + linesOf(r.file));
 say('РІВЕНЬ РОЗІЙШОВСЯ З ТИМ, ЩО КОМПОНЕНТ КАЖЕ ПРО СЕБЕ', wrongLevel,
   r => r.file.padEnd(24) + 'у таблиці ' + r.level + ' · у файлі ' + levelOf(r.file));
@@ -649,5 +715,5 @@ console.log('\n' + files.length + ' файлів компонентів · ря�
 console.log(SCREENS ? 'колонка Screens зміряна в браузері' :
   'колонка Screens НЕ перевірена - потрібен прапорець --screens (обхід корпусу браузером)');
 
-process.exit(noRow.length || noFile.length || wrongLines.length || wrongLevel.length ||
+process.exit(noRow.length || noFile.length || wrongLines.length || wrongWidth.length || wrongLevel.length ||
   noLevelDeclared.length || totalsBad || sumsBad.length || kitBad || wrongScreens.length || noAnchor.length ? 1 : 0);

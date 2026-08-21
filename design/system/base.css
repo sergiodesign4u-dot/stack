@@ -112,7 +112,36 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
 
    The ring inside the panel is untouched: every control there keeps its own
    `:focus-visible` from its own component. */
-[tabindex="-1"].open:focus{ outline: none; }
+[tabindex="-1"].open:focus,
+[tabindex="-1"].open:focus-visible{ outline: none; box-shadow: none; }
+
+/* THE RING IS A FLOOR NOW, NOT AN OPT-IN - step 10.6b, and the number is why.
+   Seventeen component files declare `:focus-visible` and the other sixty-seven do
+   not, so what a control showed on Tab depended on which file happened to own it.
+   Walked on `coach-clients.html` at 1280 with `:focus-visible` verified matching:
+   of 80 visible focusables, 51 drew Chrome's own `1px rgb(0, 95, 204)` and TWO
+   drew the system's ring. That blue is a FIXED value in the user agent - it does
+   not follow the dark theme, so on a dark surface the ring a keyboard user
+   depends on is a blue line on near-black.
+   The floor is the same token the two coach controls already take, so nothing new
+   is invented: 2px of page colour then 4px of the action line, which is what makes
+   it visible on ANY surface rather than only on a light one. `box-shadow` rather
+   than `outline` so it follows each element's own radius with no shape to declare.
+   SPECIFICITY IS THE WHOLE MECHANISM, AND THE FIRST WRITING GOT IT ONE STEP TOO
+   LOW. A bare `:focus-visible` is (0,1,0), which loses to any single class that
+   declares a `box-shadow` in a file loading after this one - and the big card
+   links do exactly that, because their resting elevation IS a box-shadow.
+   `tools/focus.mjs` found 20 of them on the home screen alone: `.hpromo`,
+   `.hvert`, `.hdeal`, `.gtile`, plus `.blogcard` on the product page. Every one
+   drew no ring at all, which is worse than the UA blue this rule was written to
+   replace.
+   The selector is doubled to (0,2,0) - the same pseudo-class twice, which changes
+   nothing about WHAT it matches and only what it outranks. It now beats a
+   one-class elevation, and it still loses to every component's own
+   `:focus-visible`, which is also (0,2,0) and stands in a file that loads later.
+   So all seventeen keep winning and this reaches only what nothing else answered
+   for. */
+:focus-visible:focus-visible{ outline: none; box-shadow: var(--ring-focus-control); }
 
 /* VISUALLY HIDDEN, AND THE SYSTEM GETS ONE EDITION OF IT. Two files were writing the
    same five declarations: `menu.css` on `.menu-src`, and `header.css` on the action

@@ -174,7 +174,24 @@ function outsideParens(sel, fn) {
    off it. Attribute conditions go too - `[aria-expanded="true"]` and
    `[data-theme="dark"]` are written by a script or by the theme switch - and so
    do classes a script toggles, by the signature `idle.mjs` settled on. */
+/* `:has()` IS NOT `:not()`, AND THE FIRST WRITING TREATED THEM THE SAME.
+   Nothing inside parentheses is stripped, for the `:not(.on)` reason above - and
+   that is right for `:not()`, where the argument is a NEGATIVE condition and
+   removing it inverts the rule. `:has()` is the opposite: the argument is a
+   positive condition on a descendant, so when that argument is nothing but ACT
+   pseudo-classes the whole `:has(...)` is itself an act condition, and the honest
+   host is the selector with it taken off.
+   It cost two false deaths the day step 10.6b wrote its first two of them -
+   `.field-grp:has(:focus-visible)` and `.coach .cl-search:has(:focus-visible)`,
+   both alive, both reported dead, because a focus condition inside `:has()` can
+   no more be found in repose than one outside it.
+   ONLY when the argument is pure act. `:has(.real-class)` is structural and stays
+   in pass A's question, exactly like `:last-child`: strip that and the instrument
+   stops being able to find the defect it was built for. */
+const ACT_ONLY_HAS = new RegExp(':has\\(\\s*(?::(?:' + STATE_PC.join('|') + ')\\s*)+\\)', 'g');
+
 function hostOf(sel) {
+  sel = sel.replace(ACT_ONLY_HAS, '');
   const cut = seg => seg
     .replace(/::[a-z-]+/g, '')                                   /* pseudo-elements */
     .replace(/:([a-z-]+)/g, (m, name) => STATE_PC.includes(name) ? '' : m)

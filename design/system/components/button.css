@@ -573,6 +573,28 @@
   opacity: 1;
   cursor: not-allowed;
 }
+/* 10.6b: AN OFF CONTROL THAT IS STILL IN THE TAB ORDER MUST STILL SHOW FOCUS.
+   `[disabled]` takes a control out of the tab order; `[aria-disabled="true"]`
+   deliberately does NOT - that is the whole reason the markup picks it, so a
+   screen-reader user can reach the control and hear why it is unavailable. The
+   off block above sets `box-shadow: none` at (0,2,0) and stands after the focus
+   floor in `base.css`, so those controls answered Tab with nothing at all and a
+   keyboard user landing on one lost their place on the page entirely.
+   `tools/focus.mjs` found exactly two in 19 071 controls across the corpus:
+   `.cd-blocked` on `cart-oos` (a `role="button"` span with `tabindex="0"`) and
+   `.cs-go` on `coach-session-empty` (an `<a href>`), both `aria-disabled`.
+   (0,3,0) so it beats the off block, and it says nothing about colour or plate -
+   the control still LOOKS unavailable, it just stops being invisible to Tab. A
+   truly `[disabled]` element never matches `:focus-visible`, so naming it here
+   costs nothing and keeps the pair readable as one rule. */
+.btn--accent[disabled]:focus-visible, .btn--accent[aria-disabled="true"]:focus-visible,
+.btn--outline[disabled]:focus-visible, .btn--outline[aria-disabled="true"]:focus-visible,
+.btn--ghost[disabled]:focus-visible, .btn--ghost[aria-disabled="true"]:focus-visible,
+.btn--text[disabled]:focus-visible, .btn--text[aria-disabled="true"]:focus-visible,
+.btn--icon[disabled]:focus-visible, .btn--icon[aria-disabled="true"]:focus-visible{
+  box-shadow: var(--ring-focus-control);
+}
+
 /* the boxless finishes have no plate to grey out, so only the mark goes pale */
 .btn--text[disabled], .btn--text[aria-disabled="true"],
 .btn--icon[disabled], .btn--icon[aria-disabled="true"]{

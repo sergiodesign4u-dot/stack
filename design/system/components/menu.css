@@ -160,6 +160,9 @@
 
 /* the select the menu was built from stays in the DOM as the value, and stays
    out of the tab order and out of the accessibility tree - the menu answers
-   for both now */
-.menu-src{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip-path: inset(50%); border: 0; }   /* = .vh in base.css, one edition */
+   for both now.
+   10.6b: THE FIVE DECLARATIONS ARE GONE FROM HERE. They were a verbatim copy of
+   `.vh` in `base.css`, and this file was the copy that came FIRST - `header.css`
+   read it as precedent and made a third. `menu.js` now puts `vh` on the element
+   beside `menu-src`, so the shape has one declaration site and this class is a
+   pure marker: the only thing that queries it is `menu.js` itself. */

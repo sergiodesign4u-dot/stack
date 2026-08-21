@@ -62,6 +62,7 @@ const KNOWN_GONE = {
   'design/kit/kit.css': 'the flat sheet of stage 07, deleted at 8.8; DESIGN.md keeps it in the drawn value chain as a dead middle step, with the reason beside it, because every token in tokens.css cites the declaration it came from',
   'design/system.html': 'tools/README.md quotes it as the 404 an early sweep produced - the sentence is ABOUT the dead path, the same shape as decisions.md quoting the em dash it forbids',
   'home-buyer/cart/coach.html': 'voice/docs/microcopy.md writes three screen names in one shorthand; it is an enumeration, not a path, and no guard on segment shape separates it from a real one without guessing',
+  'design/content-loyalty.html': 'backlog.md names it inside the step-6 withdrawals: an isolated audit agent reported a finding on it and the page does not exist - the loyalty screen in colour is account-loyalty.html, and content-loyalty is one of the fifty still grey. The sentence is ABOUT the missing file, the same shape as tools/README.md quoting design/system.html',
   /* the three NAMES stage 06 asked the owner to save the plates under. They came back
      numbered (-1, -2, -3) and a fourth direction appeared that this instruction never
      knew about; the README records both and keeps the instruction as it was given. */

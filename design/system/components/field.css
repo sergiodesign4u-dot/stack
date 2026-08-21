@@ -126,12 +126,21 @@ select.field{
    halo, never the browser's own ring. filled -> the edge stays darker than
    empty, so a long form shows what is already answered. */
 .field:hover, .field-grp:hover{ border-color: var(--line-control-hover); }
-.field:focus{
+/* 10.6b: `:focus` -> `:focus-visible`, and `:focus-within` -> `:has(:focus-visible)`.
+   DESIGN.md section 7 says it in words - «`focus-visible`, never `focus`. The ring
+   is for the person moving by Tab and in the way of the person who clicked» - and
+   this file was the one place the code disagreed with it. For a text field the two
+   are nearly the same picture, because a browser treats a focused text input as
+   focus-visible even after a click (you are about to type, so you need to know
+   where). The difference shows on the ones that are NOT typed into - a select
+   turned into a menu, a field group clicked open - and there the halo was
+   appearing for the mouse. */
+.field:focus-visible{
   outline: none;
   border-color: var(--line-action);
   box-shadow: var(--ring-focus);
 }
-.field-grp:focus-within{
+.field-grp:has(:focus-visible){
   border-color: var(--line-action);
   box-shadow: var(--ring-focus);
 }

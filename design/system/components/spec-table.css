@@ -15,6 +15,8 @@
 .ctable td b{ color: var(--text-primary); }
 /* step 6.10: was var(--fs-12-5) - no such token, so the declaration was dropped
    and this line rendered at the size it inherited. 12 is the nearest real rung. */
+/* 10.6b: the reading measure. Measured at 1600 across the corpus, this line ran to 149.8 characters - `--container-text` is 68ch and had exactly TWO readers in the whole system, both in seo-text.css, so every other block of running text simply grew with the window. Five selectors were over the measure and this is one of them. */
+.fullcomp{ max-width: var(--container-text); }
 .fullcomp{ margin-top: var(--space-12); font-size: var(--fs-12); color: var(--text-body); }
 .allerg{ font-size: var(--fs-14); color: var(--text-body); }
 .allerg .algic{ font-weight: var(--fw-black); }

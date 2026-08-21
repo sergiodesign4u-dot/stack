@@ -10348,3 +10348,109 @@ the OUTPUT rather than copying the threshold, checking whether the action label 
 clipped away, because a container's state cannot be read by `matchMedia` and 63rem must not exist in
 two editions. `aria-label` never changes, so what a screen reader announces is the same at every
 width.
+
+---
+
+## Stage 10, step 6 - the critique of the whole site, and what it turned out to be about
+
+Two instruments plus a third, as the rule says: Claude with a browser and the project's own
+apparatus, Codex read-only over the source (`write: false` in the job record), and `/impeccable audit`
+as an isolated browser agent. Sets taken independently, dedup after. **The width sweep across the 92
+coloured pages was NOT run - the owner deferred it until after Animation** - so the class «breaks
+between the points» has no findings, and that is a hole rather than a zero. It is named here so it is
+not read as coverage: `split.mjs` does sweep 91 pages at 129 widths, but only for the frames it
+declares, never for an arbitrary element, the navigation carriers or the line measure.
+
+### The shape of it: five of the six document defects were made by the two passes just before it
+
+`roles.mjs` and `inventory.mjs` both failed on files the debts pass and the critique repair had
+edited an hour earlier - `hero.html` still describing the `--bg-inverse` family the debts pass had
+moved off, `coach-clients.html` missing the four tokens the critique repair had added, `header.html`
+claiming its file carries no number other than 860 while `63rem` sat in it, `coach-clients.css`
+counted at 785 lines against 795 on disk. **`CLAUDE.md` already says a repair stales its own
+neighbours; what it did not say is that the instrument which catches that has to be re-run AFTER the
+repair, not before it.** The same loop then closed four more times inside step 6 itself, and each
+time it took a minute rather than two stages, because the instruments were run after every batch.
+
+### The audit table of this stage had gone stale about its own delivery, in both directions
+
+Eleven rows still read «NEW BEHAVIOUR · MISSING» for behaviour step 5 had built, and two screens
+that DO carry the frame sat in «THE SAME». Corrected by measurement rather than by reading the code:
+`.cs-grid` resolves `328px` at 360 and `320px 692px` at 1280 on `coach-session-empty` and
+`coach-session-addempty` too, and `.cc-wrap` goes 360 to 900 on the detail screen with `.cdetails` at
+868. **The count of eleven did not change and the membership did**, which is the part worth keeping:
+the audit had put the two DETAIL screens inside the eleven and left the two empty session states
+outside it, and step 5 decided the opposite on both counts from the pack's own rule - a split view
+does not cancel the detail screen, and the session strip carries the frame in every state because a
+page that grew a second column the moment its data arrived would jump under the coach's hands.
+
+### The focus ring was the largest single finding, and no source file contained it
+
+Measured on `coach-clients.html` at 1280 before the repair: of 80 visible focusables, **51 drew
+Chrome's own `1px rgb(0, 95, 204)`** and two drew the system's ring. That blue is a fixed value in
+the user agent - it does not follow the dark theme, so on a dark surface the ring a keyboard user
+depends on is a blue line on near-black.
+
+Seventeen component files declared `:focus-visible`; sixty-seven did not. The floor now lives in
+`base.css` and takes the same `--ring-focus-control` the two coach controls already used, so nothing
+new was invented. **Its first writing was one specificity step too low** - a bare `:focus-visible` is
+(0,1,0) and loses to any single class declaring a `box-shadow` in a later file, which is exactly what
+a card's resting elevation is; 20 links on the home screen alone drew nothing at all, which is worse
+than the blue the rule came to replace. The selector is doubled to (0,2,0): what it matches did not
+change, only what it outranks.
+
+**And four resets were deleting the ring permanently, which is a class rather than a bug.**
+`box-shadow: none` written on a CONTROL at (0,2,0) in a file that loads after `button.css` ties with
+`.btn--outline:focus-visible` and wins on source order. Two files, both correct on their own, and the
+defect exists only in the resolved output - so the resolved output is what `tools/focus.mjs` asks.
+The repair is not a stronger focus rule, which would have to be written again in the next file that
+resets a shadow: it is the reset saying what it meant, `:not(:focus-visible)`.
+
+**An off control that is still in the tab order must still show focus.** `[disabled]` leaves the tab
+order; `[aria-disabled="true"]` deliberately does not, which is the whole reason the markup picks it.
+Two such controls in 19 071 answered Tab with nothing at all.
+
+### The accessible name of every product link was the word «фото»
+
+Since stage 04 a product photo has been a box with the word in it; in colour the box takes a
+`background-image` and the word goes transparent. Invisible to the eye and still the only text inside
+an `<a>` - 222 occurrences on 35 of 92 pages, against 28 `<img>` in the whole folder. A screen reader
+listing the links of a category page read «фото» twenty-four times.
+
+**One edition rather than 142 edits, and the first edition was in the wrong file.** It went into
+`wireframes/_nav.js`, the prototype's chrome - and `accept.mjs` immediately failed four stand pages,
+because the stand deliberately does not load that file. It lives in `design/system/marks.js` now,
+which the product and the stand both load. The grey corpus keeps the word, and that is right: there
+the box IS the structure being shown. **The name is read off the card, never invented**: if no name
+element is found the link is left exactly as it was.
+
+### Values that moved, said out loud
+
+- `--size-62` is REMOVED. Zero readers, superseded by 64 at step 6.7 in that step's own comment, and
+  found three separate times without being acted on - `geometry.html` had been printing
+  «--size-62: 0» on the stand for two stages. A scale whose steps are not all reachable is a list of
+  numbers.
+- 58 declarations went from `px` to `rem`, of which **ten were `max-width: 1200px` where
+  `--container-page: 75rem` already existed**. Numerically a no-op at a 16px root, which is why
+  `proof.mjs --against HEAD` moved nothing on 40 screens; the gain is for the reader who enlarged
+  their font. The 120 numbers inside `@media` conditions were NOT converted: the pack mandates the
+  literal there, and rem in a query would be a behaviour change.
+- **The reading measure now has readers.** `--container-text: 68ch` had two, both in `seo-text.css`,
+  and running text ran to 149.8ch at 1600. Five selectors were over the measure, all with
+  `max-width: none`; all five now read the token, and the re-measure gives zero.
+- Three suppressed scrollbars got a mask affordance instead of nothing: the account rail hid **925 of
+  its 1253 pixels** at 360, the session strip 19, the bonus ledger 85.
+
+### Four instruments, and one of them was fixing an instrument
+
+`tools/dupe.mjs` (the same declaration block written twice), `tools/typo.mjs` (the three-dash rule
+asked of the whole tree rather than of rendered screens), `tools/focus.mjs` (press Tab and read the
+ring), and a repair to `tools/dead-sel.mjs`: `:has()` is not `:not()`. Nothing inside parentheses was
+stripped, which is right for `:not()`, where the argument is a negative condition - but in `:has()`
+the argument is positive, so a `:has()` of nothing but act pseudo-classes is itself an act. It cost
+two false deaths the day the first two such selectors were written. Proved not to have gone blind:
+a structural `:has(.no-such-class)` still reports dead.
+
+`accept.mjs` gained a seventh question, `ph`, because the six it had all asked what a page LOOKS
+like, and an accessible name is a computed fact of the same pass.
+
