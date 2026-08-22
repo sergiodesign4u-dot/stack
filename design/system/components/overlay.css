@@ -11,5 +11,27 @@
   align-items: center; justify-content: center; padding: var(--space-24); overflow-y: auto; }
 .ceov.open{ display: flex; }
 
+/* 11.4 - THE SURFACE COULD NOT ARRIVE, and the roll-call of step 3 was right
+   about it anyway. `display` is a DISCRETE property: it has no midpoint, so a
+   transition has nothing to interpolate and the element was simply there on one
+   frame and gone on the next. `transition-behavior: allow-discrete` holds the
+   old value until the rest of the transition finishes, and `@starting-style`
+   gives the browser the frame BEFORE the element existed to start from. Twenty
+   surfaces in this product open this way; the list, the job of each and the
+   reason for each number are in `design/kit/docs/motion.md`, section F5. */
+/* Both of these are SCRIMS: they darken what is behind so the surface in front
+   reads as the only live thing. A scrim does not travel - it has no place it
+   came from - so it fades and nothing else, at the same `--dur-slow` as the
+   surface it accompanies, or the dark would land before the dialog does. */
+.wf-ov, .ceov{ opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.wf-ov.open, .ceov.open{ opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{
+  .wf-ov.open, .ceov.open{ opacity: 0; }
+}
+
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wf-ov{ background:var(--scrim-overlay); }

@@ -38,7 +38,7 @@
 .menu{ position: relative; display: inline-flex; max-width: 100%; }
 .menu > .menu-trig{ max-width: 100%; }
 /* the caret turns over when the list is open - the same mark, not a second one */
-.menu-trig .uiv-ic{ transition: transform .15s ease; }
+.menu-trig .uiv-ic{ transition: transform var(--dur-fast) var(--ease-standard); }
 .menu.open .menu-trig .uiv-ic{ transform: rotate(180deg); }
 .menu-val{ overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 /* THE CAPTION IS QUIETER THAN THE VALUE. «Сортування:» names the axis and
@@ -80,6 +80,17 @@
 }
 
 .menu-pop.open{ display: block; }
+
+/* 11.4 - a popover fades and does not travel: it stands against the control that
+   opened it, so it is already where it came from. `--dur-base`, the same as the
+   two header menus, because all three are the same thing wearing three names. */
+.menu-pop{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.menu-pop.open{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .menu-pop.open{ opacity: 0; } }
 .menu-list{ max-height: 46vh; overflow-y: auto; outline: none; }
 
 /* ---- an option ----------------------------------------------------------
@@ -95,7 +106,7 @@
   line-height: var(--lh-snug);
   color: var(--text-body);
   background: none; border: none; text-align: left; cursor: pointer;
-  transition: background .12s ease, color .12s ease;
+  transition: background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard);
 }
 .menu-opt:hover{ background: var(--bg-sunken); color: var(--text-action); }
 .menu-opt:focus-visible{ outline: none; background: var(--bg-sunken);
@@ -104,6 +115,16 @@
 /* the tick sits at the far end and only the chosen row has one */
 .menu-opt .menu-tick{ margin-left: auto; display: none; color: var(--text-action); }
 .menu-opt[aria-selected="true"] .menu-tick{ display: inline-flex; }
+/* 11.4 - the smallest surface in the product and the only one that is pure
+   RESPONSE: the tick is the answer to the tap that chose this row, so it takes
+   `--dur-fast` and the row's own curve, and it arrives at the same moment as the
+   colour change two rules above. No movement - a tick that slides has been
+   somewhere else, and it has not. */
+.menu-opt .menu-tick{ opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-standard),
+              display var(--dur-fast) allow-discrete; }
+.menu-opt[aria-selected="true"] .menu-tick{ opacity: 1; }
+@starting-style{ .menu-opt[aria-selected="true"] .menu-tick{ opacity: 0; } }
 .menu-opt .menu-tick svg{ width: var(--size-20); height: var(--size-20); }
 
 .menu-sep{ height: 1px; background: var(--bg-rule); margin: var(--space-8) var(--space-4); }

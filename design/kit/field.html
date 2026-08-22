@@ -25,7 +25,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Поле</h1>
 <p class="kp-lead">Текстове поле форми. Найбільший атом системи, бо саме тут живуть майже всі стани, які в продукті взагалі є. Нижче - <b>усі шість форм поля</b>, які файл уміє, справжніми класами: сторінка, яка малює поле інлайновими стилями, показує не систему, а свій малюнок.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/field.css</span><span class="kp-tag">260 рядків</span><span class="kp-tag">85 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/field.css</span><span class="kp-tag">269 рядків</span><span class="kp-tag">85 екранів</span></div>
 <style>
 .fset{ display:grid; gap:var(--space-24); }
 .fs-row{ display:grid; grid-template-columns:minmax(140px,180px) repeat(2, minmax(0,1fr));
@@ -93,9 +93,15 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["cc", "cef", "cool", "err", "field", "field--mono", "field--s", "field-grp", "field-grp--s", "fld", "frow", "has", "in", "opt", "pf-val", "pfield", "ph-field", "resend"], KIT_STS=["::placeholder", ":focus", ":focus-within", ":hover", "[disabled]", "[readonly]"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color, box-shadow (кільце фокусу). Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<div class="kp-demo"><input class="field" type="text" placeholder="Ваше ім'я" aria-label="Демонстрація поля"></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>field.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (16)</th><th>Примітиви (15)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--field-caret</code> <code>--line-action</code> <code>--line-control-filled</code> <code>--line-control-hover</code> <code>--line-danger</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-danger</code> <code>--ring-focus</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--size-20</code> <code>--size-40</code> <code>--size-44</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (16)</th><th>Примітиви (15)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--field-caret</code> <code>--line-action</code> <code>--line-control-filled</code> <code>--line-control-hover</code> <code>--line-danger</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-danger</code> <code>--ring-focus</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-secondary</code></td><td><code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--size-20</code> <code>--size-40</code> <code>--size-44</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-8</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;div class="fld"&gt;&lt;label for="ph"&gt;Номер телефону&lt;/label&gt;

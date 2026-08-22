@@ -53,6 +53,19 @@
 }
 #sidebar.is-open { transform: translateX(0); }
 
+/* 11.5 - CLOSED BY NAME, NOT BY TOKEN, and the reason is where this file is
+   loaded. The roadmap panel is repo chrome: it stands on the stand pages, which
+   DO load the design system, and on `/index.html`, which does not. Reaching for
+   `var(--dur-base)` here would resolve on one and be invalid at computed-value
+   time on the other, and an invalid transition is a silent one - the panel would
+   simply stop sliding on the entry point of the whole project.
+   So this is the same treatment the cycles and the cross-document transition get:
+   what the token override cannot reach is switched off where it lives. The panel
+   still opens and still closes; only the slide goes. */
+@media (prefers-reduced-motion: reduce){
+  #sidebar { transition: none; }
+}
+
 .nav-brand {
   display: block; padding: 22px 20px 18px; border-bottom: 1px solid var(--nav-rule);
   font-weight: 700; font-size: 17px; letter-spacing: -.02em;

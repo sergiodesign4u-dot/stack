@@ -1951,3 +1951,56 @@ already takes - `.menu-opt`, `.wfh-langmenu a`, `.wfh-cabmenu a` - and a card in
 list. **The open question is the prose, not the code:** stage 08's documentation names a state token
 that has never existed, so the next reader will reach for it again. Either the token gets declared
 with both themes, or the prose stops naming it.
+
+## The two spinners write the same rule twice - stage 11, found by Codex at step 6
+
+`auth-dialog.css:205` and `checkout-form.css:364` carry a byte-identical declaration:
+
+    .auth-spin{ border-top-color: var(--line-action); animation: uivspin var(--dur-cycle) var(--ease-cycle) infinite; }
+    .co-spin{   border-top-color: var(--line-action); animation: uivspin var(--dur-cycle) var(--ease-cycle) infinite; }
+
+plus a duplicated `@media (prefers-reduced-motion: reduce)` block beside each. **Half of this was
+already fixed at step 4**: `@keyframes uivspin` was declared inside `auth-dialog.css` and read from
+`checkout-form.css`, which worked only because keyframe names are global, and it now stands in
+`base.css`. What is left is the rule itself.
+
+**Why it is not closed here.** Merging them needs ONE class on both elements, and the markup of one of
+the two is written by `wireframes/_nav.js` - the frozen grey corpus this stage may not edit. The
+coloured screens would take a new class today and the grey ones would not, which is two editions of
+one control, and that is a worse defect than the duplicate. **Stage 12 rebuilds both screens anyway**,
+so the merge costs one class there and nothing anywhere else.
+
+The same shape as `action-row`'s forty unconverted container names: a conversion that is correct and
+whose only honest moment is the rebuild.
+
+## Every «немає» in the motion column carries a reason - stage 11, step 6
+
+Not a debt, a rule, written here because the next stage will add rows: **a component whose `Рух`
+column says «немає» must say WHY in the same cell** - «стану немає» (nothing to answer) or «рух
+шкодить» (movement would lie about what happened). A bare «немає» is a gap wearing the clothes of a
+verdict, and `tools/motion.mjs --states` cannot tell the two apart.
+
+## The view transition carries nothing - stage 11, step 6, found by the critique
+
+`@view-transition { navigation: auto }` crossfades one whole-page snapshot into another. The moment
+it could actually be doing - the listing card's photo becoming the product page's photo, which is the
+CONNECTION job in its purest form - needs `view-transition-name` on both elements in both documents,
+and there are **0 declarations** of it in the tree.
+
+**Why it is not closed here, and the reason is measured rather than preferred.** A
+`view-transition-name` must be UNIQUE per document. A listing renders 12 product cards, so a single
+declaration in `product-card.css` produces 12 duplicates, and Chrome's response to a duplicate name is
+to skip the entire transition, not the offending pair. Unique per-card names therefore cannot come
+from a component stylesheet at all, and they cannot come from a screen file either: **stage 11 bans
+`transition`, `animation` and `@keyframes` in `design/*.html`**, and a per-element motion identity
+written into a screen is the same defect wearing a different property name.
+
+**What it would take.** Either the names are generated where the markup is generated - which is
+`wireframes/_nav.js` for the grey corpus and the screen builder of stage 12 for the coloured one - or
+the system grows a documented way to stamp them. Both are stage-12 work, on screens stage 12 rebuilds
+anyway. The same shape as the two spinners above: a conversion that is correct and whose only honest
+moment is the rebuild.
+
+**And it is not free even then.** The transition currently fires identically on `listing -> product`
+(a real move), on `listing -> ?page=2` (the same document), and on related links that point at the
+page they are already on. Scoping it to the pairs that mean something is the other half of the order.

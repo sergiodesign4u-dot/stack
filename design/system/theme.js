@@ -30,12 +30,32 @@
 
   apply(read());
 
+  /* 11.5 - THE THEME SWITCH IS THE ONLY MOMENT IN THIS PRODUCT WHERE HALF THE
+     DOCUMENT MOVES AT ONCE, and nobody ordered it. Measured on `listing.html`:
+     2006 elements, of which 463 carry a colour transition, and flipping
+     `[data-theme]` starts every one of them - 32.1ms of style recalculation in
+     one go, and 150ms of animating a palette. Those transitions were written for
+     HOVER; the whole page cross-fading is a side effect of 463 hover rules, which
+     is the same argument that removed `transition: all`.
+     The class is put on for ONE frame. `requestAnimationFrame` twice, because the
+     first callback runs BEFORE the style change has been painted - taking the
+     class off there would let the transitions start after all. The second one
+     runs after the new palette is on screen, which is when it is safe again. */
+  function still(fn) {
+    var el = document.documentElement;
+    el.classList.add('uiv-theming');
+    fn();
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { el.classList.remove('uiv-theming'); });
+    });
+  }
+
   /* Called by the panel. Returns the mode it landed on, so the caller redraws
      its own label instead of keeping a second copy of the state. */
   window.uivTheme = function (mode) {
     if (!mode) mode = read() === 'dark' ? 'light' : 'dark';
     try { mode === 'dark' ? localStorage.setItem(KEY, 'dark') : localStorage.removeItem(KEY); } catch (e) {}
-    apply(mode);
+    still(function () { apply(mode); });
     return mode;
   };
 

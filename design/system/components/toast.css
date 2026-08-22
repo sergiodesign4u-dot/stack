@@ -9,8 +9,26 @@
   display: flex; flex-direction: column; gap: var(--space-8); width: 92%; max-width: 23.75rem; }
 .wf-toast{ display: flex; align-items: center; gap: var(--space-12); background: var(--bg-inverse); color: var(--text-oninverse);
   border-radius: var(--radius-8); padding: var(--space-12) var(--space-16); font-size: var(--fs-14); box-shadow: var(--elevation-4);
-  animation: tt-in .22s ease; }
-.wf-toast.out{ opacity: 0; transform: translateY(8px); transition: all .25s ease; }
+  --tt-travel: var(--move-md);
+  animation: tt-in var(--dur-slow) var(--ease-enter); }
+/* `transition: all` WAS HERE, and it was the only one in the product. It animated
+   whatever happened to change - including the layout properties nobody ordered -
+   and the census showed one declaration reaching 32 elements. The two properties
+   that actually leave are named, and the distance is the token the arrival uses,
+   so the toast goes back exactly the way it came. 8px folded into `--move-md`. */
+/* 11.4 - THE EXIT IS `--dur-base` AND THE REASON IS IN A FILE THIS STAGE MAY NOT
+   TOUCH. `wireframes/_nav.js:1260` adds `.out` and then removes the node 250ms
+   later - a number written when the exit was a quarter of a second. Step 3 put
+   the exit on `--dur-slow`, which is 330: the node was being deleted 80ms before
+   its own transition finished, so the toast vanished mid-fade every time. The
+   grey corpus is frozen and read-only, so the duration is what moves, and it
+   moves to the rung that FITS: 220 < 250. This is the one place in the stage
+   where a number outside the system decided a number inside it, and it is
+   written down rather than quietly obeyed.
+   Asymmetry is not a compromise here: `--ease-exit` exists because nobody needs
+   to watch something finish leaving. */
+.wf-toast.out{ opacity: 0; transform: translateY(var(--tt-travel));
+  transition: opacity var(--dur-base) var(--ease-exit), transform var(--dur-base) var(--ease-exit); }
 .wf-toast .tt-ic{ flex: none; width: var(--size-20); height: var(--size-20); border-radius: var(--radius-circle); display: flex; align-items: center; justify-content: center; font-size: var(--fs-12); font-weight: var(--fw-black); background: var(--bg-page); color: var(--text-primary); }
 /* 7.78: TWO RULES STOOD HERE AND NEITHER CHANGED ANYTHING, and they failed in two
    different ways worth telling apart.
@@ -37,5 +55,21 @@
    and it is the owner's. Recorded in `architecture.md`. */
 .wf-toast .tt-m{ flex: 1; }
 .wf-toast .tt-x{ color: var(--text-oninverse); opacity: .7; font-size: var(--fs-14); }
-.wf-toast.error{ border: 1px solid var(--line-onink); }
-@keyframes tt-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* 11.4 - AND THE ERROR TOAST MOVES DIFFERENTLY FROM THE SUCCESS ONE, which is
+   the only defect the tone check of step 4 found in the product's motion.
+   `voice.md`, «Тон за станом»: an error is «що сталося + що робити; без вибачень
+   і жартів», and the pack turns that into four values - short, no spring, SMALL
+   amplitude, no celebration. Until this rule a `wfToast('error', ...)` arrived
+   on exactly the same 330ms and the same ten pixels as «Адресу збережено»: the
+   same swing under two opposite sentences.
+   THE MECHANISM IS A LOCAL ALIAS, NOT A TOKEN REDEFINED. The first writing set
+   `--move-md: var(--move-sm)` on the error, which works and reads as a lie: the
+   file would say the medium distance IS the small one, and `roles.mjs` promptly
+   reported `--move-md` as unused because the only thing left in the file was its
+   own redefinition. `--tt-travel` is this component's own name for «how far a
+   toast travels»; both tokens stay visible as tokens, the keyframe and the exit
+   read the alias, and at `reduce` both collapse to zero together. */
+.wf-toast.error{ border: 1px solid var(--line-onink);
+  --tt-travel: var(--move-sm);
+  animation-duration: var(--dur-base); }
+@keyframes tt-in { from { opacity: 0; transform: translateY(var(--tt-travel)); } to { opacity: 1; transform: translateY(0); } }

@@ -210,7 +210,7 @@
 .pcard-l:nth-of-type(3n+2) .lph{ background-image:url(../../visuals/product-creatine.png); }
 .pcard-l:nth-of-type(3n)   .lph{ background-image:url(../../visuals/product-preworkout.png); }
 .pcard{ box-shadow:var(--elevation-1); }
-.pcard{ transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease; }
+.pcard{ transition:transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard); }
 /* 7.43: the grid card's hover was written as two halves in two places - the lift
    and the shadow here, the accent edge sixty lines down, with the whole colour
    block between them. One state, one rule. */
@@ -222,8 +222,8 @@
    answers exactly one question, «this is the one you are on», and step 6.0 already
    made the DEPTH under it a scale for the same reason. Nine against one is not a
    design decision about cards, it is the one that never got the sweep. */
-.pcard:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); border-color: var(--line-action); }
-.pcard .ph{ transition:background-size .28s ease; }
+.pcard:hover{ transform:translateY(calc(var(--move-sm) * -1)); box-shadow: var(--elevation-2); border-color: var(--line-action); }
+.pcard .ph{ transition:background-size var(--dur-fast) var(--ease-standard); }
 /* step 6.10: the saved mark - ink, fill and stroke - is a state of the button
    and lives in button.css. Three files described it; one does now. */
 /* ---------- and the two cards answer the cursor with one sentence - 7.43 ------
@@ -237,7 +237,7 @@
    depth), it carries no resting shadow (fourteen of them stacked is noise), and
    its photograph does not swell (an 84px thumbnail has nowhere to swell into).
    What both do share is the shadow rung under the cursor, which they already did. */
-.pcard-l{ transition:box-shadow .18s ease, border-color .18s ease; }
+.pcard-l{ transition:box-shadow var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard); }
 .pcard-l:hover{ box-shadow: var(--elevation-2); border-color:var(--line-action); }
 /* 7.43: `.pcard-l .fav .uiv-ic` and its svg were in both of these lists and matched
    nothing on any screen at any width - a list card's heart is `.lfav`, and `.fav`
@@ -314,7 +314,7 @@
    found by asking the browser which selectors match nothing rather than by
    reading. Крок 6 folds `.nm` and `.lnm` into one name and this line loses half
    of itself. */
-.pcard .nm, .pcard-l .lnm{ transition:color .15s ease; }
+.pcard .nm, .pcard-l .lnm{ transition:color var(--dur-fast) var(--ease-standard); }
 .pcard .nm:hover, .pcard-l .lnm:hover{ color:var(--text-action); }
 /* 7.43: `.packlabel` and its `figcaption` went to spec-table.css, and the stand's
    idle check is what found them: they are the only two classes this file declares

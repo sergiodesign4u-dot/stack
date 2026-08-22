@@ -61,6 +61,12 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["fav", "on", "wlrm"], KIT_STS=[":focus-visible", ":hover"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: нічого власного. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<p class="kp-p">Серце не оголошує жодного переходу і не мусить: воно носить <code>btn--text btn--icon</code>, тобто рух приходить із <code>button.css</code> одним записом на всі 92 позначки. Той самий перепис спершу назвав його «має стан і не рухається», і це було хибно.</p>
+<div class="kp-demo"><button class="btn--text btn--icon fav" aria-label="В обране"></button> <button class="btn--text btn--icon fav on" aria-label="Прибрати з обраного"></button></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>favourite.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--size-44</code></td></tr></tbody></table></div></section>

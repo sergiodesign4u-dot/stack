@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Рух | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<!-- The same panel responsive.html carries: this page is the roadmap item of
+     stage 11 and a page of the stand at the same time. The roadmap itself does
+     not render here. -->
+<link rel="stylesheet" href="../../_nav.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<script>
+window.NAV_SECTIONS = [
+ { "id": "jobs",     "label": "Три роботи" },
+ { "id": "dur",      "label": "Тривалості" },
+ { "id": "ease",     "label": "Криві" },
+ { "id": "move",     "label": "Дистанції" },
+ { "id": "surf",     "label": "Поверхні" },
+ { "id": "states",   "label": "Стани екрана" },
+ { "id": "pat",      "label": "Патерни" },
+ { "id": "doc",      "label": "Перехід між екранами" },
+ { "id": "frame",    "label": "Ціна кадру" },
+ { "id": "less",     "label": "Менше анімації" },
+ { "id": "inv",      "label": "Інвентар моментів" },
+ { "id": "refs",     "label": "Референси характеру" }
+];</script>
+<style>
+  /* THE LIVE HALF OF THIS PAGE, and here it matters more than anywhere else in
+     the stand: movement cannot be shown with text, and a screenshot shows a
+     frame rather than a movement. Every demo below reads the real tokens
+     through var(), so a change in `tokens.css` changes this page and nothing
+     needs to be re-typed. The styles live here because this is the STAND, and
+     stand geometry has never been a product rule - `_page.css`, the inline
+     block on geometry.html and the one on responsive.html are the precedent.
+     Nothing here declares a product class. */
+  .mdemo{ border:1px solid var(--line-hair); border-radius:var(--radius-12); background:var(--bg-surface);
+          padding:var(--space-16); margin:var(--space-12) 0; }
+  .mcap{ font-size:var(--fs-12); color:var(--text-muted); font-family:var(--font-mono); margin-bottom:var(--space-12); }
+  .mrow{ display:flex; flex-wrap:wrap; gap:var(--space-16); align-items:flex-start; }
+  /* TWO GAPS, NOT ONE. The first version gave every gap inside a demo the same
+     8px, so a label sat exactly as close to the lane above it as to the lane it
+     names - and a reader had no way to tell which one it belonged to. That is
+     not a wrong number, it is a missing DIFFERENCE: grouping is carried by the
+     ratio between the inner gap and the outer one, never by either alone. */
+  .mtrack{ display:grid; gap:var(--space-16); min-width:0; }
+  .mrowg{ display:grid; gap:var(--space-4); min-width:0; }
+  .mtrack + .kp-p, .mrow + .kp-p{ margin-top:var(--space-16); }
+  .mlabel{ font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+  .mbox{ width:var(--mbox); height:var(--mbox); border-radius:var(--radius-8); background:var(--bg-action-soft);
+         border:1px solid var(--line-strong); display:grid; place-items:center;
+         font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+
+  /* ---- durations: three identical objects, one press, three numbers.
+     Side by side ON PURPOSE. Alone, none of the three reads as fast or slow -
+     the difference between 150 and 220ms is only visible against a neighbour.
+
+     THE TRAVEL IS A RELATION, AND THE FIRST VERSION WROTE IT AS A NUMBER.
+     `translateX(140px)` inside a lane that stretched to the full 922px of the
+     page meant the object crossed 15% of its own track and stopped in open
+     space, which reads as broken rather than as finished. The lane is now a
+     bounded TRACK and the distance is «the track minus the object», so the
+     object arrives at the far edge at any width and the end of the movement is
+     a place rather than a coordinate. */
+  /* AND THE TRACK'S OWN WIDTH IS A RELATION TOO. A flat 280px fitted at 360 with
+     one pixel to spare, which is not a margin - the lane would have been clipped
+     by its own `overflow` on any narrower client. The track is now «as wide as
+     the content box allows, never wider than 320 and never narrower than 240»,
+     and all three lanes share it, so the comparison the demo exists for stays
+     valid at every width. */
+  .mdemo{ --mbox:56px; --lanepad:var(--space-8); --lane:clamp(240px, 100vw - 6rem, 320px); }
+  .mlane{ background:var(--bg-sunken); border-radius:var(--radius-8); padding:var(--lanepad);
+          width:var(--lane); max-width:100%; overflow:hidden; }
+  .mlane .mbox{ transition:transform var(--dur-fast) var(--ease-standard); }
+  .mlane.b .mbox{ transition-duration:var(--dur-base); }
+  .mlane.s .mbox{ transition-duration:var(--dur-slow); }
+  .mgo .mlane .mbox{ transform:translateX(calc(var(--lane) - var(--mbox) - var(--lanepad) * 2)); }
+
+  /* ---- curves: same duration for all three, so only the shape differs */
+  .mcurve .mbox{ transition:transform var(--dur-slow) var(--ease-standard); }
+  .mcurve.en .mbox{ transition-timing-function:var(--ease-enter); }
+  .mcurve.ex .mbox{ transition-timing-function:var(--ease-exit); }
+
+  /* ---- distances */
+  .mdist .mbox{ transition:transform var(--dur-base) var(--ease-standard); }
+  .mgo .mdist.sm .mbox{ transform:translateY(calc(var(--move-sm) * -1)); }
+  .mgo .mdist.md .mbox{ transform:translateY(calc(var(--move-md) * -1)); }
+
+  /* ---- job 1, CONNECTION: the panel leaves from under the control that opened
+     it, and goes back the same way. The direction is the whole message. */
+  .mconn{ position:relative; }
+  .mpanel{ margin-top:var(--space-8); border:1px solid var(--line-hair); border-radius:var(--radius-8);
+           background:var(--bg-sunken); padding:var(--space-12); font-size:var(--fs-14);
+           opacity:0; transform:translateY(calc(var(--move-md) * -1));
+           transition:opacity var(--dur-slow) var(--ease-enter), transform var(--dur-slow) var(--ease-enter);
+           pointer-events:none; }
+  .mconn.open .mpanel{ opacity:1; transform:translateY(0); pointer-events:auto; }
+
+  /* ---- job 2, STATUS. The cycle has NO token yet and this demo says so out
+     loud: `--dur-cycle` is the open question of step 2, so the value here is
+     the one `skeleton.css` already carries. */
+  .mbar{ height:12px; border-radius:var(--radius-8); background:var(--bg-sunken); }
+  .mbar.w1{ width:90%; } .mbar.w2{ width:72%; } .mbar.w3{ width:50%; }
+  .mpulse{ animation:mpulse 1.1s ease-in-out infinite; display:grid; gap:var(--space-8); }
+  @keyframes mpulse{ 0%,100%{ opacity:1; } 50%{ opacity:.55; } }
+
+  /* ---- job 3, RESPONSE */
+  .mresp{ border:1px solid var(--line-strong); border-radius:var(--radius-8); background:var(--bg-surface);
+          padding:var(--space-12) var(--space-16); font-size:var(--fs-14); color:var(--text-primary);
+          cursor:pointer;
+          transition:background var(--dur-fast) var(--ease-standard),
+                     border-color var(--dur-fast) var(--ease-standard),
+                     transform var(--dur-fast) var(--ease-standard); }
+  .mresp:hover{ background:var(--bg-sunken); border-color:var(--line-control-hover); }
+  .mresp:active{ transform:translateY(var(--move-sm)); }
+
+  /* ---- the reduced-motion demonstration. The class goes on the ROOT and
+     redefines the same tokens - the same mechanism the media query uses, so
+     what you see here is what the system setting does, not an imitation. */
+  .rm-demo{ --dur-fast:1ms; --dur-base:1ms; --dur-slow:1ms; --move-sm:0px; --move-md:0px; }
+  .rm-demo .mpulse{ animation:none; opacity:.78; }
+  /* 11.5 - AND THE PAGE ABOUT MOTION WAS THE ONE THAT KEPT MOVING. `.rm-demo` is
+     this page's own toggle, put here at step 2 so a reader can SEE what less
+     motion does; it is not the media query, so under a real system preference
+     this demo pulse went on breathing. The audit of step 5 caught it on exactly
+     one page, and it was this one. The cycle is replaced by the static state, the
+     same treatment `skeleton.css` gives the real thing - and the demo above still
+     shows what it was put here to show, because the toggle is unaffected. */
+  @media (prefers-reduced-motion: reduce){
+    .mpulse{ animation:none; opacity:.78; }
+  }
+
+  .msoon{ border:1px dashed var(--line-strong); border-radius:var(--radius-12);
+          padding:var(--space-16); color:var(--text-muted); font-size:var(--fs-14); }
+  .mnow{ display:flex; flex-wrap:wrap; gap:var(--space-8) var(--space-16); align-items:baseline;
+         font-family:var(--font-mono); font-size:var(--fs-12); color:var(--text-secondary); }
+  .mnow b{ color:var(--text-primary); font-size:var(--fs-16); }
+
+  /* ---- the live surface demo of step 4 -------------------------------------
+     The same three lines the twenty surfaces in the system carry, on a stage
+     small enough to fit in a page: `display` switched by a class, the pair that
+     lets a discrete property be transitioned, and the frame to start from. The
+     values are read through var(), so this box follows tokens.css like the rest
+     of the page. */
+  .msurf-stage{ position: relative; height: 148px; border: 1px solid var(--line-hair);
+    border-radius: var(--radius-12); overflow: hidden; background: var(--bg-sunken); }
+  .msurf-scrim{ display: none; position: absolute; inset: 0; background: var(--scrim-overlay);
+    opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-exit),
+                display var(--dur-slow) allow-discrete; }
+  .msurf-stage.open .msurf-scrim{ display: block; opacity: 1;
+    transition: opacity var(--dur-slow) var(--ease-enter),
+                display var(--dur-slow) allow-discrete; }
+  .msurf-card{ display: none; position: absolute; left: 50%; top: 50%;
+    transform: translate(-50%, calc(-50% + var(--move-md))); opacity: 0;
+    width: min(20rem, 84%); padding: var(--space-16); border-radius: var(--radius-12);
+    background: var(--bg-page); box-shadow: var(--elevation-4);
+    flex-direction: column; gap: var(--space-4);
+    transition: opacity var(--dur-slow) var(--ease-exit),
+                transform var(--dur-slow) var(--ease-exit),
+                display var(--dur-slow) allow-discrete; }
+  .msurf-stage.open .msurf-card{ display: flex; opacity: 1; transform: translate(-50%, -50%);
+    transition: opacity var(--dur-slow) var(--ease-enter),
+                transform var(--dur-slow) var(--ease-enter),
+                display var(--dur-slow) allow-discrete; }
+  .msurf-card span{ font-size: var(--fs-12); color: var(--text-secondary); }
+  @starting-style{
+    .msurf-stage.open .msurf-scrim{ opacity: 0; }
+    .msurf-stage.open .msurf-card{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md))); }
+  }
+</style>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Основи</div><h1 class="kp-h1">Рух</h1>
+<p class="kp-lead">У продукті <b>вже рухалося 46 файлів із 88</b>, і жодне число там ніхто не обирав: <b>12 різних тривалостей</b> і крива <code>ease</code> на <b>817 значеннях з 818</b> - тобто значення, яке дістається, коли криву не називав ніхто. Цей етап руху не додає, він його <b>називає</b>: три роботи, три тривалості, три криві. Усе на сторінці живе і читає токени з <code>tokens.css</code>.</p>
+<div class="mnow" id="mnow"></div>
+
+<section class="kp-sec" id="jobs"><div class="kp-sh">Три роботи, і четвертої не буває</div>
+<p class="kp-p">Спершу називається робота, потім береться анімація. Момент, для якого жодна з трьох не називається, в інвентар не потрапляє: рух без роботи коштує увагу на кожному відкритті екрана, а виглядає як старанність.</p>
+
+<div class="mdemo mconn" id="d-conn">
+<div class="mcap">ЗВ'ЯЗОК - «звідки це взялось?» · <code>--dur-slow</code> + <code>--ease-enter</code> + <code>--move-md</code></div>
+<button class="mresp" type="button" data-toggle="d-conn">Фільтри</button>
+<div class="mpanel">Панель виходить <b>з-під кнопки, яка її відкрила</b>, і повертається туди ж. Напрямок і є повідомлення: якби вона приїхала з іншого краю, людина не зв'язала б її з натиском.</div>
+</div>
+
+<div class="mdemo">
+<div class="mcap">СТАТУС - «воно ще працює?» · рівний цикл, без прискорення</div>
+<div class="mpulse"><i class="mbar w1"></i><i class="mbar w2"></i><i class="mbar w3"></i></div>
+<p class="kp-p">Швидкість, що не змінюється, каже «живе» і нічого не обіцяє. Цикл, який прискорюється, читається як «майже готово» - обіцянка, якої продукт дати не може: скільки триває зовнішня перевірка, він не знає. Береться лише там, де процес довший за ~300 мс: миготіння на швидкій відповіді гірше за нерухомість.</p>
+<div class="kp-gap"><h4>У цього циклу ще немає токена, і це відкрите питання кроку 2</h4>Три тривалості описують ПЕРЕХІД, а не цикл: пульс на 150 або 330 мс це миготіння. Сьогодні <code>skeleton.css</code> несе <code>1.1s</code>, а два обертуни <code>.9s</code> - літералами, що контракт називає дефектом. Рішення про четвертий токен за власником, і поки воно не ухвалене, тут стоїть те саме число, що в системі.</div>
+</div>
+
+<div class="mdemo">
+<div class="mcap">ВІДПОВІДЬ - «мене почули?» · <code>--dur-fast</code> + <code>--move-sm</code></div>
+<button class="mresp" type="button">Наведи і натисни</button>
+<p class="kp-p">Відгук, повільніший за ~150 мс, уже не відповідь: він читається як роздум інтерфейсу. Тому <code>--dur-fast</code> стоїть на верхньому краї цього вікна, а не за ним.</p>
+</div>
+</section>
+
+<section class="kp-sec" id="dur"><div class="kp-sh">Тривалості: три, і кожна це РОБОТА, а не розмір</div>
+<p class="kp-p">Три об'єкти рушають <b>одночасно</b> від одного натиску. Порівняння тут не оформлення, а єдиний спосіб побачити різницю: окремо жодна з трьох не читається ні швидкою, ні повільною.</p>
+<div class="mdemo" id="d-dur">
+<div class="mcap">натисни - і всі три поїдуть разом</div>
+<div class="mtrack">
+  <div class="mrowg"><div class="mlabel">--dur-fast · 150ms · відповідь</div><div class="mlane f"><div class="mbox">150</div></div></div>
+  <div class="mrowg"><div class="mlabel">--dur-base · 220ms · перехід усередині компонента</div><div class="mlane b"><div class="mbox">220</div></div></div>
+  <div class="mrowg"><div class="mlabel">--dur-slow · 330ms · поява елемента</div><div class="mlane s"><div class="mbox">330</div></div></div>
+</div>
+<p class="kp-p"><button class="mresp" type="button" data-go="d-dur">Пустити всі три</button></p>
+</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Токен</th><th>Значення</th><th>Робота</th><th>Звідки число</th></tr></thead><tbody>
+<tr><td><code>--dur-fast</code></td><td><b>150ms</b></td><td>відповідь</td><td>власна більшість продукту, <b>взята, а не замінена</b>: 92 зі 133 оголошень і 26 083 з 42 303 обчислених значень уже стоять тут. <code>.14s</code> і <code>.12s</code> згортаються в неї</td></tr>
+<tr><td><code>--dur-base</code></td><td><b>220ms</b></td><td>перехід у компоненті</td><td>теж наявне значення (6 оголошень), <b>але робота змінюється</b>: сьогодні це ціна ПОЯВИ (шухляда, шит, тост), відсьогодні поява піднімається на щабель вище</td></tr>
+<tr><td><code>--dur-slow</code></td><td><b>330ms</b></td><td>поява елемента</td><td><b>єдине число, якого в переписі не було</b>, і це знахідка, а не виняток: продукт живе в смузі 120-280 мс, де немає щабля, що читається як прибуття. Ніщо не сповільнюється - одинадцять організмів зі станом <code>open</code> сьогодні не мають переходу взагалі. 330 це 1.5x від базової, тобто те саме відношення, у якому базова стоїть до швидкої</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="kp-sec" id="ease"><div class="kp-sh">Криві: три, і кожна розв'язана, а не пригадана</div>
+<p class="kp-p">Тривалість у всіх трьох однакова, тож видно рівно форму. Референс кроку 1 назвав <b>родину</b> (<code>power_.out</code>) і не дав чотирьох чисел - тому числа <b>підігнані</b> до функції родини приладом <code>tools/ease-fit.mjs</code>. Пригадана з таблиці крива це вигадане число, лише на одну таблицю далі.</p>
+<div class="mdemo" id="d-ease">
+<div class="mcap">натисни - і всі три поїдуть разом, на <code>--dur-slow</code></div>
+<div class="mtrack">
+  <div class="mrowg"><div class="mlabel">--ease-standard · більшість переходів</div><div class="mlane mcurve st"><div class="mbox">st</div></div></div>
+  <div class="mrowg"><div class="mlabel">--ease-enter · те, що ПРИБУВАЄ</div><div class="mlane mcurve en"><div class="mbox">en</div></div></div>
+  <div class="mrowg"><div class="mlabel">--ease-exit · те, що ЙДЕ</div><div class="mlane mcurve ex"><div class="mbox">ex</div></div></div>
+</div>
+<p class="kp-p"><button class="mresp" type="button" data-go="d-ease">Пустити всі три</button></p>
+</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Токен</th><th>Значення</th><th>Де вживається</th><th>Похибка підгонки</th></tr></thead><tbody>
+<tr><td><code>--ease-standard</code></td><td><code>cubic-bezier(.48, .04, .52, .96)</code></td><td>стан змінюється, і жоден кінець руху не важливіший за інший</td><td><code>power1.inOut</code>, 0.36%</td></tr>
+<tr><td><code>--ease-enter</code></td><td><code>cubic-bezier(.33, 1, .67, 1)</code></td><td>поява: енергія витрачена на старті, тож око приходить, коли елемент уже осідає і вже читається</td><td><code>power2.out</code>, 0.19%</td></tr>
+<tr><td><code>--ease-exit</code></td><td><code>cubic-bezier(.33, 0, .67, 0)</code></td><td>зникнення: рушає повільно, щоб було видно ЩО йде, далі швидко, бо дивитись до кінця нема навіщо</td><td>дзеркало, 0.19%</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Пружин і відскоків немає, і це рішення з джерелом</h4><code>back.out(1.7)</code> (перельот) і <code>elastic</code> зняті <b>за назвою</b>: <code>voice.md</code>, Принцип 5, забороняє святкування, а таблиця тону ставить фазу 8 - очікування після оплати, дно емоційної кривої - на цільову емоцію <b>нуль</b>. Перельот це маленьке святкування, доставлене рівно туди, де людина його найменше хоче.</div>
+</section>
+
+<section class="kp-sec" id="move"><div class="kp-sh">Дистанції: дві, і стеля в них це відношення</div>
+<div class="mdemo" id="d-move">
+<div class="mcap">натисни - обидва підіймуться одночасно</div>
+<div class="mrow">
+  <div class="mrowg"><div class="mlabel">--move-sm · 2px</div><div class="mdist sm"><div class="mbox">sm</div></div></div>
+  <div class="mrowg"><div class="mlabel">--move-md · 10px</div><div class="mdist md"><div class="mbox">md</div></div></div>
+</div>
+<p class="kp-p"><button class="mresp" type="button" data-go="d-move">Підняти обидва</button></p>
+</div>
+<p class="kp-p"><b><code>--move-sm</code> 2px</b> - підйом під курсором; у системі вже 10 оголошень <code>translateY(-2px)</code> і два <code>-1px</code>, що згортаються сюди. <b><code>--move-md</code> 10px</b> - шлях елемента, що прибуває: тост уже стартує з <code>translateY(10px)</code>. Рух, довший за півтори висоти елемента, перестає читатись як зв'язок і починає читатись як подорож.</p>
+<div class="kp-gap"><h4>Старт за екраном це НЕ ця дистанція</h4><code>translateY(100%)</code> і <code>translateX(-100%)</code> у шухляди та шита це відношення до власного розміру елемента. Записане довжиною, воно зламається тієї миті, коли елемент змінить розмір.</div>
+</section>
+
+<section class="kp-sec" id="surf"><div class="kp-sh">Поверхні: те, чого звичайний перехід не бачить узагалі</div>
+<p class="kp-p"><b>Головна знахідка кроку 4, і вона більша за будь-яке число з переписом.</b> Кожна поверхня цього продукту з'являється перемиканням <code>display</code>. <code>display</code> - <b>дискретна</b> властивість: у неї немає середини, тож інтерполювати нема чого, і перехід не бачить її взагалі. Компонент міг чесно читати <code>--dur-slow</code>, пройти перекличку кроку 3 і все одно виникати в одному кадрі.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Число</th><th>Що воно означає</th></tr></thead><tbody>
+<tr><td><b>20</b></td><td>поверхонь у системі, які з'являються перемиканням <code>display</code>. Рахує <code>tools/motion.mjs --surfaces</code>, з двох боків: клас може ДАВАТИ видимість (дев'ятнадцять) або ЗАБИРАТИ її (банер cookie - і саме його прилад не бачив, поки читав один бік)</td></tr>
+<tr><td><b>+1</b></td><td>панель спліт-в'ю тренера, яку перемикає javascript через атрибут <code>hidden</code>. Прилад читає css і цю поверхню не бачить; вона порахована рукою, і це сказано, щоб «20» ніколи не читалось як «усі»</td></tr>
+<tr><td><b>0</b></td><td><code>@starting-style</code> і <code>transition-behavior: allow-discrete</code> у системі до цього кроку</td></tr>
+<tr><td><b>20 з 20</b></td><td>несуть пару після кроку 4. Перевірку перевірено з іншого боку: пару знято з галочки меню, лічильник почервонів на ній одній - <b>перевірка, яка ніколи не падала, не показана робочою</b></td></tr>
+</tbody></table></div>
+<div class="mdemo">
+<div class="mcap">живий приклад: та сама техніка, ті самі токени</div>
+<p class="kp-p"><button class="mresp" type="button" data-toggle="surf-stage">Відкрити / закрити поверхню</button></p>
+<div class="msurf-stage" id="surf-stage">
+  <div class="msurf-scrim"></div>
+  <div class="msurf-card"><b>Поверхня</b><span>затемнення проявляється, картка піднімається на <code>--move-md</code></span></div>
+</div>
+<p class="kp-p">Обидва елементи стоять на <code>display: none</code> у спокої, як у продукті. Приберіть <code>@starting-style</code> - і вони почнуть виникати, не змінивши більше нічого.</p>
+</div>
+<div class="kp-gap"><h4>Тиха деградація, і межа виміру названа</h4>Браузер, який не знає цього правила, викидає його і показує поверхню миттєво - тобто рівно так, як показував учора. Заміряно цієї сесії: <b>Chrome 151</b> розбирає <code>@starting-style</code>, <code>allow-discrete</code>, <code>@view-transition</code> і <code>view-transition-name</code>. <b>Safari і Firefox у цій сесії не міряні</b>, і це записано, а не припущено.</div>
+</section>
+
+<section class="kp-sec" id="states"><div class="kp-sh">Стани екрана: рух пишеться з таблиці тону</div>
+<p class="kp-p"><b>Спершу структурна відповідь, бо вона змінює саме питання.</b> У цьому продукті стан екрана - це ОКРЕМИЙ ДОКУМЕНТ: <code>goal-empty.html</code>, <code>goal-error.html</code>, <code>goal-loading.html</code>. У сірому корпусі таких 16 порожніх, 13 помилок і 16 завантажень; у кольоровому 14, 11 і 13. Жоден javascript не перемикає стан усередині сторінки. Тобто <b>«перехід між станами екрана» звичайним переходом не робиться взагалі</b> - це навігація, і вона лежить у секції нижче. Усередині документа станів рівно два: панель спліт-в'ю тренера і повідомлення валідації під полем.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Стан (<code>voice.md</code>)</th><th>Носій</th><th>Тривалість</th><th>Крива</th><th>Амплітуда</th><th>Напрямок</th><th>Звірка</th></tr></thead><tbody>
+<tr><td><b>Порожній</b><br><span class="kp-none">чому порожньо + дія-вихід</span></td><td><code>.empty</code> / <code>.emptybox</code>, і <code>#clDetailEmpty</code> у спліті</td><td><code>--dur-base</code></td><td><code>--ease-enter</code></td><td>–</td><td>без зсуву</td><td><b>сходиться.</b> Зсув знизу читається як «щось вантажиться», а нічого не вантажиться - тому проявлення без руху</td></tr>
+<tr><td><b>Помилка</b><br><span class="kp-none">що сталося + що робити</span></td><td><code>.pm-e</code> під полем; <code>.wf-toast.error</code></td><td><code>--dur-fast</code> · <code>--dur-base</code></td><td><code>--ease-standard</code></td><td><code>--move-sm</code></td><td>вгору, 2px</td><td><b>було розійшлось, виправлено.</b> Тост помилки приходив тим самим розмахом, що й «Адресу збережено»</td></tr>
+<tr><td><b>Завантаження</b><br><span class="kp-none">мовчить або каже коротко</span></td><td><code>.skpulse</code>; <code>.auth-spin</code> / <code>.co-spin</code></td><td><code>--dur-cycle</code></td><td><code>--ease-cycle</code></td><td>–</td><td>рівний повтор</td><td><b>сходиться.</b> «Рівний повтор» і фізика обертання вимагають того самого - <code>linear</code></td></tr>
+<tr><td><b>Успіх</b><br><span class="kp-none">факт + наступний крок, без святкування</span></td><td><code>.wf-toast</code> (ok)</td><td><code>--dur-slow</code> вхід · <code>--dur-base</code> вихід</td><td><code>--ease-enter</code> / <code>--ease-exit</code></td><td><code>--move-md</code></td><td>знизу вгору</td><td><b>сходиться</b>, без пружини й відскоку. Вихід укоротився з іншої причини - див. нижче</td></tr>
+<tr><td><b>OOS / наявність</b></td><td><code>availability.css</code>, <code>restock-note.css</code></td><td>–</td><td>–</td><td>–</td><td>–</td><td><b>руху немає навмисно.</b> Це позначки, а не події: вони не приходять і не йдуть</td></tr>
+<tr><td><b>Небезпечна дія</b></td><td><code>.ceov</code> + діалог підтвердження</td><td><code>--dur-slow</code></td><td><code>--ease-enter</code> / <code>--ease-exit</code></td><td><code>--move-md</code></td><td>підйом у центр</td><td><b>сходиться, і однаковість тут навмисна.</b> Принцип 4 - спокійно й упевнено: діалог видалення приходить так само, як будь-який інший, бо драма в русі це тиск</td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Одна анімація виявилась обрізаною числом із файлу, якого етап не чіпає</h4><code>wireframes/_nav.js:1260</code> знімає вузол тоста через <b>250мс</b> після класу <code>.out</code>. Крок 3 поставив вихід на <code>--dur-slow</code>, тобто 330 - тост зникав за 80мс до кінця власного згасання, і жоден перепис css цього побачити не міг. Сірий корпус заморожений, тож рухається число всередині системи: <b>220 вміщається в 250</b>. Це єдине місце етапу, де число ЗЗОВНІ системи вирішило число всередині неї.</div>
+<div class="kp-gap"><h4>І одна розбіжність, яка виявилась не в анімації, а в тексті</h4><code>microcopy.md</code> тримає рядок «Вітаємо у Stack! Ви увійшли 🎉». У продукті стоїть <code>wfToast('ok', 'Ви увійшли')</code> - без вітання і без емодзі. Редакція продукту правильна за тоном (Принцип 4: без святкування), редакція інвентаря - ні, і <b>жоден продуктовий рядок не існує у двох редакціях</b>. Знайдено звіркою тону, полагоджено в <code>microcopy.md</code> і пересобрано в <code>voice.html</code> тим самим кроком.</div>
+</section>
+
+<section class="kp-sec" id="pat"><div class="kp-sh">Патерни: один, і власного переходу він не отримує</div>
+<p class="kp-p"><b>Патернів у системі рівно один</b> - <code>action-row.css</code>, ряд із двох дій, який стоїть на 70 сірих екранах під 53 різними іменами контейнера. Він <b>не отримує власного переходу композиції</b>, і це відповідь, а не пропуск.</p>
+<p class="kp-p"><b>Чому.</b> Перехід патерна відповідає на «що з'являється, звідки і в якому порядку». Ряд дій ніколи не з'являється сам: він приходить разом із блоком, який його тримає - підвалом діалогу, ногою картки, порожнім станом, - і в того блока вже є своя робота ЗВ'ЯЗОК. Дати ряду власний вихід означало б анімувати момент, для якого не називається жодна з трьох робіт. Рух, який на ньому видно, приходить із <code>button.css</code>: стан в одному файлі, рух в іншому - той самий клас, що <code>icon.css</code> на кроці 3.</p>
+<div class="kp-gap"><h4>Зате спліт-в'ю - найчистіший ЗВ'ЯЗОК у продукті</h4>Деталь клієнта приходить <b>З БОКУ СПИСКУ</b>, бо саме там щойно були око й палець тренера: <code>--move-md</code> ліворуч, <code>--dur-base</code>, і лише всередині двох воріт спліта. <b>І без проявлення</b> - крок 10.5 переводить фокус на ім'я клієнта тієї ж миті, тож панель непрозора кожен кадр руху: скрінрідер не має права читати те, чого око ще не бачить. Рух не приходить пізніше за фокус.</div>
+</section>
+
+<section class="kp-sec" id="doc"><div class="kp-sh">Перехід між екранами: розвилка, і рішення власника</div>
+<p class="kp-p">Кожен екран продукту - <b>окремий html-документ</b>. «Деталь виїжджає зі списку» звичайним <code>transition</code> не робиться взагалі: сторінка вивантажується разом зі своїми стилями. Три чесні виходи, і мовчки не береться жоден.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Гілка</th><th>Що це</th><th>Рішення</th></tr></thead><tbody>
+<tr><td><b>A</b></td><td>не анімуємо міждокументні переходи; робота ЗВ'ЯЗОК лишається за тим, що відбувається всередині документа</td><td>рекомендація кроку 4, <b>не взята</b></td></tr>
+<tr><td><b>B</b></td><td>один запис <code>@view-transition { navigation: auto }</code> у <code>base.css</code></td><td><b>УХВАЛЕНО власником</b></td></tr>
+<tr><td><b>C</b></td><td>окреме рішення під конкретний флоу</td><td>не взята</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Рекомендацією була A, і причина була не обережність, а власне правило пака:</b> гілка B береться, «лише якщо в інвентарі є конкретна пара екранів з роботою ЗВ'ЯЗОК», а інвентар моментів такої пари не називає - він називає поверхні всередині документа і чотири кроки сесії. Власник обрав B; отже цей момент прийшов із РІШЕННЯ, а не з корпусу, і платить за це двома речами: власним рядком в інвентарі та критикою на кроці 6, якої пак вимагає для вигляду, якого раніше не було.</p>
+<div class="mdemo">
+<div class="mcap">живий приклад: це справжня навігація, а не демо</div>
+<p class="kp-p"><a class="mresp" href="responsive.html">Перейти на «Адаптив»</a> <a class="mresp" href="geometry.html">Перейти на «Геометрію»</a></p>
+<p class="kp-p">Сторінки стенда вантажать ту саму <code>system/index.css</code>, тож запис із <code>base.css</code> діє й тут. У браузері без підтримки обидва посилання просто перейдуть, як переходили.</p>
+</div>
+<div class="kp-gap"><h4>Крок 6: гілка B купувала МЕХАНІЗМ, а значення успадковувала</h4>Один запис купує кросфейд і більше нічого - криву й тривалість браузер підставляє свої. Зняте зсередини живої навігації в Chrome 151, ДО правки: <code>-ua-view-transition-fade-out</code>, <code>-ua-view-transition-fade-in</code>, <code>-ua-view-transition-group-anim-root</code> і <code>-ua-mix-blend-mode-plus-lighter</code>, усі <b>250мс, крива <code>ease</code></b>. 250 - це не 150, не 220 і не 330, а <code>ease</code> - <b>рівно те значення, заради видалення якого етап існує</b>: перепис рахує його на 817 із 818 функцій і називає «значенням, яке оголошення отримує, коли криву не назвали». Воно повернулося в повний зріст на моменті, який власник обрав особисто.</div>
+<div class="kp-gap"><h4>У кривої два написання, і перше зняття взяло не те</h4>CSS-анімація несе <code>linear</code> на ЕФЕКТІ (це дефолт) і справжню <code>animation-timing-function</code> на КОЖНОМУ кадрі. Перший запис у лог критики сказав «linear» - правдиве зняття не тієї половини. Рендериться кадрова, тобто <code>ease</code>. Виправлено в логу, а не тихо, і <code>motion.mjs --view</code> тепер друкує обидва написання поруч.</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Псевдоелемент</th><th>було</th><th>стало</th><th>чому саме цей токен</th></tr></thead><tbody>
+<tr><td><code>::view-transition-old(root)</code></td><td>250мс <code>ease</code></td><td><code>--dur-slow</code> · <code>--ease-exit</code></td><td>те, що ПІШЛО. Та сама читка напрямку, що в двадцяти поверхнях кроку 4</td></tr>
+<tr><td><code>::view-transition-new(root)</code></td><td>250мс <code>ease</code></td><td><code>--dur-slow</code> · <code>--ease-enter</code></td><td>те, що ПРИЙШЛО. Цілий документ - це ПОЯВА, а поява бере верхню сходинку тих самих сходів</td></tr>
+<tr><td><code>::view-transition-group(root)</code></td><td>250мс <code>ease</code></td><td><code>--dur-slow</code> · <code>--ease-standard</code></td><td>морфить КОРОБКУ знімка, а не прозорість; на двох однакових документах морфити нічого, тож крива симетрична</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>330 замість 250 - це на 80мс повільніше за дефолт браузера, і це сказано вголос:</b> альтернатива - другі сходи заради одного моменту.</p>
+<div class="kp-gap"><h4>Перепис цього знайти НЕ МІГ, і це дорожча половина знахідки</h4>Кожне інше питання <code>motion.mjs</code> ставиться ЕЛЕМЕНТУ. Ці чотири анімації живуть на дереві псевдоелементів, яке браузер будує на початок навігації і руйнує на її кінець: у документі в спокої його немає, тож <code>querySelectorAll('*')</code> не дістає до нього принципово, а не випадково. <b>Зелений лічильник не міг почервоніти - він міг лише мовчати.</b> Питає режим <code>motion.mjs --view</code>: він ставить слухача <code>pagereveal</code> ДО першого рядка скриптів вхідного документа, чекає <code>ready</code> переходу і читає <code>document.getAnimations()</code>.</div>
+<div class="kp-gap"><h4>І це фальсифіковано, перш ніж у це повірили</h4>Із закоментованим перевизначенням той самий прогін друкує <b>п'ять рядків ПОЗА РЕЄСТРОМ на 250мс <code>ease</code></b>. Перевірка кривої навмисне суворіша за «чи є таке написання в таблиці», бо <code>linear</code> у таблиці Є - це <code>--ease-cycle</code>, - і сама лише звірка з реєстром пропустила б дефолт. Кожен псевдоелемент звіряється з кривою, якої вимагає його РОЛЬ. Плюс підміна токена: <code>--dur-slow: 7.77s</code> -> усі п'ять поїхали на <b>7770мс</b>, тобто читають токен, а не літерал, що збігся.</div>
+<div class="kp-gap"><h4>Що перехід НЕСЕ: нічого, крім самої сторінки</h4><code>view-transition-name</code> має <b>0 оголошень</b> у дереві, тож перетікає один знімок сторінки в інший. Спадкоємність елемента (фото картки стає фото картки товару) тут НЕ береться, і причина - обмеження, а не смак: ім'я мусить бути унікальним у документі, а лістинг малює 12 карток, і 12 дублікатів змушують Chrome пропустити перехід ЦІЛКОМ, а не наполовину. Унікальні поіменні імена не можуть прийти ані з файлу компонента, ані з файлу екрана, бо етап 11 забороняє там рух. Це замовлення на систему, і воно в <code>backlog.md</code>.</div>
+<div class="kp-gap"><h4>Токен-оверрайд сюди не дістає, і це закрито поіменно</h4>Кросфейд браузера - це <b>анімація</b>, а не перехід, тож перевизначення <code>--dur-*</code> його не бачить. У <code>base.css</code> стоїть власний блок <code>prefers-reduced-motion</code>, який гасить <code>::view-transition-old/new/group</code> поіменно. <b>Навігація не чіпається</b>: наступний екран приходить, зникає лише рух - стан не має права зникати разом із ним.</div>
+<div class="kp-gap"><h4>Рух на точці адаптиву - НІ, і виняток теж НІ</h4>Дефолт пака - не анімувати перебудову сітки: точка спрацьовує, коли людина тягне край вікна і на вміст не дивиться. Пак дозволяє виняток для поверхні, якої на вузькій ширині не існувало - у нас це рейка фільтрів <code>.frail</code>, рейка категорій <code>.hrail</code> і права панель спліта. <b>Виняток не взято, і причина сильніша за дефолт:</b> усі три приходять ЛИШЕ через медіазапит, тобто від зміни розміру вікна, а не від дії людини на них. Анімувати нема чого повідомляти.</div>
+</section>
+
+<section class="kp-sec" id="frame"><div class="kp-sh">Ціна кадру</div>
+<p class="kp-p">Дешево анімуються рівно дві властивості - <b><code>transform</code></b> і <b><code>opacity</code></b>: браузер віддає їх композитору і не чіпає ані розкладку, ані малювання. Усе інше або змушує перерахувати РОЗКЛАДКУ щокадру, або перемалювати площину.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Було</th><th>Стало</th><th>Чому</th></tr></thead><tbody>
+<tr><td><code>.sw i</code> · <code>transition: left</code>, <code>left: 21px</code> / <code>3px</code></td><td><code>transform: translateX(var(--sw-travel))</code></td><td>розкладка щокадру -> композитор. <b>І хід став відношенням:</b> <code>44 - 20 - 3*2 = 18</code>, тобто рівно <code>21 - 3</code> - два числа були одним фактом, записаним двічі. Заміряно: <b>21 -> 3, хід -18</b>, до пікселя те саме</td></tr>
+<tr><td><code>.co-sw::after</code> · <code>transition: left</code></td><td><code>transform: translateX(var(--cosw-travel))</code></td><td><code>38 - 18 - 2*2 = 16</code>, тобто <code>18 - 2</code>. Заміряно на <code>checkout.html</code>: <b>2 -> 18, хід +16</b></td></tr>
+<tr><td><code>.ck-tog i</code> · <code>transition: left</code></td><td><code>transform: translateX(var(--ckt-travel))</code></td><td><code>40 - 18 - 2*2 = 18</code> проти <b>padding-box</b> треку. <b>Пікселями не доводиться:</b> банер cookie стоїть на одній сторінці всього дерева - <code>wireframes/system.html</code>, у замороженому корпусі, - тож цей файл сьогодні не малює нічого. Доказ буде на етапі 12</td></tr>
+<tr><td><code>.wfh-meta</code> · <code>transition: max-height</code></td><td><b>лишається</b></td><td>і це відповідь із виміром, а не виняток. Шапка <code>sticky</code>, тобто займає місце в потоці, і весь сенс згортання в тому, щоб вона стала нижчою - <b>жоден <code>transform</code> місця не звільняє</b></td></tr>
+</tbody></table></div>
+<div class="kp-gap"><h4>Що коштує єдина розкладкова анімація, у числах самого браузера</h4><code>listing.html</code>, 2006 елементів, <code>Performance.getMetrics</code>: спокій 400мс - <b>0 layouts</b> · згортання мета-бара - <b>25 layouts, 1.1мс layout, 1.3мс style</b> · розгортання - 26 · той самий елемент на самій лише <code>opacity</code> - <b>1 layout, 0.1мс</b>. І другий вимір, який знімає головний аргумент: <b>мета-бар існує лише від 860px</b>, тож слабкий телефон його не рендерить узагалі.</div>
+<p class="kp-p"><b>Дороге МАЛЮВАННЯ: 24 оголошення, а не 70.</b> Перепис рахує 70, але 46 із них це <code>color</code>, <code>background</code> і <code>border-color</code> на ховерах - площини вони не навантажують. <code>box-shadow</code> і <code>filter</code> несуть 24 правила.</p>
+<div class="kp-gap"><h4>Списку з двадцяти карток, якого боїться метод, у цьому продукті НЕМАЄ</h4>Перевірено тригер кожного з 24: усі до одного це <code>:hover</code>, <code>:focus-visible</code> або клас вибору <code>.on</code> / <code>[aria-current]</code>. <b>Курсор один, фокус один, вибраний елемент у групі один</b> - одночасно перемальовується один елемент, максимум два на перемиканні вибору. Двадцять карток разом не бувають.</div>
+<div class="kp-gap"><h4>Зате є місце, де одночасно рухається пів документа, і воно не в списку карток</h4>Перемикач теми міняє <code>[data-theme]</code> на корені, тобто колір УСЬОГО документа одразу. Заміряно: <code>listing.html</code> - 2006 елементів, з них <b>463 з переходом кольору</b>, зміна теми коштує <b>32.1мс перерахунку стилів</b> в один момент; <code>index.html</code> - 459 і 21.7мс. <b>Цього ніхто не замовляв:</b> переходи писалися під ховер, а перетікання всієї сторінки - побічний ефект 463 правил. Той самий аргумент, яким прибрали <code>transition: all</code>.</div>
+<p class="kp-p"><b>Власник обрав придушити.</b> <code>theme.js</code> вішає <code>.uiv-theming</code> на корінь, міняє атрибут і знімає клас через ДВА кадри анімації: перший колбек виконується ДО того, як зміну намальовано, тож зняти клас там означало б усе одно дати переходам стартувати. Під цим класом одне правило гасить переходи на <code>*</code> через <code>!important</code> - тобто рівно те, проти чого цей етап бореться всюди, і саме в цьому суть: воно мусить перебити кожен компонент на довжину одного кадру. <b>Це ЗАСЛІНКА, а не страхувальна сітка:</b> вона живе по 16мс за раз і нічого не ховає, бо аудит іде на сторінці, де ніхто нічого не перемикає.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Екран</th><th>через <code>uivTheme()</code></th><th>повз заслінку</th></tr></thead><tbody>
+<tr><td><code>listing.html</code></td><td><b>0</b> переходів у русі через кадр після перемикання</td><td>390</td></tr>
+<tr><td><code>index.html</code></td><td><b>0</b></td><td>263</td></tr>
+</tbody></table></div>
+<p class="kp-p">Заміряно через продуктовий вхід, а не встановленням атрибута руками - <b>перший замір робив саме так і тому не побачив жодної різниці</b>. Права колонка це та сама перевірка, доведена з іншого боку: коли заслінки немає, число не нуль.</p>
+<div class="kp-gap"><h4><code>will-change</code>: нуль</h4>У всьому дереві його немає жодного разу, і це правильний стан: постійний <code>will-change</code> це витік пам'яті на графіці, а не оптимізація.</div>
+<div class="kp-gap"><h4>Прилад теж мав борг, і крок 4 його оплатив</h4><code>opacity</code> стояла В ОБОХ списках переписом - і як дороге малювання, і як дешева властивість. Поки продукт майже не користувався прозорістю, це нічого не коштувало; тієї миті, коли крок 4 поставив прозорість на двадцять поверхонь, лічильник «анімує дороге» стрибнув з 73 до 107, і кожен новий випадок був найдешевшою річчю в css. <b>Таблиця ціни кадру на кроці 5 будувалась би на роздутому числі.</b> Прозорість композиться, а не малюється.</div>
+</section>
+
+<section class="kp-sec" id="less"><div class="kp-sh">Менше анімації - це обов'язок, а не опція</div>
+<p class="kp-p">Механізм один: у блоці <code>@media (prefers-reduced-motion: reduce)</code> <b>перевизначаються ті самі токени</b>. Компонент, що читає <code>var()</code>, підкоряється сам - і той, який з'явиться на етапі 12, підкориться теж, нічого про це не знаючи. Саме заради цього тривалості стали токенами, а не звичкою.</p>
+<div class="mdemo">
+<div class="mcap">перемикач <b>цієї сторінки</b>, а не продукту</div>
+<p class="kp-p"><button class="mresp" type="button" id="rm-toggle" aria-pressed="false">Показати, що станеться при «менше анімації»</button></p>
+<p class="kp-p">Він ставить клас на корінь документа і перевизначає ті самі п'ять токенів - той самий механізм, що й медіазапит. <b>У продукті такого перемикача немає і не буде:</b> перемикач це системне налаштування людини, а для частини людей це не питання смаку, а нудота і мігрень.</p>
+<p class="kp-p"><b>Справжня перевірка робиться не цим перемикачем</b>, а емуляцією <code>prefers-reduced-motion: reduce</code> у браузері, обчисленим стилем, на кроці 5. Знак один: більше за 1ms це дефект.</p>
+</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Рішення</th><th>Чому саме так</th></tr></thead><tbody>
+<tr><td><b>1ms, а не 0s</b></td><td>на нулі деякі браузери не шлють <code>transitionend</code>, і обробник, що чекає кінця руху, чекає вічно. Скорочення руху зламало б поведінку замість того, щоб зняти оздоблення</td></tr>
+<tr><td><b>стан не зникає</b></td><td>елемент, який з'являється, з'являється і при <code>reduce</code>. Зникає ШЛЯХ, а не прибуття - тому дистанції йдуть у нуль, а <code>display</code> і <code>opacity</code> цей блок не чіпає</td></tr>
+<tr><td><b>чому <code>@media</code> тут працює, а на етапі 10 не працював</b></td><td>там запит ПИТАВ про змінну, а медіаумова обчислюється до каскаду кастомних властивостей - правило не спрацьовувало і помилки не давало. Тут запит нічого не питає: всередині нього змінна ПЕРЕВИЗНАЧАЄТЬСЯ. Питати і присвоювати це різні операції</td></tr>
+<tr><td><b>сітки не буде - рішення власника на кроці 5</b></td><td>аудит зелений БЕЗ неї: <b>5826 рухомих елементів, 0 лишились рухомими</b>. Аргумент ЗА неї - код, який напишуть субагенти на етапі 12; аргумент ПРОТИ - докази цього ж етапу: сітка, яка вже стояла, коштувала чотирьох етапів цифр, і під нею перший прогін аудиту дав би <b>0 дефектів замість 96</b>. Етап 12 закривається приладом: <code>motion.mjs --reduce</code> тепер гейт, і літерал від субагента зробить його червоним так само, як зробив тут</td></tr>
+<tr><td><b>страхувальної сітки на <code>*</code> немає</b></td><td><b>на кроці 2 це речення було ХИБНИМ, і виправлене на кроці 5.</b> Воно описувало намір, а не систему: <code>base.css</code> ніс <code>@media (prefers-reduced-motion: reduce){ *{ transition: none !important } }</code> ще з етапу 07, а <code>!important</code> на <code>*</code> б'є будь-яке оголошення в <code>tokens.css</code>. Під ним аудит кроку 5 був би зеленим на порожньому місці. <b>І та сама сітка вписала хибне речення в запис кроку 3</b>: нулі, які повертала емуляція, пояснили як «Chrome обнуляє переходи сам». Chrome такого не робить - це був власний рядок цього репозиторію, і <code>tools/cdp.mjs</code> казав про нього в коментарі з етапу 07. Знято на 11.5 ПЕРЕД першим аудитом, і саме це зробило аудит червоним. Прилад не має ховати дефект, який шукає - а твердження, що приладу нічого не заважає, питається в дерева, а не в наміру</td></tr>
+<tr><td><b>чого оверрайд не дістає</b></td><td>три записи, і крок 4 закрив два з них. <b>Цикл <code>@keyframes</code></b> - при <code>reduce</code> його треба ЗАМІНИТИ статикою, а не прискорити (пульс на 1ms це миготіння, тобто гірше): три з трьох закриті у власних файлах. <b>Літерал усередині компонента</b> - у продукті нуль. <b>Перехід між документами</b> - закритий поіменно: кросфейд браузера це анімація, тож <code>base.css</code> має власний блок <code>reduce</code>, який гасить <code>::view-transition-old/new/group</code>, не чіпаючи саму навігацію. Доказ у браузері - крок 5</td></tr>
+<tr><td><b>токени циклу в цьому блоці НЕМАЄ</b></td><td>і це рішення, а не пропуск. Перехід на 1ms закінчується раніше, ніж його побачать, - це і значить «руху немає». Цикл на 1ms не закінчується взагалі: він повторюється тисячу разів на секунду</td></tr>
+</tbody></table></div>
+</section>
+
+<section class="kp-sec" id="inv"><div class="kp-sh">Інвентар моментів</div>
+<p class="kp-p">Повний перепис і обидва корпуси - у <code>docs/motion.md</code>. Тут зведення з колонкою стану. Корпусів два, і вони не взаємозамінні: <b>карта флоу ніколи не називає ховер кнопки</b>, тож інвентар, зібраний по екранах, бачить ЗВ'ЯЗОК і СТАТУС повністю і не бачить ВІДПОВІДЬ майже зовсім.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Момент</th><th>Корпус</th><th>Робота</th><th>Носій</th><th>Рівень</th><th>Тривалість</th><th>Стан є?</th><th>Стан</th></tr></thead><tbody>
+<tr><td>Панель клієнта у спліт-в'ю</td><td>B1</td><td>зв'язок</td><td><code>coach-clients</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Оверлей і вуаль під поверхнею</td><td>B1</td><td>зв'язок</td><td><code>overlay</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Шухляда меню · шит фільтрів</td><td>B1</td><td>зв'язок</td><td><code>nav-drawer</code>, <code>filter-sheet</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Діалоги: вхід, місто, відгук, каталог</td><td>B1</td><td>зв'язок</td><td><code>auth-dialog</code>, <code>city-dialog</code>, <code>review-modal</code>, <code>cat-overlay</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Мега-меню розкривається</td><td>B1</td><td>зв'язок</td><td><code>mega-menu</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Тост приходить і йде</td><td>B1</td><td>зв'язок</td><td><code>toast</code></td><td>організм</td><td>повільна</td><td>так</td><td>крок 4</td></tr>
+<tr><td>Дев'ять станів завантаження з <code>flows.md</code></td><td>B1</td><td>статус</td><td><code>skeleton</code>, <code>pagination</code></td><td>атом, молекула</td><td>цикл</td><td>так</td><td>крок 4, і токен циклу відкритий</td></tr>
+<tr><td>Ховер, натиск, фокус на 42 компонентах</td><td>B2</td><td>відповідь</td><td>кнопка, поле, чип, посилання, картка</td><td>атом → організм</td><td>швидка</td><td>так</td><td>крок 3</td></tr>
+<tr><td>Серце на картці, 92 входження</td><td>B2</td><td>відповідь</td><td><code>favourite</code></td><td>атом</td><td>швидка</td><td>лише focus</td><td>крок 3</td></tr>
+<tr><td>Поточна сторінка в таб-барі</td><td>B2</td><td>відповідь</td><td><code>tabbar</code></td><td>організм</td><td>швидка</td><td>так</td><td>крок 3</td></tr>
+<tr><td>Іконка, що рухається без жодного стану</td><td>B2</td><td><b>жодної</b></td><td><code>icon</code></td><td>атом</td><td>-</td><td>ні</td><td><b>знімається</b> на кроці 3</td></tr>
+</tbody></table></div>
+<div class="mnow" style="margin-top:var(--space-12)">
+  <span>рядків інвентаря <b>85</b></span><span>мають стан <b>59</b></span><span>уже рухаються <b>45</b></span>
+  <span>мають стан і не рухаються <b>15</b></span><span>ПОТРІБЕН СТАН <b>7</b></span>
+</div>
+<div class="kp-gap"><h4>Рівень, названий уголос зараз: організм</h4>34 компоненти, стан мають 24, рухаються 13. Одинадцять зі станом і без руху - це рівно поверхні. Дізнатись про це на кроці 3 було б удвічі дорожче, тому воно сказане тут.</div>
+<div class="kp-gap"><h4>ПОТРІБЕН СТАН - сім рядків, і рішення по них не тут</h4><code>client-dialog</code>, <code>buy-bar</code>, <code>upsell</code>, <code>toolbar</code>, <code>product-grid</code>, <code>system-page</code> і патерн <code>action-row</code> не несуть жодного інтерактивного стану. Стан, якого немає, це замовлення за п'ятіркою етапу 08, а не домальований клас: поки воно не розміщене, ці рядки анімації не отримують.</div>
+</section>
+
+<section class="kp-sec" id="refs"><div class="kp-sh">Референси характеру</div>
+<p class="kp-p">Референс відповідає рівно на одне питання - <b>характер</b> - і лише на момент, уже названий в інвентарі. Тривалість не береться ніколи: чуже число несе чужий контекст. Через півроку питання «звідки взявся цей рух» мусить мати відповідь у браузері, а не в чиїйсь пам'яті - тому таблиця стоїть тут.</p>
+<div class="kp-gap"><h4>Джерело замінено, і заміна записана рядком</h4><a href="https://motionsites.ai/unlimited" target="_blank" rel="noopener">motionsites</a> віддав <code>free_prompts_remaining: 0</code> - три безкоштовні промпти акаунта витрачені раніше, а найрелевантніші результати виявились платними. Власник замінив джерело на <a href="https://github.com/greensock/gsap-skills" target="_blank" rel="noopener">greensock/gsap-skills</a>, прочитане живим 21.08.2026. <b>GSAP у продукт не їде і в залежності не заводиться:</b> береться прийом, а не бібліотека, і напрямок перекладу назвало саме джерело - його CustomEase «can use cubic-bezier values (as used in CSS cubic-bezier())».</div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Момент</th><th>Робота</th><th>Джерело</th><th>Що взято</th><th>Що це дає роботі</th><th>Що каже тон</th></tr></thead><tbody>
+<tr><td>Панель клієнта у спліт-в'ю</td><td>зв'язок</td><td>скіл <code>gsap-core</code></td><td>родина кривої <code>power_.out</code>; напрямок від краю рейки, а не від краю вікна; мала амплітуда</td><td>напрямок каже, ЧИЙ це запис; крива віддає енергію на старті, тож око приходить у панель, коли вона вже осідає і вже читається</td><td>збігається. <code>back.out(1.7)</code> і <code>elastic</code> <b>зняті за назвою</b>: Принцип 5, без святкування</td></tr>
+<tr><td>Перевірка соцпосилання тренера</td><td>статус</td><td><code>gsap-core</code> (<code>"none"</code>) + <code>gsap-performance</code></td><td>рівний цикл без прискорення; лише <code>opacity</code>; <code>will-change</code> не лишати постійно</td><td>швидкість, що не змінюється, каже «живе» і нічого не обіцяє - а час зовнішньої перевірки продукт не знає</td><td>збігається. Фаза 8 = емоція <b>0, не +2</b>; цикл, що прискорюється, це обіцянка</td></tr>
+<tr><td>Мега-меню</td><td>зв'язок, композиція</td><td><code>gsap-core</code> stagger + <code>gsap-timeline</code></td><td>черговість <code>from: "start"</code> від тригера; <code>amount</code>, а не <code>each</code>; перекриття, щоб читалось як одна поверхня</td><td>порядок вказує назад на тригер; фіксований розкид тримає появу однаковою, скільки б категорій меню не несло</td><td>нейтрально, тексту при меню немає. Bounce не береться, Принцип 4</td></tr>
+<tr><td>-</td><td>-</td><td><a href="https://www.thorne.com/" target="_blank" rel="noopener">thorne.com</a>, живий замір</td><td><b>нічого не взято</b>, лише число для звірки</td><td>лідер бенчмарку тримає <b>2 тривалості</b> і одну обрану криву на 95 елементах зі 110; ми тримали <b>12</b> і жодної обраної</td><td>-</td></tr>
+</tbody></table></div>
+</section>
+
+</main>
+<script>
+(function () {
+  /* the toggles. `data-go` plays a lane demo once and returns it, so the
+     comparison can be run again without reloading the page */
+  document.addEventListener('click', function (e) {
+    var t = e.target.closest('[data-toggle]');
+    if (t) { document.getElementById(t.getAttribute('data-toggle')).classList.toggle('open'); return; }
+    var g = e.target.closest('[data-go]');
+    if (g) {
+      var box = document.getElementById(g.getAttribute('data-go'));
+      box.classList.toggle('mgo');
+      return;
+    }
+    if (e.target.closest('#rm-toggle')) {
+      var on = document.documentElement.classList.toggle('rm-demo');
+      var b = document.getElementById('rm-toggle');
+      b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      b.textContent = on ? 'Повернути рух' : 'Показати, що станеться при «менше анімації»';
+    }
+  });
+
+  /* the live values, read out of the resolved :root rather than typed here -
+     a number typed twice drifts, and this page is about numbers */
+  var cs = getComputedStyle(document.documentElement);
+  var names = ['--dur-fast', '--dur-base', '--dur-slow', '--dur-cycle', '--move-sm', '--move-md'];
+  document.getElementById('mnow').innerHTML = names.map(function (n) {
+    return '<span>' + n + ' <b>' + cs.getPropertyValue(n).trim() + '</b></span>';
+  }).join('') + '<span>reduce зараз <b>' +
+    (window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'увімкнено' : 'вимкнено') + '</b></span>';
+})();
+</script>
+<script src="_nav.js"></script>
+</body>
+</html>

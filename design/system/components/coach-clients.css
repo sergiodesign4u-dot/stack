@@ -741,6 +741,51 @@
     .coach .clsplit .clist{ grid-template-columns: minmax(0, 1fr); }
     /* the panel follows the eye down a long list rather than scrolling away from it */
     .coach .cldetail{ display: block; position: sticky; top: var(--space-16); }
+
+    /* 11.4 - THE CLEANEST CONNECTION IN THE PRODUCT, and the pack names it by
+       hand: the detail arrives FROM THE SIDE OF THE LIST, because that is
+       literally where the coach's eye and finger just were. `--move-md` to the
+       left, then nothing; `--dur-base`, because this is a change inside an open
+       composition and not a surface arriving over the page.
+       IT IS WRITTEN ONLY INSIDE THE TWO GATES. Below 860, or in a place narrower
+       than 41rem, there is no second column: the detail is not beside the list,
+       it IS the page, and sliding the page sideways would say the opposite of
+       what happened.
+       AND THERE IS NO FADE, WHICH IS THE POINT OF THIS RULE. Stage 10 step 5
+       moved focus to `#clName` the moment a client is chosen. If the panel
+       started at zero opacity, a screen reader would be reading the client's
+       name while the eye still had nothing to read and a keyboard user would
+       watch a focus ring sit on an invisible box for a fifth of a second. The
+       panel is opaque for every frame of the movement; only its position
+       changes. Motion may never arrive later than focus.
+       THE INSTRUMENT CANNOT SEE THIS ONE. `motion.mjs --surfaces` reads css, and
+       this surface is switched by javascript through the `hidden` attribute -
+       `design/_nav.js`, `select()` and `clear()`. It is the twenty-first, it is
+       counted by hand in `motion.md`, and that is said out loud so the number 20
+       is never read as «all of them». */
+    .coach .cldetail #clDetailBody{ transform: translateX(calc(var(--move-md) * -1));
+      transition: transform var(--dur-base) var(--ease-enter),
+                  display var(--dur-base) allow-discrete; }
+    .coach .cldetail #clDetailBody:not([hidden]){ transform: translateX(0); }
+    @starting-style{
+      .coach .cldetail #clDetailBody:not([hidden]){ transform: translateX(calc(var(--move-md) * -1)); }
+    }
+
+    /* THE EMPTY PROMPT IS THE OTHER HALF OF THE SAME SWAP, and it gets the other
+       treatment on purpose. `voice.md`, «Тон за станом»: an empty state is «чому
+       порожньо + дія-вихід», and the pack's reading of that is a calm appearance
+       WITHOUT a shift from below - a shift reads as «something is loading», and
+       nothing is. It has no side to come from either: deselecting a client is not
+       an arrival from the list, it is a return to the question. So it fades, and
+       the fade is safe here where it was not on the panel: `clear()` moves no
+       focus, so there is nothing for a screen reader to announce early. */
+    .coach .cldetail #clDetailEmpty{ opacity: 0;
+      transition: opacity var(--dur-base) var(--ease-enter),
+                  display var(--dur-base) allow-discrete; }
+    .coach .cldetail #clDetailEmpty:not([hidden]){ opacity: 1; }
+    @starting-style{
+      .coach .cldetail #clDetailEmpty:not([hidden]){ opacity: 0; }
+    }
   }
 }
 
@@ -766,6 +811,15 @@
    `.menu-opt`, `.wfh-langmenu a`, `.wfh-cabmenu a` - and a card in a rail is a row in
    a list. Reused rather than declared: the system had the answer and the prose had a
    different name for it. */
+/* 11.6, FOUND BY THE READER: the card had TWO states and answered neither. The
+   ground changes on hover and the border changes on selection, and both landed in
+   one frame while every other row in this system - `.menu-opt`, `.acc-link`,
+   `.hrail a` - eases the same change over `--dur-fast`. The roll-call of step 3
+   counted this file as «moves», and it does: what moves is the detail PANEL,
+   which is a different moment on the same file. A file-level verdict cannot see a
+   moment inside the file, and this is the case that proves it. */
+.coach .clsplit .ccard{ transition: background var(--dur-fast) var(--ease-standard),
+  border-color var(--dur-fast) var(--ease-standard); }
 .coach .clsplit .ccard:hover{ background: var(--bg-sunken); }
 
 /* THE NAME IS THE CONTROL. A card carrying `role="button"` also carried two real

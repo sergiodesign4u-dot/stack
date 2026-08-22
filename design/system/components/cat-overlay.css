@@ -46,6 +46,30 @@
      bug fix is how values get into a system with nobody deciding them. */
   .wf-catov{ position: fixed; top: var(--shell-top, 0px); left: 0; right: 0; bottom: 57px; z-index: 49; background: var(--bg-page); flex-direction: column; }
   .wf-catov.open{ display: flex; }
+
+  /* 11.4 - THE SURFACE COULD NOT ARRIVE, and the roll-call of step 3 was right
+     about it anyway. `display` is a DISCRETE property: it has no midpoint, so a
+     transition has nothing to interpolate and the element was simply there on one
+     frame and gone on the next. `transition-behavior: allow-discrete` holds the
+     old value until the rest of the transition finishes, and `@starting-style`
+     gives the browser the frame BEFORE the element existed to start from. Twenty
+     surfaces in this product open this way; the list, the job of each and the
+     reason for each number are in `design/kit/docs/motion.md`, section F5. */
+  /* A FULL-SCREEN DRILL-DOWN, and it fades rather than slides. It replaces the
+     whole page under the header, so a slide would move every pixel on the screen
+     at once - the most expensive movement in the product for the least meaning,
+     because there is no «from» to point at: the catalogue is not to the left of
+     anything. The rules live inside this media query because the surface does:
+     above 859 the overlay does not exist. */
+  .wf-catov{ opacity: 0;
+    transition: opacity var(--dur-slow) var(--ease-exit),
+                display var(--dur-slow) allow-discrete; }
+  .wf-catov.open{ opacity: 1;
+    transition: opacity var(--dur-slow) var(--ease-enter),
+                display var(--dur-slow) allow-discrete; }
+  @starting-style{
+    .wf-catov.open{ opacity: 0; }
+  }
   .wf-catov-h{ display: flex; align-items: center; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-bottom: 1px solid var(--line-hair);
     position: sticky; top: 0; background: var(--bg-page); min-height: 52px; }
   .wf-catov-h .ctitle{ font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }

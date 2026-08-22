@@ -105,6 +105,11 @@
 <p class="kp-p">Кільце <b>зовнішнє</b>, а не всередині: бар не ставить <code>overflow</code>, а вкладка досить широка, щоб внутрішнє кільце читалось як рамка навколо підпису.</p>
 <div class="kp-cap">Зміряно дотиком на 390 x 844: вкладка прозора <code>-> #FFF9F5</code>. Кільце на сусідній вкладці не зрізане нижнім краєм</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: color. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<div class="kp-demo"><button class="btn--ghost btn--s btn--stack" type="button"><span>Порівняти</span></button></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>stack-action.css</code>, не переписані руками. <b>Шість ролей на десять примітивів</b>, і в цьому наборі <b>два кільця фокусу</b> - єдиний компонент системи, який читає обидва.</p>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (10)</th></tr></thead><tbody>
@@ -113,6 +118,7 @@
 <tr><td><code>--ring-onink</code></td><td><code>--radius-8</code> <code>--radius-pill</code></td></tr>
 <tr><td><code>--text-onaction-ink</code></td><td><code>--size-20</code></td></tr>
 <tr><td><code>--text-secondary</code></td><td><code>--space-2</code> <code>--space-4</code></td></tr>
+<tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
 </tbody></table></div>
 <p class="kp-p"><b>Два кільця, бо той самий контрол стоїть на двох різних ґрунтах.</b> На сторінці працює <code>--ring-focus-control</code>. На темній смузі шапки кільце тієї самої ролі зникло б у власному тлі, тож там працює <code>--ring-onink</code> - <b>біле гало, викарбуване саме для цього випадку</b>. Це і є той поділ за ПОВЕРХНЕЮ, який етап оголосив третьою віссю: роль каже не лише «яким кольором», а й «на чому».</p>
 <p class="kp-p">Пари ґрунту рівно дві - <code>--bg-action</code> і <code>--bg-action-soft</code>, - і другий це ховер. Жодного власного токена стану компонент не заводить: усе, що йому було потрібно, семантичний рівень уже мав.</p></section>

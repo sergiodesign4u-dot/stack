@@ -116,9 +116,53 @@ because at 16px an outline mark collapses. They carry no brand colour: grey at r
 
 ## 5. Motion
 
-Almost none, by decision. Transitions are 150-220ms on colour, background and transform. The spinner
-is the only continuous animation and it respects `prefers-reduced-motion`. No entrance animation on
-content: the calm principle applies to movement too.
+Rewritten at stage 11. The paragraph that stood here said «almost none, by decision, 150-220ms» and
+was a description of the intention: the census found **12 different durations** and `ease` - the curve
+nobody chooses - on **817 of 818** resolved timing functions.
+
+**Three jobs, and there is no fourth.** CONNECTION (where the thing that appeared came from) ·
+STATUS (a process is running) · RESPONSE (the action was received). A moment for which none of the
+three can be named gets no animation: «it livens up the interface» is not a job.
+
+**Three durations, three curves, two distances, and a fourth pair for cycles - all tokens.**
+
+| token | value | job |
+|---|---|---|
+| `--dur-fast` | 150ms | RESPONSE. Slower than this and it is no longer an answer. The product's own majority, taken rather than replaced |
+| `--dur-base` | 220ms | a transition INSIDE a component. A value the product already held, with its job changed |
+| `--dur-slow` | 330ms | an APPEARANCE. The one number the census did not contain: the whole product lived inside a 160ms span holding no rung that reads as arrival. 1.5x the base, the ratio the base already stood in to the fast one |
+| `--ease-standard` · `--ease-enter` · `--ease-exit` | fitted cubic-beziers | solved to a family by least maximum error (`tools/ease-fit.mjs`), not recalled from a table. **No spring and no bounce**, refused by name: an overshoot is a small celebration, and `voice.md` bans celebration |
+| `--move-sm` · `--move-md` | 2px · 10px | the lift under a cursor · what an arriving element travels |
+| `--dur-cycle` · `--ease-cycle` | 1100ms · linear | STATUS. A PAIR, not a fourth rung: a transition has an end and someone waiting for it, a cycle has neither |
+
+**These tokens have no theme pair, and that is said out loud.** A `:root` / `[data-theme="dark"]`
+pair is a property of the semantic level, that is, of colour. A duration is not a colour.
+
+**Cheap and expensive.** `transform` and `opacity` are handed to the compositor and touch neither
+layout nor paint. `width`, `height`, `top`, `left`, `margin`, `padding` make the browser redo layout
+on every frame - three switch knobs were converted off `left` at step 5, and the travel was written as
+the relation it always was. `box-shadow` and `filter` leave layout alone but load painting; 24
+declarations carry them, and every one is triggered by a pointer or by focus, so only one element is
+ever repainting. `transition: all` is banned outright: it animates what nobody ordered.
+
+**`prefers-reduced-motion` is an obligation, and it has ONE mechanism: the same tokens are redefined**
+inside `@media (prefers-reduced-motion: reduce)` in `tokens.css`. A component that reads `var()` obeys
+without knowing it exists, and so will every component written at stage 12.
+
+**Reducing motion never cancels the STATE.** An element that appears still appears; what goes is the
+travel, not the arrival. An element that stops appearing at all under `reduce` is a worse defect than
+any amount of unwanted animation.
+
+**What the override cannot reach is closed by name, where it lives**: a `@keyframes` cycle (at
+`reduce` it is REPLACED by a static state, never sped up - a pulse at 1ms is a flicker), the
+cross-document view transition, and `scroll-behavior`. **No blanket rule on `*`** - and when that
+sentence was first written it was false, which is the finding step 5 exists for: `base.css` had
+carried `*{ transition: none !important }` since stage 07, and under it the audit would have been
+green over an empty field.
+
+**No motion lives in a screen file.** `transition`, `animation` and `@keyframes` belong to the token,
+the component or the pattern. `design/overview.html` is the one declared exception, because it does
+not load the system at all.
 
 ## 6. Where the build disagreed with the concept
 

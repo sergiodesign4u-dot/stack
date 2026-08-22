@@ -741,6 +741,132 @@
   --fs-display: clamp(1.875rem, 1.58rem + 1.3vw, 2.75rem);   /* 30px -> 44px */
 
 
+  /* ---- MOTION: three durations, three curves, two distances - stage 11 step 2
+
+     THESE TOKENS HAVE NO THEME PAIR EITHER, AND FOR THE SAME REASON AS WIDTH
+     ABOVE. A pair in `:root` / `[data-theme="dark"]` is a property of the
+     SEMANTIC level, which is colour. A duration is not a colour and a curve is
+     not a colour: they do not change when the lights go out. Do not look for a
+     pair here and do not write an empty one.
+
+     WHERE THE NUMBERS CAME FROM. Step 1 took the census from both ends -
+     `tools/motion.mjs --source` read every stylesheet and every <style> block,
+     `--output` resolved 279 pages in Chrome and read the computed style of
+     every element that moves. The product held **12 different durations and one
+     curve nobody chose**: `.15s` x92 declarations, `.14s` x13, `.12s` x13,
+     `.22s` x6, `.18s` x5, `.16s` x4, plus `.2s` `.25s` `.28s` `.9s` `1.1s` and
+     a `0s`; and `ease` on 817 of 818 resolved timing functions, which is the
+     value a declaration gets when nobody names one. The benchmark leader named
+     by `research.md`, measured live the same day with the same instrument, runs
+     its home page on TWO durations and one chosen curve on 95 of 110 elements.
+
+     THREE RUNGS, AND EACH IS A JOB, NOT A SIZE. Response (the press, the hover,
+     the focus ring), transition inside a component, appearance of an element
+     that was not there. A moment that cannot name one of the three jobs does
+     not get a duration, because it does not get an animation. */
+  --dur-fast: 150ms;   /* RESPONSE: hover, press, focus, a switch flipping.
+     THE PRODUCT'S OWN MAJORITY, taken rather than replaced: 92 of the 133
+     duration declarations and 26 083 of the 42 303 resolved values already
+     stand at .15s. `.14s` (13 declarations, all of them colour-only link
+     hovers) and `.12s` (13, most of them the mega menu) fold INTO it, so the
+     consolidation moves the minority and leaves the mass of the product
+     unmoved. It also sits at the top of the window a response has: past about
+     150ms a press stops reading as an answer to the finger and starts reading
+     as the interface thinking. */
+  --dur-base: 220ms;  /* TRANSITION INSIDE A COMPONENT: a row expanding, a panel
+     of an open control, a tab changing, a card lifting.
+     ALSO A VALUE THE PRODUCT ALREADY HOLDS - 6 declarations - BUT ITS JOB
+     CHANGES HERE. Today .22s is what an APPEARANCE costs (`nav-drawer`,
+     `filter-sheet`, the toast's `tt-in`, the header's `max-height`). From here
+     it is the middle rung and appearances step up to `--dur-slow`, because a
+     drawer that arrives in the same time a card takes to lift is telling the
+     eye those two are the same kind of event, and they are not. */
+  --dur-slow: 330ms;  /* APPEARANCE: a dialog, a drawer, a sheet, an overlay,
+     the client panel of the coach split view.
+     THE ONE NUMBER THE CENSUS DID NOT CONTAIN, and that is the finding rather
+     than an exception to it: the whole product lives between 120 and 280ms, a
+     160ms span, which holds no rung that reads as something arriving. Nothing
+     is being slowed down by this - the eleven organisms carrying an `open`
+     state (`overlay`, `cat-overlay`, `review-modal`, `city-dialog`,
+     `cart-drawer`, `coach-session`, `coach-verify`, `plan-card`, `tabbar`,
+     `buy-box`, `coach-clients`) appear today with NO transition at all, so they
+     move from nothing to this. The value is the relation, not a taste: 330 is
+     1.5x the base, which is the ratio the base already stands in to the fast
+     one (220/150 = 1.47). */
+
+  /* CURVES. Three, and each was SOLVED rather than recalled. The reference of
+     step 1 (the `gsap-core` skill of `greensock/gsap-skills`, read
+     live 2026-08-21; table C in `design/kit/docs/motion.md`) names a FAMILY - `power_.out`, «sharp start, long settle» -
+     and states that its CustomEase «can use cubic-bezier values (as used in
+     CSS cubic-bezier())». It does not hand over four numbers, so the four
+     numbers were fitted to the family's own function by least maximum error
+     (`ease-fit.mjs`, quoted in `motion.md`); a number recalled from a table of
+     famous easings would be a number invented, one table further away.
+     NO SPRING AND NO BOUNCE, and this is a decision with a source: `back.out`
+     (overshoot) and `elastic` are refused BY NAME because `voice.md` Principle
+     5 bans celebration outright and the tone table puts phase 8, the wait after
+     paying, at target emotion ZERO. An overshoot is a small celebration
+     delivered exactly where the person wants none. */
+  --ease-standard: cubic-bezier(.48, .04, .52, .96);  /* power1.inOut, fitted to
+     0.36% max error. Most transitions: the state changes and neither end of the
+     movement is more important than the other. */
+  --ease-enter:    cubic-bezier(.33, 1, .67, 1);      /* power2.out, 0.19%. What
+     ARRIVES: the energy is spent at the start, so the eye reaches the element
+     while it is already settling and already readable. Table C, moment M1. */
+  --ease-exit:     cubic-bezier(.33, 0, .67, 0);      /* the mirror, 0.19%. What
+     LEAVES: it starts slowly, so the eye can see WHAT is leaving, and then goes
+     quickly, because nobody needs to watch it finish. */
+
+  /* THE CYCLE, and it is a FOURTH pair rather than a fourth rung. Step 3 closed
+     with three cycles standing as literals - `skpulse 1.1s ease-in-out` and two
+     `uivspin .9s linear` - and step 4 is where they land, because a cycle is the
+     whole of the STATUS job and step 4 is where STATUS is done.
+     WHY IT IS NOT A FOURTH RUNG ON THE LADDER. 150 / 220 / 330 are TRANSITIONS:
+     each has a start state, an end state and a person waiting for the end. A
+     cycle has no end - it says «this is still running» and stops when the answer
+     arrives. Putting it on the same ladder would invite the next reader to
+     compare 1100 with 330 as though one were three times the other, and they
+     measure different things. It is written as its own pair, with its own reason,
+     and `--dur-slow` stays the top of the ladder.
+     THE NUMBER IS THE CENSUS AGAIN, but counted by INSTANCE and not by
+     declaration, and the two disagree. By declaration the spinners win 2 to 1
+     (.9s twice, 1.1s once). By instance the pulse wins 22 grey and 39 coloured
+     against 3: `.skpulse` is the cycle this product actually shows, and the
+     spinners appear on two flows. 1100 is taken, and what it costs is named:
+     each spinner turns 200ms slower, a difference nobody can put a word to. The
+     other way round costs the pulse 18% more agitation on the one screen a
+     person stares at while waiting, and `voice.md` puts phase 8 - the wait after
+     paying - at target emotion ZERO. */
+  --dur-cycle: 1100ms;
+
+  /* AND THE CURVE IS LINEAR, which is the census majority (2 of 3) and also the
+     only curve a ROTATION can take: `ease-in-out` on a 360deg loop accelerates
+     and decelerates once per turn, and a spinner that stutters once a second
+     reads as a stuck process rather than a running one. That is the same reason
+     `voice.md` gives for loading - «рівний повтор» - so the voice and the
+     physics agree here.
+     WHAT IT COSTS THE PULSE is written where it is paid, in `skeleton.css`: a
+     three-stop opacity ramp under `linear` has a corner at its turn. The
+     softness moved into the keyframes, where a cycle's shape belongs, rather
+     than into a second curve token that would exist for one selector. */
+  --ease-cycle: linear;
+
+  /* DISTANCES. Both are census values, and the ceiling is a relation: movement
+     longer than about one and a half times the height of the element stops
+     reading as «this came from there» and starts reading as a journey. */
+  --move-sm: 2px;    /* the lift under the cursor. 10 declarations of
+     `translateY(-2px)` in the system already, plus 2 of `-1px` that fold in. */
+  --move-md: 10px;   /* what an arriving element travels. The toast's `tt-in`
+     already starts at `translateY(10px)`, and the one `translateY(8px)` beside
+     it folds in. Offscreen starts (`translateY(100%)`, `translateX(-100%)`) are
+     NOT this token: they are a relation to the element's own size, and writing
+     them as a length would break the moment the element changes size. */
+
+  /* THE OVERRIDE THAT TURNS ALL OF THIS OFF lives at the foot of the light
+     half, immediately after this `:root` closes. It could not be written here:
+     a media query is an at-rule and this is a declaration list. */
+
+
 /* ==========================================================================
    SEMANTIC - roles
 
@@ -1188,11 +1314,100 @@
   --bg-save:               var(--red-50);             /* 1 use - the «you save» badge in the coach box. MERGED from #FBEAE7. */
 
   /* ---- NOT IN THE CODE, deliberately absent ------------------------------
-     --color-focus and the full state set (hover exists in places, active and
-     disabled do not) are NOT invented here. Inventing a role nobody reads is
-     how a semantic layer fills up with noise. They are named out loud on every
-     component page under "Not in the code -> stage 09" and collected into
-     design/kit/docs/architecture.md at step 8. */
+     `--color-focus` as a named role is not invented here: focus is carried by
+     two ring tokens instead, `--ring-focus` for the halo on a field and
+     `--ring-focus-control` for everything a finger presses, and step 10.6 gave
+     the second one a floor in `base.css` so that no control falls through to
+     Chrome's own blue. `--bg-hover` is not declared either: step 10.6 caught a
+     component reaching for it and the hover drew nothing, because the
+     declaration was invalid at computed-value time. A hovered row takes
+     `--bg-sunken`, which every other one already did.
+
+     WHAT THIS BLOCK SAID AND WAS WRONG ABOUT, corrected at the entry gate of
+     stage 11 - it read «hover exists in places, active and disabled do not».
+     Both exist, both are declared above in this same block and both have a
+     dark pair: `--bg-action-pressed` and `--mark-disabled`. What is true is the
+     narrower statement: no state is a full SET across every role. A state token
+     exists where a component asked for one, and inventing a role nobody reads
+     is how a semantic layer fills up with noise. The gaps are named out loud on
+     every component page under "Not in the code -> stage 09" and collected into
+     design/kit/docs/architecture.md at step 8.
+
+     A CLAIM ABOUT THE CORPUS GOES STALE IN SILENCE, and this one did: the two
+     tokens that falsified it were written INTO THIS BLOCK after the sentence
+     was, so nothing read them together until something needed the answer. */
+}
+
+/* ==========================================================================
+   LESS MOTION - the obligation, and it has exactly one mechanism
+   ==========================================================================
+   THIS IS NOT AN OPTION OF THE PRODUCT and there is no switch for it in the
+   interface. The system setting is the switch, and for the people who set it
+   this is not a matter of taste: motion they did not ask for costs them
+   nausea and migraine.
+
+   ONE MECHANISM: THE TOKENS ARE REDEFINED, not thirty rules rewritten. Every
+   component that reads `var(--dur-*)` obeys on its own, and so will every
+   component written at stage 12, knowing nothing about this block. That is the
+   whole reason the durations became tokens rather than good habits.
+
+   WHY `@media` WORKS HERE AND DID NOT AT STAGE 10, because confusing the two is
+   expensive. At stage 10 the query was ASKED ABOUT a variable -
+   `@media (min-width: var(--bp-shell-wide))` - and a media condition is
+   evaluated BEFORE the cascade of custom properties, so it never fires and
+   never errors either. Here the query is not asking about a variable: INSIDE it
+   the variable is REDEFINED, which is an ordinary declaration in an ordinary
+   rule and happens in the cascade like any other. Asking and assigning are not
+   the same operation.
+
+   1ms AND NOT 0s, on purpose. At zero some browsers never fire `transitionend`,
+   so a handler waiting for the end of a movement waits forever - reduced motion
+   would break behaviour instead of removing decoration. 1ms is below anything a
+   person can perceive and above the threshold that keeps the event. The
+   instrument of step 5 reads it the same way: its sign is «more than 1ms is a
+   defect», never «exactly zero», because the second one would fail every
+   element that had worked correctly.
+
+   AND THE STATE DOES NOT DISAPPEAR WITH THE MOVEMENT. An element that appears
+   still appears; what goes is the travel, not the arrival. That is why the
+   distances go to 0 and the durations to 1ms, and why nothing here sets
+   `display` or `opacity`.
+
+   NO SAFETY NET ON `*` HERE, AND WHEN THIS WAS FIRST WRITTEN THE SENTENCE WAS
+   FALSE - corrected at 11.5. The paragraph below said, at step 2, that the system
+   deliberately carried no blanket rule. It carried one: `base.css` had
+   `@media (prefers-reduced-motion: reduce){ *{ transition: none !important } }`
+   from stage 07, and `!important` on `*` beats every declaration written here.
+   Under it the audit of step 5 would have been green over an empty field -
+   underneath such a rule no component that fails to read these tokens can be seen
+   at all - and the step-3 write-up misread the resulting zeros as Chrome's own
+   doing. It was removed at 11.5, before the audit was first run, which is what
+   turned the audit red. Whether a net goes back afterwards is decided AFTER the
+   audit is green without one, never before. An instrument must not hide the
+   defect it is looking for, and a claim that one is absent has to be checked
+   against the tree rather than against intention.
+
+   WHAT THIS BLOCK CANNOT REACH is its own subject at step 5 and is listed in
+   `design/kit/docs/motion.md`: a `@keyframes` cycle (which at `reduce` must be
+   REPLACED by a static state, not sped up - a pulse at 1ms is a flicker, which
+   is worse than the pulse), a duration written as a literal inside a component,
+   and a transition between two documents. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-base: 1ms;
+    --dur-slow: 1ms;
+    --move-sm:  0px;
+    --move-md:  0px;
+    /* `--dur-cycle` AND `--ease-cycle` ARE NOT HERE, and their absence is the
+       decision rather than the omission. A transition at 1ms is over before it
+       is seen, which is exactly what «no motion» means. A CYCLE at 1ms is not
+       over at all: it repeats a thousand times a second, which is a flicker, and
+       a flicker is worse than the pulse it replaced. Every cycle is switched off
+       in its own file with `animation: none` and a static state put in its place
+       - `skeleton.css`, `auth-dialog.css`, `checkout-form.css` - and step 5
+       proves that each of the three actually does it. */
+  }
 }
 
 /* ==========================================================================

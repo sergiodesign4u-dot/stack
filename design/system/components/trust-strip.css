@@ -59,7 +59,7 @@
   border:1px solid var(--line-hair); border-radius:var(--radius-16); padding:var(--space-8); }
 .tsx{ display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-rows:auto auto;
   column-gap:var(--space-12); align-content:center; border:none; border-radius:var(--radius-12);
-  background:none; padding:var(--space-16) var(--space-16); transition:background .15s ease; }
+  background:none; padding:var(--space-16) var(--space-16); transition:background var(--dur-fast) var(--ease-standard); }
 .tsx .uiv-ic{ grid-column:1; grid-row:1 / span 2; align-self:center; }
 .tsx b{ grid-column:2; grid-row:1; align-self:end; }
 .tsx span:not(.uiv-ic){ grid-column:2; grid-row:2; align-self:start; }
@@ -108,7 +108,7 @@
 }
 .tsx .uiv-ic{ flex:none; width:var(--size-44); height:var(--size-44); border-radius:var(--radius-12); background:var(--bg-page); color:var(--text-body);
   box-shadow: var(--elevation-control);
-  transition:transform .15s ease, color .15s ease; }
+  transition:transform var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
 /* the second half of the affordance above, and the half that actually moves:
    the icon is what lifts and goes accent */
 .tsx:hover .uiv-ic{ transform:translateY(-2px); color:var(--text-action); }
@@ -166,7 +166,7 @@
 .trustsec > summary{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead);
   background:var(--bg-surface); padding:var(--space-16) var(--space-16); }
 .trustsec[open] > summary{ border-bottom:1px solid var(--line-hair); }
-.trustsec > summary{ transition:background .15s ease; }
+.trustsec > summary{ transition:background var(--dur-fast) var(--ease-standard); }
 .trustsec > summary:hover{ background:var(--bg-sunken); }
 .trustsec > summary:hover .chev{ color:var(--text-action); }
 .trustsec .tsb{ padding:var(--space-16) var(--space-16) var(--space-16); }

@@ -33,7 +33,7 @@
 }
 .pdp-tabs::before{ content:""; position:fixed; left:0; right:0;
   top:var(--shelf-top, 0px); height:var(--shelf-h, 0px);
-  z-index:-1; background:var(--bg-page); opacity:0; transition:opacity .16s ease; pointer-events:none; }
+  z-index:-1; background:var(--bg-page); opacity:0; transition:opacity var(--dur-fast) var(--ease-standard); pointer-events:none; }
 .pdp-tabs.stuck::before{ opacity:1; box-shadow: var(--elevation-2); }
 body.pdp-stuck .wfh.uiv-scrolled{ box-shadow:none; }
 .pdp-tabs a{ position:relative; color:var(--text-secondary); border-radius:var(--radius-8); padding:var(--space-8) var(--space-12); }

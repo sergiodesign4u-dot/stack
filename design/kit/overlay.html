@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Оверлей</h1>
 <p class="kp-lead">16 рядків, 4 селектори, 16 оголошень, <b>жодної семантичної ролі</b> й один примітив. Це не компонент - це <b>два затемнення, яким не знайшлося іншого файлу</b>. <code>.wf-ov</code> лежить на 34 з 40 кольорових екранів, 37 екземплярів, і в нього <b>нуль дітей</b>: те, що він затемнює, ніколи не всередині нього. <code>.ceov</code> у тому ж файлі - протилежне: він затемнює <b>і</b> тримає діалог, і саме він несе <code>role="dialog"</code>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/overlay.css</span><span class="kp-tag">16 рядків</span><span class="kp-tag">5 селекторів</span><span class="kp-tag">16 оголошень</span><span class="kp-tag">82 екрани</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/overlay.css</span><span class="kp-tag">38 рядків</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">21 оголошення</span><span class="kp-tag">82 екрани</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Таблиця складу порожня, і це і є знахідка: всередині кореня немає класів чужих файлів, бо всередині кореня немає нічого.</p>
@@ -52,8 +52,13 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>2</b> власні класи і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["ceov", "wf-ov"], KIT_STS=[];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ЗВ'ЯЗОК.</b> Обидва це СКРИМИ: вони гасять те, що позаду, щоб поверхня спереду читалась як єдине живе. <b>Скрим не подорожує</b> - йому немає звідки прийти, - тож він лише проявляється, на тому самому <code>--dur-slow</code>, що й поверхня, яку супроводжує, інакше темрява сяде раніше за діалог. До кроку 4 обидва з'являлись перемиканням <code>display</code> і руху не мали взагалі.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>overlay.css</code>: <b>1</b> семантична роль і <b>1</b> примітив.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td><code>--scrim-overlay</code></td><td><code>--space-24</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>overlay.css</code>: <b>1</b> семантична роль і <b>1</b> примітив.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (1)</th><th>Примітиви (1)</th></tr></thead><tbody><tr><td><code>--scrim-overlay</code></td><td><code>--space-24</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-slow</code> <code>--ease-enter</code> <code>--ease-exit</code></td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
 <p class="kp-p">Чотири селектори. <b>Жодного оголошення, яке б збігалося з елементом і не вигравало</b>, і це не заслуга: у файлі просто нема чому з чим сперечатися. Зате <b>два з чотирьох селекторів не збіглися ні з чим</b> - обидва <code>.open</code>. За сорока кольоровими екранами в спокої жодне з двох затемнень не намальовано ввімкненим жодного разу.</p><p class="kp-p">З цього виходить головне питання файлу, і воно не про css. <code>overlay.css</code> - <b>єдиний з 24 організмів, у якого немає ані власної розмітки, ані власного стану, ані ролі</b>. Він тримає значення, яке належить восьми іншим файлам, і два імені, які належать різним речам. Питання етапу 09 звучить так: це компонент, чи це шар?</p></section>

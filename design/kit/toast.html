@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Тост</h1>
 <p class="kp-lead">Смужка внизу екрана, яка каже, що дія вдалась. <b>Єдиний компонент системи, якого в стані спокою не існує</b> - і саме тому це виявилась єдина область продукту, куди жоден прохід ніколи не дійшов.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toast.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">9 селекторів</span><span class="kp-tag">43 оголошення</span><span class="kp-tag">20 екранів</span><span class="kp-tag">JS</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toast.css</span><span class="kp-tag">76 рядків</span><span class="kp-tag">9 селекторів</span><span class="kp-tag">46 оголошень</span><span class="kp-tag">20 екранів</span><span class="kp-tag">JS</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Натисніть - тости справжні, їх будує та сама <code>wfToast()</code>, що й у крамниці, і зникають вони так само через 4.2 секунди.</p>
@@ -119,9 +119,16 @@ function KIT_EXTRA(rendered){
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> жодного. Тост плинний: ширина обмежена своїм контейнером, текст переноситься. Раунд молекул його не чіпав.</div>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ЗВ'ЯЗОК.</b> Рухається: прихід і відхід: <code>opacity</code> і <code>transform</code> на <code>--move-md</code>. Тривалість <code>--dur-slow</code> (330ms), крива <code>--ease-enter</code> / <code>--ease-exit</code>. Значення читаються через <code>var()</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<p class="kp-p"><b>Єдина молекула з роботою ЗВ'ЯЗОК, тому єдина, що бере <code>--dur-slow</code>.</b> Прихід іде на <code>--ease-enter</code>, відхід на <code>--ease-exit</code> - тост іде туди ж, звідки прийшов. <b>Тут же помер єдиний у продукті <code>transition: all</code></b>: він анімував усе, що змінилось, і перепис показав, що одне оголошення дістає 32 елементи. Тепер названі рівно дві властивості, які справді йдуть. Відстань <code>8px</code> згорнулась у <code>--move-md</code>, тобто в те саме число, з якого тост приходить.</p>
+<p class="kp-p"><b>Крок 4, і тут знайшлись дві речі.</b> Перша: вихід перейшов на <code>--dur-base</code>, і причина лежить у файлі, якого цей етап чіпати не може - <code>wireframes/_nav.js</code> знімає вузол через 250мс після класу <code>.out</code>, а крок 3 поставив вихід на 330. Тост зникав посеред власного згасання. Сірий корпус заморожений, тож рухається число: 220 вміщається в 250. Друга: <b>тост помилки тепер рухається інакше за тост успіху</b> - <code>--dur-base</code> і <code>--move-sm</code> замість <code>--dur-slow</code> і <code>--move-md</code>. До цього <code>wfToast('error', ...)</code> приходив тим самим розмахом, що й «Адресу збережено»: один рух під двома протилежними реченнями. Механізм - локальний псевдонім <code>--tt-travel</code>, а не перевизначений токен.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>toast.css</code>: <b>6</b> семантичних ролей і <b>9</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--elevation-4</code> <code>--line-onink</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--size-20</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--elevation-4</code> <code>--line-onink</code> <code>--text-oninverse</code> <code>--text-primary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--size-20</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-base</code> <code>--dur-slow</code> <code>--ease-enter</code> <code>--ease-exit</code> <code>--move-md</code> <code>--move-sm</code></td></tr>
+</tbody></table></div>
 <p class="kp-p">Повз шкалу п'ять чисел, і всі п'ять про <b>розміщення й рух</b>: <code>22px</code> знизу, <code>92%</code> і <code>380px</code> ширини, <code>10px</code> появи й <code>8px</code> зникання. Жодне з них не про вигляд самої смужки - фон, радіус, тінь, кегль і кроки всередині взяті з системи повністю.</p>
 <p class="kp-p"><b>У цього файлу немає блока кольору взагалі</b> - усі 43 оголошення в секції структури. І це правда, а не пропуск: тост від початку намальований інверсною поверхнею й ролями <code>--bg-inverse</code> / <code>--text-oninverse</code>, тож кольоровому продукту нема чого тут перебивати.</p></section>
 

@@ -80,9 +80,14 @@
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-grid-2col</code>, і воно вже стояло на реєстрі. <b>Що саме міняється:</b> ряд логотипів іде з трьох колонок у шість. <b>Раунд молекул не змінив тут нічого, і це виправлення переклички:</b> файл був у списку кандидатів на <code>auto-fit</code>, а замір показав ту саму причину, що й у плиток цілей - логотипів шість, збалансовані розкладки це 3 і 6, і заповнення дорогою дало б 4+2. Колонка виходить 88px і на 320, і на 620.</div>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: рамка, колір, <code>filter</code> і прозорість логотипа. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>brand-logo.css</code>: <b>5</b> семантичних ролей і <b>5</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--line-action</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fw-bold</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div>
 <p class="kp-p">Повз шкалу чотири числа: <code>1px</code> волосини, <code>62px</code> висоти коробки, <code>34px</code> стелі логотипа і <code>620px</code> точки перелому. Перші три - розміри цього малюнка й нікого більше; <code>620</code> - друга за вжитком точка перелому системи, вона стоїть у дев'яти файлах і має свій рядок у <code>tokens.css</code> з кроку 7.70.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">A/B</div>

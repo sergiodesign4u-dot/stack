@@ -21,6 +21,20 @@
   min-width: 9.5rem; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
 .wfh-langmenu.open{ display: block; }
+
+/* 11.4 - A MENU DOES NOT TRAVEL, AND THAT IS A DECISION WITH A REASON. It is
+   anchored to the control that opened it and stands one gap below it, so it is
+   already where it came from: a ten-pixel drop on a popover this size reads as a
+   lurch, not as an origin. It fades, at `--dur-base` - a transition inside a
+   component rather than a surface arriving over the page, which is what
+   `--dur-slow` is for. Technique and full list: `motion.md`, section F5. */
+.wfh-langmenu{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.wfh-langmenu.open{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .wfh-langmenu.open{ opacity: 0; } }
 .wfh-langmenu a{ display: flex; align-items: center; justify-content: space-between; gap: var(--space-12);
   padding: var(--space-8) var(--space-16); font-size: var(--fs-14); font-weight: var(--fw-semibold); color: var(--text-primary); }
 .wfh-langmenu a:hover{ background: var(--bg-sunken); }
@@ -63,6 +77,19 @@
 .wfh.mega-open .wfh-cat .navbtn::after, .wfh.mega-pinned .wfh-cat .navbtn::after{ display: block; }
 .wfh-scrim{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 28; }
 .wfh-scrim.open, .wfh-scrim.pinned{ display: block; }
+
+/* 11.4 - the mega menu's scrim. A scrim fades and never travels; it takes
+   `--dur-slow` because it accompanies a full-width surface, and the two must
+   land together or the page darkens before anything has arrived on it.
+   BOTH STATE CLASSES CARRY IT. `.open` is the hover edition and `.pinned` the
+   clicked one; they are two ways into one surface, not two surfaces. */
+.wfh-scrim{ opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.wfh-scrim.open, .wfh-scrim.pinned{ opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{ .wfh-scrim.open, .wfh-scrim.pinned{ opacity: 0; } }
 @media (max-width: 859px){
   .wfh-scrim{ display: none !important; }
 }
@@ -74,7 +101,7 @@
 .wfh-mega .ms-lead{ display: block; font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); padding: var(--space-8) 0 var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); }
 .wfh-mega .ms-link{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
 .wfh-mega .ms-link:hover{ color: var(--text-primary); text-decoration: underline; }
-.wfh-mega .ms-feat{ display: block; margin-top: var(--space-12); border: 1px solid var(--line-hair); border-radius: var(--radius-8); background: var(--bg-page); padding: var(--space-12); transition: border-color .15s ease, box-shadow .15s ease; }
+.wfh-mega .ms-feat{ display: block; margin-top: var(--space-12); border: 1px solid var(--line-hair); border-radius: var(--radius-8); background: var(--bg-page); padding: var(--space-12); transition: border-color var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard); }
 .wfh-mega .ms-ph{ height: 78px; border-radius: var(--radius-8); background: repeating-linear-gradient(45deg, var(--bg-surface), var(--bg-surface) 8px, var(--bg-hatch) 8px, var(--bg-hatch) 16px); display: flex; align-items: center; justify-content: center; color: var(--mark-faint); font-size: var(--fs-10); margin-bottom: var(--space-8); }
 .wfh-mega .ms-ftag{ font-size: var(--fs-10); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); }
 .wfh-mega .ms-fh{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); margin: var(--space-4) 0; line-height: var(--lh-snug); }
@@ -154,6 +181,15 @@
   min-width: 14.375rem; background: var(--bg-page); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);
   border-radius: 0 0 var(--radius-12) var(--radius-12); box-shadow: var(--elevation-3); padding: var(--space-8) 0; }
 .wfh-cabmenu.open{ display: block; }
+
+/* 11.4 - the same treatment and the same reason as `.wfh-langmenu` above. */
+.wfh-cabmenu{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.wfh-cabmenu.open{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .wfh-cabmenu.open{ opacity: 0; } }
 .wfh-cabmenu .cab-head{ padding: var(--space-12) var(--space-16) var(--space-12); border-bottom: 1px solid var(--line-hair); margin-bottom: var(--space-8); display: flex; flex-direction: column; gap: var(--space-4); }
 .wfh-cabmenu .cab-nm{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
 .wfh-cabmenu .cab-tier{ align-self: flex-start; font-size: var(--fs-10); font-weight: var(--fw-black); letter-spacing: var(--ls-caps); background: var(--bg-inverse); color: var(--text-oninverse); border-radius: var(--radius-pill); padding: var(--space-2) var(--space-8); }
@@ -237,8 +273,8 @@
    - was written a second time in tabbar.css under different part names, so the
    header was never its owner. This file keeps only what a HEADER knows: how tall
    its row is and how much room it has. */
-.wfh-mi a{ transition:color .15s ease; }
-.wfh-meta a{ transition:color .15s ease; }
+.wfh-mi a{ transition:color var(--dur-fast) var(--ease-standard); }
+.wfh-meta a{ transition:color var(--dur-fast) var(--ease-standard); }
 .wfh-meta a:hover{ color:var(--text-action); }
 .wfh-meta .wfh-loc, .wfh-meta .wfh-lang{ display:inline-flex; align-items:center; gap:var(--space-4); }
 /* THE THEME SWITCH lives in the top bar beside the city and the language, and
@@ -297,7 +333,7 @@
 .wfh-cabmenu .cab-head{ margin-bottom:0; }
 .wfh-cabmenu a{ display:flex; align-items:center; gap:var(--space-12);
   min-height:var(--size-44); border-bottom:1px solid var(--line-hair);
-  transition:background .14s ease, color .14s ease; }
+  transition:background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
 .wfh-cabmenu a:last-child{ border-bottom:none; }
 /* the mark's slot is the rail's 20/18: the box holds the row's rhythm, the svg
    is the drawing. Addressed as `.uiv-ic` and not by a class of our own, because
@@ -344,7 +380,7 @@
    has one answer for a text link and this is the fourth name to take it. The
    arrow is a `currentColor` svg, so the mark moves with the word - which is the
    loud rung's own rule about a two-tone hover reading as a rendering bug. */
-.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph, .wfh-mega .ms-lead{ transition:color .12s ease; }
+.wfh-mega .mega-sub, .wfh-mega .ms-link, .wfh-mega .mph, .wfh-mega .ms-lead{ transition:color var(--dur-fast) var(--ease-standard); }
 .wfh-mega .mega-sub:hover, .wfh-mega .ms-link:hover, .wfh-mega .mph:hover,
 .wfh-mega .ms-lead:hover{ color:var(--text-action); }
 /* step 7.23: the mega chip's hover went with it, and changed on the way - it
@@ -352,13 +388,13 @@
    other chip took the word to the accent too. One edition now. */
 .wfh-mega .ms-feat .ms-ph{ background:var(--bg-page); padding:0; overflow:hidden; }
 .wfh-mega .ms-feat .ms-ph img{ width:100%; height:100%; object-fit:contain; display:block; }
-.wfh-mega .ms-fb{ transition:color .12s ease; }
+.wfh-mega .ms-fb{ transition:color var(--dur-fast) var(--ease-standard); }
 .wfh-mega a.ms-feat:hover{ border-color:var(--line-action); box-shadow: var(--elevation-action-hover); }
 .wfh-mega a.ms-feat:hover .ms-fb,
 .wfh-mega a.ms-feat:hover .ms-fh{ color:var(--text-action); }
 .wfh-meta{ border-bottom:none; overflow:hidden; max-height:52px;
-  transition:max-height .22s ease, opacity .16s ease; }
-.wfh{ border-bottom:1px solid var(--line-hair); box-shadow:none; transition:box-shadow .2s ease; }
+  transition:max-height var(--dur-base) var(--ease-standard), opacity var(--dur-base) var(--ease-standard); }
+.wfh{ border-bottom:1px solid var(--line-hair); box-shadow:none; transition:box-shadow var(--dur-base) var(--ease-standard); }
 .wfh.uiv-scrolled .wfh-meta{ max-height:0; opacity:0; }
 .wfh.uiv-scrolled{ box-shadow: var(--elevation-bar-bottom); border-bottom-color:transparent; }
 /* ONE HEIGHT FOR THE WHOLE BAR - step 7.8 ------------------------------------

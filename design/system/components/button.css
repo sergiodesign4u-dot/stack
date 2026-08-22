@@ -119,8 +119,17 @@
   background: transparent;
   color: var(--text-body);
   cursor: pointer;
-  transition: background .15s ease, border-color .15s ease, color .15s ease,
-              box-shadow .15s ease, opacity .15s ease;
+  /* 11.6, FOUND BY THE READER AND NOT BY ANY INSTRUMENT: `transform` was missing
+     from this list while `.btn--lift:hover` sets `translateY(-1px)` two hundred
+     lines below. Half of one moment animated and the other half snapped - the
+     shadow and the ground eased over 150ms while the pixel of lift landed in a
+     single frame. No source check could see it: the two declarations are correct
+     apart and only disagree when somebody reads both. `.pcard` has animated its
+     own `transform` since step 3, so the same RESPONSE job was being told two
+     different ways in two files. */
+  transition: background var(--dur-fast) var(--ease-standard), border-color var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard), opacity var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
 }
 /* `-visible`, not `:focus`: a mouse click must not ring */
 .btn--accent:focus-visible,

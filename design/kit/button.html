@@ -25,7 +25,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Кнопка</h1>
 <p class="kp-lead">Основна дія екрана. Ця сторінка зібрана <b>з перепису</b>, а не зі стилю. Крок 6.7 переписав компонент цілком: <b>704 кнопки</b> на 39 кольорових екранах носили <b>56 різних класів</b> і давали <b>44 різні вигляди</b> - тепер це <b>обробка плюс модифікатори</b>, <b>22 комбінації</b> й <b>24 вигляди</b>, з яких зайві - це стани (вимкнена, поточна сторінка, збережене) і текстова обробка, що навмисно бере тип від речення довкола.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/button.css</span><span class="kp-tag">590 рядків</span><span class="kp-tag">86 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/button.css</span><span class="kp-tag">621 рядок</span><span class="kp-tag">86 екранів</span></div>
 <style>
 /* the matrix: a finish per row, a size per column */
 .btnset{ display:grid; gap:var(--space-24); }
@@ -330,9 +330,16 @@ document.querySelectorAll('.uiv-jar').forEach(function(e){ e.innerHTML = uivTier
 <div id="idle"></div>
 <script>var KIT_CLS=["btn--accent", "btn--danger", "btn--full", "btn--ghost", "btn--icon", "btn--inline", "btn--l", "btn--lift", "btn--outline", "btn--s", "btn--text", "uiv-ic"], KIT_STS=[":active", ":focus-visible", ":hover", "[aria-disabled=\"true\"]", "[disabled]"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: background, border-color, color, box-shadow, opacity. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<p class="kp-p">Один запис на весь набір обробок, тому його носять і серце на картці, і кнопка кошика, і посилання-дія. <code>box-shadow</code> у списку - властивість МАЛЮВАННЯ: на одному контролі вона дешева, на списку з двадцяти карток ні, і це рішення кроку 5.</p>
+<div class="kp-demo"><button class="btn--accent" type="button">Наведи і натисни</button> <button class="btn--outline" type="button">Обвідна</button></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>button.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (21)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-pressed</code> <code>--bg-action-soft</code> <code>--bg-danger</code> <code>--bg-danger-soft</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-control</code> <code>--line-action</code> <code>--line-danger</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-onaction</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fw-bold</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--radius-8</code> <code>--size-20</code> <code>--size-24</code> <code>--size-40</code> <code>--size-44</code> <code>--size-52</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (21)</th><th>Примітиви (18)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-pressed</code> <code>--bg-action-soft</code> <code>--bg-danger</code> <code>--bg-danger-soft</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-control</code> <code>--line-action</code> <code>--line-danger</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-danger</code> <code>--text-muted</code> <code>--text-onaction</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fw-bold</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--radius-8</code> <code>--size-20</code> <code>--size-24</code> <code>--size-40</code> <code>--size-44</code> <code>--size-52</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;button class="btn--accent btn--l btn--full"&gt;Оплатити карткою&lt;/button&gt;

@@ -52,19 +52,33 @@
   border-radius: var(--radius-pill);
   background: var(--bg-action);
   cursor: pointer;
-  transition: background .16s ease;
+  transition: background var(--dur-fast) var(--ease-standard);
 }
 .sw.off{ background: var(--bg-track); }
 
 /* ---------- the knob -------------------------------------------------------- */
+/* 11.5 - `left` BECAME `transform`, AND THE TRAVEL BECAME THE RELATION IT ALWAYS
+   WAS. Animating `left` makes the browser redo layout on every frame of every
+   flip; `transform` is composited and touches neither layout nor paint. The look
+   is identical to the pixel and was measured that way.
+   The two numbers it used to carry - 21 and 3 - were the SAME fact written twice:
+   the knob rests one inset from its own end of the track, and the distance it
+   crosses is whatever is left. Written as the relation, a change to the track
+   width or the knob size moves the knob correctly without anybody noticing that
+   it should. 44 - 20 - 3*2 = 18, which is exactly 21 - 3.
+   THE RESTING PLACE IS NOW THE `off` ONE and the ON state is the translated one -
+   the reverse of before - because a transform has to start from zero somewhere,
+   and «off» is where the control starts life. */
+.sw{ --sw-inset: 3px; --sw-travel: calc(var(--size-44) - var(--size-20) - var(--sw-inset) * 2); }
 .sw i{
-  position: absolute; top: 3px; left: 21px;
+  position: absolute; top: var(--sw-inset); left: var(--sw-inset);
   width: var(--size-20); height: var(--size-20);
   border-radius: var(--radius-circle);
   background: var(--bg-page);
-  transition: left .16s ease;
+  transform: translateX(var(--sw-travel));
+  transition: transform var(--dur-fast) var(--ease-standard);
 }
-.sw.off i{ left: 3px; }
+.sw.off i{ transform: translateX(0); }
 
 /* ---------- focus, and it had none ------------------------------------------
    `:focus-visible`, so a mouse press does not light it up. The ring goes outside

@@ -35,6 +35,11 @@ node tools/split.mjs [--frame .sel]      does the split view split, and does eve
 node tools/dupe.mjs [--census]          the same declaration block, written twice
 node tools/typo.mjs                     the three-dash and apostrophe rule, over the whole tree
 node tools/focus.mjs [--all|pages]      press Tab on every control and read the ring it draws
+node tools/motion.mjs [--source|--output|--states|--full]   what moves today, asked from the file AND from the frame
+node tools/motion.mjs --surfaces [--live]   the surfaces that appear by switching `display`, from css and from the browser
+node tools/motion.mjs --view            the crossfade BETWEEN two documents, read from inside a live navigation
+node tools/motion-row.mjs               rebuild a stand page's motion row in «Токени» from its own css
+node tools/ease-fit.mjs                 where the three cubic-bezier curves came from, re-solvable
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
@@ -511,6 +516,16 @@ that reads like a clean one), the profile directory (an absolute path into one
 session's folder, which is why none of these outlived the session that wrote
 them), the port (two scripts on one port is a silent hang), and **the page list**.
 
+**And `profile()` sweeps what earlier runs left behind - 11.5.** Its `onExit` hook
+covers a clean exit and the signals it registers for; it does not cover `SIGKILL`,
+and a walk that takes ten minutes gets killed often - by a timeout, by a second
+run started beside it, by a person. Each of those leaves a whole Chrome profile in
+the system temp directory. Counted when the line was written: **1107 directories,
+162MB**, none of them in the repository and none ever removed. Anything older than
+an hour cannot belong to a live run, since the longest walk here is the reduce
+audit at about twelve minutes, so it is swept on the way IN. *A tidy-up that only
+runs on a clean exit tidies up exactly the case that did not need it.*
+
 That last one is the important one. `pages()` reads the screens off disk. When
 the list came from a shell glob, an acceptance run over 135 pages reported
 **"0 failures" after visiting exactly one**: zsh does not word-split an unquoted
@@ -646,6 +661,141 @@ dropped names are printed with the result.
 `--closed` restores the old behaviour, for comparing a run against an older one.
 
 ---
+
+## `motion.mjs` - what moves in this product today, asked twice and from both ends
+
+The census stage 11 opens with. It exists because «what already moves» has two
+different answers and a stage that puts three durations into tokens needs both:
+the css says one thing and the cascade resolves another, so `--source` reads
+every stylesheet and every `<style>` block with line numbers (it can name a FILE,
+which the browser cannot) and `--output` resolves 279 pages in Chrome and reads
+the computed style of every element that actually moves (it can name a NUMBER
+that is true, which the source cannot). The totals are not expected to match: a
+declaration with no element and an element with no declaration are both findings,
+and each half is blind to one of them.
+
+`--states` is the third question and a different corpus: the registry of states
+out of `inventory.md`, row by row, with a verdict on every row. It is separate
+because a flow map never names the hover of a button - an inventory taken from
+screens finds CONNECTION and STATUS in full and finds RESPONSE almost not at all,
+and RESPONSE is nearly the whole of the atom rung.
+
+**Six wrong versions, all in the header of the file**, and two of them are the
+same fault in different halves: it counted every time value in a file including
+the ones inside comments, it asked only the focusable elements and so could not
+see a skeleton or a panel, it took every other time in a shorthand as the
+duration (right for `a .15s .3s`, wrong for `a .15s, b .22s`), and its list of
+state selectors was typed from habit - it asked about `[aria-selected]` and never
+about `[aria-current]`, so `tabbar.css`, whose entire job is to mark the page you
+are on, was reported as having no state at all. An under-reading list fails in
+the direction that looks like a clean result.
+
+`--surfaces` is the fourth question and it belongs to step 4: **a component can
+read `--dur-slow` honestly, pass the roll-call of step 3 and still arrive in one
+frame**, because what it changes is `display`, and `display` is a discrete
+property with no midpoint for a transition to interpolate. It lists every rule
+that switches a surface on or off by a class, from BOTH ends - the class may give
+visibility or take it - and says for each whether the file answers with
+`transition-behavior: allow-discrete` beside a `@starting-style`. Twenty surfaces
+in this product, and the twenty-first (the coach split view's panel, switched
+from javascript through `hidden`) is invisible to it and counted by hand, which is
+printed rather than rounded off.
+
+`--surfaces --live` asks the browser the same question, because the source cannot
+answer it: `allow-discrete` without a matching `@starting-style` parses, passes
+every source check and still jumps. It finds a screen carrying the class, closes
+the surface, opens it and samples 30ms later - **an opacity strictly between 0 and
+1 is the proof, because a jump has no midpoint by definition**. What it cannot
+reach is named in its own header: a state carried on an ancestor, a surface inside
+a closed surface, and a dialog nothing has built. Those print their own line and
+are counted apart from «did not interpolate», because an unreachable surface and a
+broken one must never share a number.
+
+**Eight wrong versions now**, and the three newest were all in `--surfaces`:
+it assumed the state marker stands on the VISIBLE side (so `.wf-cookie.hidden` -
+the one surface every visitor meets - was missing from the list); its verdict was
+per FILE rather than per rule, so one answered surface in `header.css` would have
+reported all three answered; and it read «the surface's own class» as the LAST
+class in the selector, which is the state, not the element. The eighth is worth
+its own line because it was invisible until the product changed: **`opacity`
+stood in the expensive-paint list AND in the cheap list at once.** It cost nothing
+while the product barely used opacity; the moment step 4 put an opacity transition
+on twenty surfaces, «animates something expensive to paint» jumped from 73 to 107
+and every new case was the cheapest thing in css. Step 5's frame-cost table would
+have been built on it.
+
+**The check was falsified from the other side before it was believed**: the pair
+was taken off `.menu-tick`, the counter went red on that one line while its
+nineteen neighbours stayed green, and it was put back. A check that has never
+failed has not been shown to work.
+
+**The zero it reports for the stand corpus was proved by introduction**: one
+`transition` appended to `design/kit/_page.css` turned it to 1 and removing it
+returned it to 0. Thirteen stand pages match a grep for `transition` and none of
+them declares one - they quote the component's css inside a code block, which is
+exactly the reading the comment-blanking fixes.
+
+`--view` is the sixth question, and it exists because the other five could not
+have asked it. Every one of them resolves a document and reads computed style off
+its elements. The crossfade branch B bought lives on `::view-transition-old(root)`
+and its siblings - a pseudo-element tree the browser builds when a navigation
+starts and destroys when it lands, present in no document at rest. So the census
+printed four clean durations for two whole steps while the largest arrival in the
+product rendered a fifth number: **250ms with the curve `ease`**, which is the
+exact value this stage removed from 817 of 818 timing functions. *A green counter
+that cannot see the class is not a zero*, and this is the stage paying that rule
+on itself.
+
+It installs a `pagereveal` listener through `Page.addScriptToEvaluateOnNewDocument`
+- before the incoming document runs a line of its own script - waits on the
+transition's `ready`, and reads `document.getAnimations()`. Duration is checked
+against the token registry resolved in the same browser; **the curve is checked
+against the ROLE, not merely against the registry**, because `linear` IS a
+registry value (`--ease-cycle`) and a table lookup alone would have passed the
+browser default that started the repair. What leaves must be `--ease-exit`, what
+arrives `--ease-enter`, the group `--ease-standard`.
+
+**Five wrong versions, and the first two were about driving the product in a way
+no visitor can.** It measured the FIRST navigation, which has no opted-in old
+document, and read «no transition» - a true reading of a false situation. It took
+its page pair from my hand rather than from the corpus. Its second hop was a CDP
+`Page.navigate`, which is a browser-initiated navigation and therefore one of the
+cases a cross-document transition is specified to SKIP; the real anchor is clicked
+now. Then two about reading rather than driving: the curve was compared as a
+string, so `cubic-bezier(.48, .04, .52, .96)` in `tokens.css` and
+`cubic-bezier(0.48, 0.04, 0.52, 0.96)` from the browser disagreed on a leading
+zero and a fully correct run printed five failures - *a comparison whose two sides
+differ in more than the thing being measured is not a proof*. And a CSS animation
+spells its curve on every keyframe, so the capture handed back «curve | curve».
+
+**That last one had already cost something before the instrument existed**: read by
+hand, the effect-level easing says `linear` and the keyframe-level easing says
+`ease`, and the critique log first recorded `linear` - a true reading of the wrong
+half. Both spellings are printed side by side now, and the log was corrected in
+place rather than quietly.
+
+**Falsified twice.** Comment the override out of `base.css` and the same run prints
+five lines of ПОЗА РЕЄСТРОМ at 250ms `ease`. Then the token-swap proof, the same
+one the rest of the stage uses: `--dur-slow` redefined to `7.77s` on the incoming
+document, and all five animations must read 7770ms - a pseudo-element that renders
+330ms because someone typed 330ms is indistinguishable from a token reader until
+the token moves.
+
+## `motion-row.mjs` - the repair that belongs to `roles.mjs`, written as a rule
+
+Step 4 put motion tokens into seventeen component files, and every one of those
+files has a stand page whose «Токени» table lists what the file reads. `roles.mjs`
+found fifteen pages drifted, which is exactly what it is for; fixing fifteen HTML
+tables by hand is exactly what this repository forbids. This rebuilds the motion
+row of every stand page **from the component's own css**: it reads the file, takes
+every `--dur-*`, `--ease-*` and `--move-*` it uses, and rewrites the one `<tr>`
+whose first cell is the «no value» dash - or adds that row if the page never had
+one. Eight rows rewritten, seven added, and `roles.mjs` went from fifteen drifts to
+zero on the next pass.
+
+It touches nothing else on the page and nothing outside that single row, which is
+the whole reason it can be run again after any step that adds a token to a
+component.
 
 ## `census.mjs` - the control census, and this time it is an instrument
 

@@ -30,12 +30,44 @@
 .hrail-fly.wfh-mega{ display: none; position: absolute; top: 0; bottom: 0; left: calc(100% - 1px); width: 600px; max-width: calc(100vw - 249px);
   grid-template-columns: none; margin: 0; padding: var(--space-16) var(--space-24); border: 1px solid var(--line-hair); border-top: 2px solid var(--line-inverse);  z-index: 38; overflow-y: auto; background: var(--bg-page); }
 .hrail-fly.wfh-mega.open{ display: block; }
+
+/* 11.4 - THE ONE SURFACE IN THIS PRODUCT THAT HAS A SIDE TO COME FROM. The
+   flyout stands at `left: calc(100% - 1px)`, hard against the rail that opened
+   it, so it arrives FROM the rail: `--move-md` to the left, then nothing. This
+   is the direction rule doing its only real work in the whole step - every other
+   surface in the product is centred, full-width or anchored, and has no side.
+   `--dur-base`, not `--dur-slow`: it is a panel of the rail, opened by a pointer
+   already resting on the rail, and a third of a second under a moving cursor is
+   the thing you outrun. */
+.hrail-fly.wfh-mega{ opacity: 0; transform: translateX(calc(var(--move-md) * -1));
+  transition: opacity var(--dur-base) var(--ease-exit),
+              transform var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.hrail-fly.wfh-mega.open{ opacity: 1; transform: translateX(0);
+  transition: opacity var(--dur-base) var(--ease-enter),
+              transform var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{
+  .hrail-fly.wfh-mega.open{ opacity: 0; transform: translateX(calc(var(--move-md) * -1)); }
+}
 .hrail-wrap:has(.hrail-fly.open) .hrail{ border-top-right-radius: 0; border-bottom-right-radius: 0; }
 @media (max-width: 859px){
   .hrail-fly.wfh-mega{ display: none !important; }
 }
 .hrail-scrim{ display: none; position: fixed; inset: 0; z-index: 20; }
 .hrail-scrim.open{ display: block; }
+
+/* 11.4 - the flyout's own scrim, on the flyout's number so the two land
+   together. It carries no colour of its own (it is a click-catcher, not a
+   dimmer), so the fade here buys nothing visible and is written anyway: the day
+   somebody gives it a background, the fade is already correct. */
+.hrail-scrim{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.hrail-scrim.open{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .hrail-scrim.open{ opacity: 0; } }
 @media (max-width: 859px){
   .hrail-scrim{ display: none !important; }
 }
@@ -44,7 +76,7 @@
 .frail{  border-radius:var(--radius-12); }
 .frail{ top:82px; }
 .hrail{  border-radius:var(--radius-12); box-shadow:var(--elevation-1); padding:var(--space-8) 0; }
-.hrail a{ color:var(--text-body); font-size:var(--fs-14); transition:background .15s ease, color .15s ease, box-shadow .15s ease; }
+.hrail a{ color:var(--text-body); font-size:var(--fs-14); transition:background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard); }
 .hrail a:hover, .hrail a.on{ background:var(--bg-surface); color:var(--text-action); box-shadow:inset 2px 0 0 var(--line-action); }
 .hrail a.on .ar, .hrail a:hover .ar{ color:var(--text-action); }
 .hrail a .ic{ color:var(--text-secondary); }

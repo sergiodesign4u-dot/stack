@@ -128,7 +128,7 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .hpromo{  border-radius:var(--radius-16); overflow:hidden; position:relative;
-  box-shadow:var(--elevation-1); transition:transform .15s ease, box-shadow .15s ease;
+  box-shadow:var(--elevation-1); transition:transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard);
   background:var(--bg-page) center 8%/72% no-repeat; }
 .hpromo:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .hpromo .hptag{ font-family:var(--font-mono); font-size:var(--fs-12); font-weight:var(--fw-medium);
@@ -137,7 +137,7 @@
   line-height:var(--lh-flat); color:var(--text-body); }
 .hpromo .hps{ color:var(--text-secondary); line-height:var(--lh-snug); }
 .hdeal{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); padding:var(--space-16);
-  transition:transform .15s ease, box-shadow .15s ease; }
+  transition:transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard); }
 .hdeal:hover{ transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .hdeal .hd-tag{ font-family:var(--font-display); font-weight:var(--fw-bold); font-size:var(--fs-20);
   letter-spacing:var(--ls-caps); color:var(--text-action); }
@@ -170,7 +170,7 @@
    that the deal does not have. The two figures inside it are real and unmarked,
    which is a question for the IA rather than a line of CSS: see below. */
 .hdeal .hd-cta{ background:var(--bg-action); color:var(--text-onaction); border-radius:var(--radius-12); font-size:var(--fs-16); font-weight:var(--fw-bold);
-  padding:var(--space-16); transition:filter .15s ease; }
+  padding:var(--space-16); transition:filter var(--dur-fast) var(--ease-standard); }
 .hdeal:hover .hd-cta{ filter:brightness(.95); }
 .hdots i{ background:var(--bg-track); }
 .hdots i.on{ background:var(--bg-action); }
@@ -187,7 +187,7 @@
    the keyboard. */
 .tbanners .tbn:not(:focus-visible){ box-shadow:var(--elevation-1); }
 .tbanners .tbn{  border-radius:var(--radius-12);
-  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease; }
+  transition:border-color var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard); }
 .tbanners .tbn:hover{ border-color:var(--line-action); transform:translateY(-2px); box-shadow: var(--elevation-2); }
 .tbanners .tbim{ height:104px; background:var(--bg-sunken) center/cover no-repeat; }
 .tbanners .tbn:nth-child(1) .tbim{ background-image:url(../../visuals/trust-cert.jpg); }

@@ -1,3 +1,16 @@
+/* 11.5 - FOUR LITERAL DURATIONS LIVED HERE AND NO CENSUS COULD SEE THEM. This
+   file is loaded by 91 coloured screens and sits in neither corpus the stage
+   counts: `--source` walks `design/system/**.css` and `design/**.html`, and a
+   stylesheet at the ROOT of `design/` is in neither. It reported «screens: 1
+   file with motion» for four stages while this one moved on ninety-one pages.
+   The reduce audit found it, because that half asks the OUTPUT: whatever the
+   browser resolves, whoever declared it.
+   It already reads `--bg-action`, `--space-16` and the rest, so there was never
+   a reason for the durations to be literals - the screens that load this also
+   load `system/index.css`, and `var(--dur-fast)` resolves here exactly as it does
+   in a component. `.15s` -> `--dur-fast`, `.2s` -> `--dur-fast`, and the two
+   `.24s` -> `--dur-base`, which is the rung a transition inside one component
+   takes. */
 /* design/_stand.css - prototype and stand chrome, NOT part of the system.
 
    WHAT LIVES HERE. The screen shell (.wf-canvas, .wf-bar, .wf-page), the design/
@@ -133,7 +146,7 @@ body:has(.co-head){ padding-left: var(--shell-left); padding-top: var(--shell-to
 .uiv-side .us-all{ display:flex; align-items:center; justify-content:space-between; gap:var(--space-8);
   background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold); text-decoration:none;
   border-radius:var(--radius-8); padding:var(--space-12) var(--space-12); font-size:var(--fs-14); letter-spacing:var(--ls-lead);
-  transition:filter .15s ease; }
+  transition:filter var(--dur-fast) var(--ease-standard); }
 .uiv-side .us-all:hover{ filter:brightness(1.06); }
 .uiv-side .us-tagrow{ display:flex; align-items:center; gap:var(--space-8); margin-top:var(--space-12); }
 .uiv-side .uiv-tag{ background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold); letter-spacing:var(--ls-caps);
@@ -192,15 +205,15 @@ body:has(.co-head){ padding-left: var(--shell-left); padding-top: var(--shell-to
   .uiv-topbar .ut-label{ font-weight:var(--fw-bold); font-size:var(--fs-14); }
   .uiv-topbar .uiv-tag{ background:var(--bg-action); color:var(--text-onaction-ink); font-weight:var(--fw-bold);
     border-radius:var(--radius-4); padding:var(--space-2) var(--space-8); font-size:var(--fs-10); text-transform:uppercase; letter-spacing:var(--ls-caps); }
-  .uiv-topbar .ut-chev{ color:var(--stand-ink-2); transition:transform .2s ease; }
+  .uiv-topbar .ut-chev{ color:var(--stand-ink-2); transition:transform var(--dur-fast) var(--ease-standard); }
   body.uiv-side-open .uiv-topbar .ut-chev{ transform:rotate(180deg); }
   /* `margin-left:0` is gone: `--shell-left` is already 0 in this range, and a
      second answer to the same question is how the four component files got out
      of step in the first place. */
-  .wf-canvas{ margin-top:var(--shell-top); transition:margin-top .24s ease; }
+  .wf-canvas{ margin-top:var(--shell-top); transition:margin-top var(--dur-base) var(--ease-standard); }
   .uiv-side{ position:absolute; z-index:20; top:var(--shell-top); left:0; right:0; bottom:auto; width:auto;
     max-height:0; overflow:hidden; border-right:none; border-bottom:none; box-shadow:none;
-    transform:none; transition:max-height .24s ease; }
+    transform:none; transition:max-height var(--dur-base) var(--ease-standard); }
   body.uiv-side-open .uiv-side{ max-height:var(--uiv-side-h, calc(100vh - var(--shell-top))); overflow-y:auto;
     border-bottom:1px solid var(--stand-rule); }
   body.uiv-side-open .wf-canvas{ margin-top:calc(var(--shell-top) + var(--uiv-side-h, 0px)); }

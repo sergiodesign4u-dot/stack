@@ -88,9 +88,15 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["ci-qty", "co-qty", "qn"], KIT_STS=[":hover", "[disabled]", ":active", ":focus-visible"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color рамки, background і color кнопок. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<div class="kp-demo"><div class="ci-qty"><button aria-label="Менше">&minus;</button><input class="qn" type="text" inputmode="numeric" maxlength="2" value="2" aria-label="Кількість"><button aria-label="Більше">+</button></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>stepper.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (9)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-action-soft</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-control-hover</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-focus</code> <code>--text-action</code> <code>--text-body</code></td><td><code>--font-mono</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--size-30</code> <code>--size-32</code> <code>--size-34</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (9)</th><th>Примітиви (8)</th></tr></thead><tbody><tr><td><code>--bg-action-soft</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-control-hover</code> <code>--line-strong</code> <code>--mark-disabled</code> <code>--ring-focus</code> <code>--text-action</code> <code>--text-body</code></td><td><code>--font-mono</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--size-30</code> <code>--size-32</code> <code>--size-34</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div>
 <p class="kp-p"><code>--size-32</code> додано на цьому ж кроці. 32 вже було в продукті двічі як літерал, у двох файлах, і означало різне: ширину клавіші в кошику й висоту в чекауті. Значення, яке повторюється, отримує ім\'я.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>

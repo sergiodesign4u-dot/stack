@@ -60,6 +60,17 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
 
 .backrow{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px}
 .backrow a{font-size:13px; font-weight:600; color:var(--d-accent); text-decoration:none; border:1px solid var(--d-border); border-radius:8px; padding:8px 14px; background:#fff; transition:border-color .15s, color .15s}
+/* 11.5 - THE DECLARED EXCEPTION OWED THIS AND DID NOT KNOW IT. This hub is the
+   one file allowed to keep literal durations: it does not load `system/index.css`
+   and declares its own colour vocabulary, so `var(--dur-fast)` would not resolve
+   here. The exception is about the TOKEN. It was never about ignoring a person
+   who asked their operating system for less motion, and the reduce audit of step
+   5 reported all three of these declarations still moving. Closed by name, the
+   same way `/_nav.css` and the cycles are: the hover still changes, only the
+   fade between the two states goes. */
+@media (prefers-reduced-motion: reduce){
+  .scr, .sub a, .foot-note a, .backrow a{transition:none}
+}
   .invtab { background:#fff; border:1px solid #E9E7E2; border-radius:12px; overflow:auto; margin:16px 0 18px; }
   .invtab table { width:100%; border-collapse:collapse; font-size:13.5px; }
   .invtab th, .invtab td { text-align:left; padding:10px 14px; border-bottom:1px solid #F2F0ED; vertical-align:top; }

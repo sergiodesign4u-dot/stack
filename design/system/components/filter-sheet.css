@@ -7,6 +7,18 @@
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 .fsheet-ov{ display: none; position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 50; }
 .fsheet-ov.open{ display: block; }
+
+/* 11.4 - the sheet's scrim, and it takes the sheet's own `--dur-slow` and its
+   own two curves. The panel below has been sliding since step 3 while the dark
+   behind it appeared in one frame, which is the join that gives away that a
+   surface was assembled from two pieces. Technique: `motion.md`, section F5. */
+.fsheet-ov{ opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.fsheet-ov.open{ opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{ .fsheet-ov.open{ opacity: 0; } }
 /* THE CLOSED SHEET WAS STILL IN THE TAB ORDER - step 7.34.
    `transform: translateY(100%)` moves the panel off the bottom of the screen and
    leaves it VISIBLE to everything that is not an eye. Measured at HEAD, 390 wide,
@@ -25,8 +37,10 @@
    way OUT so the slide is still seen before the panel goes silent; the open rule
    drops the delay so it appears at once and slides in. Nothing visible changes:
    a panel below the fold looks identical either way. */
-.fsheet{ position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--bg-page); border-radius: var(--radius-16) var(--radius-16) 0 0; z-index: 51; transform: translateY(100%); visibility: hidden; transition: transform .22s ease, visibility 0s linear .22s; }
-.fsheet.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }
+/* 11.6: `linear` removed from the visibility line - see `nav-drawer.css` for why
+   it bought nothing and why `0s` stays. */
+.fsheet{ position: fixed; left: 0; right: 0; bottom: 0; max-height: 88vh; overflow-y: auto; background: var(--bg-page); border-radius: var(--radius-16) var(--radius-16) 0 0; z-index: 51; transform: translateY(100%); visibility: hidden; transition: transform var(--dur-slow) var(--ease-exit), visibility 0s var(--dur-slow); }
+.fsheet.open{ transform: translateY(0); visibility: visible; transition: transform var(--dur-slow) var(--ease-enter); }
 .fsheet-h{ position: sticky; top: 0; background: var(--bg-page); padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); display: flex; justify-content: space-between; align-items: center; }
 .fsheet-h .x{ font-size: var(--fs-20); }
 .fsheet-foot{ position: sticky; bottom: 0; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) var(--space-16); border-top: 1px solid var(--line-hair); }

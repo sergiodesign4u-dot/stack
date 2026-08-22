@@ -1792,3 +1792,53 @@ jumps at a width delivers a jolt in the same instant a person drags the edge of 
 with `clamp()`, and each end of the ramp is the value that stood there before, so neither anchor
 moves. A COUNT and a BEHAVIOUR may step; a SIZE may not. Every ramp in this system was written that
 way and each one carries the two numbers it interpolates between, in a comment beside it.
+
+### A new MOTION - stage 11, step 6
+
+**No `transition`, `animation` or `@keyframes` ever enters a screen file.** Motion lives in exactly
+three places, and the ladder picks between them top down:
+
+| where | what belongs there | example |
+|---|---|---|
+| the token (`tokens.css`) | a VALUE two or more files share | `--dur-fast`, `--ease-enter`, `--move-md` |
+| the component (`components/<name>.css`) | the movement of one BRICK | the drawer sliding, a chevron turning |
+| the pattern (`patterns/<name>.css`) | the movement of a COMPOSITION - what appears, from where, in what order | none today, and that is a finding, not a gap: see below |
+
+**Every moment carries one of THREE jobs, and there is no fourth.** CONNECTION (where the thing that
+appeared came from) · STATUS (a process is running) · RESPONSE (the action was received). A moment for
+which none of the three can be named does not enter the inventory and gets no animation. «It livens up
+the interface» is not a job, and neither is «the reference did it that way».
+
+**A fourth duration is the owner's decision with a row in `motion.md`, never a side effect.** The
+system holds three rungs plus one pair for cycles - `--dur-fast` 150, `--dur-base` 220, `--dur-slow`
+330, and `--dur-cycle` 1100 with `--ease-cycle`. A cycle is a PAIR and not a fourth rung, because a
+transition has an end and someone waiting for it while a cycle has neither.
+
+**`prefers-reduced-motion` has ONE mechanism: the same tokens are redefined.** A component that reads
+`var()` obeys without knowing the block exists, and so will every component written at stage 12. What
+the override cannot reach is closed BY NAME in the file where it lives - a `@keyframes` cycle is
+replaced by a static state (never sped up: a pulse at 1ms is a flicker), the cross-document view
+transition switches off its own pseudo-elements, `scroll-behavior` goes to `auto`. **Reducing motion
+never cancels a state**: an element that appears still appears; what goes is the travel.
+
+**Cheap and expensive is a rule, not a preference.** `transform` and `opacity` go to the compositor.
+`width`, `height`, `top`, `left`, `margin`, `padding` redo layout every frame. `box-shadow` and
+`filter` leave layout alone and load painting. `transition: all` is banned outright - it animates what
+nobody ordered and quietly drags expensive properties along with it.
+
+**A surface that appears by switching `display` needs `transition-behavior: allow-discrete` and a
+`@starting-style` block, or it does not animate at all.** `display` is discrete: it has no midpoint,
+so a component can read `--dur-slow` honestly and still arrive in one frame. Twenty surfaces in this
+product are of that kind, and the check is `tools/motion.mjs --surfaces`.
+
+**The price of breaking any of this is not paid here either.** A screen with its own `transition`
+works and fails nothing - until stage 12, where twenty subagents each invent their own duration.
+That is why the rule is written in code (`design/system/CLAUDE.md`, rule 7) and checked by
+instruments (`tools/motion.mjs --source`, `--surfaces`, `--reduce`) rather than trusted to memory.
+`design/overview.html` is the one declared exception, because it does not load the system at all and
+a token would not resolve inside it.
+
+**And the pattern row above is empty on purpose.** The one pattern in this system, `action-row.css`,
+gets no transition of its own: a row of actions never appears alone, it arrives with the block that
+holds it, and that block already carries the CONNECTION job. Giving it an entrance would animate a
+moment for which none of the three jobs can be named.

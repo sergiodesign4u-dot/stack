@@ -1,10 +1,26 @@
 /* design/system/base.css
    What belongs to no component: the reset, the page frame, the native
-   control reset and the two keyframes nothing owns. Loaded after tokens.css
-   and before every component. */
+   control reset, and the motion that belongs to no component - the one rotation
+   two files share, and the record that governs moving between documents. Loaded
+   after tokens.css and before every component.
+   11.4: this line used to promise «the two keyframes nothing owns» and there
+   were none in the file - the promise was written at stage 08 and the keyframes
+   never followed it here. One has now arrived and the sentence names what is
+   actually below. */
 
 /* ---------- structure (from wireframes/_wf.css) ---------- */
 *{ box-sizing: border-box; margin: 0; padding: 0; }
+/* 11.6, FOUND BY THE READER: this is MOTION, it has been in the product since
+   stage 07, and until step 6 no line anywhere named its job - which by this
+   stage's own rule means it should not exist. It does exist, and the job is
+   CONNECTION: an in-page anchor takes you somewhere, and the scroll is the only
+   thing that says where that somewhere was relative to where you stood. Without
+   it the page simply IS somewhere else, which is the same complaint the whole
+   stage makes about a surface that pops.
+   NO TOKEN REACHES IT and that is not a defect: `scroll-behavior` is a keyword,
+   not a duration - the browser picks the distance-dependent timing, and there is
+   no value here for `--dur-*` to be. It is closed by name at `reduce` below,
+   which is the treatment everything the override cannot reach gets. */
 html{ scroll-behavior: smooth; }
 body{
   background: var(--bg-page); color: var(--text-body); font-size: var(--fs-16); line-height: var(--lh-airy);
@@ -66,8 +82,56 @@ body{ font-family:var(--font-body); }
 html{ scroll-padding-top:100px; }
 body{ overflow-anchor:none; }
 input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
+/* THE SAFETY NET WAS HERE, AND ITS REMOVAL IS THE WHOLE OF STEP 5 - 11.5.
+   For two stages this file carried
+
+       @media (prefers-reduced-motion: reduce){ *{ transition: none !important } }
+
+   and it was never a decision anybody wrote down: it arrived with the flat sheet
+   of stage 07 and was split into this file at 08. It works. That is exactly the
+   problem. `!important` on `*` beats every declaration in the system, so under
+   `reduce` EVERY element reports no transition whether or not it reads a single
+   token - and the audit of this step, which asks precisely «does the token
+   override reach this element», would have come back green over an empty field.
+   An instrument must not hide the defect it is looking for.
+
+   IT ALSO PUT A WRONG SENTENCE INTO THE RECORD OF STEP 3. Headless Chrome answers
+   `prefers-reduced-motion: reduce` by default, so this rule fired on every load of
+   every instrument, and the step-3 write-up explained the resulting zeros as
+   «Chrome zeroes every transition itself under that emulation». Chrome does no
+   such thing. It was this line, in this repository, and `tools/cdp.mjs` had said
+   so in its own comment since stage 07. The correction is in `motion.md`, in the
+   README row and in `decisions.md`, because a wrong diagnosis left standing is
+   how the next stage repeats the measurement and gets the same wrong answer.
+
+   WHAT REPLACES IT: nothing, for now. The mechanism is the token override at the
+   foot of `tokens.css`, and step 5 proves it element by element without a net
+   underneath. Whether a net goes back afterwards - as a last line for the code
+   stage 12 will write - is the owner's decision, and it is taken AFTER the audit
+   is green without one, never before. */
+
+/* 11.5 - THE ONE FRAME IN WHICH NOTHING IS ALLOWED TO MOVE. `theme.js` puts this
+   class on the root while it flips `[data-theme]` and takes it off two animation
+   frames later. Without it, switching the theme animates every element that has a
+   colour transition - 463 of the 2006 on `listing.html` - and none of those rules
+   were written for a palette change: they were written for a pointer.
+   `!important` and `*` are exactly what this file argues against everywhere else,
+   and here they are the point: the rule has to outrank every component for the
+   duration of one frame, and it is scoped to a class nothing else ever sets. It is
+   a SHUTTER, not a safety net - it exists for 16ms at a time and hides no defect,
+   because the audit of step 5 runs on a page nobody is switching. */
+.uiv-theming *, .uiv-theming *::before, .uiv-theming *::after{
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce){
-  *{ transition:none !important; }
+  /* `scroll-behavior: smooth` is declared on `html` a few lines above and is not
+     a transition, so no token reaches it and the walk of step 5 cannot see it
+     either: a scroll animation has no computed duration to read. It is switched
+     off here by name, which is the same treatment the cycles and the
+     cross-document transition get - what the override cannot reach is closed
+     where it lives. */
+  html{ scroll-behavior: auto; }
 }
 
 /* iOS Safari zooms the whole page when a focused field is set below 16px. The
@@ -158,3 +222,95 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
    thing this exists INSTEAD OF: it takes the accessible name with it. */
 .vh{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip-path: inset(50%); border: 0; }
+
+/* ==========================================================================
+   MOTION THAT BELONGS TO NO COMPONENT - stage 11, step 4
+   ========================================================================== */
+
+/* THE ONE ROTATION IN THE PRODUCT, and it is used by two components that do not
+   know about each other: `.auth-spin` (auth-dialog.css) and `.co-spin`
+   (checkout-form.css). It was declared inside auth-dialog.css until 11.4 and
+   read from checkout-form.css, which worked because `@keyframes` names are
+   global and would have broken silently the day the auth dialog stopped being
+   imported. The header of this file has said «the two keyframes nothing owns»
+   since stage 08; this is the first one to actually arrive.
+   NO reduced-motion rule here. A cycle is switched off where the ELEMENT is,
+   because switching it off means putting a static state in its place, and the
+   static state is different for a ring and for a skeleton. Both spinners do it
+   in their own files. */
+@keyframes uivspin{ to{ transform: rotate(360deg); } }
+
+/* THE TRANSITION BETWEEN TWO DOCUMENTS - the owner's decision at step 4, branch
+   B of three, taken against the recommendation and taken with its reason.
+   WHAT IT IS. Every screen in this product is its own html document, so
+   «the detail arrives from the list» cannot be a `transition`: the page is
+   unloaded together with its stylesheet before the next one paints. One record
+   is the whole mechanism - the browser holds the old frame, paints the new one,
+   and cross-fades between them.
+   WHY IT IS SAFE TO WRITE ONE LINE AND NOTHING ELSE. A browser that does not
+   know this at-rule drops it and navigates exactly as it does today - the
+   degradation is silence, not breakage. Measured in this session: Chrome 151
+   parses `@view-transition`, `view-transition-name` and the discrete-transition
+   pair. Safari and Firefox were NOT measured here, and that is written down
+   rather than assumed.
+   WHAT IT COSTS, said out loud because branch A was the recommendation: this is
+   a moment that came from a DECISION and not from the census, so it owes the
+   inventory a row of its own (`motion.md`, section G) and it owes step 6 a
+   critique, which the pack requires for a look that did not exist before.
+   AND IT OBEYS «LESS MOTION» LIKE EVERYTHING ELSE. The default cross-fade is an
+   animation, not a transition, so the token override at the foot of tokens.css
+   cannot reach it - this is the third entry on the list of what that block
+   cannot reach, and here is where it is paid. */
+@view-transition { navigation: auto; }
+
+/* AND ITS NUMBERS ARE THE REGISTRY'S, NOT THE BROWSER'S - the repair of step 6,
+   found by the critique the line above promised to pay for.
+   WHAT WAS WRONG. One record buys the mechanism and nothing else: the browser
+   then supplies its OWN animation for the crossfade, and measured from inside a
+   live transition in Chrome 151 that animation was `-ua-view-transition-fade-out`
+   / `-ua-view-transition-fade-in` / `-ua-view-transition-group-anim-root`, all
+   three at 250ms with the curve `ease`. 250 is not 150, 220 or 330, and `ease`
+   is the exact value this stage removed from 817 of 818 timing functions - so
+   the biggest arrival in the product was riding the stage's own headline defect,
+   on the one feature that came from a decision rather than from the census.
+   AND THE CURVE HAS TWO SPELLINGS, which is how it was first misread. A CSS
+   animation carries `linear` on the EFFECT and the real `animation-timing-function`
+   on every KEYFRAME. Reading the effect says «linear» and is a true reading of
+   the wrong half; the rendered curve is the keyframe one. Both are printed side
+   by side by `motion.mjs --view` for that reason.
+   WHY THESE TOKENS. A whole document arriving is an APPEARANCE, and appearances
+   take the top rung: `--dur-slow`. It is 80ms slower than the browser default,
+   and that is said out loud, because the alternative is a second ladder for one
+   moment. The curve is read off the direction, the same reading the twenty
+   surfaces of step 4 got: what LEAVES takes `--ease-exit`, what ARRIVES takes
+   `--ease-enter`, and the group - which morphs the snapshot's box rather than
+   its opacity, and on two same-sized documents has nothing to morph - takes the
+   symmetric `--ease-standard`.
+   THE CENSUS COULD NOT HAVE FOUND THIS, and that is the more expensive half of
+   the finding. `motion.mjs` reads computed style off ELEMENTS; these four
+   animations live on pseudo-elements that exist only while a navigation is in
+   flight, so a green counter was never asked about them. The mode that does ask
+   is `motion.mjs --view`, written the same step. */
+::view-transition-group(root),
+::view-transition-old(root),
+::view-transition-new(root){ animation-duration: var(--dur-slow); }
+::view-transition-old(root){ animation-timing-function: var(--ease-exit); }
+::view-transition-new(root){ animation-timing-function: var(--ease-enter); }
+::view-transition-group(root){ animation-timing-function: var(--ease-standard); }
+
+@media (prefers-reduced-motion: reduce){
+  /* THE STATE STILL CHANGES, THE MOVEMENT DOES NOT. The pseudo-elements the
+     browser builds for the crossfade are switched off by name; the navigation
+     itself is untouched, so the next screen still arrives - it just arrives the
+     way it arrived before this rule existed.
+     `(root)` IS LISTED BESIDE `(*)` ON PURPOSE. The block above now names the
+     root pseudo-elements, so the reduce rule has to reach the same specificity
+     to win on source order; `(*)` alone would be a rule that reads correct and
+     loses the cascade. `(*)` stays for whatever is named later. */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(root),
+  ::view-transition-old(root),
+  ::view-transition-new(root){ animation: none; }
+}

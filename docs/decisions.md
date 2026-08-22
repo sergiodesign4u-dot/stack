@@ -10454,3 +10454,410 @@ a structural `:has(.no-such-class)` still reports dead.
 `accept.mjs` gained a seventh question, `ph`, because the six it had all asked what a page LOOKS
 like, and an accessible name is a computed fact of the same pass.
 
+
+## Stage 11 step 4 - four owner decisions, and the surfaces that could never arrive (2026-08-22)
+
+### The cycle is a fourth PAIR, not a fourth rung
+
+`--dur-cycle: 1100ms` and `--ease-cycle: linear`. The three rungs are transitions: each has a start,
+an end and a person waiting for the end. A cycle has neither - it says «still running» and stops when
+the answer arrives - so putting it on the same ladder would invite the next reader to compare 1100
+with 330 as though one were three times the other.
+
+**The number came from the census counted by INSTANCE, and the two counts disagree.** By declaration
+the spinners win 2 to 1 (`.9s` twice, `1.1s` once); by instance the pulse wins 22 grey and 39 coloured
+against 3. `.skpulse` is the cycle this product actually shows. Each spinner now turns 200ms slower
+and nobody can put a word to that; the other way round costs the pulse 18% more agitation on the one
+screen a person stares at while waiting, and `voice.md` puts phase 8 - the wait after paying - at
+target emotion ZERO.
+
+`linear` is the census majority (2 of 3) and also the only curve a rotation can take: `ease-in-out` on
+a 360deg loop accelerates and decelerates once per turn, and a spinner that stutters once a second
+reads as a stuck process rather than a running one. **What the single curve costs is paid where it is
+felt**: a three-stop opacity ramp under `linear` has a corner at its turn, so the softness moved into
+the keyframes of `skeleton.css` - seven stops approximating a cosine, same end values, 1 and .55 -
+rather than into a second curve token existing for one selector.
+
+Neither token is in the `reduce` block, and the absence is the decision. A transition at 1ms is over
+before it is seen, which is what «no motion» means. A cycle at 1ms is not over at all.
+
+### The largest finding: twenty surfaces that an ordinary transition cannot see
+
+`display` is a DISCRETE property - it has no midpoint, so a transition has nothing to interpolate. A
+component could read `--dur-slow` honestly, pass the roll-call of step 3, and still arrive in one
+frame. The roll-call was right about every one of them and the screen was still instant.
+
+All twenty now carry `transition-behavior: allow-discrete` beside a `@starting-style`. **A
+twenty-first is counted by hand and said out loud**: the coach split view's panel is switched from
+javascript through the `hidden` attribute, the instrument reads css and cannot see it, and 20 must
+never be read as «all of them».
+
+**The instrument found three defects in itself before it found any in the product**, and the first is
+the one worth keeping: it assumed the state marker stands on the VISIBLE side. It does not always -
+`cookie-banner.css` writes `.wf-cookie.hidden{ display: none }`, a surface that is on by default and
+taken away by a class. The surface every visitor meets was the one missing from the list, and the
+count went 19 to 20. The second: the verdict was per FILE rather than per rule, so one answered
+surface in `header.css` would have reported all three answered. The third: «the surface's own class»
+is the first class of the last descendant step, not the last class in the selector.
+
+**And the source cannot answer whether anything moved.** `allow-discrete` without a matching
+`@starting-style` parses, passes every source check, and still jumps, so `--surfaces --live` adds the
+state class on a real screen and samples 30ms later: an opacity strictly between 0 and 1 is the proof,
+because a jump has no midpoint by definition. It was wrong seven times first, and two are worth
+keeping: `requestAnimationFrame` never fires in a target Chrome is not presenting, and the first
+writing added the state class and removed it on the next line - two calls where the second undoes the
+first - so it sampled every surface while closed and reported «did not interpolate» about three that do.
+
+**Support was measured, not recalled.** Chrome 151 parses `@starting-style`, `allow-discrete`,
+`@view-transition` and `view-transition-name`. **Safari and Firefox were not measured in this
+session**, and that is written down rather than assumed.
+
+### Branch B was taken against the recommendation, and it is recorded that way
+
+Branch A was recommended, and not out of caution: the pack allows branch B «only if the inventory
+holds a concrete pair of screens with the CONNECTION job», and the inventory of moments names no such
+pair - it names surfaces inside a document and four in-session steps. **The owner took B**, one
+`@view-transition { navigation: auto }` in `base.css`.
+
+That makes it the one moment in this stage that came from a DECISION rather than from the corpus, and
+it pays for that twice: with a row of its own in `motion.md`, and with the critique the pack requires
+for a look that did not exist before. Its `reduce` is closed by name in `base.css` - the browser's
+crossfade is an ANIMATION, so no token override reaches it - and the navigation itself is untouched:
+the next screen still arrives.
+
+### Motion at a breakpoint: no, and the exception is no as well
+
+The pack allows an exception for a surface that did not exist at the narrow width, and this product
+has three candidates: the filter rail, the category rail and the split view's right panel. **All
+three arrive ONLY through a media query** - from a window being resized, not from anything a person
+did to them. There is nothing to announce, so there is nothing to animate. Nothing was written into
+any file, which is the point of recording the decision here.
+
+### The tone check found one animation defect, one truncated animation and one text drift
+
+**The defect**: `wfToast('error', ...)` arrived on the same 330ms and the same ten pixels as «Адресу
+збережено» - one movement under two opposite sentences, while the tone table asks an error for short,
+no spring, small amplitude and no celebration nearby. It now takes `--dur-base` and `--move-sm`
+through a local alias, `--tt-travel`. The first writing set `--move-md: var(--move-sm)` on the error,
+which works and reads as a lie, and `roles.mjs` reported `--move-md` as unused within the minute.
+
+**The truncation, and it was invisible to every css census**: `wireframes/_nav.js` removes the toast
+node 250ms after adding `.out`, a number written when the exit was a quarter of a second. Step 3 had
+put the exit on `--dur-slow` - 330 - so the toast vanished 80ms before its own fade finished. The grey
+corpus is frozen and read-only, so the duration is what moved: 220 fits inside 250. This is the one
+place in the stage where a number OUTSIDE the system decided a number inside it.
+
+**The drift**: `microcopy.md` carried «Вітаємо у Stack! Ви увійшли 🎉» while the product says
+`wfToast('ok', 'Ви увійшли')`. The product's edition obeys Principle 5 and the inventory's did not.
+Both rows now match the corpus; the banned edition stays where it belongs, as the example in Розділ D
+of the same document.
+
+### One pattern, and it gets no transition of its own
+
+Said with the number rather than left blank: `action-row.css` declares no `transition` at all, and the
+motion visible on it comes from `button.css` - the same class as `icon.css` at step 3, a state in one
+file and its motion in another. A row of actions never appears alone; it arrives with the block that
+holds it, and that block already has its CONNECTION job. Giving the composition an entrance would
+animate a moment for which none of the three jobs can be named, and staggering two buttons is the
+cheapest way to invent confetti next to a source that appears to justify it.
+
+**The split view carries the composition work instead**, and the pack names it by hand: the detail
+arrives from the side of the list, `--move-md` left, `--dur-base`, only inside the split's two gates.
+**And with no fade at all.** Stage 10 step 5 moves focus to the client's name in the same instant; a
+panel starting at zero opacity would have a screen reader reading a name the eye cannot yet see and a
+keyboard user watching a focus ring sit on an invisible box. Motion may never arrive later than focus.
+
+### An eighth wrong version in the census, invisible until the product changed
+
+`opacity` stood in the expensive-paint list AND in the cheap list at once. It cost nothing while the
+product barely used opacity; the moment step 4 put an opacity transition on twenty surfaces,
+«animates something expensive to paint» jumped from 73 to 107 and every new case was the cheapest
+thing in css. **Step 5's frame-cost table would have been built on the inflated number.**
+
+### A debt older than this stage closed itself mechanically
+
+`inventory.mjs --apply` rewrote the Lines column and 64 stand meta numbers from the files on disk -
+including the 26 that had been standing red since before Animation opened, and which had been put to
+the owner as «refresh or remove». They were refreshable by the instrument that found them, so they
+were refreshed rather than argued about.
+
+### And a repair by rule broke a file, because it did not ask what KIND of file it was
+
+The apostrophe normalisation - `ʼ` to `'` across everything step 4 had touched - is exactly the shape
+this repository asks for: a rule, not thirty hand edits. It still broke `tools/motion.mjs` on the
+first run, because one of the strings it rewrote was inside single quotes in JAVASCRIPT, where an
+apostrophe is a delimiter and not a typographic mark. `accept.mjs` went green and the instrument
+stopped parsing. **A repair applied by rule still has to know the kind of every file it opens**, and
+the check that caught it was running the instrument itself rather than reading its diff.
+
+## Stage 11 step 5 - the net that had been there all along (2026-08-22)
+
+### The largest finding of the stage was a sentence in its own record
+
+`base.css` had carried
+
+    @media (prefers-reduced-motion: reduce){ *{ transition: none !important } }
+
+since stage 07. Step 2 of this stage wrote that the system stood **with no safety net on `*`**, and
+that was a description of the intention rather than of the tree. `!important` on `*` outranks every
+declaration in `tokens.css`, so the audit this step exists for - «does the token override reach this
+element» - would have come back green over a system that could have been made entirely of literals.
+
+**It had already put a wrong cause into the record of step 3.** Headless Chrome answers
+`prefers-reduced-motion: reduce` by default, so the rule fired on every load of every instrument, and
+the zeros it produced were explained as «Chrome zeroes every transition itself under that emulation».
+Chrome does no such thing. `tools/cdp.mjs` had been naming the real cause in its own comment for two
+stages, which is the part worth keeping: **the answer was in the tree, and the diagnosis was written
+from memory.** Corrected in `tokens.css`, `motion.md`, `motion.html`, the README row and the header of
+`motion.mjs`.
+
+Removed before the audit was first run. **That is what turned the audit red: 96 elements against 0.**
+
+### Three knobs converted, and the travel turned out to be a relation
+
+`.sw i`, `.co-sw::after` and `.ck-tog i` all rode on `left`, which costs layout on every frame. In
+each of the three, the two numbers the file carried were the same fact written twice - the knob rests
+one inset from its own end of the track and crosses whatever is left. `44 - 20 - 3*2 = 18`, which is
+exactly `21 - 3`. Written as the relation, a change to the track or the knob moves it correctly
+without anybody noticing that it should.
+
+Measured, not assumed: 21 -> 3 travel **-18**, 2 -> 18 travel **+16**, and `proof.mjs --against HEAD`
+gives 0.000% of pixels moved on the three screens that carry one. **The third cannot be proved at
+all**, and that is written down rather than skipped: the cookie banner stands on ONE page in the whole
+tree - `wireframes/system.html`, in the frozen corpus, which loads `_wf.css` - so
+`design/system/components/cookie-banner.css` draws nothing today.
+
+### The fourth layout animation stays, and the decision has numbers behind it
+
+The header's `max-height` collapse cannot be converted, because the behaviour IS a layout change: the
+header is `sticky`, it holds its space in flow, and the point of the collapse is that it takes less.
+No transform frees layout space. What it costs, from `Performance.getMetrics` on a 2006-element page:
+400ms of idle is 0 layouts; the collapse is **25 layouts, 1.1ms of layout, 1.3ms of style**; the same
+element on `opacity` alone is 1 layout. And the meta bar exists only from 860px, so the weak phone the
+method worries about never renders it.
+
+### The list of twenty cards does not exist here, and the place that does is the theme switch
+
+Expensive paint is **24 declarations, not the 70 the census prints** - 46 of those are `color` and
+`background` on hover states, which load no surface. And every one of the 24 is triggered by a
+pointer, by focus or by a selection class: there is one pointer, one focus and one selected item, so
+at most two elements repaint at once.
+
+The one moment where half the document moves is switching the theme: **463 of `listing.html`'s 2006
+elements carry a colour transition**, and flipping `[data-theme]` starts all of them - 32.1ms of style
+recalculation in one go. Nobody ordered it; those rules were written for a pointer, and the whole page
+cross-fading is a side effect of 463 hover rules. Same argument that removed `transition: all`.
+
+**The owner chose to suppress it.** `theme.js` puts `.uiv-theming` on the root and takes it off after
+TWO animation frames - the first callback runs before the change has been painted, so removing it
+there would let the transitions start after all. It is a shutter, not a net: it exists for 16ms at a
+time. **And the first measurement of it was worthless**, because it set the attribute by hand and
+never went through `uivTheme()`; asked through the product's own entry point, transitions running one
+frame after the switch are **0**, against **390** and **263** when the shutter is bypassed.
+
+### What the audit found, and where it found it
+
+280 pages walked twice in one browser, every element plus `::before` and `::after`: **5826 moving
+elements, 0 above 1ms at `reduce`**, with nothing underneath. The 96 of the first run were in five
+places:
+
+- **`design/_stand.css`** - four literal durations in a stylesheet **loaded by 91 coloured screens and
+  standing in NEITHER corpus the census walks**: `--source` reads `design/system/**.css` and
+  `design/**.html`, and a stylesheet at the root of `design/` is in neither. It moved on ninety-one
+  pages while every number the stage printed said one file. Found by the half that asks the OUTPUT.
+- **`/_nav.css`** and **`design/overview.html`** - repo chrome that does not load the system on every
+  page that uses it, closed by name in their own files. The hub's declared exception was about the
+  TOKEN; it was never about ignoring a person who asked their system for less motion.
+- **`scroll-behavior: smooth`** - not a transition, so it has no duration for the walk to read.
+- **`design/kit/motion.html`** - the demo pulse answered the page's own toggle and not the media
+  query. **The one page in the tree whose subject is motion was the one that kept moving.**
+
+**And no state was cancelled.** Ten surfaces opened under the emulation all arrived - opacity 1 within
+30ms, `display` set, resolved duration `0.001s`. The eleventh, `.ord.open .ord-body`, whose state sits
+on the parent and which the live probe cannot reach, was measured by hand: `1.000` at +30ms against
+`0.391` without the emulation, `0.22s` -> `0.001s`.
+
+### The net is not going back, and the reason is this stage's own evidence
+
+The argument for it was the code stage 12 will write. The argument against it is that the net which
+was already there cost four stages of numbers: under it the first run of the audit would have returned
+0 defects instead of 96, and not one of the five findings above would ever have been made. Stage 12 is
+covered by an instrument instead - `motion.mjs --reduce` is a gate, and a literal written by a
+subagent turns it red the same way it turned red here.
+
+## Stage 11 step 6 - the reader found what neither instrument could (2026-08-22)
+
+### The computed-style table, and the grouping IS the instrument
+
+280 pages, two viewports, every element plus `::before` and `::after`. 360 was asserted rather than
+intended - `clientWidth` was exactly 360 on all 280 pages - and **no page produced a horizontal
+scrollbar at rest**. Both widths returned the same four durations, which is the expected result:
+duration does not depend on width, direction and amplitude do.
+
+**Exactly four durations render in the product - 150, 220, 330, 1100 - and all four are tokens.** The
+role table is what makes that readable: **32 files carry the RESPONSE job and every one of them
+renders 150ms and nothing else**, where the census at step 1 found seven different numbers doing that
+one job. The role is read out of the «Рух» column of `inventory.md` rather than inferred from the
+number, or the check would be circular.
+
+**Two attribution bugs in the table itself**, and both would have printed a role drift that does not
+exist: an element can match selectors from two files (`.gmain.skpulse` is the gallery's AND the
+skeleton's), and the first match won. A cycle is now attributed by the file declaring its
+`@keyframes` - unless that file is `base.css`, where a shared keyframe would take both spinners away
+from the components that own them.
+
+### Codex found the hole between the corpora
+
+`design/_stand.css` is loaded by 91 coloured screens and stands in NEITHER corpus the census walks:
+`system` reads `design/system/**.css`, `screens` reads `design/**.html`, and a stylesheet at the root
+of `design/` is in neither. It carried four literal durations and two layout animations while the
+census printed «screens: 1 file with motion» and «animates layout: 1». **Four stages of numbers
+described a corpus missing a file that moved on ninety-one pages.** A `harness` corpus now exists, and
+it is a separate key rather than folded into `system`, because the developer's shell around the
+product is not the design system and a number that mixes the two lies more quietly.
+
+Its own filter was then wrong on the first writing - depth 3 instead of 2 - so it excluded the only
+file it was written for and reported «1 file, 0 with motion»: a corpus that looks measured and covers
+nothing.
+
+Codex also found the **last two literal curves**: `visibility 0s linear` in the drawer and the sheet.
+The `linear` bought nothing - `visibility` is discrete and has no midpoint for a timing function to
+shape - and it was only there because `0s ... 330ms` reads as ambiguous. It is not: the first time in
+the shorthand is the duration and the second is the delay. Measured after the removal: the closed
+drawer still reports `transitionDelay: 0s, 0.33s`, exactly as before.
+
+### The reader found three defects no instrument could, and all three are of one kind
+
+A subagent with clean context, given only the artefacts and asked what it would BUILD - not what is
+wrong. Its three findings all live **between two files that are each correct on their own**:
+
+1. **`transform` was missing from the `.btn` transition list** while `.btn--lift:hover` sets
+   `translateY(-1px)` two hundred lines below. Half of one moment eased over 150ms and the other half
+   landed in a single frame. `.pcard` has animated its own transform since step 3, so the same
+   RESPONSE job was told two different ways in two files.
+2. **The coach's client card had two states and answered neither** - the ground changes on hover and
+   the border on selection, both in one frame, while every other row in the system eases the same
+   change. The roll-call counted `coach-clients.css` as «moves», and it does: what moves is the detail
+   PANEL. **A file-level verdict cannot see a moment inside the file**, and this is the case that
+   proves it.
+3. **`scroll-behavior: smooth` has been in the product since stage 07 with no job named anywhere** -
+   which by this stage's own rule means it should not exist. It does, and the job is CONNECTION: an
+   in-page anchor takes you somewhere and the scroll is the only thing that says where that was
+   relative to where you stood.
+
+**And it read the bare «–» in the motion column as a verdict.** Thirty-three rows said «–» with no
+reason, and the reader concluded «no motion» for each without being able to say why - which is exactly
+the defect: a gap wearing the clothes of a verdict. Every one now carries its reason, and the two
+kinds are told apart: «стану немає» (nothing to answer) and a stated reason why movement would lie.
+
+**Its voice is not equal to Codex's** - different model of question, different priors - so agreement
+would have added nothing and divergence is worth triple. It diverged on three, and no instrument in
+`tools/` could have found any of them.
+
+### Withdrawn on verification, with reasons
+
+- **fade-in/fade-out pairs repeated across twelve files** (Codex): not a duplicated rule but the
+  technique per surface - twenty surfaces have twenty selectors and no shared place to put them.
+- **an em dash in `consolidation.md`** (Codex): the character stands inside the sentence that QUOTES
+  the ban, and `typo.mjs` holds it in its declared-quotation list.
+- **24 paint-heavy declarations** (Codex + Claude): every trigger is a pointer, focus or a selection
+  class, so one element repaints at a time. The place where half the document does move was found
+  elsewhere - the theme switch - and closed at step 5.
+
+### Deferred with a reason
+
+**The two spinners write the same rule twice.** Merging needs one class on both elements, and the
+markup of one of the two is written by the frozen grey corpus. The coloured screens would take the
+class and the grey ones would not, which is two editions of one control - worse than the duplicate.
+Stage 12 rebuilds both screens anyway. Row in `backlog.md`.
+
+### And the third template-literal break of the stage
+
+A comment containing backticks, written inside a template literal, closed the string and stopped the
+file parsing. **A comment that is data has to obey the syntax of the string it lives in**, and this
+repository has now paid for that lesson three times in one stage.
+
+## Stage 11 step 6, the critique - the one moment the owner chose was the one nobody costed (2026-08-22)
+
+The pack orders a critique for a look that did not exist before, so branch B - `@view-transition` -
+bought itself one. It found the defect on itself.
+
+### One record buys a MECHANISM, and the values come from somewhere
+
+`@view-transition { navigation: auto }` is the whole of branch B: the browser holds the old frame,
+paints the new one and crossfades. What the record does not buy is the crossfade's own animation, and
+the browser supplies that. Read from inside a live navigation in Chrome 151:
+`-ua-view-transition-fade-out`, `-ua-view-transition-fade-in`, `-ua-view-transition-group-anim-root`
+and `-ua-mix-blend-mode-plus-lighter`, five animations, all **250ms with the curve `ease`**.
+
+250 is not 150, not 220 and not 330. And `ease` is the stage's own headline defect: the census counts
+it on **817 of 818** resolved timing functions and calls it «the value a declaration gets when nobody
+names one». It came back at full size, on the largest arrival in the product, on the one moment that
+came from a DECISION rather than from the corpus.
+
+### The repair: `--dur-slow` on all three, and the curve read off the direction
+
+A whole document arriving is an APPEARANCE, so it takes the top rung of the same ladder every other
+appearance takes. That is **80ms slower than the browser default and it is said out loud**, because
+the alternative is a second ladder for one moment. What LEAVES takes `--ease-exit`, what ARRIVES takes
+`--ease-enter`, and the group - which morphs the snapshot's box rather than its opacity, and on two
+same-sized documents has nothing to morph - takes `--ease-standard`. The `reduce` block in `base.css`
+had to widen from `(*)` to `(*)` plus `(root)`: the new rules raised the specificity the override has
+to beat, and a reduce rule that reads correct and loses the cascade is worse than none.
+
+### The expensive half: the census could not have found this
+
+Every other question in `motion.mjs` is asked of an ELEMENT. These animations live on a pseudo-element
+tree the browser builds when a navigation starts and destroys when it lands - it is in no document at
+rest, so `querySelectorAll('*')` cannot reach it in principle, not by accident. **The green counter
+could not have gone red. It could only ever have been silent**, and it was, for two whole steps. This
+is CLAUDE.md's own rule collected on the stage that wrote it: *a zero from an instrument that cannot
+see the class is not a zero.*
+
+`motion.mjs --view` is the mode that asks. Five wrong versions, and the first three were all about
+driving the product in a way no visitor can: it measured the FIRST navigation (which has no opted-in
+old document, so it read «no transition» - a true reading of a false situation); it took its page pair
+from my hand rather than from the corpus; and its second hop was a CDP `Page.navigate`, which is a
+**browser-initiated** navigation and therefore one of the cases a cross-document transition is
+specified to SKIP. The instrument was driving the product through a door visitors do not have.
+
+### My own log said `linear`, and the reading was of the wrong half
+
+A CSS animation spells its curve twice: `linear` on the EFFECT, which is a default, and the real
+`animation-timing-function` on every KEYFRAME. The first reading took the effect. Corrected in the
+critique log in place rather than quietly, and in `motion.md` and `base.css` beside it. **The finding
+gets stronger, not weaker** - `ease` is precisely the value this stage exists to remove, where
+`linear` would merely have been a curve borrowed from the wrong job.
+
+Two more reader defects of the same family, both inside the new mode: the curve was compared as a
+STRING, so `cubic-bezier(.48, .04, .52, .96)` from `tokens.css` and `cubic-bezier(0.48, 0.04, 0.52,
+0.96)` from the browser disagreed on a leading zero and a fully correct run printed five failures -
+*a comparison whose two sides differ in more than the thing being measured is not a proof*. And the
+keyframe easing came back as «curve | curve», once per keyframe.
+
+### Falsified twice, because a check that has never failed has not been shown to work
+
+Comment the override out and the same run prints five lines of ПОЗА РЕЄСТРОМ at 250ms `ease`. Then
+the token-swap: `--dur-slow` redefined to 7.77s on the incoming document, and all five animations read
+**7770ms** - a pseudo-element that renders 330ms because someone typed 330ms is indistinguishable from
+a token reader until the token moves. And the curve check is deliberately stricter than a table
+lookup, because **`linear` IS in the table** - it is `--ease-cycle` - so «is this spelling in the
+registry» would have passed the very default that started the repair. Each pseudo-element is checked
+against the curve its ROLE demands.
+
+### Deferred with a reason: the transition carries nothing
+
+`view-transition-name` has 0 declarations, so what crossfades is one whole-page snapshot against
+another. The card photo becoming the product photo is the CONNECTION job in its purest form and it is
+NOT taken, on a measured constraint rather than a preference: **a `view-transition-name` must be unique
+per document**, a listing renders 12 product cards, and Chrome's answer to a duplicate name is to skip
+the ENTIRE transition. Unique per-card names cannot come from a component stylesheet, and cannot come
+from a screen file either, because stage 11 bans motion declarations there. Row in `backlog.md`,
+closing at stage 12, which rebuilds those screens anyway. Same shape as the two spinners.
+
+### The four other critique findings were filed, not silently fixed
+
+The mobile filtered listing's count, the silent cart button, the filter sheet's two commit models and
+the sub-11px type at 390 are real and verified, and none of them is stage 11's to repair: they live in
+content, in `wireframes/` (frozen since stage 05) and in the responsive ramp of stage 10. Scaling a
+stage down is the owner's call; **doing someone else's stage inside this one is not a favour**.

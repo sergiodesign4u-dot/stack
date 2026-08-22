@@ -55,6 +55,11 @@ window.KIT_NAV = [
     "done": true
    },
    {
+    "label": "Рух",
+    "page": "motion.html",
+    "done": true
+   },
+   {
     "label": "Набір іконок",
     "page": "icons.html",
     "done": true

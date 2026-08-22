@@ -25,7 +25,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Перемикач</h1>
 <p class="kp-lead">Одна настройка, увімкнено або вимкнено, і зміна діє в момент відпускання. Саме це відрізняє його від <b>Чекбокса</b>: чекбокс - значення, яке ви ще тільки зберете формою.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/switch.css</span><span class="kp-tag">99 рядків</span><span class="kp-tag">перебудовано на кроці 7.32</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/switch.css</span><span class="kp-tag">113 рядків</span><span class="kp-tag">перебудовано на кроці 7.32</span></div>
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo"><div class="kp-row" style="gap:20px;align-items:center"><span class="sw" role="switch" aria-checked="true" aria-label="Увімкнено"><i></i></span><span class="sw off" role="switch" aria-checked="false" aria-label="Вимкнено"><i></i></span></div></div><div class="kp-cap">пройдіть Tab - обидва беруть фокус і показують кільце; Space або Enter перемикає, і сторінка під ним не прокручується</div>
 <div class="kp-anat"><div class="a"><i>1</i><span><b>Доріжка</b> - <code>--bg-track</code> у вимкненому, акцент в увімкненому</span></div><div class="a"><i>2</i><span><b>Ручка</b> - біле коло 20, яке їде з 3px на 21px за <code>.16s</code></span></div><div class="a"><i>3</i><span><b>Роль</b> - <code>role="switch"</code> і <code>aria-checked</code> стоять у розмітці й синхронні зі станом; ім'я дає <code>aria-label</code></span></div><div class="a"><i>4</i><span><b>Фокус</b> - <code>--ring-focus-control</code> <b>ззовні</b> доріжки: контрол маленький, внутрішнє кільце з'їло б ручку</span></div></div></section>
@@ -74,9 +74,16 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["off", "sw"], KIT_STS=[":focus-visible"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: background доріжки, положення повзунка. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<p class="kp-p">Позиція повзунка їде через <code>left</code>, а це РОЗКЛАДКА: властивість дорога і перепис назвав її одним із чотирьох таких місць у продукті. Переписати на <code>transform</code> - рішення кроку 5, тут змінилась лише тривалість.</p>
+<div class="kp-demo"><div class="kp-row"><span class="sw" role="switch" aria-checked="true" aria-label="Увімкнено"><i></i></span><span class="sw off" role="switch" aria-checked="false" aria-label="Вимкнено"><i></i></span></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>switch.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--bg-track</code> <code>--ring-focus-control</code></td><td><code>--radius-circle</code> <code>--radius-pill</code> <code>--size-20</code> <code>--size-26</code> <code>--size-44</code></td></tr></tbody></table></div></section>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (4)</th><th>Примітиви (5)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--bg-track</code> <code>--ring-focus-control</code></td><td><code>--radius-circle</code> <code>--radius-pill</code> <code>--size-20</code> <code>--size-26</code> <code>--size-44</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="sw"&gt;&lt;i&gt;&lt;/i&gt;&lt;/span&gt;

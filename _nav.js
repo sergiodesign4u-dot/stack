@@ -64,7 +64,7 @@ window.NAV = [
   { label: 'Дизайн-система',             page: 'design/kit/overview.html', done: true },
 
   { label: 'Адаптив',                    page: 'design/kit/responsive.html', done: true, wip: true },
-  { label: 'Анімація',                   page: null },
+  { label: 'Анімація',                   page: 'design/kit/motion.html', done: true },
   { label: 'Розкотка',                   page: null },
   { label: 'Хендоф',                     page: null }
 ];
@@ -103,10 +103,15 @@ window.NAV = [
   });
 
   // Next is counted by STAGE, not by page: the first stage that is not fully done
+  /* 11.2: `|| NAV[i].wip` - a stage can have every page built and still be RUNNING,
+     and both open stages are that today. Without this the walk stepped over them
+     and hung «Next» on the stage after, so the roadmap invited you to start
+     Розкотка while Анімація was on step 2. A stage that is still open IS the next
+     one; `wip` is removed by its own closing step and the walk moves on by itself. */
   var nextIndex = -1;
   for (var i = 0; i < NAV.length; i++) {
     var ps = pagesOf(NAV[i]);
-    if (ps.length === 0 || ps.some(function (p) { return !p.done; })) { nextIndex = i; break; }
+    if (ps.length === 0 || NAV[i].wip || ps.some(function (p) { return !p.done; })) { nextIndex = i; break; }
   }
 
   function stageState(stage) {
@@ -150,8 +155,13 @@ window.NAV = [
       html += '<div class="' + cls + '">';
 
       // ---- top line of the stage ----
+      /* 11.1: `|| stage.wip` - a stage whose pages are all built can still be
+         OPEN, and stage 10 is exactly that: every page exists, the width sweep
+         and the closing ritual do not. Without this the WIP flag on a done row
+         rendered NOTHING, so the sidebar said «finished» while README said «in
+         progress», and status lives in those two places and must agree. */
       var badge = '';
-      if (state !== 'done') {
+      if (state !== 'done' || stage.wip) {
         badge = stage.wip
           ? '<span class="nav-badge nav-badge-wip">WIP</span>'
           : i === nextIndex

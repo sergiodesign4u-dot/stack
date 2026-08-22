@@ -24,7 +24,7 @@
    caller can be handed the wrong subject; one that finds its own cannot. */
 import { spawn } from 'node:child_process';
 import { createServer } from 'node:net';
-import { readdirSync, mkdtempSync, rmSync, existsSync } from 'node:fs';
+import { readdirSync, mkdtempSync, rmSync, existsSync, statSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -63,7 +63,30 @@ function onExit(fn) {
 
 /* a scratch profile that cleans itself up, wherever the operating system keeps
    temporary files - never inside the repo, and never inside one session's folder */
+/* 11.5 - AND IT SWEEPS WHAT EARLIER RUNS LEFT BEHIND. `onExit` covers a normal
+   exit and the signals it registers for; it does not cover `SIGKILL`, and a walk
+   that takes ten minutes gets killed often - by a timeout, by a second run
+   starting beside it, by a person. Every one of those leaves a whole Chrome
+   profile behind. Counted before this line was written: **1107 directories,
+   162MB**, none of them in the repository and none of them ever removed.
+   Anything older than an hour cannot belong to a live run - the longest walk in
+   `tools/` is the reduce audit at about twelve minutes - so it is swept on the
+   way in. A tidy-up that only runs on a clean exit tidies up exactly the case
+   that did not need it. */
+function sweepProfiles() {
+  try {
+    const root = tmpdir();
+    const cutoff = Date.now() - 3600e3;
+    for (const name of readdirSync(root)) {
+      if (!name.startsWith('stack-')) continue;
+      const abs = join(root, name);
+      try { if (statSync(abs).mtimeMs < cutoff) rmSync(abs, { recursive: true, force: true }); } catch {}
+    }
+  } catch {}
+}
+
 export function profile(tag) {
+  sweepProfiles();
   const dir = mkdtempSync(join(tmpdir(), 'stack-' + tag + '-'));
   const drop = () => { try { rmSync(dir, { recursive: true, force: true }); } catch {} };
   onExit(drop);

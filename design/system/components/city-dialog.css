@@ -9,6 +9,32 @@
   width: 560px; max-width: 94vw; max-height: 86vh; background: var(--bg-page); border-radius: var(--radius-12); overflow: hidden;
   box-shadow: var(--elevation-4); flex-direction: column; }
 .wf-city.open{ display: flex; }
+
+/* 11.4 - THE SURFACE COULD NOT ARRIVE, and the roll-call of step 3 was right
+   about it anyway. `display` is a DISCRETE property: it has no midpoint, so a
+   transition has nothing to interpolate and the element was simply there on one
+   frame and gone on the next. `transition-behavior: allow-discrete` holds the
+   old value until the rest of the transition finishes, and `@starting-style`
+   gives the browser the frame BEFORE the element existed to start from. Twenty
+   surfaces in this product open this way; the list, the job of each and the
+   reason for each number are in `design/kit/docs/motion.md`, section F5. */
+/* A CENTRED DIALOG RISES INTO ITS OWN CENTRE. The centring is itself a
+   transform - `translate(-50%, -50%)` - so the movement is written INTO it
+   rather than beside it: `calc(-50% + var(--move-md))` is the same centre, ten
+   pixels lower. Writing a second `transform` would have replaced the centring
+   and thrown the dialog into the corner. At `reduce` the token is 0px, so the
+   expression collapses to the centre it already had. */
+.wf-city{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md)));
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              transform var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.wf-city.open{ opacity: 1; transform: translate(-50%, -50%);
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              transform var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{
+  .wf-city.open{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md))); }
+}
 .wf-city-h{ display: flex; justify-content: space-between; align-items: center; padding: var(--space-16) var(--space-16);
   border-bottom: 1px solid var(--line-hair); font-size: var(--fs-18); font-weight: var(--fw-black); color: var(--text-primary); }
 .wf-city-h .x{ font-size: var(--fs-20); }

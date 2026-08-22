@@ -15,6 +15,19 @@
 .wfh-mega .mega-mid{ padding: var(--space-16) var(--space-16); max-height: 74vh; overflow-y: auto; }
 .wfh-mega .mega-panel{ display: none; }
 .wfh-mega .mega-panel.on{ display: block; }
+
+/* 11.4 - THIS ONE IS NOT AN APPEARANCE, IT IS AN ANSWER. The panel switches
+   while the mega menu is already open and the pointer is already moving down a
+   column of categories: the person is not waiting for a surface, they are
+   getting a reply to a hover. So it is `--dur-fast` and `--ease-standard` - the
+   RESPONSE job, on the only surface in the twenty that does not do CONNECTION.
+   At `--dur-base` a cursor running down five categories would leave a queue of
+   half-finished panels behind it. */
+.wfh-mega .mega-panel{ opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-standard),
+              display var(--dur-fast) allow-discrete; }
+.wfh-mega .mega-panel.on{ opacity: 1; }
+@starting-style{ .wfh-mega .mega-panel.on{ opacity: 0; } }
 .wfh-mega .mega-groups{ display: flex; flex-wrap: wrap; gap: var(--space-12) var(--space-24); }
 .wfh-mega .mega-grp{ min-width: 9.375rem; }
 .wfh-mega .mega-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-4) 0; }
@@ -33,10 +46,10 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wf-tab[aria-current="page"], .wf-tab.catov-open{ color:var(--text-body); }
-.wfh-mega .mega-cat{ transition:background .12s ease, color .12s ease, box-shadow .12s ease; gap:var(--space-12); }
+.wfh-mega .mega-cat{ transition:background var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard), box-shadow var(--dur-fast) var(--ease-standard); gap:var(--space-12); }
 .wfh-mega .mega-cat .mci{ color:var(--text-body); width:var(--size-24); font-size:0; }
 .wfh-mega .mega-cat.on .mci, .wfh-mega .mega-cat:hover .mci{ color:var(--text-action); }
 .wfh-mega .mega-cat:hover, .wfh-mega .mega-cat.on{ box-shadow:inset 2px 0 0 var(--line-action); }
-.wfh-mega .mega-goalcard{ transition:border-color .15s ease; }
+.wfh-mega .mega-goalcard{ transition:border-color var(--dur-fast) var(--ease-standard); }
 .wfh-mega .mega-goalcard:hover{ border-color:var(--line-action); }
 .wfh-mega .mega-goalcard .gi{ color:var(--text-action); display:inline-flex; align-items:center; }

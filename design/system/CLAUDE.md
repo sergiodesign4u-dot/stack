@@ -6,7 +6,7 @@
 4. A geometric relation is written as the relation, not as the number it resolves to today.
 5. `index.css` imports tokens first, then components BY LEVEL, then patterns. A new file goes into its own level group, never at the end.
 6. A component is not finished without its page in `design/kit/`, its row in `inventory.md` with a level, and its `@import` in its level group.
-7. A state is a TOKEN, not a style: `:hover` reads `--bg-*-hover`, `:focus-visible` reads a ring token, disabled reads a mark token. No new hex or number appears inside a component class.
+7. A state is a TOKEN, not a style: `:hover` reads `--bg-*-hover`, `:focus-visible` reads a ring token, disabled reads a mark token. No new hex or number appears inside a component class - **and neither does a duration or a curve: motion lives in a token, a component or a pattern, and `transition`, `animation` and `@keyframes` are FORBIDDEN in a screen file.** Every moment carries one of three jobs (connection, status, response); a moment with no job gets no animation, and a fourth duration is the owner's decision with a row in `motion.md`.
 8. A state token has a value in BOTH themes, and the two are not mirrors: contrast is measured against the opposite ground, so the dark side takes a stronger tint, not the same one. A role without a pair is a defect.
 9. A pattern lives in `patterns/`, exists only from THREE named screens, and is assembled from existing components with no styles of its own. Needed a new style? That means a component or a variant is missing: build that first.
 10. NEW APPEARS HERE FIRST, THEN ON THE SCREEN. Never the other way round. A screen declares no styles of its own; what it lacks is an order for the system, written into `design/kit/docs/backlog.md`.

@@ -127,6 +127,11 @@
 <p class="kp-p"><b>Натиск - не те саме питання, що наведення.</b> Обраний чип навмисно не перефарбовується під курсором: акценту нема куди йти по акценту, і це читалось би як завантаження. У натиску є куди - на сходинку темніше. Без цього обраний чип був би єдиним мовчазним у сімействі, а це саме той, по якому тиснуть двічі: фільтр, який вимикають.</p>
 <div class="kp-cap">Зміряно справжнім дотиком у touch-контексті 390 x 844: <code>.flink</code> <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab</code> (це <code>&lt;span&gt;</code>) <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab.on</code> <code>#FF5A00 -> #E85200</code>. Не примусовий стан у DevTools, а тап</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color, color, background. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<div class="kp-demo"><button class="chip" type="button">Протеїн</button></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>chip.css</code>, не переписані руками. <b>Чотирнадцять ролей на десять примітивів</b> - єдиний атом системи, де ролей більше, ніж примітивів, і причина проста: чип це <b>найповніший набір станів у системі</b>. Сім із чотирнадцяти ролей існують лише заради взаємодії.</p>
 <div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (10)</th></tr></thead><tbody>
@@ -136,6 +141,7 @@
 <tr><td><code>--ring-focus-control</code></td><td><code>--space-4</code> <code>--space-8</code></td></tr>
 <tr><td><code>--text-action</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--space-12</code> <code>--space-16</code></td></tr>
 <tr><td><code>--text-primary</code> <code>--text-onaction-ink</code></td><td>–</td></tr>
+<tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
 </tbody></table></div>
 <p class="kp-p"><b><code>--bg-action-pressed</code> - це роль, яку завів натиск</b>, і завела саме тому, що ховер уже витратив <code>--bg-action-soft</code>: коли обраний чип уже стоїть на помаранчевій заливці, посвітліти йому нема куди, тож натиск іде на крок ТЕМНІШЕ. Чотири стани, чотири ґрунти, жодного нового hex.</p>
 <p class="kp-p"><b><code>--text-onaction-ink</code> існує через поверхню, а не через колір.</b> Це чорнило НА дії, і поріг йому потрібен текстовий - 4.5:1, - а не той, за яким рахують заливку. Роль, оголошена як заливка й поставлена під дрібний жирний підпис, проходить перевірку поверхні й провалює текстову, і таблиця пар «текст/фон» цього не бачить, бо текстовою її ніхто не оголошував.</p></section>

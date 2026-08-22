@@ -12,6 +12,33 @@
 .auth-ov{ display: none; position: fixed; inset: 0; z-index: 60;
   align-items: stretch; justify-content: center; }
 .auth-ov.open{ display: flex; }
+
+/* 11.4 - THE SURFACE COULD NOT ARRIVE, and the roll-call of step 3 was right
+   about it anyway. `display` is a DISCRETE property: it has no midpoint, so a
+   transition has nothing to interpolate and the element was simply there on one
+   frame and gone on the next. `transition-behavior: allow-discrete` holds the
+   old value until the rest of the transition finishes, and `@starting-style`
+   gives the browser the frame BEFORE the element existed to start from. Twenty
+   surfaces in this product open this way; the list, the job of each and the
+   reason for each number are in `design/kit/docs/motion.md`, section F5. */
+/* THE SCRIM AND THE PANEL ARE TWO MOVEMENTS, not one, and that is the whole
+   point of the job: the dark says «what is behind is paused», the panel says
+   «and this is what arrived». The panel rises `--move-md` into place, because it
+   comes from below on a phone, where this dialog is a full-height sheet. */
+.auth-ov{ opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.auth-ov.open{ opacity: 1;
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+.auth-ov .auth-modal{ transform: translateY(var(--move-md));
+  transition: transform var(--dur-slow) var(--ease-exit); }
+.auth-ov.open .auth-modal{ transform: translateY(0);
+  transition: transform var(--dur-slow) var(--ease-enter); }
+@starting-style{
+  .auth-ov.open{ opacity: 0; }
+  .auth-ov.open .auth-modal{ transform: translateY(var(--move-md)); }
+}
 .auth-modal{ background: var(--bg-page); width: 100%; display: flex; overflow-y: auto; }
 /* 10.4 round 3: 720/719 -> 860/859, eight blocks, one behaviour: the dialog stops
    being a phone sheet and becomes a two-pane modal. 860 and not 620, and the reason is
@@ -167,8 +194,15 @@
 .auth-load .lt{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-18); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .auth-load .lp{ color:var(--text-secondary); }
 .auth-load .lp b{ color:var(--text-body); font-family:var(--font-mono); font-weight:var(--fw-semibold); font-size:var(--fs-14); }
-.auth-spin{  border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
-@keyframes uivspin{ to{ transform:rotate(360deg); } }
+/* 11.4: `.9s linear` became `--dur-cycle` / `--ease-cycle`. The turn is 200ms
+   slower than it was and the curve is the one it already had.
+   AND `@keyframes uivspin` LEFT THIS FILE. It was declared here and USED by
+   `checkout-form.css`, two hundred lines away in a different component, which
+   worked only because keyframe names are global: the checkout spinner has been
+   depending on the auth dialog's stylesheet being loaded, and nothing said so.
+   It now stands in `base.css`, which is where the header always claimed the
+   keyframes nothing owns are kept. */
+.auth-spin{  border-top-color:var(--line-action); animation:uivspin var(--dur-cycle) var(--ease-cycle) infinite; }
 @media (prefers-reduced-motion:reduce){
   .auth-spin{ animation:none; }
 }

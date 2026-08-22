@@ -8,6 +8,21 @@
 .pm{ display: none; position: fixed; z-index: 61; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: 520px; max-width: 94vw; max-height: 88vh; background: var(--bg-page); overflow: hidden; flex-direction: column; }
 .pm.open{ display: flex; }
+
+/* 11.4 - a centred dialog, the same shape as `city-dialog.css`: the rise is
+   written inside the centring transform, because a second `transform` would
+   replace the centring and throw the modal into the corner. */
+.pm{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md)));
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              transform var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.pm.open{ opacity: 1; transform: translate(-50%, -50%);
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              transform var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{
+  .pm.open{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md))); }
+}
 .pm-h{ display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line-hair); color: var(--text-primary); }
 .pm-h .x{ font-size: var(--fs-20); }
 .pm-b{ overflow-y: auto; }
@@ -24,6 +39,20 @@
 .pm-rv{ line-height: var(--lh-flat); }
 .pm-e{ display: none; font-size: var(--fs-12); font-weight: var(--fw-semibold); margin-top: var(--space-4); }
 .pm-e.on{ display: block; }
+/* 11.4 - AND THIS ONE IS WRITTEN OUT OF `voice.md`, NOT OUT OF THE LADDER. It is
+   the validation message under a field, and the tone table's row for an error
+   names four things: short, no spring, small amplitude, and no celebration
+   anywhere near it. So `--dur-fast` (the shortest the system has), the plain
+   curve, and `--move-sm` - two pixels, the smallest distance in the set. An
+   error that swings into place asks to be watched; this one asks to be read. */
+.pm-e{ opacity: 0; transform: translateY(calc(var(--move-sm) * -1));
+  transition: opacity var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard),
+              display var(--dur-fast) allow-discrete; }
+.pm-e.on{ opacity: 1; transform: translateY(0); }
+@starting-style{
+  .pm-e.on{ opacity: 0; transform: translateY(calc(var(--move-sm) * -1)); }
+}
 .pm-cnt{ text-align: right; font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-4); }
 .pm-f{ display: flex; gap: var(--space-12); border-top: 1px solid var(--line-hair); }
 .pm-f > *{ flex: 1; }   /* two controls, nothing else - step 7.9 */

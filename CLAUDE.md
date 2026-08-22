@@ -80,11 +80,10 @@ exist and lists what is missing.
 Competitor facts come from a page opened in this session, never from memory.
 
 **Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360px, and
-only then say done. The instruments live in `tools/` and its README is their index; they find their
-own pages, because an instrument handed its subject can be handed the wrong one. **Fix
-through a rule, not by hand-editing one file** - and the same applies to the instrument: a check
-rebuilt from memory each step is a hand fix. A repeatable one goes in `tools/` with its wrong
-versions written beside it.
+only then say done. The instruments live in `tools/`, whose README is their index; they find their own
+pages **and reach them the way a visitor does** - a handed subject can be the wrong one, and a door
+only the driver has measures a different product. **Fix through a rule, not by hand-editing one file**;
+a check rebuilt from memory is a hand fix, a repeatable one goes in `tools/` with its wrong versions.
 
 **Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in a comment has no check under it,
 and **a claim about the corpus goes stale in silence** - the event that stales it happens in another
@@ -104,10 +103,10 @@ tree, not against the folder it was typed in. **A record names history, a rule n
 `docs/decisions.md` may keep a file's old name, this file may not.
 
 **Critique runs on two instruments.** Claude and Codex (plugin `codex`, **read-only stated
-explicitly**), sets taken independently before any merge, dedup afterwards. Codex owns what is
-falsifiable in the source: a contradiction between files, an orphan, a value drifted from its token.
-"Breaks at 360" and pixel checks stay with Claude in a browser. Every critique log carries **who found it** and **withdrawn on verification**
-with a reason - a withdrawn finding stays visible, or it returns next time in the same words.
+explicitly**), sets taken independently, dedup afterwards. Codex owns what is falsifiable in the
+source; "breaks at 360" and pixel checks stay with Claude in a browser. Every critique log carries
+**who found it** and **withdrawn on verification** with a reason, or the finding returns next time
+in the same words.
 
 **A repeated prompt is a rule.** Typing the same instruction a third time means it belongs in this
 file, called by a trigger word.
@@ -134,9 +133,10 @@ the wording. No product string exists in two editions.
 
 **Values move, they are never re-derived.** One line runs through the stages and is not recomputed
 once: `DESIGN-artifacts.md` (origin of every value) -> `design/system/tokens.css`, primitive then
-semantic. Each step adds a level, never rewrites what is there. A value changes only by a decision
-said out loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
-relation is written as the relation, not the number it resolves to.**
+semantic; each step adds a level, never rewrites it. A value changes only by a decision said out
+loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
+relation is written as the relation, not the number it resolves to.** **A one-line opt-in buys a
+MECHANISM, not its values:** what it renders is a default dressed as a decision.
 
 **`personas.md` has one writer** - CJM step 4. Other stages read it read-only; a contradiction is
 reported back into the persona as a finding, not patched silently and not re-described locally.
@@ -186,15 +186,15 @@ the other, and a share measured on the selection is not a share of the product.
 
 **New appears in `design/system/` first, then on the screen, never the other way round.** A screen
 declares no styles of its own; what it lacks is an order for the system and goes to `backlog.md`.
-«Залишаємо» about a VALUE -> a token of its level in `tokens.css`, both themes if it is a state;
-about a COMPONENT -> `components/<name>.css` plus its page, registry row, inventory row and
-`@import`, all four **in its own LEVEL group**; about a COMPOSITION -> `patterns/<name>.css` plus its
-page, from three named screens. Addresses: `architecture.md` J; in code: `design/system/CLAUDE.md`.
+«Залишаємо» about a VALUE -> a token of its level in `tokens.css`, **both themes only if it is a
+COLOUR** (a duration, a curve and a width are not, and take no pair); about a COMPONENT ->
+`components/<name>.css` plus its page, registry row, inventory row and `@import`, all four **in its
+own LEVEL group**; about a COMPOSITION -> `patterns/<name>.css` plus its page, from three named
+screens. Addresses: `architecture.md` J; in code: `design/system/CLAUDE.md`.
 
 ## Pointers
 
-`DESIGN-artifacts.md` - the visual language and the origin of every value.
-`design/kit/docs/architecture.md` - the decision sheet, the rules of use and the contribution rule;
-**a ladder is read by JOB, not by shape**. `wireframes/docs/conventions.md` - prototype contract.
-`voice/docs/voice.md` - the voice rulebook and the locked wording canon. `ia/docs/` - sitemap and
-per-page specs. `docs/decisions.md` - why anything above is the way it is.
+`DESIGN-artifacts.md` - the visual language. `design/kit/docs/architecture.md` - the decision sheet,
+the rules of use and the contribution rule; **a ladder is read by JOB, not by shape**.
+`wireframes/docs/conventions.md` - prototype contract. `docs/decisions.md` - why anything above is
+the way it is.

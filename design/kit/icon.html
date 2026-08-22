@@ -69,9 +69,16 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["chev", "uiv-brand", "uiv-ic", "uiv-trail"], KIT_STS=[];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: transform шеврона, 180 градусів. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<p class="kp-p">Стан, який його повертає, живе НЕ тут: <code>.ord.open</code> в <code>order-row.css</code> і <code>.trustsec[open]</code> в <code>trust-strip.css</code>. Атом несе свій перехід, батько перемикає стан - тому перепис станів, який читає файли поодинці, спершу назвав цю іконку рухом без стану.</p>
+<div class="kp-demo"><div class="kp-row"><span>Розгорнути <i class="chev">⌄</i></span><span>Згорнуто <i class="chev" style="transform:rotate(180deg)">⌄</i></span></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>icon.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--lh-flat</code> <code>--space-4</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (0)</th><th>Примітиви (2)</th></tr></thead><tbody><tr><td><code>-</code></td><td><code>--lh-flat</code> <code>--space-4</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div>
 <p class="kp-p"><b>Жодної семантичної ролі, і це не пропуск.</b> Обгортка кольору не оголошує взагалі - вона бере <code>currentColor</code>, тобто роль тексту, у якому стоїть. Компонент без жодної колірної ролі темою перемикається сам собою, бо перемикається текст навколо нього.</p>
 <p class="kp-p"><code>--brand-ink</code> у списку немає навмисно: це не токен, а <b>власна змінна компонента</b>, оголошена тут же в <code>.uiv-brand</code>. Її значення читають чотири правила марок, і жодне з них не читає її ззовні.</p></section>
 

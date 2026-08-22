@@ -265,8 +265,28 @@
    scoped to this file's own shapes. Opacity on the parent, so nothing inside
    needs to know it is loading.
    It says «still going», not «broken»: one slow breath, never a spinner. */
-.skpulse{ animation: skpulse 1.1s ease-in-out infinite; }
-@keyframes skpulse { 0%,100% { opacity: 1; } 50% { opacity: .55; } }
+/* 11.4: `1.1s ease-in-out` was one of the last three literals in the product.
+   The duration became `--dur-cycle`, and it kept this file's number: counted by
+   INSTANCE this pulse is the cycle the product shows (22 grey, 39 coloured,
+   against three spinners), so the token took 1100 and the spinners took the
+   200ms.
+   THE CURVE IS WHERE THIS FILE PAYS. `--ease-cycle` is `linear`, because a
+   rotation cannot take anything else, and a three-stop ramp under `linear` turns
+   at 50% with a corner. The softness moved into the keyframes, which is where a
+   cycle's shape belongs: seven stops approximating a cosine, so the breath slows
+   as it reaches each end and the turn has nothing to catch the eye. Same two
+   values at the ends - 1 and .55 - so nothing about the look of the state
+   changed except the corner that used to be in it. */
+.skpulse{ animation: skpulse var(--dur-cycle) var(--ease-cycle) infinite; }
+@keyframes skpulse {
+  0%   { opacity: 1; }
+  15%  { opacity: .95; }
+  35%  { opacity: .70; }
+  50%  { opacity: .55; }
+  65%  { opacity: .70; }
+  85%  { opacity: .95; }
+  100% { opacity: 1; }
+}
 @media (prefers-reduced-motion: reduce){
   /* a loading hint must not be the thing that makes somebody ill. The shape
      stays, the breathing stops - added at 7.28, and it was missing. */

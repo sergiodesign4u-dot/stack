@@ -100,9 +100,15 @@
 <div id="idle"></div>
 <script>var KIT_CLS=["vtoggle"], KIT_STS=[":hover", ":focus-visible", ":active"];</script></section>
 
+<section class="kp-sec"><div class="kp-sh">Рух</div>
+<p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: background, color. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
+<div class="kp-demo"><span class="vtoggle"><a href="#run" class="on" aria-label="Сіткою"><span class="uiv-ic" data-glyph="grid"></span></a><a href="#run" aria-label="Списком"><span class="uiv-ic" data-glyph="list"></span></a></span></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>view-toggle.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--bg-action-selected</code> <code>--bg-action-soft</code> <code>--bg-page</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-muted</code></td><td><code>--fs-14</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code></td></tr></tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--bg-action-selected</code> <code>--bg-action-soft</code> <code>--bg-page</code> <code>--bg-surface</code> <code>--line-action</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-muted</code></td><td><code>--fs-14</code> <code>--radius-8</code> <code>--space-8</code> <code>--space-12</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
+</tbody></table></div>
 <p class="kp-p"><code>--bg-action-selected</code> має рівно <b>одне</b> вживання на весь продукт - оцю обрану половину. Це навмисно: заливка суцільним акцентом зробила б перемикач гучнішим за головну дію екрана, а принцип 2 каже, що така дія рівно одна.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>

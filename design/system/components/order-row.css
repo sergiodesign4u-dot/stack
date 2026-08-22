@@ -76,6 +76,19 @@
 .ord.open .chev{ transform: rotate(180deg); }
 .ord-body{ display: none; border-top: 1px solid var(--line-hair); padding: var(--space-16); }
 .ord.open .ord-body{ display: block; }
+
+/* 11.4 - the same accordion decision as `nav-drawer.css`, and the same reason
+   for leaving the height alone: an order history is a list of these, and one
+   opening moves every row under it. The body fades in at `--dur-base` while the
+   chevron above turns on its own `--dur-fast` - the chevron is the answer to the
+   tap, the body is the content arriving, and they are two different jobs. */
+.ord-body{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.ord.open .ord-body{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .ord.open .ord-body{ opacity: 0; } }
 /* 7.54: margin was `--space-16 0 --space-2` and it was upside down. Measured in
    the browser with the order forced open: 33px of air above the note and 2px
    below it. The note is the FIRST child of `.ord-body`, and that body already
@@ -187,7 +200,7 @@
    `.oh-sum` at 7.96. The WEIGHT stays: it is what this surface says about its
    own total, not what the money face says about digits. */
 .oh-sum{ font-weight:var(--fw-semibold); }
-.oh-drop{  color:var(--text-secondary); transition:border-color .14s ease, color .14s ease; }
+.oh-drop{  color:var(--text-secondary); transition:border-color var(--dur-fast) var(--ease-standard), color var(--dur-fast) var(--ease-standard); }
 .ord-h:hover .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
 .ord.open .oh-drop{ border-color:var(--line-action); color:var(--text-action); }
 .ord-body{ border-color:var(--line-hair); }

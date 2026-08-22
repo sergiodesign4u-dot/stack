@@ -42,8 +42,16 @@
      burger panel is open on a phone. Declared, not slipped in. */
   box-shadow: var(--elevation-3);
   transform: translateY(-100%); visibility: hidden;
-  transition: transform .22s ease, visibility 0s linear .22s; }
-.wf-drawer.open{ transform: translateY(0); visibility: visible; transition: transform .22s ease; }
+/* 11.6, found by Codex: `linear` here was a LITERAL CURVE, and the only two left
+   in the product. It bought nothing - the property is `visibility`, which is
+   discrete and has no midpoint for a timing function to shape - and it was in the
+   shorthand only because the eye reads `0s ... 330ms` as ambiguous. It is not:
+   the FIRST time in a transition shorthand is the duration and the second is the
+   delay, so `visibility 0s var(--dur-slow)` says exactly what the longer form
+   said. The `0s` stays and stays a decision: visibility is not animated, it
+   WAITS while the panel travels. */
+  transition: transform var(--dur-slow) var(--ease-exit), visibility 0s var(--dur-slow); }
+.wf-drawer.open{ transform: translateY(0); visibility: visible; transition: transform var(--dur-slow) var(--ease-enter); }
 @media (min-width: 860px){
   .wf-drawer{ display: none !important; }
 }
@@ -62,6 +70,22 @@ html.dr-lock{ overflow: hidden; }
 .dr-cat .ar{ margin-left: auto; color: var(--text-secondary); font-weight: var(--fw-bold); font-size: var(--fs-16); }
 .dr-subs{ display: none; padding: var(--space-2) 0 var(--space-12) 29px; }
 .dr-subs.open{ display: block; }
+
+/* 11.4 - AN ACCORDION, AND ITS HEIGHT IS NOT ANIMATED. `height` and `max-height`
+   both cost layout on every frame, and this list stands inside a scrolling
+   drawer where each open pushes everything below it; the pack rules that class
+   out by name. So the rows fade in at `--dur-base` and the layout settles in one
+   frame under them. What that buys is honest and small: the eye is told new
+   content arrived, not walked through its arrival.
+   The chevron beside it already turns on the same number (`.dr-cat .ar`), so the
+   two halves of one act keep time. */
+.dr-subs{ opacity: 0;
+  transition: opacity var(--dur-base) var(--ease-exit),
+              display var(--dur-base) allow-discrete; }
+.dr-subs.open{ opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-enter),
+              display var(--dur-base) allow-discrete; }
+@starting-style{ .dr-subs.open{ opacity: 0; } }
 .dr-suball{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); padding: var(--space-8) 0; }
 .dr-sub{ display: block; font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-8) 0; }
 .dr-link{ display: block; font-size: var(--fs-14); color: var(--text-body); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }

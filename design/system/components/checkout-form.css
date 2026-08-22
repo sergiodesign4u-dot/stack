@@ -177,8 +177,14 @@
 .co-bonus .bnote{ font-size: var(--fs-12); margin-top: var(--space-4); }
 .co-toggle{ font-weight: var(--fw-bold); margin-top: var(--space-12); }   /* size: `.btn--text`, step 7.8 */
 .co-sw{ width: var(--size-38); height: 22px; border-radius: var(--radius-pill); position: relative; flex: none; }
-.co-sw::after{ content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: var(--radius-circle); background: var(--bg-page); }
-.co-sw.on::after{ left: 18px; }
+/* 11.5 - the same conversion as `switch.css`: `left` costs layout on every frame,
+   `transform` costs neither layout nor paint, and the travel is the relation the
+   two numbers were spelling out - 38 - 18 - 2*2 = 16, which is 18 - 2. */
+.co-sw{ --cosw-inset: 2px; --cosw-knob: 18px;
+  --cosw-travel: calc(var(--size-38) - var(--cosw-knob) - var(--cosw-inset) * 2); }
+.co-sw::after{ content: ''; position: absolute; top: var(--cosw-inset); left: var(--cosw-inset);
+  width: var(--cosw-knob); height: var(--cosw-knob); border-radius: var(--radius-circle); background: var(--bg-page); }
+.co-sw.on::after{ transform: translateX(var(--cosw-travel)); }
 .co-brow{ display: flex; justify-content: space-between; gap: var(--space-12); font-size: var(--fs-14); padding: var(--space-8) 0; }
 .co-total{ display: flex; justify-content: space-between; align-items: baseline; padding: var(--space-12) 0 var(--space-2); border-top: 1px solid var(--line-hair); margin-top: var(--space-8); }
 .co-total .tl{ font-weight: var(--fw-black); }
@@ -285,7 +291,7 @@
 .co-line[data-img="preworkout"] .li-img{ background-image:url(../../visuals/product-preworkout.png); }
 .co-line .li-nm{ color:var(--text-body); }
 .co-line .li-meta{ color:var(--text-secondary); }
-.co-line .li-acts button{ color:var(--text-secondary); font-size:var(--fs-14); transition:color .15s ease; }
+.co-line .li-acts button{ color:var(--text-secondary); font-size:var(--fs-14); transition:color var(--dur-fast) var(--ease-standard); }
 .co-line .li-acts button:hover{ color:var(--text-body); }
 .co-line .li-acts button .uiv-ic svg{ width:15px; height:15px; }
 .co-line .li-acts button.on{ color:var(--text-action); }
@@ -313,8 +319,8 @@
 .co-bonus .bv{ font-family:var(--font-mono); font-weight:var(--fw-bold); font-size:var(--fs-16);
   color:var(--text-bonus); word-spacing:-.1em; }
 .co-bonus .bnote{ color:var(--text-muted); line-height:var(--lh-airy); }
-.co-sw{ background:var(--bg-track); transition:background .15s ease; }
-.co-sw::after{ box-shadow: var(--elevation-knob); transition:left .15s ease; }
+.co-sw{ background:var(--bg-track); transition:background var(--dur-fast) var(--ease-standard); }
+.co-sw::after{ box-shadow: var(--elevation-knob); transition:transform var(--dur-fast) var(--ease-standard); }
 .co-sw.on{ background:var(--bg-action); }
 .co-brow{ color:var(--text-secondary); }
 .co-brow b{ font-family:var(--font-mono); font-variant-numeric:tabular-nums;
@@ -352,7 +358,10 @@
 .co-keep .knote{ color:var(--text-muted); }
 .co-help{ color:var(--text-muted); }
 .co-proc-box{  border-radius:var(--radius-16); box-shadow:var(--elevation-1); background:var(--bg-page); }
-.co-spin{  border-top-color:var(--line-action); animation:uivspin .9s linear infinite; }
+/* 11.4: the same pair as `.auth-spin`, and the same 200ms. `uivspin` is declared
+   in `base.css` since this step - it used to live in `auth-dialog.css`, so this
+   line was reading a keyframe out of another component's file. */
+.co-spin{  border-top-color:var(--line-action); animation:uivspin var(--dur-cycle) var(--ease-cycle) infinite; }
 @media (prefers-reduced-motion:reduce){
   .co-spin{ animation:none; }
 }
@@ -365,7 +374,7 @@
 .pf-lbl{ color:var(--text-muted); letter-spacing:var(--ls-caps); }
 .pf-val{ color:var(--text-body); }
 .pf-val .ok{ color:var(--text-success); }
-.pf-act{ transition:color .14s ease; }
+.pf-act{ transition:color var(--dur-fast) var(--ease-standard); }
 .pf-act:hover{ color:var(--text-action); }
 .pf-note{ border-style:solid; border-color:var(--line-hair); background:var(--bg-surface); border-radius:var(--radius-8); }
 .pf-note b{ color:var(--text-body); }

@@ -9,6 +9,28 @@
   border-top: 2px solid var(--line-inverse); box-shadow: var(--elevation-bar-top);
   padding: var(--space-16) var(--space-16); display: flex; gap: var(--space-16); align-items: center; flex-wrap: wrap; }
 .wf-cookie.hidden{ display: none; }
+
+/* 11.4 - THE SURFACE COULD NOT ARRIVE, and the roll-call of step 3 was right
+   about it anyway. `display` is a DISCRETE property: it has no midpoint, so a
+   transition has nothing to interpolate and the element was simply there on one
+   frame and gone on the next. `transition-behavior: allow-discrete` holds the
+   old value until the rest of the transition finishes, and `@starting-style`
+   gives the browser the frame BEFORE the element existed to start from. Twenty
+   surfaces in this product open this way; the list, the job of each and the
+   reason for each number are in `design/kit/docs/motion.md`, section F5. */
+/* AND THIS ONE IS THE MIRROR OF THE OTHER NINETEEN: the banner is on by
+   default and the class TAKES it away. So the only movement it has is a leaving
+   one - it drops out the way it came in, `--ease-exit`, and nothing at all
+   happens on the way in, because on the way in it is simply part of the first
+   paint. The instrument that lists these surfaces could not see this one until
+   it was taught to read the hidden side too (`motion.mjs`, wrong version 1 of
+   `--surfaces`), which is why the surface EVERY visitor meets was the one
+   missing from the list. */
+.wf-cookie{ opacity: 1; transform: translateY(0);
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              transform var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.wf-cookie.hidden{ opacity: 0; transform: translateY(var(--move-md)); }
 .wf-cookie .ck-txt{ flex: 1; min-width: 15rem; font-size: var(--fs-14); color: var(--text-secondary); line-height: var(--lh-airy); }
 .wf-cookie .ck-txt b{ color: var(--text-primary); }
 .wf-cookie .ck-txt a{ color: var(--text-primary); text-decoration: underline; }
@@ -22,6 +44,20 @@
   width: 480px; max-width: 94vw; max-height: 88vh; background: var(--bg-page); border-radius: var(--radius-12); overflow: hidden;
   box-shadow: var(--elevation-4); flex-direction: column; }
 .wf-ckset.open{ display: flex; }
+
+/* 11.4 - the same centred dialog as `city-dialog.css`, and the same reason for
+   writing the rise inside the centring transform rather than beside it. */
+.wf-ckset{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md)));
+  transition: opacity var(--dur-slow) var(--ease-exit),
+              transform var(--dur-slow) var(--ease-exit),
+              display var(--dur-slow) allow-discrete; }
+.wf-ckset.open{ opacity: 1; transform: translate(-50%, -50%);
+  transition: opacity var(--dur-slow) var(--ease-enter),
+              transform var(--dur-slow) var(--ease-enter),
+              display var(--dur-slow) allow-discrete; }
+@starting-style{
+  .wf-ckset.open{ opacity: 0; transform: translate(-50%, calc(-50% + var(--move-md))); }
+}
 .wf-ckset-h{ display: flex; justify-content: space-between; align-items: center; padding: var(--space-16) var(--space-16); border-bottom: 1px solid var(--line-hair); font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
 .wf-ckset-h .x{ font-size: var(--fs-20); }
 .wf-ckset-b{ padding: var(--space-8) var(--space-16) var(--space-8); overflow-y: auto; }
@@ -30,10 +66,16 @@
 .ck-cat-t{ font-size: var(--fs-14); font-weight: var(--fw-black); color: var(--text-primary); }
 .ck-lock{ font-size: var(--fs-12); }
 .ck-cat-d{ display: block; font-size: var(--fs-12); font-weight: var(--fw-medium); color: var(--text-secondary); margin-top: var(--space-4); max-width: 18.75rem; }
-.ck-tog{ flex: none; width: 42px; height: var(--size-24); border-radius: var(--radius-pill); background: var(--bg-sunken); border: 1px solid var(--line-strong); position: relative; cursor: pointer; transition: background .15s; }
-.ck-tog i{ position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; border-radius: var(--radius-circle); background: var(--bg-page); border: 1px solid var(--line-strong); transition: left .15s; }
+.ck-tog{ flex: none; width: 42px; height: var(--size-24); border-radius: var(--radius-pill); background: var(--bg-sunken); border: 1px solid var(--line-strong); position: relative; cursor: pointer; transition: background var(--dur-fast); }
+/* 11.5 - `left` -> `transform`, the third and last knob in the product. The
+   travel is measured against the track's PADDING box, because that is what an
+   absolutely positioned child is placed inside: the track is 42 wide with a 1px
+   border on each side, so 40 - 18 - 2*2 = 18, which is exactly 20 - 2. */
+.ck-tog{ --ckt-inset: 2px; --ckt-knob: 18px;
+  --ckt-travel: calc(42px - 2px - var(--ckt-knob) - var(--ckt-inset) * 2); }
+.ck-tog i{ position: absolute; top: var(--ckt-inset); left: var(--ckt-inset); width: var(--ckt-knob); height: var(--ckt-knob); border-radius: var(--radius-circle); background: var(--bg-page); border: 1px solid var(--line-strong); transition: transform var(--dur-fast); }
 .ck-tog.on{ background: var(--bg-inverse); border-color: var(--line-inverse); }
-.ck-tog.on i{ left: 20px; border-color: var(--line-inverse); }
+.ck-tog.on i{ transform: translateX(var(--ckt-travel)); border-color: var(--line-inverse); }
 .ck-tog.locked{ opacity: .6; cursor: not-allowed; }
 .ck-note{ font-size: var(--fs-12); color: var(--text-muted); line-height: var(--lh-airy); padding: var(--space-12) 0 var(--space-4); }
 .ck-note a{ color: var(--text-primary); text-decoration: underline; }

@@ -33,7 +33,7 @@
    decision: the drawing had no alpha channel, and multiply is the one blend that
    hides white on a LIGHT plate. On a dark one it multiplies the whole image down
    to the plate. The white is keyed in the asset now - tools/key-alpha.py. */
-.gal .gmain img{ transition:transform .25s ease; }
+.gal .gmain img{ transition:transform var(--dur-fast) var(--ease-standard); }
 /* THE STAGE DOES NOT MOVE WITH THE THEME - the owner, 2026-08-13. It read
    `--bg-page -> --bg-surface`, so in the dark theme a black jar stood on the two
    darkest values in the system with an invisible shadow under it. The three
@@ -108,7 +108,7 @@
    Named rather than left silent: `architecture.md` A6 records it as the one
    frame the ladder deliberately does not answer for. */
 .gal .gthumb{ width:70px; height:70px; border-radius:var(--radius-8); background:var(--bg-photo) center/74% no-repeat;
-  border:1px solid var(--line-hair); cursor:pointer; transition:border-color .15s ease, transform .15s ease; }
+  border:1px solid var(--line-hair); cursor:pointer; transition:border-color var(--dur-fast) var(--ease-standard), transform var(--dur-fast) var(--ease-standard); }
 .gal .gthumb:hover{ transform:translateY(-2px); }
 .gal .gthumb.on{ border:2px solid var(--line-action); }
 /* 7.55: the colour half of `.pmini` went with the structure half. */

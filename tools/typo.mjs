@@ -65,7 +65,7 @@ const QUOTED = [
   { file: 'tools/accept.mjs', em: 1, apos: 0, why: 'the literal the browser check searches for' },
   { file: 'tools/grey-vars.mjs', em: 0, apos: 1, why: 'the character class of apostrophes the transform normalises' },
   { file: 'tools/inert.mjs', em: 0, apos: 1, why: 'the same character class' },
-  { file: 'docs/decisions.md', em: 4, apos: 0, why: 'the record of the sweep that replaced 3 621 of them, quoting both candidates' },
+  { file: 'docs/decisions.md', em: 4, apos: 1, why: 'the record of the sweep that replaced 3 621 of them, quoting both candidates; the one curly apostrophe is 11.4 naming the character it removed' },
   { file: 'docs/critique-alignment.md', em: 4, apos: 0, why: 'the named exception with its idle control, quoting the table-cell form' },
   { file: 'design/kit/docs/consolidation.md', em: 2, apos: 0, why: 'the same exception quoted where it was applied' },
 ];
