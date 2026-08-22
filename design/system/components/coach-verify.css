@@ -913,3 +913,39 @@
    `.ci:last-child` LEFT THIS FILE at 7.96 and now stands in cart-drawer.css,
    written `.cd-group .ci:last-child`. The argument for the move is written where
    the rule now lives. */
+
+/* ---------- 10.7: the reading measure, found by the WIDTH SWEEP -------------
+   Stage 10 measured running text at ONE width, 1600, and capped the five
+   selectors it found. `tools/width-sweep.mjs` asks the same question at 129
+   widths from 320 to 1600 and finds twenty more, because a block of prose does
+   not cross the measure where the window is widest - it crosses where its own
+   column stops sharing the row, which is a width nobody chose to look at.
+   THE CEILING IS THE TOKEN, NOT A NUMBER TYPED HERE: `--container-text` is
+   `68ch`, «prose only», and it had two readers in the whole system before stage
+   10 and seven after it. Every line below carries the peak the sweep measured,
+   so the reason survives the reading that produced it.
+   AND EACH ONE WAS OPENED BY HAND BEFORE IT WAS CAPPED. The sweep first
+   reported `.qans` at 132.3ch; the text there is «Магазин: ~72 порції по 30 г.»,
+   twenty eight characters in a wide box that wraps zero times. The measure is
+   about the LINE and the instrument was measuring the BOX - wrong version 9,
+   fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
+.coach .fhint{ max-width: var(--container-text); }   /* measured peak 84.9ch */
+
+/* ---------- 10.7, SECOND LAYER: what stood BEHIND the first one -------------
+   The sweep kept only the worst offender per width, so capping the widest block
+   on a page revealed the next one under it - wrong version 10, and the reason
+   `width-sweep.mjs` now answers in OWNERS rather than in a boolean. On `product`
+   one run then reported four blocks instead of one, and `.tsb` at 132.1ch - the
+   worst in the product - had been standing behind `.qans` the whole time.
+   TWO OF THE FIRST TWENTY CAPS MISSED, and the sweep is what said so, which is
+   the rule «a repair is re-checked by the instrument that found the defect»
+   collecting: `.coach .crestock .rk-lead` did not cover the buyer cabinet, where
+   the same block carries no `.coach`, and `.cd-oosnote .m` is a different `.m`
+   from the one on checkout. Both are named below rather than quietly widened. */
+.coach .cv-aside .vtag{ max-width: var(--container-text); }   /* measured peak 87.4ch */
+/* 10.7: the consent line, and it is the one owner the sweep named only by tag.
+   `<span>` inside `label.cv-consent` - it crosses the measure at 625px and peaks
+   at 94.1ch. The cap goes on the SPAN and not on the label, because the label is
+   a flex row holding a checkbox beside the text: capping the row would move the
+   box, capping the line moves the line. */
+.coach .cv-consent span{ max-width: var(--container-text); }   /* measured peak 94.1ch */

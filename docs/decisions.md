@@ -10861,3 +10861,89 @@ The mobile filtered listing's count, the silent cart button, the filter sheet's 
 the sub-11px type at 390 are real and verified, and none of them is stage 11's to repair: they live in
 content, in `wireframes/` (frozen since stage 05) and in the responsive ramp of stage 10. Scaling a
 stage down is the owner's call; **doing someone else's stage inside this one is not a favour**.
+
+## Stage 10, step 7 - the hole the stage left open was the stage's own subject (2026-08-22)
+
+Stage 10 closed with one row of its contract table red on purpose: **«breaks between the points - not
+measured»**. The owner deferred the sweep until after Animation. Animation closed; this is the debt.
+
+### Three of four instruments would have called it a clean stage
+
+`accept.mjs` walks the corpus at 360 and 390. `tree-diff.mjs` compares two trees property by
+property. `grid-sweep.mjs` counts columns. `split.mjs` sweeps 129 widths - **but only for the frames
+it declares**. None of them asks an arbitrary element about an arbitrary width, and a stage whose
+whole subject is width therefore closed with its main class carrying no findings. `tools/width-sweep.mjs`
+is the instrument that was missing.
+
+### What it found, and one of them nothing else in this repository could see
+
+**32 defects above the floor on 91 coloured pages.** The one that matters most is a single element:
+`.ob-side` on `account-orders` renders **56.8px past the edge of the screen between 1076 and roughly
+1160**, and `scrollWidth` equals `clientWidth` at every one of those widths. **Nothing scrolls.** An
+ancestor clips it, so the panel is not pushed somewhere a person could find it - it is cut off in
+silence. At 1060 it is clean and at 1280 it is clean, which is exactly why two viewports could not
+find it and 129 could.
+
+The cause is a question asked of the wrong thing. `.ob-grid` held `1fr 292px` under
+`@media (min-width: 860px)`. Between those widths the WINDOW is wide, so the shell opens its side
+navigation and the account column loses 216px in one step; the viewport query stays true, the `1fr`
+cannot shrink past its own min-content, and the pane is pushed out. **The question was never about
+the window**, so the repair is `@container` on `.acc-main`, which already declared
+`container-type: inline-size` at step 5. Fourth entry in «Container thresholds», and the number is a
+sum rather than a device: `292 + 24 + 268` - the pane, `--space-24`, and the measured min-content of
+the summary column. `tools/bp.mjs` failed the run until the row was in the registry, which is the
+gate working.
+
+### The reading measure: five found at one width, thirty-one found at 129
+
+Stage 10 measured running text at 1600 alone and capped the five it found. **Prose does not cross the
+measure where the window is widest** - it crosses where its own column stops sharing the row, and
+that is a width nobody chose to look at. Thirty-one selectors, peaks from 70.2 to 132.1ch against a
+68ch ceiling read out of the browser rather than typed into the instrument.
+
+**The worst line in the product was invisible until the one in front of it was fixed.** `.tsb` runs
+to 132.1ch, nearly twice the measure, and stood behind `.qans` on `product` for as long as the sweep
+kept only its worst offender per width.
+
+**Two of the first twenty caps missed, and the sweep is what said so** - the rule «a repair is
+re-checked by the instrument that found the defect» collecting on itself. `.coach .crestock .rk-lead`
+did not cover the buyer cabinet, where the same block carries no `.coach`; `.cd-oosnote .m` is a
+different `.m` from the one on checkout. Both named in the css rather than quietly widened.
+
+**And one finding was about a KIND of number.** `.pf-note` was already capped - at `max-width:
+38.75rem`, which is `--bp-grid-2col`: a BREAKPOINT used as a reading measure. A point is a threshold
+the layout crosses, a measure is how wide a line may be, and 620px equals 70.2ch at that font size by
+coincidence. It now says what it means and the line is ~20px narrower on purpose.
+
+### Twelve wrong versions, and four of them changed what the instrument can do
+
+The first eight are the usual shape: it measured the stand chrome instead of the product, read a
+footer column of links as prose, approximated `ch` with a canvas and turned its own rounding into
+three findings, printed the reading taken AT the crossing (which is by construction the smallest bad
+reading there is - 74 lines all saying «68.5 against 68»), re-derived the carrier question instead of
+taking `tab-walk.mjs`'s definition, put one owner's peak on another owner's row, read a control as
+prose and then a shell with no text in it as prose.
+
+The four that matter:
+
+- **The measure was taken of the BOX and the measure is about the LINE.** `.qans` was reported at
+  132.3ch; its text is «Магазин: ~72 порції по 30 г.» - twenty eight characters in a wide box,
+  wrapping zero times. **Found by opening all 21 findings by hand at their widest**, which is the step
+  that separates a reading from a repair, and the step the owner asked for by name.
+- **One offender per width means a fix reveals the next one.** An instrument that has to be run,
+  fixed and run again to see one layer deeper **cannot tell «clean» from «one more round to go»**, and
+  the round count is invisible in its own output. Every class answers in OWNERS now. The same change
+  cured a silent blindness: with one boolean per class, anything true from below the floor upward
+  reported nothing above it - which is why «leaves the screen» went from 1 finding to 15 the moment
+  owners got their own edges. Three rounds were still needed to reach zero, and the third was a
+  classless `<span>` standing beside a `.cnote` that had just been capped alone.
+- **A rail is not a break.** Fourteen of those fifteen were items inside a container that scrolls
+  sideways on purpose. Counted apart and printed, never dropped.
+- **The inside of an `<svg>` is not layout.**
+
+### And the apostrophe sweep broke the file, for the third time in this repository
+
+Replacing the modifier apostrophe by rule closed a single-quoted JavaScript string and the file
+stopped parsing. The lesson is already written here from stage 11 step 4 - *a repair applied by rule
+still has to know the kind of every file it opens* - and it was collected again rather than learned
+again. The class label was reworded instead of escaped.

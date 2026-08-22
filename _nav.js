@@ -63,7 +63,7 @@ window.NAV = [
      «here is the stage», the panel inside says «here is what is in it». */
   { label: 'Дизайн-система',             page: 'design/kit/overview.html', done: true },
 
-  { label: 'Адаптив',                    page: 'design/kit/responsive.html', done: true, wip: true },
+  { label: 'Адаптив',                    page: 'design/kit/responsive.html', done: true },
   { label: 'Анімація',                   page: 'design/kit/motion.html', done: true },
   { label: 'Розкотка',                   page: null },
   { label: 'Хендоф',                     page: null }

@@ -36,7 +36,14 @@
 .pf-act{ font-weight: var(--fw-bold); white-space: nowrap; }
 .pf-hint{ font-size: var(--fs-12); color: var(--text-secondary); margin-top: var(--space-4); }
 .pf-input{ margin-top: var(--space-8); }
-.pf-note{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-12) var(--space-12); max-width: 38.75rem; }
+/* 10.7: `max-width: 38.75rem` stood here and it is `--bp-grid-2col` - a
+   BREAKPOINT used as a reading measure. The two are different kinds of number:
+   a point is a threshold the layout crosses, a measure is how wide a line may
+   be, and 620px happens to be 70.2ch at this font size only by coincidence.
+   The width sweep read it as 70.2 against a ceiling of 68, which is how a
+   coincidence looks from the outside. Now it says what it means. The line gets
+   ~20px narrower and that is the point, not a side effect. */
+.pf-note{ font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-16); border: 1px dashed var(--line-strong); padding: var(--space-12) var(--space-12); max-width: var(--container-text); }
 .pf-save{ margin-top: var(--space-16); }
 .pf-danger{ margin-top: var(--space-24); }
 /* step 6.4: .pf-actbtn is the text finish, whole. Nothing of it is this file's. */
@@ -383,3 +390,34 @@
 /* The mobile field-size rule that used to sit here lives in base.css, where it
    covers every input on the page instead of this file's own. Step 7.3 removed
    the empty @media block it left behind, and this comment with it. */
+
+/* ---------- 10.7: the reading measure, found by the WIDTH SWEEP -------------
+   Stage 10 measured running text at ONE width, 1600, and capped the five
+   selectors it found. `tools/width-sweep.mjs` asks the same question at 129
+   widths from 320 to 1600 and finds twenty more, because a block of prose does
+   not cross the measure where the window is widest - it crosses where its own
+   column stops sharing the row, which is a width nobody chose to look at.
+   THE CEILING IS THE TOKEN, NOT A NUMBER TYPED HERE: `--container-text` is
+   `68ch`, «prose only», and it had two readers in the whole system before stage
+   10 and seven after it. Every line below carries the peak the sweep measured,
+   so the reason survives the reading that produced it.
+   AND EACH ONE WAS OPENED BY HAND BEFORE IT WAS CAPPED. The sweep first
+   reported `.qans` at 132.3ch; the text there is «Магазин: ~72 порції по 30 г.»,
+   twenty eight characters in a wide box that wraps zero times. The measure is
+   about the LINE and the instrument was measuring the BOX - wrong version 9,
+   fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
+.co-bonus .bnote{ max-width: var(--container-text); }   /* measured peak 100.2ch */
+.pf-hint{ max-width: var(--container-text); }   /* measured peak 77.5ch */
+
+/* ---------- 10.7, SECOND LAYER: what stood BEHIND the first one -------------
+   The sweep kept only the worst offender per width, so capping the widest block
+   on a page revealed the next one under it - wrong version 10, and the reason
+   `width-sweep.mjs` now answers in OWNERS rather than in a boolean. On `product`
+   one run then reported four blocks instead of one, and `.tsb` at 132.1ch - the
+   worst in the product - had been standing behind `.qans` the whole time.
+   TWO OF THE FIRST TWENTY CAPS MISSED, and the sweep is what said so, which is
+   the rule «a repair is re-checked by the instrument that found the defect»
+   collecting: `.coach .crestock .rk-lead` did not cover the buyer cabinet, where
+   the same block carries no `.coach`, and `.cd-oosnote .m` is a different `.m`
+   from the one on checkout. Both are named below rather than quietly widened. */
+.co-noaddr .m{ max-width: var(--container-text); }   /* measured peak 82.1ch */

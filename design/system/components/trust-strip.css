@@ -222,3 +222,16 @@
      while there is less room is the mechanism doing what it was built for. */
   .uiv-bearwrap{ display:block; width:clamp(6.75rem, -5.4rem + 22.6vw, 11.25rem); }
 }
+
+/* ---------- 10.7, SECOND LAYER: what stood BEHIND the first one -------------
+   The sweep kept only the worst offender per width, so capping the widest block
+   on a page revealed the next one under it - wrong version 10, and the reason
+   `width-sweep.mjs` now answers in OWNERS rather than in a boolean. On `product`
+   one run then reported four blocks instead of one, and `.tsb` at 132.1ch - the
+   worst in the product - had been standing behind `.qans` the whole time.
+   TWO OF THE FIRST TWENTY CAPS MISSED, and the sweep is what said so, which is
+   the rule «a repair is re-checked by the instrument that found the defect»
+   collecting: `.coach .crestock .rk-lead` did not cover the buyer cabinet, where
+   the same block carries no `.coach`, and `.cd-oosnote .m` is a different `.m`
+   from the one on checkout. Both are named below rather than quietly widened. */
+.trustsec .tsb{ max-width: var(--container-text); }   /* measured peak 132.1ch */

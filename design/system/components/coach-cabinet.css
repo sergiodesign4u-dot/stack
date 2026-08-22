@@ -969,3 +969,27 @@
   padding: var(--space-12) var(--space-16); margin-bottom: var(--space-12); }
 .coach .ord-h{ display: flex; align-items: baseline; justify-content: space-between;
   gap: var(--space-12); flex-wrap: wrap; padding: 0; cursor: auto; }
+
+/* ---------- 10.7: the reading measure, found by the WIDTH SWEEP -------------
+   Stage 10 measured running text at ONE width, 1600, and capped the five
+   selectors it found. `tools/width-sweep.mjs` asks the same question at 129
+   widths from 320 to 1600 and finds twenty more, because a block of prose does
+   not cross the measure where the window is widest - it crosses where its own
+   column stops sharing the row, which is a width nobody chose to look at.
+   THE CEILING IS THE TOKEN, NOT A NUMBER TYPED HERE: `--container-text` is
+   `68ch`, «prose only», and it had two readers in the whole system before stage
+   10 and seven after it. Every line below carries the peak the sweep measured,
+   so the reason survives the reading that produced it.
+   AND EACH ONE WAS OPENED BY HAND BEFORE IT WAS CAPPED. The sweep first
+   reported `.qans` at 132.3ch; the text there is «Магазин: ~72 порції по 30 г.»,
+   twenty eight characters in a wide box that wraps zero times. The measure is
+   about the LINE and the instrument was measuring the BOX - wrong version 9,
+   fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
+.coach .crestock .rk-lead{ max-width: var(--container-text); }   /* measured peak 94.5ch */
+/* 10.7, THIRD LAYER, and it is the same lesson a third time: `.cstat` holds two
+   status lines and only one of them carries a class. Capping `.cnote` alone left
+   its classless sibling standing at 77.7ch, which the sweep reported on the very
+   next run. The cap goes on the CONTAINER's lines rather than on the one that
+   happened to be named, and the narrower rule is removed rather than left beside
+   it doing nothing. */
+.coach .cstat span{ max-width: var(--container-text); }   /* measured peaks 77.7ch and 71.4ch */

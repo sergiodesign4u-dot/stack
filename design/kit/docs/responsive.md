@@ -950,6 +950,7 @@ entries now: two from step 5 and its critique, one from the debts pass.**
 | `22rem` | `.coach .cdetails` | `.coach .cd-row` | the label-and-value rows fold from `160px 1fr` to one column |
 | `41rem` | `.acc-main` (`account-shell.css`) | `.coach .clsplit` | the split opens, inside `@media (min-width: 860px)`. Added by the critique repair; the number is `17.5 + 1.5 + 22`, the rail plus the gap plus the smallest panel worth opening |
 | `63rem` | `.wfh-main` (`header.css`) | `.wfh-actions .wfh-act .lbl` and `.cap` | the four action words go visually hidden and the search field takes the room back. Added by the debts pass; the number is the sum the ROW must hold with the words in - `65` logo + `198` nav + `18rem` search floor + `408` actions + four gaps |
+| `36.5rem` | `.acc-main` (`account-shell.css`) | `.ob-grid` (`order-row.css`) | the order detail keeps its 292px side pane instead of stacking. **Added at 10.7 by `tools/width-sweep.mjs`, and it replaced a `@media (min-width: 860px)` that was asking the wrong thing**: between 1076 and roughly 1160 the WINDOW is wide, so the shell opens its side navigation and the account column loses 216px in one step - the viewport query stays true, the `1fr` cannot shrink past its own min-content, and the pane renders 56.8px off the edge of the screen with nothing scrolling to reach it. The number is the sum `292 + 24 + 268`: the pane, `--space-24`, and the measured min-content of the summary column |
 
 **`63rem` is the entry that says why this section exists at all.** The header search collapsed to
 44px between the shell point and roughly 1010, and the obvious repair was a third point. It is not a
@@ -1012,12 +1013,41 @@ the source, `/impeccable audit` as an isolated browser agent. Sets taken indepen
 | style declared on a screen | 80 | Codex, Claude | – | – | 80 |
 | typography switched at a point | 29 | Claude, Codex | – | – | 29 |
 | asset weight | 9.34 MB on one page | impeccable | 2.28 MB | – | the rest |
-| **breaks between the points** | **not measured** | the sweep, deferred by the owner | – | – | – |
+| **breaks between the points** | **31 + 1** | `tools/width-sweep.mjs`, 10.7 | 32 | – | – |
 
-**The last row is the hole and it is not a zero.** `tools/split.mjs` does sweep 91 pages at 129
-widths, but only for the frames it declares - never for an arbitrary element, the navigation carriers
-or the line measure. 84 of the 92 coloured pages and all 103 stand pages have not been walked width
-by width.
+**The last row WAS the hole and it is now a number.** It was written as «not measured» on purpose:
+`tools/split.mjs` sweeps 91 pages at 129 widths but only for the frames it declares, never for an
+arbitrary element, the navigation carriers or the line measure. **10.7 wrote the missing instrument.**
+
+`tools/width-sweep.mjs` asks four questions at every width from 320 to 1600 and bisects each crossing
+down to the pixel, because «somewhere between 600 and 610» is not a finding a person can act on.
+What it found on 91 coloured pages:
+
+| class | above the floor | what it was |
+|---|---|---|
+| the document scrolls sideways | **0** | fires below the floor on two pages, so the counter is not a zero from a blind check |
+| an element leaves the viewport | **1 -> 0** | `.ob-side` on `account-orders`, 56.8px past the edge between 1076 and ~1160, **with nothing scrolling** - an ancestor clips it, so the panel is not pushed somewhere findable, it is cut off silently. Repaired by the fourth container threshold above |
+| a line longer than the reading measure | **31 -> 0** | stage 10 measured prose at ONE width, 1600, and capped the five it found. Prose does not cross the measure where the window is widest - it crosses where its own column stops sharing the row, and that is a width nobody chose to look at |
+| the same entry in two carriers | **0** | the definition is taken verbatim from `tab-walk.mjs` rather than re-derived; what this adds is 129 widths instead of two |
+| past the edge but INSIDE A RAIL | **15** | printed, not counted as a failure: an item reaching past the edge of a horizontal scroller is how a rail looks |
+
+**The worst line in the product was invisible until the one in front of it was fixed.** `.tsb` runs to
+132.1ch - nearly twice the measure - and stood behind `.qans` on `product`, because the first writing
+of the sweep kept only the worst offender per width. That is wrong version 10 of the instrument, and
+it is the one that matters most: **a check that has to be run, fixed and run again to see one layer
+deeper cannot tell «clean» from «one more round to go»**, and the round count is invisible in its own
+output. Three rounds were needed before the class reached zero, and the third round was a classless
+`<span>` standing beside a `.cnote` that had just been capped on its own.
+
+**Two of the first twenty caps missed, and the sweep is what said so.** `.coach .crestock .rk-lead`
+did not cover the buyer cabinet, where the same block carries no `.coach`, and `.cd-oosnote .m` is a
+different `.m` from the one on checkout. Both are named in the css rather than quietly widened - the
+rule «a repair is re-checked by the instrument that found the defect» collecting on itself.
+
+**And one finding was about a KIND of number rather than a width.** `.pf-note` was already capped, at
+`max-width: 38.75rem` - which is `--bp-grid-2col`, a BREAKPOINT used as a reading measure. A point is
+a threshold the layout crosses; a measure is how wide a line may be; 620px equals 70.2ch at that font
+size by coincidence. It now says what it means, and the line gets ~20px narrower on purpose.
 
 ## Step 6 - the contract of this stage as a checklist
 
@@ -1039,16 +1069,16 @@ that did not happen is in no file and on no page.
 | no adaptive `px` left | **done at step 6** | 58 converted; the 120 inside query conditions stay by the pack's own rule |
 | shell resolved by the A/B/C fork | done | form A, owner's call, measured with `tab-walk` |
 | exactly one top-level carrier at any width | done | `tab-walk`, 4 pages × 2 widths, 0 findings |
-| **width sweep 320-1600** | **NOT DONE - owner deferred it until after Animation** | the main instrument of the stage. The class it owns has no findings and that is a hole |
+| **width sweep 320-1600** | **done at 10.7** | `tools/width-sweep.mjs`, 91 pages x 129 widths, four classes, each bisected to the pixel. 32 defects above the floor, all repaired, all re-checked by the same instrument. Twelve wrong versions of the instrument are written into its own header |
 | idle control on both sides | done | every declared list in every instrument carries one, and each was proved by being broken |
 | wide width checked in the DARK theme | done | `theme.mjs`, 277 of 281 pages, 0 broken by the theme |
 | zero difference at 360 | done | `accept` 282/0; `proof.mjs --against HEAD` moved nothing across 40 screens |
-| every desktop difference explained by an audit row | **partly** | the five reading-measure caps and the three scroll masks are explained here; they are new at step 6 and the audit table predates them |
+| every desktop difference explained by an audit row | **done at 10.7** | the five reading-measure caps and the three scroll masks were new at step 6 and the audit table predated them; the sweep added thirty-one more caps, one container threshold and one literal-to-token repair, and every one carries its measured peak in the css beside it and a row in the section above |
 | critique on two instruments | done | Claude and Codex, sets independent, Codex read-only in the job record |
 | the contract as a third instrument | done | this table |
 | `/impeccable audit` | done | isolated browser agent, 15 findings and 6 self-withdrawn |
-| pixel proof section for stage 10 | **partly** | the 360 half is proved; the sweep frames need the sweep |
-| README status, `/_nav.js` `wip` removed, closing ritual | **NOT DONE** | the stage cannot be closed while its main instrument has not run |
+| pixel proof section for stage 10 | **done at 10.7** | the sweep ran; its numbers are in the table above and on `pixel-proof.html` |
+| README status, `/_nav.js` `wip` removed, closing ritual | **done at 10.7** | the main instrument ran; the row above it was the reason this one stayed red |
 
 **Not everything is green, and the two red rows are the same decision.** The sweep is the stage's
 main instrument and the owner moved it after Animation; the closing ritual waits on it. Saying that

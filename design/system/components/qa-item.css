@@ -101,3 +101,20 @@
    within 100px and would make the button move when the first question arrives.
    That is also why nothing here restyles `btn--text`: the exit is borrowed whole,
    from button.css, in the position section-head.css already gives it. */
+
+/* ---------- 10.7: the reading measure, found by the WIDTH SWEEP -------------
+   Stage 10 measured running text at ONE width, 1600, and capped the five
+   selectors it found. `tools/width-sweep.mjs` asks the same question at 129
+   widths from 320 to 1600 and finds twenty more, because a block of prose does
+   not cross the measure where the window is widest - it crosses where its own
+   column stops sharing the row, which is a width nobody chose to look at.
+   THE CEILING IS THE TOKEN, NOT A NUMBER TYPED HERE: `--container-text` is
+   `68ch`, «prose only», and it had two readers in the whole system before stage
+   10 and seven after it. Every line below carries the peak the sweep measured,
+   so the reason survives the reading that produced it.
+   AND EACH ONE WAS OPENED BY HAND BEFORE IT WAS CAPPED. The sweep first
+   reported `.qans` at 132.3ch; the text there is «Магазин: ~72 порції по 30 г.»,
+   twenty eight characters in a wide box that wraps zero times. The measure is
+   about the LINE and the instrument was measuring the BOX - wrong version 9,
+   fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
+.qaitem .qans{ max-width: var(--container-text); }   /* measured peak 98.8ch */

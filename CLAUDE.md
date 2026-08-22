@@ -10,8 +10,7 @@ not "the file got big", it is a signal that two rules inside already contradict 
 
 A mobile-first sport nutrition store for the Ukrainian market, built around the **coach ordering
 channel** as its primary business model: coaches and gyms order in bulk for their athletes, while
-beginners and regulars are secondary audiences. Ukraine only. Mobile-first, fully responsive,
-scaling up to desktop; a native app is out of MVP scope.
+beginners and regulars are secondary audiences. Ukraine only, fully responsive up to desktop.
 
 ## Jobs (selected)
 
@@ -80,10 +79,11 @@ exist and lists what is missing.
 Competitor facts come from a page opened in this session, never from memory.
 
 **Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360px, and
-only then say done. The instruments live in `tools/`, whose README is their index; they find their own
-pages **and reach them the way a visitor does** - a handed subject can be the wrong one, and a door
-only the driver has measures a different product. **Fix through a rule, not by hand-editing one file**;
-a check rebuilt from memory is a hand fix, a repeatable one goes in `tools/` with its wrong versions.
+only then say done. The instruments live in `tools/`, whose README is their index; they find their
+own pages **and reach them the way a visitor does** - a handed subject can be the wrong one, and a
+door only the driver has measures a different product. **Fix through a rule, not by hand-editing one
+file**; a check rebuilt from memory is a hand fix, a repeatable one goes in `tools/` with its wrong
+versions. **A repair applied by rule still has to know the KIND of every file it opens.**
 
 **Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in a comment has no check under it,
 and **a claim about the corpus goes stale in silence** - the event that stales it happens in another
@@ -96,7 +96,8 @@ believed, name what would turn it red: a check that has never failed has not bee
 Every declared list gets the same test - an allow-list, a registry row or an exception that covers
 nothing fails as loudly as an undeclared case. **A repair is re-checked by the instrument that found
 the defect**, because a repair stales its own neighbours. **A number nobody maintains is removed,
-not corrected.**
+not corrected.** **And an instrument that shows one layer at a time cannot say «clean»** - only «one
+more round», and the round count is invisible in its own output.
 
 **A path named in prose is a TAIL, not an address** (`tools/paths.mjs`): it resolves against the
 tree, not against the folder it was typed in. **A record names history, a rule names an address** -
@@ -158,7 +159,7 @@ research/     stages 01, 02, 02+  research.md · competitors · benchmark · aar
                                   personas · jtbd · cjm-as-is · cjm-to-be
 ia/           stage 03            base layer (flows, concept-map) + detail layer (sitemap,
                                   structure, blocks, docs/pages/<node>.md + ia/<node>.html)
-wireframes/   stage 04            grey clickable prototype, FROZEN after Voice
+wireframes/   stage 04            grey prototype, FROZEN after Voice; docs/conventions.md is its contract
 voice/        stage 05            voice.md rulebook + microcopy.md inventory
 design/       stages 06-09        concept/ · kit/ (showcase + docs) · system/ (code) · visuals/
 docs/         decisions.md, playbook/
@@ -196,5 +197,4 @@ screens. Addresses: `architecture.md` J; in code: `design/system/CLAUDE.md`.
 
 `DESIGN-artifacts.md` - the visual language. `design/kit/docs/architecture.md` - the decision sheet,
 the rules of use and the contribution rule; **a ladder is read by JOB, not by shape**.
-`wireframes/docs/conventions.md` - prototype contract. `docs/decisions.md` - why anything above is
-the way it is.
+`docs/decisions.md` - why anything above is the way it is.

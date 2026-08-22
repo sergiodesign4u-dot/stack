@@ -109,7 +109,30 @@
    loud, exactly as it did when they lived one file further down. */
 .ob-collapse{ display: none; }
 .ob-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-24); }
-@media (min-width: 860px){
+/* 10.7: `@media (min-width: 860px)` STOOD HERE AND ASKED THE WRONG THING, and
+   `tools/width-sweep.mjs` is what found it - the class of defect the stage left
+   unmeasured, «what breaks BETWEEN the points».
+   WHAT HAPPENED. Between roughly 1076 and 1160 the window is wide, so the shell
+   opens its side navigation and the account column loses 216px in one step. The
+   viewport query is still true, so the grid keeps `1fr 292px`; the `1fr` cannot
+   go below its own min-content, so the 292px pane is pushed out and `.ob-side`
+   renders 56.8px past the edge of the screen. Measured: at 1070 the grid is 704
+   wide and the pane ends at 1037; at 1076 the grid is 494 and the pane ends at
+   1132.8. AND NOTHING SCROLLS - `scrollWidth` equals `clientWidth` at every one
+   of those widths, because an ancestor clips it. The panel is not pushed off the
+   page where a person could find it; it is cut off silently. That is why two
+   viewports could not see this and 129 could.
+   WHY `@container` AND NOT A THIRD POINT. The question was never about the
+   window. `1fr 292px` needs room in the COLUMN, and the column and the window
+   stop agreeing exactly at the width where the shell takes its share. The placer
+   already exists: `.acc-main` declares `container-type: inline-size` in
+   `account-shell.css`, and this is the fourth entry in «Container thresholds».
+   THE NUMBER IS A SUM, NOT A DEVICE, and the query cannot hold the relation
+   because `@container`, like `@media`, is resolved before custom properties -
+   the same note `coach-clients.css` writes for the same reason. It is
+   `292 + 24 + 268`: the pane, `--space-24`, and the measured min-content of the
+   summary column. 584px = 36.5rem. */
+@container (min-width: 36.5rem){
   .ob-grid{ grid-template-columns: 1fr 292px; }
 }
 .ob-line{ display: grid; grid-template-columns: 52px 1fr auto; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); align-items: start; }

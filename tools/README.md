@@ -38,6 +38,7 @@ node tools/focus.mjs [--all|pages]      press Tab on every control and read the 
 node tools/motion.mjs [--source|--output|--states|--full]   what moves today, asked from the file AND from the frame
 node tools/motion.mjs --surfaces [--live]   the surfaces that appear by switching `display`, from css and from the browser
 node tools/motion.mjs --view            the crossfade BETWEEN two documents, read from inside a live navigation
+node tools/width-sweep.mjs [--step N] [--stand]   what breaks BETWEEN the points: 320-1600, bisected to the pixel
 node tools/motion-row.mjs               rebuild a stand page's motion row in «Токени» from its own css
 node tools/ease-fit.mjs                 where the three cubic-bezier curves came from, re-solvable
 ```
@@ -780,6 +781,71 @@ one the rest of the stage uses: `--dur-slow` redefined to `7.77s` on the incomin
 document, and all five animations must read 7770ms - a pseudo-element that renders
 330ms because someone typed 330ms is indistinguishable from a token reader until
 the token moves.
+
+## `width-sweep.mjs` - the hole stage 10 left open, and it was the stage's own subject
+
+`responsive.md` closed stage 10 with one row of its contract table red on purpose:
+**«breaks between the points - not measured»**. Everything else had been proved -
+`accept.mjs` walks the corpus at 360 and 390, `tree-diff.mjs` compares two trees
+property by property, `grid-sweep.mjs` counts columns, `split.mjs` sweeps 129
+widths but only for the FRAMES it declares. **A stage whose whole subject is width
+closed with its main class carrying no findings, and three of its four instruments
+would have called that a clean stage.** This is the missing one.
+
+Four questions, each asked at every width from 320 to 1600, each crossing bisected
+to the pixel because «somewhere between 600 and 610» is not a finding anyone can
+act on: the document scrolling sideways; an element leaving the screen; a line
+longer than `--container-text`, which is read out of the browser rather than typed
+here so the ceiling cannot drift from the token; and **the same entry carried by
+two navigation carriers**, whose definition is taken verbatim from `tab-walk.mjs`
+rather than re-derived - what this file adds is 129 widths instead of two.
+
+It found **32 defects above the floor on 91 coloured pages**, including one that
+no other instrument in this repository could have seen: `.ob-side` on
+`account-orders` renders 56.8px past the edge between 1076 and roughly 1160, and
+`scrollWidth` equals `clientWidth` at every one of those widths - an ancestor
+clips it, so the panel is not pushed somewhere findable, it is cut off in silence.
+At 1060 and at 1280 the page is clean, which is why two viewports could not find
+it and 129 could.
+
+**Twelve wrong versions, and they are worth reading in order because the last four
+are the interesting ones.** It measured the stand chrome instead of the product
+(the boundary is `.wf-canvas`, and the page says which is which). It read a footer
+column of links as prose. It approximated `ch` with a canvas and turned its own
+rounding into three findings. It printed the reading taken AT the crossing, which
+is by construction the smallest bad reading there is - 74 lines all saying «68.5
+against 68». It re-derived the carrier question and got «2 carriers» on 34 pages
+at the shell point, where a section nav beside the header is the shape the fork
+chose. It put one owner's peak on another owner's row. It read a control as prose,
+then a shell with no text in it as prose.
+
+Then the four that changed what it can do at all:
+
+- **The measure was taken of the BOX and the measure is about the LINE.** `.qans`
+  was reported at 132.3ch and its text is «Магазин: ~72 порції по 30 г.» - twenty
+  eight characters in a wide box, wrapping zero times, reading perfectly. Found by
+  opening all 21 findings by hand, which is the step that separates a reading from
+  a repair.
+- **One offender per width means a fix reveals the next one.** Capping `.qans`
+  immediately surfaced `.simple`, which had been standing behind it. An instrument
+  that must be run, fixed and run again to see one layer deeper **cannot tell
+  «clean» from «one more round to go»**, and the round count is invisible in its
+  own output. Every class answers in OWNERS now. It also fixed a silent blindness:
+  with one boolean per class, anything true from below the floor upward reported
+  nothing above it - which is why the «leaves the screen» class went from 1 finding
+  to 15 the moment owners got their own edges.
+- **A rail is not a break.** Fourteen of those fifteen were items inside a
+  container that scrolls sideways on purpose. They are counted apart and printed,
+  never dropped: a finding silently filtered is indistinguishable from one never
+  made.
+- **The inside of an `<svg>` is not layout.** A `rect` living in the svg's own
+  coordinate space, which the browser clips anyway.
+
+**And the typography sweep broke it, for the third time in this repository.**
+Replacing the modifier apostrophe by rule closed a single-quoted JavaScript string
+and the file stopped parsing - the same lesson `docs/decisions.md` records from
+stage 11 step 4: *a repair applied by rule still has to know the kind of every file
+it opens.* The class label was reworded instead.
 
 ## `motion-row.mjs` - the repair that belongs to `roles.mjs`, written as a rule
 
