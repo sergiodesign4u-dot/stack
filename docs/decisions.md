@@ -11788,3 +11788,239 @@ document sideways · `dupe` 0 · `bp` 4 container thresholds in system and in re
 0 of 27 · `coverage` **141 records / 141 opened / 50 of 50 with their own states / one panel on 141
 of 141** · **`wireframes/` 0 files changed.**
 
+
+---
+
+## Stage 13, step 2 - the spec, and the gate the previous step left red (2026-08-24)
+
+**The step opened by paying stage 12's debt, and it cost more than the debt.** `node tools/inventory.mjs`
+exited 1 at the end of stage 12 and nobody had run it: six `Lines` cells, the level-3 sum, the totals
+paragraph, eight stand strips, a `Width` cell and a missing hub card, all from commit `6b161f2`. What
+the repair found underneath was four defects in the instrument itself, and they are worth more than
+the numbers they were hiding.
+
+**Twelve of `inventory.mjs`'s own lists could not turn its exit code red.** The expression named
+twelve lists and omitted fourteen; patterns, hub, stand meta, stand width, import group and nav group
+all printed findings and handed back 0. That is why the quiz shipped without a card in the hub and
+nothing failed for a fortnight: the run REPORTED it on every pass. Stage 12 used this exit code as a
+gate. The four lists that stay out are census rather than defect and say so where they are declared.
+
+**The component rule was five parts in prose and six in the instruments.** Nothing written anywhere
+required a card in `design/kit/overview.html`, and `quiz.css` had all five of the written parts. It
+stood in the registry, in the inventory, in the stylesheet and on its own page, and was unreachable
+from the page a person browses. `CLAUDE.md`, `design/system/CLAUDE.md` and `architecture.md` J now
+say six, and the sixth carries the reason it was missing.
+
+**The hub cards were a third copy of a number nobody had ever asked about: 133 wrong on 183 tags.**
+Question H asks the stand strip; the same figure is also on the card in the hub, which is the copy a
+person reads most and the one nothing checked. New question J, same subject rule and same exact-tag
+rule as H, `--apply` included. And the registry's `Screens` column was wrong on 66 of 94 rows - not
+typing errors, but a measurement taken over 88 coloured screens while the product now has 142.
+
+**Two repairs could not close their own findings, and both printed exactly what a repair with
+nothing to do prints.** `--apply`'s `kit.html` pattern carried the number it was correcting TO, so it
+only ever fired when the total was already right. And the three registry columns rewrote in three
+passes, each matching a row by its whole line as parsed at start-up - so the second pass could not
+find a row the first had already moved, and the run silently dropped its one `Width` repair. Rows are
+now matched by their css name and every cell is set in one write.
+
+**The claim about the component count lives in four places and now has a declared list.** The step-1
+auditor found `why.html` and `README.md` saying 84 against 94 on disk. «A number nobody maintains is
+removed, not corrected» - and the other half of that rule is that a number which CAN be maintained is
+not the kind it describes. Question G is now a list of four places, each with its own pattern, asked
+BOTH ways: a declared place whose claim has vanished fails the run, and the thirteen other places
+where the phrase stands are printed as a census, because they are prose ABOUT a count and rewriting
+them would rewrite history.
+
+**`behaviour.md`: 152 spec rows, every one naming a source, and six questions that refused to be
+answered.** Three sources and no fourth - the screen file, the flow node, the IA cluster - and
+`tools/handoff.mjs` resolves all three mechanically. The «НЕ ВИРІШЕНО» list holds six rows and none
+of them was filled with a plausible median: what a retry actually retries, how long a blocked coach
+session survives, what «cart preserved» covers, the validation rules, the three flow states with no
+screen, and the loyalty numbers that are `[?]` by decision.
+
+**Writing the spec found three drifts inside `flows.md` and one fact nobody would have guessed.**
+The Main Job's prose lists twenty decision points against the diagram's eighteen, and a state the
+diagram does not carry; three state nodes have no coloured screen. None was patched - `flows.md`
+belongs to stage 03 - and all three carry a row addressed to the owner. The fact: **every coloured
+screen loads `../wireframes/_nav.js`.** The frozen folder is not history, it is the RUNTIME that
+renders the header, the footer, the tab-bar and every dialog, with `design/_nav.js` repainting over
+it. A developer told «the grey folder is frozen history» would delete it and break all 141 pages.
+
+**`tools/handoff.mjs` gives the stage's own rule a check.** «Reference, never duplicate» was prose
+for a whole stage, which is why the first draft of `onboarding-gaps.md` shipped two `px` literals
+caught by eye. Six questions, three verdicts rather than two - `2` means «could not ask», because E
+and F have no subject until `behaviour.md` exists and the first writing of that exit line handed back
+a clean 0 from an instrument that had looked at nothing. Two wrong versions are written beside it:
+recognising a css declaration by its colon (first catch: `wip: true`), and asking every table in the
+file including the legend that explains the three sources.
+
+---
+
+## Stage 13, step 3 - the map, and the question that only an inversion can ask (2026-08-24)
+
+**The map is generated, so the document and the instrument cannot disagree.** `tools/map.mjs --write`
+writes `handoff/docs/map.md` out of the corpus: 141 screens, 95 component files, 98 semantic roles,
+165 primitives, 609 lines, and not one number typed. Names only, never values - a value lives in
+`tokens.css` and a second copy here would be the duplicate the whole stage exists to prevent.
+
+**The reverse list opens in two knees, and sometimes three.** A component never reads a colour
+primitive: `--orange-500` has 0 readers in `components/` and 6 inside `tokens.css`. A one-knee
+inversion would have reported the ENTIRE primitive layer as dead, which is the shape of an instrument
+error rather than a finding. And the two-knee rule alone is still short: `--grid-col-fluid` is a
+`clamp()` whose floor is `--grid-col-min-narrow`, so a primitive read by another primitive needs the
+layer closed transitively before the roles are asked.
+
+**Four tokens are dead, and stage 13 may not remove them.** `--bg-success` and `--text-price-was` are
+roles no component reads; `--scrim-white-70` and `--tint-red-d-10` are primitives no knee reaches.
+`status-pill.css` documents its own half of it: the SOFT ground is what every reader takes and the
+calm plate the role names is taken by nobody. All four went to `backlog.md` with the owner of stage
+08 named, because `design/system/**` is untouchable after the roll-out was accepted. `map.mjs`
+therefore exits 1 today, on a real finding rather than on a broken run, and it will keep exiting 1
+until the owner rules.
+
+**The first walk read the document at rest and called `cat-overlay` dead.** It is the mobile
+catalogue overlay and it renders on every one of the 141 screens. Same class as 12.11: a component
+behind a click is invisible to a reader that never clicks. The walk now sweeps every opener the page
+declares - **3679 calls over 141 screens**, one dropped because it navigates away. **A dead-token
+list taken without opening the panels would have been wrong in the other direction too**, and nothing
+in the output would have said so.
+
+**Two other instrument defects, both the same shape as a hundred before them.** Eleven state screens
+came back «`microcopy.md` does not know this name», and eleven of the twelve were dialog STEPS whose
+strings are authored in the shared sections of cluster 0 - a state screen now inherits its base
+screen's zones, and the split is printed rather than assumed (130 own, 11 inherited). And the IA node
+was matched by the FIRST prefix rather than the longest, so `account-addresses-add` matched `account`
+and half the address book was filed under node 7.0 instead of 7.5.
+
+**The global layer is named once and subtracted from every row.** Eight components render on all 141
+screens because `wireframes/_nav.js` writes them into every page; repeating them 141 times would bury
+what the table is for. The threshold is «on every screen» rather than a percentage, so nothing is
+rounded away - and the near-global ones get a section of their own, because a component on 134 of 141
+says something about the seven. It does: **the five checkout states and the two system pages drop the
+shell on purpose**, and the five auth screens also drop the footer.
+
+**A patch script that writes at the end throws away the edits that worked.** Two of them did that in
+this step - «ok, ok, НЕ ЗНАЙДЕНО», exit, nothing changed, and the third sub silently lost the import
+line the first had added. They now write after every substitution. The same sentence covers the
+backtick trap: the repair has to know the kind of the file it opens, and a patch script IS a file
+being opened.
+
+**And one dead link in 6070 turned out to be a css selector in a sentence.** `links.mjs` knew three
+kinds of text that look like a link and are not - an escaped markup sample, a commented-out block, a
+link built at runtime - and `pixel-proof.html` prints a fourth: `a[href="index.html"]` inside prose
+about what `idle.mjs` reads, written at 12.11. The scan planned to «repair» a selector into a
+relative path. A `<code>` that contains an anchor is still scanned, because blanking those wholesale
+would hide a live link inside a code sample, which is the opposite mistake and costs more.
+
+---
+
+## Stage 13, step 4 - the accessibility checklist, and «confirmed» meaning a run today (2026-08-25)
+
+**26 rows, 18 confirmed and 8 debts, and not one row without a command.** The checklist introduces no
+rule: every one was decided at stages 08 to 11. What was missing is a single place that says which of
+them is TRUE TODAY and by what command - and nine of them came back different from the day they were
+written. `tools/handoff.mjs` now reads the last two columns of every table in `a11y.md` and fails if
+the «how to check» cell is empty, if the command names a file that is not in `tools/`, or if the
+status is anything other than one of exactly two words. **A third status is how a debt becomes
+invisible.**
+
+**The focus instrument had never walked the dark theme, and the dark theme is the case it was written
+about.** Its own opening paragraph says the browser's blue ring is a defect precisely because it does
+not follow the theme - and for a whole stage it only ever measured the light one. `--dark` sets the
+theme through the page's own call and fails loudly if the call does not take, because a page without
+`theme.js` swallows it in silence and would hand back a light reading labelled dark. Both themes now:
+141 screens, two widths, **33816 controls, 0 in the user agent's ring and 0 with no ring at all**.
+
+**Text-only zoom had no instrument and it is the largest debt in the document.** Browser zoom at 200%
+halves the CSS viewport and changes nothing else, so the width sweep of stage 10 already answered it.
+A reader who raises the DEFAULT FONT SIZE is a different question: the viewport does not move, the
+type does, and only a layout in `rem` survives it. Stage 10 moved the ramp from px to rem value for
+value for exactly that reader and nothing had ever asked whether it worked. With the root font size
+doubled: **142 of 343 screens overflow horizontally at 1280, 284 of 343 at 360.**
+
+**«No accessible h1» was prose naming two screens; asked mechanically it is 35.** The roll-out's
+class 8 recorded that the two `coach-client-edit` screens have no reachable heading, and nothing
+could re-ask it. `tools/headings.mjs` finds 17 dialog states of that shape, 16 loading and error
+states whose headings are all reachable but none an `h1`, and 2 checkout states with no heading in
+the markup at all. It also found a question nobody had asked: **97 of 141 screens skip a rung in the
+heading ladder, and all 97 have one cause** - the footer's newsletter block is an `h4` standing
+directly after an `h2`.
+
+**And the heading walk taught the opposite lesson to the map, on the same day.** Its first writing
+swept every opener, the way 13.3 had just proved necessary, and reported two `h1` on screens that
+have one: the sweep opens every dialog at once and the auth dialog brings its own heading. No reader
+is ever in that state. The cure is the corpus itself - this product models a state as its own
+DOCUMENT, so every state that matters is already a page at rest. **«Which components stand on this
+screen» wants the panels open; «how many headings can a reader reach at once» wants them shut.**
+
+**A NEW RULE, generalised from two findings four steps apart: an ADDITION stales its neighbours, not
+only a repair.** The repository already said «a repair is re-checked by the instrument that found the
+defect, because a repair stales its own neighbours». Batch 6 of the roll-out added a component and
+left two gates behind it: `inventory.mjs`, found at step 2, and `theme.mjs`, found here -
+**`quiz.css` reads the colour primitive `--scrim-ink-10` directly, the first component in the system
+to do so**, while every other scrim reads the role. Both from commit `6b161f2`. The cure for the
+token is a new semantic role, which is the system owner's decision and not this stage's.
+
+**Contrast: 37 shapes fail and 36 of them fail in BOTH themes.** The light reading beside the dark
+one is what separates a harvest from a panic, and it says the theme broke exactly one of them. The
+largest single group is the accent button - white on Signal Orange, 3.13 against a 4.5 threshold -
+which is a brand decision before it is a bug, and it goes to the owner as one.
+
+**Every debt carries the number that has to reach zero**, in two places with one author: the table at
+the foot of `a11y.md` and its twin in `backlog.md`. A debt without a target number is a sentence; a
+debt with one is a task.
+
+---
+
+## Stage 13, step 5 - the page, the README as a route, and the route counted in clicks (2026-08-25)
+
+**`handoff/handoff.html` carries the four sections that exist nowhere else**, and each of them
+answers a question that stops a newcomer permanently: where the package ENDS (a clickable product,
+not an application - no data, no API, no router, no build, and a state is a separate FILE), which
+theme is primary (light, in the bare `:root`; dark redefines semantic roles only; there is no `auto`
+by decision), who decides after the handover, and what was deliberately not done. Plus the route, the
+three links, and one row per handoff document.
+
+**The three links have one author and two visible places**, filled in one pass: this page and the
+README. Sending a reader from the README to a second click to find the product address would be the
+same route-to-nowhere the stage exists to repair.
+
+**The README now leads instead of retelling.** It was a report - the status table alone carried
+paragraph-long cells about censuses and step numbers, which is a build journal wearing a status
+board. A section is now two or three sentences and a link; the long prose already lives in
+`docs/decisions.md`, where it belongs and where nothing has to stay current. The status table is the
+only one in the repository, and the README says so out loud.
+
+**G2 is closed, and it was created by step 1 of this stage.** README row 13 said «Not started» while
+`/_nav.js` carried `wip: true`; the rule says status lives in exactly those two files and nowhere
+else, so there was no third source to break the tie. Both now say the same thing, and the row names
+what steps 6 to 8 still owe.
+
+**«No more than two clicks» is now counted rather than asserted.** The route has exactly two legs:
+the sidebar is on every page and carries every registry row, so click 1 is any registry page -
+including from the root `index.html`, which does not link to the handoff directly and does not need
+to - and click 2 is a link on that page. `handoff.mjs` question I checks both halves: `handoff.html`
+stands in the registry, and every file under `handoff/` is linked from it. A file in that folder that
+nobody names would be an artefact with no reader.
+
+**Two flags were added to `accept.mjs`, and the second one closed a hole nobody had noticed.**
+`--root` moves the subject to the repository root: the gate was written for `design/` and had no way
+to reach anywhere else, so **the roadmap pages had never been measured at 360 by anything** in twelve
+stages. `handoff/handoff.html` measures 0 overflow at 390 and at 360.
+
+**And the README rewrite made the both-ways ask fail on purpose.** Question G of `inventory.mjs`
+named `README.md` as one of four places carrying the component count. The rewritten README names no
+count at all - the showcase carries the number and the README leads to it - so the declaration
+covered nothing, and «МІСЦЕ ОГОЛОШЕНЕ, А ТВЕРДЖЕННЯ В НЬОМУ БІЛЬШЕ НЕМАЄ» failed the run on its first
+pass afterwards. That is the reverse half doing exactly what it was written for, and it also caught
+what the forward half had missed: a SECOND phrasing in the same file, «all 84 components as cards»,
+which the pattern for «N component files» never saw.
+
+**One field of this package cannot be derived from the repository, and it is left as `[?]`.** The
+section «Хто ухвалює рішення» names the five classes waiting on a person and their counts, and puts
+the name and the channel in the mark this project uses for a value that needs real data. An invented
+addressee is worse than an empty one: a decision sent to the wrong person looks like a decision that
+was taken.
+
+**And G3 was closed by the owner with a better answer than the question.** The pack asks for a NAME and a channel. The answer was a ROLE and a channel: the product owner, reachable through the repository's Issues, with no personal name on the page. It is the stronger form for the same reason a component is never named after the screen it first stood on - a role outlives whoever holds it, and a page carrying somebody's name goes stale the first day the role moves on. The question also goes to the place its own line lives in, so the decision stays beside it instead of in a chat that closes with the session.

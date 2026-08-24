@@ -28,8 +28,27 @@ import { Conn, newSession, visit } from './cdp.mjs';
 import { serve, chrome, subject } from './lib.mjs';
 
 const args = process.argv.slice(2);
+/* 13.4: TEXT-ONLY ZOOM, WHICH IS NOT THE SAME THING AS BROWSER ZOOM. Browser zoom
+   at 200% simply halves the CSS viewport, and the width sweep of stage 10 already
+   walks every width from 320 up, so that half is answered. What is NOT answered is
+   a reader who has set a larger DEFAULT FONT SIZE: the viewport does not change,
+   the type does, and only a layout written in rem survives it. Stage 10 moved the
+   type ramp from px to rem value for value precisely for this, and nothing had
+   ever asked whether it worked. The root font-size is doubled before the probe
+   runs, so every rem in the tree doubles with it. */
+const TEXT200 = args.includes('--text200');
+if (TEXT200) args.splice(args.indexOf('--text200'), 1);
 const W = /^\d+$/.test(args[0] || '') ? Number(args.shift()) : 390;
-const PAGES = subject(args);
+/* 13.5: --root MOVES THE SUBJECT TO THE REPOSITORY ROOT. This gate was written for
+   `design/` and had no way to accept a page anywhere else, so the roadmap pages -
+   `index.html`, `voice/voice.html`, and now `handoff/handoff.html` - had never been
+   measured at 360 by anything. The stage pack asks for a MEASURED 360 on the handoff
+   page, and «measured» in this repository means this file. The flag changes the base
+   directory and nothing else: the same probe, the same ten marks, the same verdict. */
+const ROOTED = args.includes('--root');
+if (ROOTED) args.splice(args.indexOf('--root'), 1);
+const BASE = ROOTED ? '.' : 'design';
+const PAGES = subject(args, BASE);
 
 const srv = await serve();
 const l = await chrome('accept');
@@ -116,7 +135,9 @@ let bad = 0;
 for (const p of PAGES) {
   const s = await newSession(conn);
   await conn.send('Page.addScriptToEvaluateOnNewDocument', { source: ERRS }, s.sessionId);
-  const d = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/design/${p}.html`, W, 844, M, s.inflight));
+  const d = JSON.parse(await visit(conn, s.sessionId, `${srv.base}/${BASE === '.' ? '' : BASE + '/'}${p}.html`, W, 844,
+    TEXT200 ? "(() => { document.documentElement.style.fontSize = '200%'; return " + M + "; })()" : M,
+    s.inflight));
   const ok = d.over === 0 && !d.errs.length && d.em === 0 && d.curly === 0 && !d.crumbBad && d.dots === 0 && !d.idleBad && d.ph === 0;
   if (!ok) bad++;
   console.log((ok ? 'OK   ' : 'FAIL ') + p.padEnd(20) + 'over=' + String(d.over).padEnd(4) + 'em=' + String(d.em).padEnd(3)
@@ -125,6 +146,6 @@ for (const p of PAGES) {
     + (d.crumbBad ? ' CRUMB:' + d.crumbBad : '') + (d.idleBad ? ' IDLE:' + d.idleBad : '') + (d.errs.length ? ' ERR:' + JSON.stringify(d.errs) : ''));
   await conn.send('Target.closeTarget', { targetId: s.targetId });
 }
-console.log('\n@' + W + '  ' + PAGES.length + ' screens  failures: ' + bad);
+console.log('\n@' + W + (TEXT200 ? '  ТЕКСТ 200%' : '') + '  ' + PAGES.length + ' screens  failures: ' + bad);
 l.stop(); srv.stop();
 process.exit(bad ? 1 : 0);

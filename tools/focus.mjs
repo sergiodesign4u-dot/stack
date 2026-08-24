@@ -46,6 +46,17 @@ import { serve, chrome, pages } from './lib.mjs';
 
 const argv = process.argv.slice(2);
 const ALL = argv.includes('--all');
+/* 13.4: THE RING HAS TO BE ASKED IN BOTH THEMES, AND FOR A WHOLE STAGE IT WAS NOT.
+   The first paragraph of this file says why the browser's own ring is a defect:
+   it is a fixed value in the user agent, it does NOT follow the dark theme, and a
+   keyboard user on a dark surface gets a blue line on near-black. That sentence
+   was the argument for the instrument and the instrument then only ever walked
+   the light theme - so the case it was written about was the one case it could
+   not see. `--dark` sets the theme the way the product does, through the page's
+   own `uivTheme`, and FAILS LOUDLY if the call does not take: a page without
+   `theme.js` swallows it silently, and a silent swallow would hand back a light
+   reading labelled dark. Same guard `theme.mjs` carries for the same reason. */
+const DARK = argv.includes('--dark');
 const named = argv.filter(a => !a.startsWith('-'));
 /* the sample is the busiest screen of each shape, not a random handful */
 const SAMPLE = ['index', 'coach-clients', 'coach-session', 'product', 'listing', 'cart', 'account', 'checkout'];
@@ -100,6 +111,15 @@ for (const p of corpus) {
     const loaded = conn.once('Page.loadEventFired', s.sessionId);
     await conn.send('Page.navigate', { url: `${srv.base}/design/${p}.html` }, s.sessionId);
     await loaded;
+    if (DARK) {
+      await conn.send('Runtime.evaluate', { expression: "typeof uivTheme==='function'&&uivTheme('dark')", returnByValue: true }, s.sessionId);
+      const on = await conn.send('Runtime.evaluate',
+        { expression: "document.documentElement.getAttribute('data-theme')", returnByValue: true }, s.sessionId);
+      if (on.result.value !== 'dark') {
+        console.error('ТЕМА НЕ ВСТАЛА на ' + p + ' - сторінка проковтнула uivTheme, читання було б світлим під іменем темного');
+        process.exit(2);
+      }
+    }
     const r = await conn.send('Runtime.evaluate', { expression: EXPR, returnByValue: true }, s.sessionId);
     const v = JSON.parse(r.result.value || '{}');
     walked += v.total - v.notVisible;
@@ -112,7 +132,7 @@ for (const p of corpus) {
 }
 
 if (bad.length) { console.log('\nБЕЗ КІЛЬЦЯ СИСТЕМИ (' + bad.length + '):'); for (const x of bad) console.log('  ' + x); }
-console.log(`\n${corpus.length} сторінок × ${WIDTHS.length} ширин · ${walked} контролів пройдено табом · `
+console.log(`\n${corpus.length} сторінок × ${WIDTHS.length} ширин · тема: ${DARK ? 'ТЕМНА' : 'світла'} · ${walked} контролів пройдено табом · `
   + `у синьому кільці UA: ${uaTotal} · без кільця взагалі: ${deadTotal}`);
 l.kill && l.kill();
 process.exit(bad.length ? 1 : 0);

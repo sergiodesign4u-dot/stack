@@ -95,7 +95,18 @@ const pad = m => m.replace(/[^\n]/g, ' ');
 const blank = s => s
   .replace(/&lt;[\s\S]*?&gt;/g, pad)           /* a printed markup sample */
   .replace(/<!--[\s\S]*?-->/g, pad)            /* a commented-out block */
-  .replace(/<script[\s\S]*?<\/script>/gi, pad);/* a link built at runtime */
+  .replace(/<script[\s\S]*?<\/script>/gi, pad)/* a link built at runtime */
+  /* 13.3: A CSS SELECTOR QUOTED AS DOCUMENTATION IS NOT A LINK EITHER, and this
+     file already knew three of the four kinds. `pixel-proof.html` prints
+     `<code>a[href="index.html"]</code>` in a sentence about what `idle.mjs` reads
+     - written at 12.11 - and the scan took it for a link to a file that does not
+     exist, planning to «repair» a selector inside prose into `../index.html`. One
+     dead href in 6070, and the only one, so it read as a real finding for two
+     steps.
+     A `<code>` that CONTAINS an anchor is left alone: those exist, and blanking
+     them wholesale would hide a live link inside a code sample - which is the
+     opposite mistake and a more expensive one. */
+  .replace(/<code[^>]*>[\s\S]*?<\/code>/gi, m => /<a[\s>]/i.test(m) ? m : pad(m));
 
 /* ---- WHERE A DEAD HREF WAS TRYING TO GO -----------------------------------
    Never a typed table of corrections. The href already says what it wants -

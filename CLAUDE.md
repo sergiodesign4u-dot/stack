@@ -72,42 +72,39 @@ consumption cycles, AOV, delivery tariffs. An invented number poisons every stag
 ## How work runs
 
 **Step by step, not autonomously.** One step, then show the result and wait. Missing input stops the
-step; it is not replaced by a median. Before step 1 each stage checks that the files it reads really
-exist and lists what is missing.
+step; it is not replaced by a median. Before step 1 a stage checks that the files it reads exist.
 
 **Nothing is invented, everything is read out.** Cite the source of each fact; no source means `[?]`.
 Competitor facts come from a page opened in this session, never from memory.
 
-**Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360px, and
-only then say done. The instruments live in `tools/`, whose README is their index; they find their
-own pages **and reach them the way a visitor does** - a handed subject can be the wrong one, and a
-door only the driver has measures a different product. **Fix through a rule, not by hand-editing one
+**Acceptance is in the browser, not in a table.** Open it, walk every state, narrow to 360, and only
+then say done. The instruments live in `tools/`, whose README is their index; they find their own
+pages **and reach them the way a visitor does**. **Fix through a rule, not by hand-editing one
 file**; a check rebuilt from memory is a hand fix, a repeatable one goes in `tools/` with its wrong
 versions. **A repair applied by rule still has to know the KIND of every file it opens.**
 
 **Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in prose has no check under it, and
-**an instrument the rule NAMES still has to ask that rule's question** - nine marks of ten is a true
-answer to nine tenths of a sentence. **A claim about the corpus goes stale in silence**, so it is
-re-asked, not re-read. **A comparison whose two sides differ in more than the thing measured is not a
-proof:** name the reference by hand, and read the whole report - one read through `tail` is not a read.
+**an instrument the rule NAMES still has to ask that rule's question**. **A claim about the corpus
+goes stale in silence**, so it is re-asked, not re-read. **A comparison whose two sides differ in
+more than the thing measured is not a proof**, and one read through `tail` is not a read.
 
 **A zero from an instrument that cannot see the class is not a zero.** Before a green counter is
 believed, name what would turn it red: a check that has never failed has not been shown to work.
 Every declared list is asked BOTH ways and on the WHOLE corpus: membership and existence, and an
 allow-list, a registry row or an exception that covers nothing fails as loudly as an undeclared
-case. **A repair is re-checked by the instrument that found the defect**, because a repair stales
-its own neighbours. **A number nobody maintains is removed, not corrected.** **And an instrument
-that shows one layer cannot say «clean»** - only «one more round», and the count is invisible in it.
+case. **A change is re-checked by the instrument that found the defect** - and an ADDITION stales
+its neighbours exactly as a repair does. **A number nobody maintains is removed, not corrected**, and
+one that CAN be maintained gets an instrument instead. **An instrument that shows one layer cannot
+say «clean»** - only «one more round», and the count is invisible in it.
 
 **A path named in prose is a TAIL, not an address** (`tools/paths.mjs`): it resolves against the
-tree, not against the folder it was typed in. **A record names history, a rule names an address** -
-`docs/decisions.md` may keep a file's old name, this file may not.
+tree. **A record names history, a rule names an address** - `decisions.md` may keep a file's old name,
+this file may not.
 
 **Critique runs on two instruments.** Claude and Codex (plugin `codex`, **read-only stated
 explicitly**), sets taken independently, dedup afterwards. Codex owns what is falsifiable in the
-source; "breaks at 360" and pixel checks stay with Claude in a browser. Every critique log carries
-**who found it** and **withdrawn on verification** with a reason, or the finding returns next time
-in the same words.
+source; «breaks at 360» and pixel checks stay with Claude in a browser. Every critique log carries
+**who found it** and **withdrawn on verification** with a reason, or the finding returns verbatim.
 
 **A repeated prompt is a rule.** Typing the same instruction a third time means it belongs in this
 file, called by a trigger word.
@@ -118,8 +115,7 @@ file, called by a trigger word.
   strings: SEO copy inside `ia/docs/pages/*.md`, and the dictionary, examples and banned phrases in
   `voice/docs/*.md`.
 - Chat - Russian / Ukrainian. Html pages - **Ukrainian** (local market, set once, inherited).
-- Registry labels in `/_nav.js` are render text: same language as the pages. Mixed language in the
-  sidebar is a defect.
+- Registry labels in `/_nav.js` are render text: page language. Mixed language there is a defect.
 - **Three dashes, three jobs.** `-` inside a sentence · `–` a range (`А–Я`) and an empty table cell,
   which is the "no value" mark · `—` nowhere in project output. One apostrophe form: `'`. The `ви`
   form.
@@ -127,17 +123,17 @@ file, called by a trigger word.
 ## Ownership of text and values
 
 **Text splits by KIND of string, not by stage.** SEO copy (title, description, H1, SEO body) belongs
-to the IA node - voice aligns it and syncs it back into `ia/docs/pages/<node>.md`, and the affected
-`ia/<node>.html` is rebuilt the same step. Interface strings (buttons, field labels, state text,
-toasts) belong to `voice/docs/microcopy.md`; the IA node states WHAT information is needed there, not
-the wording. No product string exists in two editions.
+to the IA node - voice aligns it, syncs it back into `ia/docs/pages/<node>.md`, and the affected
+`ia/<node>.html` is rebuilt the same step. Interface strings (buttons, labels, state text, toasts)
+belong to `voice/docs/microcopy.md`; the node says WHAT is needed, not the wording. **No product
+string exists in two editions.**
 
 **Values move, they are never re-derived.** One line runs through the stages and is not recomputed
-once: `DESIGN-artifacts.md` (origin of every value) -> `design/system/tokens.css`, primitive then
-semantic; each step adds a level, never rewrites it. A value changes only by a decision said out
-loud as "variable -> value -> why", never as a side effect of a refactor - and **a geometric
-relation is written as the relation, not the number it resolves to.** **A one-line opt-in buys a
-MECHANISM, not its values:** what it renders is a default dressed as a decision.
+once: `DESIGN-artifacts.md` (origin of every value) -> `tokens.css`, primitive then semantic; each
+step adds a level, never rewrites it. A value changes only by a decision said out loud as
+«variable -> value -> why», never as a side effect of a refactor - and **a geometric relation is
+written as the relation, not the number it resolves to. A one-line opt-in buys a MECHANISM, not its
+values.**
 
 **`personas.md` has one writer** - CJM step 4. Other stages read it read-only; a contradiction is
 reported back into the persona as a finding, not patched silently and not re-described locally.
@@ -146,40 +142,37 @@ reported back into the persona as a finding, not patched silently and not re-des
 step rebuilds the affected section of that page. Cannot rebuild - put a visible "updated after
 publication" block on it and say so out loud.
 
-**Every md gets a visible place on html** - its own page, a named section (registered in
-`NAV_SECTIONS`), or a satellite page declaring `NAV_ACTIVE`. An artifact nobody can see in a browser
-does not exist for whoever makes the decision. Service files (`CLAUDE.md`, `AGENTS.md`, `README.md`,
-`docs/decisions.md`, `tools/`) need no page - they are read by whoever builds, not by whoever decides.
+**Every md gets a visible place on html** - its own page, a named section (`NAV_SECTIONS`), or a
+satellite declaring `NAV_ACTIVE`; an artifact nobody can see does not exist for whoever decides.
+Service files (`CLAUDE.md`, `AGENTS.md`, `README.md`, `docs/decisions.md`, `tools/`) need no page.
 
 ## Repository shape
 
 ```
 /_nav.js /_nav.css /index.html   roadmap registry + look + entry point of the project
-research/     stages 01, 02, 02+  research.md · competitors · benchmark · aarrr · ux-patterns
+research/     stages 01, 02, 02+  research · competitors · benchmark · aarrr · ux-patterns ·
                                   personas · jtbd · cjm-as-is · cjm-to-be
 ia/           stage 03            base layer (flows, concept-map) + detail layer (sitemap,
                                   structure, blocks, docs/pages/<node>.md + ia/<node>.html)
-wireframes/   stage 04            grey prototype, FROZEN after Voice; docs/conventions.md is its contract
+wireframes/   stage 04            grey prototype, FROZEN after Voice AND the RUNTIME of the colour
 voice/        stage 05            voice.md rulebook + microcopy.md inventory
-design/       stages 06-09        concept/ · kit/ (showcase + docs) · system/ (code) · visuals/
+design/       stages 06-12        concept/ · kit/ (showcase + docs) · system/ (code) · the product
+handoff/      stage 13            handoff.html + docs/ (behaviour · map · a11y · one-shot · gaps)
 docs/         decisions.md, playbook/
 tools/        the instruments and their README, which is their index
 ```
 
-**`index.html` is the entry point of the folder you opened, and nothing else** - at the repo root it
-is the project, inside a stage folder it is the home page of the product. A hub is always
-`overview.html`; the one exception by name is the detail-IA hub `ia/structure.html`.
+**`index.html` is the entry point of the folder you opened** - the project at the root, the product
+inside a stage folder. A hub is `overview.html`; the one exception is `ia/structure.html`.
 
-**The sidebar has one source.** Structure comes from `/_nav.js`, look from `/_nav.css`. A page
-carries an empty `<aside id="sidebar"></aside>`, declares `NAV_BASE`, optionally `NAV_SECTIONS`, and
+**The sidebar has one source:** structure from `/_nav.js`, look from `/_nav.css`. A page carries an
+empty `<aside id="sidebar"></aside>`, declares `NAV_BASE`, optionally `NAV_SECTIONS`, and
 `NAV_ACTIVE` + `NAV_ACTIVE_LABEL` when it is not in the registry. **A page never describes a `nav-*`
-rule.** The only manual edit is a row in the registry and `done: true` when a page is ready;
-active / Next / Soon, the accordion and relative links are computed.
+rule.** Only a registry row and `done: true` are typed; the rest is computed.
 
-**Colour never lands on `wireframes/`.** The grey prototype owns structure, text and states; colour
-lives in copies under `design/`, which own the visual layer only. **Counting happens on the grey
-corpus** (the whole product), **proving happens on the coloured one** (a selection); neither replaces
-the other, and a share measured on the selection is not a share of the product.
+**Colour never lands on `wireframes/`**: grey owns structure, text and states, `design/` owns the
+visual layer. **Counting happens on the grey corpus, proving on the coloured one**; a share measured
+on a selection is not a share of the product.
 
 **A folder is created by its own stage** - no empty folders ahead of the work, no `.gitkeep`.
 
@@ -189,12 +182,19 @@ the other, and a share measured on the selection is not a share of the product.
 declares no styles of its own; what it lacks is an order for the system and goes to `backlog.md`.
 «Залишаємо» about a VALUE -> a token of its level in `tokens.css`, **both themes only if it is a
 COLOUR** (a duration, a curve and a width are not, and take no pair); about a COMPONENT ->
-`components/<name>.css` plus its page, registry row, inventory row and `@import`, all four **in its
-own LEVEL group**; about a COMPOSITION -> `patterns/<name>.css` plus its page, from three named
-screens. Addresses: `architecture.md` J; in code: `design/system/CLAUDE.md`.
+`components/<name>.css` plus its page, registry row, inventory row, `@import` and a card in the kit
+HUB, the first four **in their own LEVEL group**; about a COMPOSITION -> `patterns/<name>.css` plus
+its page, from three named screens. Addresses: `architecture.md` J, `design/system/CLAUDE.md`.
 
-## Pointers
+## Handoff
 
-`DESIGN-artifacts.md` - the visual language. `design/kit/docs/architecture.md` - the decision sheet,
-the rules of use and the contribution rule; **a ladder is read by JOB, not by shape**.
+**The package is handed over by `handoff/handoff.html`**, which answers the four questions no other
+page does: where the package ENDS (no data, no API, no build; a state is a separate FILE), which
+theme is primary, who decides after the handover, what was deliberately not done. Behaviour, the map
+and the accessibility register live in `handoff/docs/`. **Every row names its source or its
+command** - three sources and no fourth - and a row whose way of checking cannot be named never gets
+«confirmed». **Reference, never duplicate**; `tools/handoff.mjs` is the check under that sentence.
+
+Pointers: `DESIGN-artifacts.md` - the visual language. `design/kit/docs/architecture.md` - the
+decision sheet, the rules of use and the contribution rule; **a ladder is read by JOB, not by shape**.
 `docs/decisions.md` - why anything above is the way it is.

@@ -102,6 +102,7 @@ const levelOf = f => {
   const m = head.match(/\(level\s*(\d)\)/);
   return m ? Number(m[1]) : null;
 };
+const F = (n, k) => form(n, k);
 const linesOf = f => readFileSync(join(CDIR, f), 'utf8').split('\n').length;
 
 /* the three tables, keyed by the level their heading declares */
@@ -424,6 +425,24 @@ if (SCREENS) {
    visible «updated after publication» block instead of a rebuild, and this asks
    that the block exists and carries today's numbers. One claim in two places is
    how this whole item started. */
+/* ---------- G: THE SAME CLAIM IN EVERY PLACE THAT MAKES IT ----------
+
+   Until 13.2 this question knew ONE second place, `kit.html`, and the step-1
+   auditor of stage 13 found two more by simply reading the repository as a
+   stranger: `why.html` says «84» twice and `README.md` says «84» once, against 94
+   on disk. Three prose editions of one number, none of them maintained, and the
+   check that exists to catch exactly this was looking at a fourth file.
+
+   THE RULE SAYS «a number nobody maintains is REMOVED, not corrected» - and the
+   answer here is the other half of that rule: a number that CAN be maintained is
+   not the kind it is talking about. Each place below names its own pattern, so
+   `--apply` rewrites it from the tables, and the claim stops being prose.
+
+   AND IT IS ASKED BOTH WAYS. A place whose pattern matches nothing fails as
+   loudly as a drifted one - that is a declaration that has stopped covering
+   anything - and a «N компонент» / «N component files» standing anywhere in
+   `design/kit/*.html` or `README.md` OUTSIDE this list is reported too. A
+   declared list asked in one direction is how the first two of these hid. */
 const KIT = join(ROOT, 'design/kit/kit.html');
 const kitHtml = readFileSync(KIT, 'utf8');
 
@@ -442,12 +461,70 @@ if (totalsBad) console.log('\nПІДСУМКОВИЙ АБЗАЦ РОЗІЙШОВ
    the first writing of this line failed on «організми» and reported a page that
    was in fact correct, which is the one failure mode an instrument may not have. */
 const UK = '[\\u0400-\\u04FF]*';
-const want = new RegExp('<b>' + rows.length + ' компонент' + UK + ':\\s*' + counts[0] +
-  ' атом' + UK + ',\\s*' + counts[1] + ' молекул' + UK + ',\\s*' + counts[2] +
-  ' організм' + UK + '</b>');
-const kitBad = want.test(kitHtml) ? null :
-  'kit.html не несе сьогоднішнього числа ' + rows.length + ' (' + counts.join('/') + ')';
-if (kitBad) console.log('\nДРУГЕ МІСЦЕ ТОГО САМОГО ТВЕРДЖЕННЯ:\n  ' + kitBad);
+const N = rows.length;
+const CLAIMS = [
+  { file: 'design/kit/kit.html', what: 'total + split',
+    re: new RegExp('<b>(\\d+) компонент' + UK + ':\\s*(\\d+) атом' + UK + ',\\s*(\\d+) молекул' + UK +
+      ',\\s*(\\d+) організм' + UK + '</b>'),
+    ok: m => +m[1] === N && +m[2] === counts[0] && +m[3] === counts[1] && +m[4] === counts[2],
+    make: () => '<b>' + N + ' ' + F(N, 'comps') + ':\n      ' + counts[0] + ' ' + F(counts[0], 'atoms') +
+      ', ' + counts[1] + ' ' + F(counts[1], 'mols') + ', ' + counts[2] + ' ' + F(counts[2], 'orgs') + '</b>' },
+  { file: 'design/kit/why.html', what: 'total, «файли компонентів»',
+    re: /(\d+) файл[\u0400-\u04FF]* компонент[\u0400-\u04FF]*/,
+    ok: m => +m[1] === N, make: () => N + ' ' + F(N, 'files') + ' компонентів' },
+  { file: 'design/kit/why.html', what: 'total, «Усі N компоненти»',
+    re: /Усі (\d+) компонент[\u0400-\u04FF]*/,
+    ok: m => +m[1] === N, make: () => 'Усі ' + N + ' ' + F(N, 'comps') },
+  /* README.md STOOD HERE AND WAS REMOVED AT 13.5, by this very check. Step 5
+     rewrote the README as a ROUTE - a section is two or three sentences and a
+     link - and the rewritten file names no count at all: the showcase carries
+     the number and the README leads to the showcase. The declaration then
+     covered nothing, and «МІСЦЕ ОГОЛОШЕНЕ, А ТВЕРДЖЕННЯ В НЬОМУ БІЛЬШЕ НЕМАЄ»
+     failed the run on its first pass afterwards. That is the reverse half of
+     the both-ways ask doing exactly what it was written for: an exemption that
+     has stopped describing anything is as loud as an undeclared case. */
+];
+const claimBad = [], claimEmpty = [];
+for (const c of CLAIMS) {
+  const src = readFileSync(join(ROOT, c.file), 'utf8');
+  const m = src.match(c.re);
+  if (!m) { claimEmpty.push(c); continue; }
+  if (!c.ok(m)) claimBad.push([c, m]);
+}
+/* the other direction: a claim standing somewhere this list does not reach */
+const claimLoose = [];
+for (const f of [...readdirSync(join(ROOT, 'design/kit')).filter(x => x.endsWith('.html'))
+  .map(x => 'design/kit/' + x), 'README.md']) {
+  const src = readFileSync(join(ROOT, f), 'utf8');
+  for (const m of src.matchAll(/(\d+)\s+(?:компонент[\u0400-\u04FF]*|component files)/g)) {
+    const covered = CLAIMS.some(c => c.file === f && c.re.test(m[0]));
+    /* a count INSIDE a sentence about something else - «51 компонент: 18 атомів»
+       on the frozen smoke page, «один компонент, чотири стани» - is not the total
+       claim. Only a figure equal to a plausible total is worth reporting, and the
+       test for that is simply «does this file declare a pattern for it». */
+    if (!covered && !CLAIMS.some(c => c.file === f)) claimLoose.push([f, m[0]]);
+  }
+}
+const kitBad = claimBad.length ? claimBad.map(([c, m]) =>
+  c.file + ' (' + c.what + ') каже «' + m[0].replace(/\s+/g, ' ').slice(0, 44) + '», сьогодні ' +
+  N + ' (' + counts.join('/') + ')').join('\n  ') : null;
+if (kitBad) console.log('\nТЕ САМЕ ТВЕРДЖЕННЯ В ІНШОМУ МІСЦІ:\n  ' + kitBad);
+say('МІСЦЕ ОГОЛОШЕНЕ, А ТВЕРДЖЕННЯ В НЬОМУ БІЛЬШЕ НЕМАЄ', claimEmpty, c => c.file + '  (' + c.what + ')');
+/* A CENSUS, NOT A DEFECT LIST, and the difference is the same one question H
+   draws for a composite tag. «всі 84 компоненти» inside a sentence about where
+   the grey markup came from, «підсумковий абзац казав 70 проти 73» inside a
+   closed backlog row, «93 компоненти» inside a record of what Codex measured
+   that day - these are prose ABOUT a count, and rewriting them would rewrite
+   history. Only the four DECLARED places are claims about TODAY and only they
+   turn the run red. The census is printed so the coverage of that declaration
+   stays visible: if one of these ever becomes a stale TOTAL, a person adds a
+   row to CLAIMS. It is printed flat rather than through say(), because a
+   heading in that shape reads like a finding. */
+if (claimLoose.length) {
+  console.log('\nперепис: фраза «N компонентів» стоїть ще в ' + claimLoose.length +
+    ' місцях, і кожне з них - проза ПРО число, а не твердження про сьогодні:');
+  for (const [f, s] of claimLoose) console.log('  ' + f.padEnd(30) + s);
+}
 
 /* ---------- H: the meta strip of every stand page ----------
    The page says WHICH component it describes - the css path is a tag of its own
@@ -461,6 +538,15 @@ const NOUNS = {
   rules:  ['правило', 'правила', 'правил'],
   decls:  ['оголошення', 'оголошення', 'оголошень'],
   screens:['екран', 'екрани', 'екранів'],
+  files:  ['файл', 'файли', 'файлів'],
+  /* 13.2: the four nouns of the totals claim, added when --apply was found unable
+     to rewrite it. They were spelled inline as «компоненти / атоми / молекул /
+     організми» - the endings 94 / 23 / 29 / 42 happen to take - so the first
+     count to end in 1 or 5 would have published «94 компоненти» as «91 компоненти». */
+  comps:  ['компонент', 'компоненти', 'компонентів'],
+  atoms:  ['атом', 'атоми', 'атомів'],
+  mols:   ['молекула', 'молекули', 'молекул'],
+  orgs:   ['організм', 'організми', 'організмів'],
 };
 /* 1 -> singular, 2-4 -> paucal, everything else -> genitive plural, and the
    teens take the last form against their last digit. Written out rather than
@@ -670,21 +756,110 @@ say('ГРУПА В РЕЄСТРІ СТЕНДА РОЗІЙШЛАСЬ ІЗ РІВ�
 console.log('сторінок у групах реєстру стенда: ' + navPages + ' · розійшлось: ' + navBad.length +
   ' · імпортів не у своїй групі: ' + importBad.length + ' без причини, ' + importSaid.length + ' з причиною');
 
+/* ---------- J: THE HUB CARD'S OWN NUMBERS, ADDED AT 13.2 ----------
+
+   Question H asks the `kp-meta` strip of the stand page. It found 53 wrong line
+   counts on 75 pages and has been asked on every run since. What nobody asked is
+   that the SAME number is published a THIRD time, on the card in `overview.html`
+   - and the hub is the page a person actually browses, so it is the copy read
+   most and checked least. Sampled on 2026-08-24, before this block existed: four
+   organism cards, four wrong line counts (contacts-block 70 against 92, info-page
+   80 against 280, order-placed 177 against 181, search-overlay 124 against 128).
+
+   THE ALTERNATIVE WAS TO DELETE THEM - «a number nobody maintains is removed, not
+   corrected» - and it was not taken, because this project already decided the
+   opposite for the second copy: the stand strip was kept and given an instrument
+   rather than stripped. A third copy with the same instrument behind it costs one
+   block; a third copy with nothing behind it is what this found.
+
+   Subject, vocabulary and the exact-tag rule are H's, unchanged: the card names
+   its own css in `<div class="f">`, so no file name is guessed from a page name,
+   and a composite tag («1 сірий екран») is a claim of its own and goes to «not
+   reached» rather than being rewritten by a reader that does not read Ukrainian. */
+const hubBad = [], hubForm = [], hubUnreached = [];
+let hubCardsMeasured = 0, hubTags = 0;
+for (const m of hubHtml.matchAll(/<a class="kp-card" href="([a-z0-9-]+)\.html">([\s\S]*?)<\/a>/g)) {
+  const page = m[1], card = m[2];
+  const fm = card.match(/<div class="f">([^<]*)<\/div>/);
+  const base = fm && (fm[1].trim().match(/([a-z0-9-]+\.css)$/) || [])[1];
+  if (!base || !files.includes(base)) continue;
+  const mm = card.match(/<div class="m">([\s\S]*?)<\/div>/);
+  if (!mm) continue;
+  hubCardsMeasured++;
+  const got = measure('design/system/components/' + base);
+  const row = rows.find(r => r.file === base);
+  const truth = { ...got, screens: row ? row.screens : null };
+  for (const raw of [...mm[1].matchAll(/<span>([\s\S]*?)<\/span>/g)].map(x => x[1].replace(/<[^>]+>/g, '').trim())) {
+    if (!/^[\d ]+\s+\S/.test(raw)) continue;
+    hubTags++;
+    const num = raw.match(/^([\d ]+)\s+(\S+)$/);
+    if (!num) { hubUnreached.push(page.padEnd(20) + raw + '  (складений тег)'); continue; }
+    const n = Number(num[1].replace(/ /g, '')), noun = num[2];
+    const kind = Object.keys(NOUN_RE).find(k => NOUN_RE[k].test(noun));
+    if (!kind) { hubUnreached.push(page.padEnd(20) + raw); continue; }
+    if (kind === 'screens' && truth.screens === null) { hubUnreached.push(page.padEnd(20) + raw + '  (у реєстрі «–»)'); continue; }
+    if (truth[kind] !== n) hubBad.push([page, base, raw, kind, n, truth[kind]]);
+    else if (form(n, kind) !== noun) hubForm.push([page, base, raw, kind, n, n]);
+  }
+}
+say('КАРТКА ХАБА РОЗІЙШЛАСЬ ІЗ ФАЙЛОМ', hubBad,
+  ([p, , raw, , , truth2]) => p.padEnd(20) + ('«' + raw + '»').padEnd(24) + '-> ' + truth2);
+say('КАРТКА ХАБА: ЧИСЛО ПРАВИЛЬНЕ, ЗАКІНЧЕННЯ НІ', hubForm,
+  ([p, , raw, kind, n]) => p.padEnd(20) + ('«' + raw + '»').padEnd(24) + '-> ' + n + ' ' + form(n, kind));
+say('КАРТКА ХАБА: ТЕГ, ЯКОГО ЦЯ ПЕРЕВІРКА НЕ ДІСТАЄ', hubUnreached, x => x);
+console.log('карток хаба з компонентом: ' + hubCardsMeasured + ' · числових тегів на них: ' + hubTags +
+  ' · розійшлось: ' + hubBad.length + ' · закінчень: ' + hubForm.length);
+
 if (APPLY) {
-  /* THE `Lines` COLUMN IS REWRITTEN HERE TOO, and until stage 09 it was not.
-     `--apply` fixed the stand pages' meta tags and left the table that feeds this
-     very check untouched, so the run that «applied everything» still reported ten
-     wrong numbers on its next pass. A repair that cannot close its own finding is
-     a half-instrument: the number comes off disk, and this is the only place that
-     knows both halves. Only the last numeric cell of a matched row is touched. */
-  if (wrongLines.length) {
-    let text = md, n = 0;
-    for (const r of wrongLines) {
-      const truth = linesOf(r.file);
-      const re = new RegExp('^(\\|[^\\n]*`' + r.file.replace('.', '\\.') + '`[^\\n]*\\|\\s*)' + r.lines + '(\\s*\\|\\s*)$', 'm');
-      if (re.test(text)) { text = text.replace(re, '$1' + truth + '$2'); n++; }
+  /* THE THREE REGISTRY COLUMNS, IN ONE PASS OVER THE FILE - and the first
+     writing of this was three passes, which is how the bug arrived. `Lines`,
+     `Screens` and `Width` each matched a row by its WHOLE line as parsed at
+     start-up, so the second block to run could not find its row: the first had
+     already rewritten it on disk. On 2026-08-24 that silently dropped the one
+     `Width` repair of the run - `system-page.css` was in `wrongScreens` too, so
+     its line had moved a moment earlier and the Width block matched nothing and
+     said nothing. Same shape as the `kit.html` regex two blocks down: a repair
+     that cannot fire prints exactly what a repair that had nothing to do prints.
+     Rows are matched by their css name, every cell is set, one write. */
+  const cellFix = new Map();
+  const put = (file, k, v) => { if (!cellFix.has(file)) cellFix.set(file, {}); cellFix.get(file)[k] = v; };
+  for (const r of wrongLines) put(r.file, 'lines', String(linesOf(r.file)));
+  if (SCREENS) for (const r of wrongScreens) put(r.file, 'screens', String(r.real));
+  for (const x of wrongWidth) put(x.r.file, 'width', x.want.length ? x.want.join(' \u00b7 ') : '\u2013');
+  if (cellFix.size) {
+    const lines2 = readFileSync(INV, 'utf8').split('\n');
+    let n = 0;
+    for (let i = 0; i < lines2.length; i++) {
+      const l = lines2[i];
+      if (!l.startsWith('| ') || !l.includes('.css`')) continue;
+      const file = (l.match(/`([a-z0-9-]+\.css)`/) || [])[1];
+      const fix = file && cellFix.get(file);
+      if (!fix) continue;
+      const cells = l.split('|');
+      if (fix.lines !== undefined)   cells[cells.length - 2] = ' ' + fix.lines + ' ';
+      if (fix.screens !== undefined) cells[cells.length - 3] = ' ' + fix.screens + ' ';
+      if (fix.width !== undefined)   cells[cells.length - 4] = ' ' + fix.width + ' ';
+      const to = cells.join('|');
+      if (to !== l) { lines2[i] = to; n++; }
     }
-    if (n) { writeFileSync(join(ROOT, 'design/kit/docs/inventory.md'), text); console.log('Lines переписано: ' + n); }
+    if (n) { writeFileSync(INV, lines2.join('\n')); console.log('рядків реєстру переписано: ' + n +
+      '  (Lines ' + wrongLines.length + ' · Screens ' + (SCREENS ? wrongScreens.length : 0) +
+      ' · Width ' + wrongWidth.length + ')'); }
+  }
+
+  /* THE HUB HEADINGS, for the same reason: «Молекули 28 / 28» is a count of the
+     cards below it and nothing else. It drifted by four while nobody typed it,
+     which is the whole argument against typing a count. The missing CARD stays
+     with the hand - a card carries a name and a sentence, and neither is
+     derivable - and the six-part rule in CLAUDE.md is what stops it recurring. */
+  if (hubHeads.length) {
+    let html = readFileSync(HUB, 'utf8'); let n = 0;
+    for (const h of hubHeads) {
+      const re = new RegExp('(<div class="kp-sh">' + h.name + ' <b>)\\d+ / \\d+(</b></div>)');
+      if (re.test(html)) { html = html.replace(re, '$1' + h.real + ' / ' + h.real + '$2'); n++; }
+      else console.log('  заголовок хаба НЕ ПЕРЕПИСАНО: «' + h.name + '»');
+    }
+    if (n) { writeFileSync(HUB, html); console.log('заголовків хаба переписано: ' + n); }
   }
 
   /* the three per-level summary lines, from the tables as they stand on disk.
@@ -737,16 +912,38 @@ if (APPLY) {
      publication block» - it already does, and the block held the OLD split
      22/29/33 while the md it quotes had moved to 23/27/34. A block that goes
      stale is worse than no block: it is a second edition claiming to be current. */
-  if (kitBad) {
-    const kre = new RegExp('<b>' + rows.length + ' компонент' + UK + ':\\s*\\d+ атом' + UK +
+  for (const [c] of claimBad) {
+    const p = join(ROOT, c.file);
+    const src = readFileSync(p, 'utf8');
+    const m = src.match(c.re);
+    if (!m) { console.log('  ' + c.file + ': шаблон зник між читанням і записом, пропущено'); continue; }
+    const to = c.make();
+    writeFileSync(p, src.slice(0, m.index) + to + src.slice(m.index + m[0].length));
+    console.log('переписано ' + c.file + ' (' + c.what + '): «' + m[0].replace(/\s+/g, ' ') +
+      '»  ->  «' + to.replace(/\s+/g, ' ') + '»');
+  }
+  if (false) {
+    /* WRONG VERSION, LIVE FROM 8.37 TO 13.2: the search pattern carried
+       `rows.length` where the page carries the number it is being corrected FROM.
+       So the repair could only ever fire when the total was already right and the
+       three-way split was not - and on 2026-08-24, with the page saying 93 and the
+       disk saying 94, it matched nothing, wrote nothing, and printed nothing. The
+       run reported «ДРУГЕ МІСЦЕ ТОГО САМОГО ТВЕРДЖЕННЯ» before --apply and again
+       after it, which reads as «this one needs a hand» rather than as a broken
+       repair. Same class as the `Lines` column two blocks above, and the same
+       sentence closes it: a repair that cannot close its own finding is a half
+       instrument. Every number in the pattern is now \d+, and a miss is LOUD. */
+    const kre = new RegExp('<b>\\d+ компонент' + UK + ':\\s*\\d+ атом' + UK +
       ',\\s*\\d+ молекул' + UK + ',\\s*\\d+ організм' + UK + '</b>');
     const m2 = kitHtml.match(kre);
     if (m2) {
-      const to = '<b>' + rows.length + ' компоненти:\n      ' + counts[0] + ' атоми, ' +
-        counts[1] + ' молекул, ' + counts[2] + ' організми</b>';
+      const to = '<b>' + rows.length + ' ' + form(rows.length, 'comps') + ':\n      ' +
+        counts[0] + ' ' + form(counts[0], 'atoms') + ', ' +
+        counts[1] + ' ' + form(counts[1], 'mols') + ', ' +
+        counts[2] + ' ' + form(counts[2], 'orgs') + '</b>';
       writeFileSync(KIT, kitHtml.replace(m2[0], to));
       console.log('kit.html переписано: ' + m2[0].replace(/\s+/g, ' ') + '  ->  ' + to.replace(/\s+/g, ' '));
-    }
+    } else console.log('kit.html НЕ ПЕРЕПИСАНО: шаблон твердження не знайдено, потрібна рука');
   }
 
   /* the totals paragraph, for the same reason and by the same rule. It was
@@ -793,6 +990,31 @@ if (APPLY) {
     written++;
   }
   console.log('переписано сторінок: ' + written);
+
+  /* J's half of the same repair. The card block is cut out and put back at its own
+     offset, for H's reason: these pages quote their own markup elsewhere. */
+  if (hubBad.length || hubForm.length) {
+    let html = readFileSync(HUB, 'utf8'); let n2 = 0;
+    const byCard = new Map();
+    for (const x of [...hubBad, ...hubForm]) {
+      if (!byCard.has(x[0])) byCard.set(x[0], []);
+      byCard.get(x[0]).push(x);
+    }
+    for (const [page, list] of byCard) {
+      const cm = html.match(new RegExp('<a class="kp-card" href="' + page + '\\.html">[\\s\\S]*?<\\/a>'));
+      if (!cm) { console.log('  КАРТКУ НЕ ЗНАЙДЕНО, пропущено: ' + page); continue; }
+      let card = cm[0];
+      for (const [, , raw, kind, , truth2] of list) {
+        const want2 = String(truth2) + ' ' + form(truth2, kind);
+        const from2 = '<span>' + raw + '</span>';
+        if (!card.includes(from2)) { console.log('  НЕ ЗНАЙДЕНО ТЕГА, пропущено: ' + page + ' «' + raw + '»'); continue; }
+        card = card.replace(from2, '<span>' + want2 + '</span>');
+      }
+      html = html.slice(0, cm.index) + card + html.slice(cm.index + cm[0].length);
+      n2++;
+    }
+    if (n2) { writeFileSync(HUB, html); console.log('карток хаба переписано: ' + n2); }
+  }
 }
 
 console.log('\n' + files.length + ' файлів компонентів · рядків у таблицях: ' + rows.length +
@@ -803,6 +1025,7 @@ console.log('\n' + files.length + ' файлів компонентів · ря�
   ' · імен-привидів у колонці Anchors: ' + phantom.length);
 console.log(SCREENS ? 'колонка Screens зміряна в браузері' :
   'колонка Screens НЕ перевірена - потрібен прапорець --screens (обхід корпусу браузером)');
+
 
 /* THE COUNTERS ABOVE DESCRIBE THE STATE THIS RUN FOUND, NOT THE STATE IT LEFT,
    and under `--apply` those are two different things. Every number here is
@@ -829,6 +1052,19 @@ if (APPLY) {
   process.exit(again.status ?? 1);
 }
 
+/* WHAT WOULD TURN THIS RED, ASKED AT 13.2 AND ANSWERED BADLY THE FIRST TIME.
+   Twelve lists were in this expression and fourteen were not, so `patNoRow`,
+   `patNoPage`, `patRowNoFile`, `hubMissing`, `hubOrphan`, `hubHeads`, `metaBad`,
+   `metaForm`, `widthBad`, `widthIdle`, `navBad` and `importBad` printed their
+   findings and handed back 0. Stage 12 read this file's exit code as its gate and
+   the stand-page meta had eight live drifts underneath it the whole time.
+   The four that stay OUT are census, not defect: `metaUnreached` / `hubUnreached`
+   are tags this reader cannot parse and says so, `importSaid` is an import out of
+   its group WITH the reason written beside it, `metaNoComponent` is a page that
+   describes no component. Everything else is a defect and now says so. */
 process.exit(noRow.length || noFile.length || wrongLines.length || wrongWidth.length || wrongLevel.length ||
   noLevelDeclared.length || totalsBad || sumsBad.length || kitBad || wrongScreens.length || noAnchor.length ||
-  phantom.length ? 1 : 0);
+  phantom.length || patNoRow.length || patNoPage.length || patRowNoFile.length ||
+  hubMissing.length || hubOrphan.length || hubHeads.length || metaBad.length || metaForm.length ||
+  widthBad.length || widthIdle.length || navBad.length || importBad.length ||
+  hubBad.length || hubForm.length || claimEmpty.length ? 1 : 0);

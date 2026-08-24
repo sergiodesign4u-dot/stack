@@ -2132,3 +2132,96 @@ was the whole condition for refusing to do it mechanically in the first place.
 Batch 6 then ADDED work of its own and paid that too, so the counter is honest rather than merely
 zero: `kit/quiz.html` declares and shows 43 classes of a component that did not exist this morning,
 `section-head.html` gained the brow's bold rung (2), and `badge.html` the third badge form (1).
+
+---
+
+## Four dead tokens, found by the map of stage 13 - and the walk that found them needed opening first
+
+**Stage 13, step 3.** `tools/map.mjs` inverts the same data the map is built from - component reads
+`var()`, role reads primitive - and asks the question backwards: which token does nobody read. The
+answer is four, and none of them can be closed by stage 13, because `design/system/**` is untouchable
+after the roll-out was accepted. They belong to the owner of stage 08.
+
+| Token | Kind | Why it is dead | What the owner decides |
+|---|---|---|---|
+| `--bg-success` | role | `status-pill.css` documents the split in its own comment: the SOFT ground is what every reader takes, and the calm success PLATE this role names is taken by nobody. Three files mention `--bg-success-soft`; none reads `--bg-success` | remove the role, or give it the reader its comment promises |
+| `--text-price-was` | role | the struck-through old price. `price.css` draws that line with another role, so this one names a job the product already does elsewhere | remove, or unify the two |
+| `--scrim-white-70` | primitive | no role reads it and no component reads it directly. The scrim family survives on its ink half | remove |
+| `--tint-red-d-10` | primitive | the dark-theme red tint. Its light twin has readers; this one does not, which is the shape of a pair half-finished | remove, or finish the pair |
+
+**And the instrument that found them had to be taught to open a door first.** Its first run also
+reported `cat-overlay.css` as «on no screen at all», which is false: it is the mobile catalogue
+overlay and it renders on every page. The walk was reading the document AT REST, and a component
+that only appears after a click is invisible there - the same class `steps.mjs` was written for at
+12.11. The walk now calls every opener the page declares (3679 calls over 141 screens, one dropped
+because it navigates away) and `cat-overlay` moved from «dead» to «global». **A dead-token list taken
+without opening the panels would have been wrong in the other direction too**, and nothing in the
+output would have said so.
+
+**Two primitives are dead-looking and are NOT on this list, by a declared exception:**
+`--bp-grid-2col` and `--bp-shell-wide` have no reader BY CONSTRUCTION, because `@media` cannot read a
+custom property. The exception is asked both ways - if either ever gains a reader, the run fails,
+because the exception would then be excusing something it no longer describes.
+
+---
+
+## `quiz.css` reads a colour primitive directly - the first component in the system to do it
+
+**Stage 13, step 4.** `theme.mjs` question 2 answered «none - every colour in the components goes
+through a role» for the whole of stages 08 to 11. It does not any more:
+
+```
+quiz.css:12   --scrim-ink-10   background: var(--scrim-ink-10)
+```
+
+`.q-backdrop` is the dim behind the quiz card from the two-column point up. Every other scrim in the
+system - the search overlay, the drawer, the cart, the filter rail and sheet, the header, the menu,
+the auth dialog - reads the ROLE `--scrim-overlay`. This one reads the primitive.
+
+**It is my own, from batch 6 at 12.11, and nothing caught it because the gate of stage 12 was not
+re-run after that batch** - the same sentence as `inventory.mjs`, on the same commit, found four
+steps apart. «A repair stales its own neighbours» was already written down; what was missing is that
+an ADDITION stales them too.
+
+**Why it is a debt and not a repair.** `--scrim-overlay` is the modal dim and is far heavier than
+this backdrop wants; there is no semantic role at this weight today. Giving it one is a NEW ROLE in
+`tokens.css`, in both themes, which is a decision of the system's owner and belongs to stage 08's
+five-part rule, not to a stage that documents. Two ways out, both the owner's:
+
+1. a semantic role for «the light dim behind a card that is not a modal», paired in both themes;
+2. or `.q-backdrop` takes `--scrim-overlay` like every other scrim, and the card stops being a
+   half-modal.
+
+**The map already carries it.** `handoff/docs/map.md` section C2 prints `--scrim-ink-10` as reached
+through `--elevation-2`, `--bg-inverse-tint` and *component quiz.css* - the direct read is marked
+rather than hidden, which is why the two-knee inversion has a third case at all.
+
+---
+
+## The accessibility debts of stage 13, step 4 - eight rows, each with the number that has to reach zero
+
+`handoff/docs/a11y.md` holds 26 rows, 18 confirmed by a run on 2026-08-25 and eight open. The eight
+are here because the checklist may not repair anything: the product was accepted at stage 12 and
+`design/system/**` belongs to the owner of stage 08. Every row below names the command that produced
+its number, so nothing has to be taken on trust and nothing has to be re-derived.
+
+| # | Debt | Today | The command | Zero looks like |
+|---|---|---|---|---|
+| C5 | **text-only zoom at 200%** | **142 of 343 screens** overflow horizontally at 1280, **284 of 343** at 360 | `node tools/accept.mjs 1280 --text200` | no screen scrolls sideways with the root font size doubled |
+| E2 | the heading ladder skips a rung | **97 of 141**, and it is ONE cause: the footer's newsletter block is an `h4` directly after an `h2` | `node tools/headings.mjs` | one heading level changed in one component |
+| B2 | ink fails its own ground | **37 shapes**, of which **36 fail in BOTH themes** and 1 was broken by the dark theme | `node tools/theme.mjs` | an owner's ruling on the accent button first - white on Signal Orange is 3.13 against a 4.5 threshold - then the rest |
+| E1 | no reachable `h1` | **35 of 141**: 17 dialog states, 16 loading and error states, 2 checkout states with no heading in the markup at all | `node tools/headings.mjs` | a heading inside each dialog, and two on the checkout states |
+| F1 | a drawn mark left as a letter | **5**, every one on a stand page; on the 141 product screens **0** | `node tools/glyphs.mjs` | 0 |
+| C6 | a line past the reading measure | **2**: `system` at 128.5ch and `content-reviews` at 88.4ch against a measure of 68 | `node tools/width-sweep.mjs` | both blocks take the text container |
+| B3 | a component reading a colour primitive | **1** - `quiz.css`, written up on its own above | `node tools/theme.mjs --source` | a semantic role for the light backdrop |
+| G2 | one entry in two navigation carriers at 360 | **2** - «Кошик» by decision, «Обране» not in the specification | `node tools/tab-walk.mjs index` | an IA decision at stage 03a, not a css one |
+
+**C5 is the largest and the least expected.** Stage 10 moved the type ramp from px to rem value for
+value, and the reader that change exists for is exactly the one who raises the default font size.
+Nothing had ever asked whether it worked, because browser zoom - which every earlier check did
+cover - only halves the viewport and leaves the type alone. The two are different questions and only
+one of them had an instrument.
+
+**E1 and E2 come from an instrument that did not exist before this step.** `tools/headings.mjs` was
+written because the roll-out's class 8 named two screens in prose and nothing could re-ask it. It
+finds 17 where prose found 2, and it found E2 - 97 screens, one cause - which nobody had named at all.

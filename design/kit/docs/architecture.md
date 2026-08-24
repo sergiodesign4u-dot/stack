@@ -1707,7 +1707,7 @@ system from a folder of stylesheets, and it is the reason this section exists in
 (here, the root `CLAUDE.md`, `design/system/CLAUDE.md` and `DESIGN.md`) - each of them has a
 different reader.
 
-### A new COMPONENT - five things, and it is not finished until all five exist
+### A new COMPONENT - six things, and it is not finished until all six exist
 
 1. `design/system/components/<name>.css` - the code. Colour through a semantic role, geometry
    through a primitive, no hex and no bare number inside a class.
@@ -1716,12 +1716,20 @@ different reader.
 3. A row in `design/kit/_nav.js` **IN ITS OWN LEVEL GROUP** - atoms, molecules or organisms.
 4. A row in `design/kit/docs/inventory.md` **WITH ITS LEVEL**.
 5. `@import` in `design/system/index.css` **INTO ITS OWN LEVEL GROUP, NOT AT THE END OF THE FILE.**
+6. A card in the hub `design/kit/overview.html`, in the same level section - **added at 13.2, and it
+   was the only one of the six that no written rule named.** `quiz.css` was built at 12.11 with all
+   five above and no card, so the component existed in the registry, in the inventory, in the
+   stylesheet and on its own page, and was unreachable from the page a person browses. Nothing
+   caught it for a fortnight because `inventory.mjs` reported it and its exit code could not see
+   it. The card carries the same numbers as the stand strip, so it is written by
+   `node tools/inventory.mjs --screens --apply`, not by hand - only the name and the sentence are
+   a person's.
 
 **States come in both themes in the same pass.** Four of them on anything interactive - rest,
 `:hover`, `:active`, `:focus-visible` - each reading a token, none inventing a value. A badge, a
 heading and a divider get none, and their pages say so out loud.
 
-**The last two points are written in capitals because they are the two that get skipped**, and the
+**Points 3 and 5 are written in capitals because they are the two that get skipped**, and the
 reason they get skipped is structural rather than careless: the system is already assembled, so
 appending a file at the end looks harmless. It is exactly how the ladder of levels comes apart a few
 months later, and by then nothing in the file says which group it should have been in.

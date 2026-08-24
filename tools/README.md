@@ -14,6 +14,9 @@ pages typed by hand. Each script starts what it needs and cleans up after itself
 ```
 node tools/accept.mjs                    the gate: every screen, 390
 node tools/accept.mjs 1280 account       one width, named screens
+node tools/accept.mjs 360 --root handoff/handoff   a page OUTSIDE design/, same ten marks
+node tools/accept.mjs 1280 --text200     TEXT-only zoom: the root font size doubled, rem tested
+node tools/focus.mjs --all --dark        the ring in the theme the instrument was written about
 node tools/states.mjs                    open every state, re-run the passes
 node tools/css-comments.mjs              every stylesheet, one second
 node tools/vars.mjs                      every var(--x), and whether it exists
@@ -47,11 +50,15 @@ node tools/coverage.mjs [--check|--apply]   the coverage map, generated from the
 node tools/glyphs.mjs [width] [pages]   a mark the runtime passes did not reach
 python3 tools/key-alpha.py --check [dir]   every PNG, and whether it has the alpha channel a dark page needs
 node tools/steps.mjs [--census] [names]   the steps that stand BEHIND A CLICK, which no other width instrument sees
+node tools/handoff.mjs [--strings]       is the handoff a POINTER or a COPY, and does every spec row name a source
+node tools/map.mjs [--write] [--token --x]   screen -> zone -> component -> tokens, and the INVERSION in two knees
+node tools/headings.mjs [pages...]       one reachable h1 per screen, and a ladder with no missing rung
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
-`inventory`, `dupe`, `typo`, `steps` and `focus` exit non-zero on a finding, so they
-compose.
+`inventory`, `dupe`, `typo`, `steps`, `handoff` and `focus` exit non-zero on a finding, so they
+compose. `handoff` exits **2** rather than 0 or 1 when its subject is not on disk yet:
+a question asked of a file that does not exist has no answer, and a zero would be one.
 
 ---
 
@@ -246,6 +253,7 @@ answer, several and the linking file's own folder decides first, then
 
 **Three things it had to be taught, all three from wrong first runs:**
 
+0. **A CSS selector quoted as documentation is not a link** - added at 13.3, and it was the FOURTH kind after the three below. `pixel-proof.html` prints `a[href="index.html"]` inside a sentence about what `idle.mjs` reads, and the scan took it for a link to a file that does not exist - one dead href in 6070, the only one, so it read as a real finding for two steps. A `<code>` that CONTAINS an anchor is left alone: blanking those wholesale would hide a live link inside a code sample, which is the opposite mistake and the more expensive one.
 1. **An escaped markup sample is not a link** - `stack-action.html` prints
    `&lt;a … href="..."&gt;` as documentation, and 16 more hid in comments and
    code samples. Caught before the file was written, which is the only time this
@@ -2130,3 +2138,158 @@ fill that does not invert, beside a label on the same pill sitting at 5.45. Elev
 stages of green. The walk now takes both widths and prints the width beside every finding
 (`[coach-clients@1280, coach-clients@360]`). It costs twice as long, and the alternative is a verdict
 that is true and useless.
+
+---
+
+## `handoff.mjs` - is the handoff a POINTER or a COPY
+
+Stage 13 writes four documents about a product they do not own, and the whole stage stands on one
+rule: they REFERENCE rather than duplicate. A component and its variant instead of the css, a token
+name instead of the number, an address in `microcopy.md` instead of the sentence a user reads. That
+rule was prose for a whole stage, and **a rule stated in prose has no check under it** - which is why
+the first draft of `onboarding-gaps.md` shipped two `px` literals that had to be caught by eye.
+
+Six questions, all asked of the whole `handoff/` tree:
+
+- **A** a colour literal anywhere in a handoff document.
+- **B** a length in `px`. The registry keeps its widths in `rem` with the token named beside them, so
+  a `px` here is by definition a number copied out of a file rather than an address into one.
+- **C** a css fragment - a `{ ... }` block, or a `property: value` pair in a code span. `var(--token)`
+  alone is NOT one: naming a token is exactly what the stage asks for, and a check that forbade it
+  would forbid the cure with the disease.
+- **D** a READY INTERFACE STRING - a `«...»` fragment that also stands, verbatim, in the `Текст`
+  column of `voice/docs/microcopy.md`. **The threshold is three words and it is declared, not felt:**
+  a one-word label is also the NAME of the thing, and forbidding it would forbid naming screens.
+  `--strings` prints the dictionary so the subject is visible rather than assumed - 1691 strings today.
+- **E** every row of `behaviour.md` names a source, and the source RESOLVES. Three are legal and
+  there is no fourth: `design/<name>.html`, `flows.md · <node id>`, `pages/<cluster>.md`. A row with
+  an empty source is only a finding if it is ALSO absent from the «НЕ ВИРІШЕНО» list, because that
+  list is where a sourceless row is supposed to go.
+- **F** the roll-call: flows in `flows.md` = described in `behaviour.md` + named as deliberately-not.
+
+### Three verdicts, not two
+
+`0` asked everything and found nothing · `1` found something · **`2` could not ask.** The third exists
+because E and F have no subject until `behaviour.md` is on disk, and the first writing of the exit
+line let that run hand back **0** - a clean bill from an instrument that had not looked at anything.
+That is this repository's own sentence, «a zero from an instrument that cannot see the class is not a
+zero», caught inside the file written to enforce it.
+
+### Two wrong versions, both found by running it
+
+- **C recognised a declaration by its COLON**, so its first catch was `wip: true` - a row of the
+  roadmap registry, written about in prose, in a document that holds no css at all. A rule whose
+  first find is a false one teaches the next reader to scroll past it. A css property either carries
+  a hyphen or is one of the thirty-three bare words listed in the file; `data-` and `aria-` are
+  attributes, not properties.
+- **E asked EVERY table in the file**, including the legend that explains the three sources. It
+  reported ten rows whose sources do not resolve - «Answers», «Section», «F1» - none of them about
+  the product. A spec table is now recognised by its header row ending in `Source`.
+
+All six have been shown to fail: a probe file carrying two colours, three lengths, three css
+fragments and one copied sentence raised exactly those, and left `wip: true`, `data-theme: dark`,
+`var(--bg-action)` and a one-word label silent. A probe table with an empty source, a screen that
+does not exist, a flow id that is not in the diagram and a missing IA cluster raised all four.
+
+---
+
+## `map.mjs` - what a screen is made of, and what moves when a token changes
+
+Stage 13, step 3. It builds the map of correspondences and then TURNS IT OVER, and the turning is the
+point: «if I change this token, what goes with it» is the question no page of the kit answers.
+
+Four links, each taken from exactly one source: screen -> components from the rendered DOM,
+component -> tokens from `var()` in its own css, role -> primitive from the semantic block in both
+themes, screen -> zones from the `Зона` column of that screen's section in `microcopy.md`.
+`--write` emits `handoff/docs/map.md` from those numbers, so the document and the instrument cannot
+disagree; `--token --bg-action` answers for one name in a second.
+
+### Why the reverse list opens in TWO knees, and sometimes three
+
+**A component never reads a colour primitive.** Measured: `--orange-500` has 0 readers in
+`components/` and 6 inside `tokens.css`. A one-knee inversion - token to whoever names it - would
+therefore have reported the ENTIRE primitive layer as dead, which is the shape of an instrument error
+rather than a finding. The chain is component -> semantic role -> primitive.
+
+**And a primitive can be read by another primitive**, which the two-knee rule does not cover:
+`--grid-col-fluid` is a `clamp()` whose floor is `--grid-col-min-narrow`. A walk that only knew
+role -> primitive called the floor dead. The primitive layer is closed transitively first, and only
+then handed to the roles.
+
+### Three wrong versions, all found by running it
+
+- **The walk read the document AT REST**, so `cat-overlay.css` came back «on no screen at all» when
+  it is the mobile catalogue overlay and renders on every one. Same class as `steps.mjs`: a component
+  behind a click is invisible to a reader that never clicks. It now sweeps every opener the page
+  declares - **3679 calls over 141 screens**, one dropped because it navigates away - and the at-rest
+  and after-sweep sets are held apart.
+- **Twelve screens came back «`microcopy.md` does not know this name»**, and eleven were dialog STEPS
+  whose strings are authored in the shared sections of cluster 0. A state screen now inherits its
+  base screen's zones, and the inheritance is printed rather than assumed: 130 with a section of
+  their own, 11 inherited.
+- **The IA node was matched by the FIRST prefix rather than the longest**, so `account-addresses-add`
+  matched `account` and half the address book was filed under node 7.0 instead of 7.5. A prefix match
+  without «longest» is a guess wearing a lookup.
+
+### The idle control, in both directions
+
+A role no component reads · a primitive no knee reaches · a component on no screen · a component with
+no class of its own · a screen `microcopy.md` cannot answer for · a screen that did not open. Stage 08
+asked the dead-component question BEFORE the roll-out and the answer could have changed under it, so
+it is asked again here over the whole product with the panels open. The two registry breakpoints are a
+declared exception with its own reverse check: `@media` cannot read a custom property, so they have no
+reader by construction, and if either ever gains one the run fails rather than excusing it.
+
+---
+
+## `headings.mjs` - one reachable `h1`, and a ladder with no missing rung
+
+Stage 13, step 4. It exists because the accessibility checklist may not carry a row whose way of
+checking cannot be named, and one row had none: the roll-out's class 8 reported in PROSE that
+`coach-client-edit` and `coach-client-edit-confirm` have no accessible `h1` - the only `h1` on those
+screens sits inside the inert backdrop behind the dialog - and nothing could re-ask it. Asked
+mechanically, that class is **17 screens, not 2**, and the whole answer is **35 of 141**.
+
+Three questions, all of the rendered DOM: exactly one `h1` a screen reader can reach (not
+`display:none`, not `visibility:hidden`, not inside `[inert]`, not inside `[aria-hidden="true"]`); a
+ladder that skips no rung; a heading with no text, which is worse than no heading because it occupies
+a rung and says nothing.
+
+### It reads AT REST, and that is the opposite of what `map.mjs` does
+
+The first writing swept every opener the page declares, the way 13.3 had just taught, and immediately
+reported **two** `h1` on `cart` and on `index`: the sweep opens every dialog at once and the auth
+dialog brings its own heading. That is not a state any reader is ever in.
+
+The cure is the corpus itself. This product models a state as its own DOCUMENT - `coach-client-edit`
+IS the screen with the dialog open, `auth-code` IS the dialog on its code step - so every state that
+matters is already a page at rest, and opening things on top of one manufactures a state the product
+does not have. **«How many `h1` can a reader reach at once» is a question about one document in one
+state**, and «which components stand on this screen» is not. Two questions, two walks, and the same
+sweep is right for one and wrong for the other.
+
+### What it found
+
+**35 of 141 with no reachable `h1`**, in three classes: 17 dialog states, 16 loading and error states
+whose headings are all reachable but none of them an `h1`, and 2 checkout states with no heading in
+the markup at all. **97 of 141 skip a rung**, and that is one cause - the footer's newsletter block
+is an `h4` standing directly after an `h2`. **0 empty headings.**
+
+---
+
+## Three flags added at stage 13, and each closed a hole the gate could not see
+
+- **`accept.mjs --text200`** doubles the root font size before the probe. Browser zoom at 200% only
+  halves the CSS viewport and the width sweep already covered that; a reader who raises their DEFAULT
+  FONT SIZE changes the type and not the viewport, and only a layout in `rem` survives it. Stage 10
+  moved the type ramp from px to rem value for value for exactly that reader, and nothing had ever
+  asked whether it worked. **142 of 343 screens overflow at 1280, 284 of 343 at 360.**
+- **`accept.mjs --root`** moves the subject to the repository root. This gate was written for
+  `design/` and had no way to reach anywhere else, so the roadmap pages - `index.html`,
+  `voice/voice.html`, `handoff/handoff.html` - had never been measured at 360 by anything. The flag
+  changes the base directory and nothing else: same probe, same ten marks, same verdict.
+- **`focus.mjs --dark`** sets the theme through the page's own call and **fails loudly if the call
+  does not take**, because a page without `theme.js` swallows it in silence and would hand back a
+  light reading labelled dark. The file's own opening paragraph says the browser's blue ring is a
+  defect precisely because it does not follow the theme - and for a whole stage the instrument only
+  ever walked the light one. Both themes now: 33816 controls, 0 and 0.

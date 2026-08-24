@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Stack - Хендоф</title>
+  <link rel="icon" type="image/svg+xml" href="../design/concept/assets/logo-s.svg">
+  <style>
+    :root{
+      --bg:#f7f6f3; --surface:#ffffff; --surface-alt:#f2f0eb; --border:#e5e2db;
+      --text:#1a1916; --text-secondary:#6b6760; --text-light:#9b9790;
+      --accent:#2d5a3d; --accent-light:#e8f0ea; --accent-mid:#4a8c62;
+      --warn:#b5882a; --warn-bg:#fdf3e3; --stop:#a33a2a; --stop-bg:#fbeceb;
+      --radius:10px; --radius-sm:6px;
+      --shadow:0 1px 3px rgba(0,0,0,.06), 0 4px 12px rgba(0,0,0,.04);
+    }
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html{ scroll-behavior:smooth; }
+    body{ font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', system-ui, sans-serif;
+      background:var(--bg); color:var(--text); font-size:16px; line-height:1.65;
+      -webkit-font-smoothing:antialiased; }
+    .page{ max-width:1160px; margin:0 auto; padding:68px 24px 80px; }
+    @media (min-width:860px){ .page{ margin-left:220px; padding:48px 48px 80px; }
+      section{ scroll-margin-top:24px; } }
+
+    .hero{ margin-bottom:40px; }
+    .hero-tag{ display:inline-block; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      color:var(--accent); background:var(--accent-light); padding:5px 12px; border-radius:999px;
+      font-weight:600; margin-bottom:16px; }
+    h1{ font-size:clamp(28px, 4vw, 40px); line-height:1.2; letter-spacing:-.02em; margin-bottom:14px; }
+    .hero-lead{ font-size:18px; color:var(--text-secondary); max-width:62ch; }
+
+    section{ background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+      padding:28px 26px; margin-bottom:20px; box-shadow:var(--shadow); }
+    .section-number{ font-size:12px; letter-spacing:.1em; color:var(--text-light); font-weight:700;
+      margin-bottom:6px; }
+    h2{ font-size:22px; letter-spacing:-.01em; margin-bottom:14px; }
+    h3{ font-size:16px; margin:22px 0 8px; }
+    p{ margin-bottom:12px; max-width:74ch; }
+    ul{ margin:0 0 12px 20px; }
+    li{ margin-bottom:7px; max-width:72ch; }
+    a{ color:var(--accent); }
+    code{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:.9em;
+      background:var(--surface-alt); border-radius:var(--radius-sm); padding:1px 5px; }
+    strong{ font-weight:650; }
+
+    .links{ display:grid; gap:14px; grid-template-columns:1fr; }
+    @media (min-width:660px){ .links{ grid-template-columns:repeat(3, 1fr); } }
+    .lcard{ display:block; border:1px solid var(--border); border-radius:var(--radius);
+      padding:18px; background:var(--surface-alt); text-decoration:none; color:inherit; }
+    .lcard .n{ font-weight:650; margin-bottom:4px; color:var(--accent); }
+    .lcard .u{ font-family:ui-monospace, SFMono-Regular, Menlo, monospace; font-size:12px;
+      color:var(--text-light); word-break:break-all; }
+    .lcard .d{ font-size:14px; color:var(--text-secondary); margin-top:8px; }
+
+    table{ border-collapse:collapse; width:100%; font-size:14px; margin-bottom:12px; }
+    th,td{ text-align:left; padding:9px 10px; border-bottom:1px solid var(--border);
+      vertical-align:top; }
+    th{ font-size:12px; letter-spacing:.05em; text-transform:uppercase; color:var(--text-light); }
+    .wrap{ overflow-x:auto; }
+
+    .note{ border-left:3px solid var(--accent-mid); background:var(--accent-light);
+      padding:14px 16px; border-radius:var(--radius-sm); margin:14px 0; }
+    .warn{ border-left:3px solid var(--warn); background:var(--warn-bg);
+      padding:14px 16px; border-radius:var(--radius-sm); margin:14px 0; }
+    .stop{ border-left:3px solid var(--stop); background:var(--stop-bg);
+      padding:14px 16px; border-radius:var(--radius-sm); margin:14px 0; }
+    .q{ display:inline-block; background:var(--warn-bg); color:var(--warn); font-weight:700;
+      border-radius:var(--radius-sm); padding:0 6px; }
+  </style>
+  <link rel="stylesheet" href="../_nav.css">
+</head>
+<body>
+
+<aside id="sidebar"></aside>
+
+<div class="page">
+
+  <div class="hero">
+    <div class="hero-tag">Етап 13 · Handoff</div>
+    <h1>Хендоф</h1>
+    <p class="hero-lead">Пакет передається не тим, що все лежить у репозиторії, а тим, що людина,
+      яка отримала посилання, знає, з чого почати, чому кожен екран існує двічі, яка тема головна
+      і що станеться на порожньому списку. Ця сторінка веде до відповідей, а не переказує їх.</p>
+  </div>
+
+  <section id="links">
+    <div class="section-number">01</div>
+    <h2>Три посилання</h2>
+    <p>Одні й ті самі три адреси стоять тут і в <code>README.md</code>, заповнені за один прохід.
+      Третього місця немає навмисно.</p>
+    <div class="links">
+      <a class="lcard" href="https://github.com/sergiodesign4u-dot/stack">
+        <div class="n">Репозиторій</div>
+        <div class="u">github.com/sergiodesign4u-dot/stack</div>
+        <div class="d">Усе джерело. Збірки немає, залежностей немає.</div>
+      </a>
+      <a class="lcard" href="https://sergiodesign4u-dot.github.io/stack/design/index.html">
+        <div class="n">Продукт</div>
+        <div class="u">sergiodesign4u-dot.github.io/stack/design/</div>
+        <div class="d">141 кольоровий екран зі станами. Клікабельний.</div>
+      </a>
+      <a class="lcard" href="https://sergiodesign4u-dot.github.io/stack/design/kit/overview.html">
+        <div class="n">Вітрина системи</div>
+        <div class="u">sergiodesign4u-dot.github.io/stack/design/kit/</div>
+        <div class="d">Кожен компонент карткою, зі своєю сторінкою.</div>
+      </a>
+    </div>
+  </section>
+
+  <section id="scope">
+    <div class="section-number">02</div>
+    <h2>Межа пакета</h2>
+    <p>Це <strong>клікабельний продукт, а не застосунок</strong>, і плутанина тут коштує тижня.</p>
+    <ul>
+      <li><strong>Даних немає.</strong> Кожне число, кожна назва товару і кожне ім'я клієнта це
+        канонічні дані, названі один раз на весь етап розкотки і підставлені дослівно. Реєстр
+        каноніки - <code>design/kit/docs/rollout.md</code>, розділ C.</li>
+      <li><strong>API немає, роутера немає, збірки немає.</strong> Ані <code>package.json</code>,
+        ані кроку збірки, ані залежностей. Сторінки відкриваються з файлової системи; інструменти
+        в <code>tools/</code> самі піднімають статичний сервер і Chrome.</li>
+      <li><strong>Стан це окремий ФАЙЛ.</strong> <code>cart-empty.html</code>,
+        <code>checkout-declined.html</code>, <code>coach-session-oos.html</code> - не режими одного
+        документа, а сусідні документи. Саме тому екранів 141, а не 50.</li>
+      <li><strong>Сіра тека не історія, а рантайм.</strong> Кожен кольоровий екран вантажить
+        <code>../wireframes/_nav.js</code>: шапка, футер, таб-бар, мега-меню і кожен діалог
+        малюються звідти, а <code>design/_nav.js</code> перефарбовує зверху. Видалити
+        <code>wireframes/</code> означає покласти всі 141 сторінку.</li>
+    </ul>
+    <div class="warn"><strong>Що це означає для першої задачі.</strong> Новий екран не «додається в
+      роутер»: він лягає плоско в <code>design/</code>, кожен його стан окремим файлом, і
+      реєструється рядком у <code>design/_nav.js</code>. Посилання на екран, якого немає в реєстрі,
+      автоматично переписується назад у сіре - це не баг, це <code>uivFixLinks()</code>.</div>
+  </section>
+
+  <section id="theme">
+    <div class="section-number">03</div>
+    <h2>Яка тема головна</h2>
+    <p><strong>Світла.</strong> Вона живе в голому <code>:root</code>; темна це блок
+      <code>[data-theme="dark"]</code>, який перевизначає <strong>лише семантичні ролі</strong> і
+      жодного примітива. Ролей 98, і в кожної є обидві половини - роль без пари не існує з першого
+      рядка етапу 08.</p>
+    <ul>
+      <li><code>design/system/theme.js</code> застосовує збережений вибір ще до першого малювання і
+        <strong>знімає атрибут</strong>, коли режим не темний. Тому «світла» це відсутність
+        атрибута, а не його значення.</li>
+      <li><strong>Режиму <code>auto</code> немає за рішенням.</strong> Перемикач дає рівно два
+        стани; системна тема не читається навмисно.</li>
+      <li>Тривалість, крива і ширина <strong>пар теми не мають</strong>: пара це властивість
+        кольору, а не будь-якого значення.</li>
+    </ul>
+    <p>Перевіряється це не оком: <code>node tools/theme.mjs</code> знімає обчислений стиль у двох
+      темах і рахує контраст за формулою WCAG з порогами за поверхнею.</p>
+  </section>
+
+  <section id="route">
+    <div class="section-number">04</div>
+    <h2>Маршрут по репозиторію</h2>
+    <p>Від кореня до будь-якого артефакту хендофу - <strong>не більше двох кліків</strong>. Панель
+      ліворуч на будь-якій сторінці це реєстр роадмепу, і вона одна на весь проєкт.</p>
+    <p class="note">Чотири документи хендофу це <code>.md</code>, і посилання ведуть просто на них.
+      Локально і на Pages вони відкриються як текст, на GitHub - зверстаними. Це навмисно: файл, з
+      якого читають, і файл, який перевіряє <code>node tools/handoff.mjs</code>, мусять бути одним
+      файлом, інакше пакет знову має дві редакції одного.</p>
+    <div class="wrap"><table>
+      <tr><th>Питання</th><th>Куди</th></tr>
+      <tr><td>що продукт РОБИТЬ, крок за кроком</td><td><a href="docs/behaviour.md">handoff/docs/behaviour.md</a></td></tr>
+      <tr><td>з чого зібраний екран, і що поїде від зміни токена</td><td><a href="docs/map.md">handoff/docs/map.md</a></td></tr>
+      <tr><td>що з доступності підтверджено, а що борг</td><td><a href="docs/a11y.md">handoff/docs/a11y.md</a></td></tr>
+      <tr><td>як додати фічу</td><td><code>handoff/docs/one-shot.md</code> - <strong>пише крок 7</strong>, тому це ще не посилання</td></tr>
+      <tr><td>що було незрозуміло чужому читачеві</td><td><a href="docs/onboarding-gaps.md">handoff/docs/onboarding-gaps.md</a></td></tr>
+      <tr><td>чому будь-що з наведеного саме таке</td><td><a href="../docs/decisions.md">docs/decisions.md</a></td></tr>
+      <tr><td>правила, які діють у наступній сесії</td><td><a href="../CLAUDE.md">CLAUDE.md</a> · <a href="../design/system/CLAUDE.md">design/system/CLAUDE.md</a></td></tr>
+      <tr><td>чим перевіряти</td><td><a href="../tools/README.md">tools/README.md</a></td></tr>
+    </table></div>
+    <div class="note"><strong>Чому кожен екран існує двічі.</strong> <code>wireframes/</code> це сірий
+      прототип етапу 04: структура, текст і стани. Він заморожений з етапу 05 і володіє
+      <em>складом</em> екрана. <code>design/</code> це та сама розмітка з кольоровим шаром і володіє
+      <em>виглядом</em>. Знайдена в сірому помилка називається вголос і лагодиться в кольоровій
+      копії, ніколи вгору по ланцюгу. Це історія процесу - і водночас рантайм, див. розділ 02.</div>
+  </section>
+
+  <section id="behaviour">
+    <div class="section-number">05</div>
+    <h2>Поведінка</h2>
+    <p>Екрани показують кожен стан; вони не кажуть, що між ними <em>рухається</em>, що стається на
+      гілці, якої ніхто не хоче, і яка з гілок глухий кут навмисно.
+      <a href="docs/behaviour.md">behaviour.md</a> це 152 рядки специфікації, і <strong>кожен
+      називає джерело</strong>: файл екрана, вузол флоу або вузол IA. Джерел рівно три, четвертого
+      немає.</p>
+    <ul>
+      <li>П'ять флоу з <code>ia/docs/flows.md</code>, усі п'ять описані.</li>
+      <li>Список <strong>«НЕ ВИРІШЕНО»</strong> - шість питань, на які не відповідає жоден файл
+        репозиторію, і жодне з них не заповнене правдоподібною медіаною.</li>
+      <li>Валідація: продукт тримає <strong>чотири</strong> правила і не записує жодного з решти.
+        На 141 сторінку немає жодного <code>required</code>.</li>
+    </ul>
+  </section>
+
+  <section id="map">
+    <div class="section-number">06</div>
+    <h2>Карта</h2>
+    <p><a href="docs/map.md">map.md</a> знято з корпусу, а не пригадано: екран -> зона -> компонент
+      -> токени, і <strong>зворотний список інверсією</strong> тих самих даних. Головне питання, на
+      яке він відповідає, - «якщо я зміню цей токен, що поїде».</p>
+    <ul>
+      <li><strong>Інверсія відкривається у два коліна</strong>, бо компонент не читає колірний
+        примітив: ланцюг це компонент -> семантична роль -> примітив. У одне коліно весь
+        примітивний шар прочитався б як мертвий.</li>
+      <li>Файл <strong>генерується</strong>: <code>node tools/map.mjs --write</code>. Ніщо в ньому
+        не набране руками, тож карта і прилад не можуть розійтися.</li>
+      <li>Ідл-контроль в обидва боки: роль, якої ніхто не читає; примітив, до якого не веде жодне
+        коліно; компонент, якого немає на жодному екрані.</li>
+    </ul>
+  </section>
+
+  <section id="a11y">
+    <div class="section-number">07</div>
+    <h2>Доступність</h2>
+    <p><a href="docs/a11y.md">a11y.md</a> нічого не вводить: усі правила ухвалені на етапах 08-11.
+      Чого бракувало - одного місця, яке каже, <strong>що з них істинне сьогодні і якою
+      командою</strong>. 26 рядків: <strong>18 підтверджено, 8 боргів</strong>.</p>
+    <div class="wrap"><table>
+      <tr><th>Найбільші борги</th><th>Сьогодні</th><th>Команда</th></tr>
+      <tr><td>текстовий зум 200%</td><td>142 з 343 течуть убік на 1280</td><td><code>accept.mjs --text200</code></td></tr>
+      <tr><td>драбина заголовків пропускає щабель</td><td>97 зі 141, одна причина</td><td><code>headings.mjs</code></td></tr>
+      <tr><td>чорнило проти свого тла</td><td>37 форм, 36 з них в обох темах</td><td><code>theme.mjs</code></td></tr>
+      <tr><td>немає досяжного h1</td><td>35 зі 141</td><td><code>headings.mjs</code></td></tr>
+    </table></div>
+    <p><strong>«Підтверджено» означає прогін сьогодні, а не пам'ять про етап, який писав правило.</strong>
+      Рядок, для якого прилад назвати неможливо, «підтверджено» не отримує ніколи, і це перевіряє
+      <code>node tools/handoff.mjs</code>.</p>
+  </section>
+
+  <section id="feature">
+    <div class="section-number">08</div>
+    <h2>Як додати фічу</h2>
+    <div class="warn"><strong>Заповнює крок 7.</strong> Промпт <code>one-shot.md</code> ще не
+      написаний, а переказувати його своїми словами тут означало б завести другу редакцію того, що
+      має бути одне. Порожній розділ із названим виконавцем чесніший за правдоподібний текст.</div>
+    <p>Що вже відомо і не зміниться: нове з'являється <strong>в системі першим</strong>, потім на
+      екрані, ніколи навпаки. У файлі екрана заборонені <code>@media</code>,
+      <code>transition</code>, <code>animation</code>, <code>@keyframes</code>, тег
+      <code>style</code>, атрибут <code>style</code>, будь-який hex, будь-який px повз токен і
+      клас, якого немає в системі. Але заборона стосується <strong>вигадування у файлі екрана</strong>,
+      а не росту: чого бракує - спершу заводиться в системі повним набором із шести частин, і аж
+      тоді ставиться на екран.</p>
+  </section>
+
+  <section id="owner">
+    <div class="section-number">09</div>
+    <h2>Хто ухвалює рішення після передачі</h2>
+    <p>Обидва відкриті списки пакета адресовані <strong>людині</strong>, а не наступному етапу:
+      етапу після цього немає. Без адресата перший же рядок із <code>[?]</code> зупиняє роботу, бо нема кому його поставити.</p>
+    <div class="note"><strong>Адресат: власник продукту.</strong><br>
+      Канал - <a href="https://github.com/sergiodesign4u-dot/stack/issues">Issues репозиторію</a>.
+      Питання йде туди з посиланням на рядок, який його спричинив, і рішення лишається слідом у тому
+      самому місці, де лежить питання - а не в чаті, який закриється разом із сесією.
+      <br><br>
+      <strong>Особистого імені тут немає навмисно.</strong> Адресат це РОЛЬ, а не людина: роль
+      переживає того, хто її обіймає, а сторінка з чиїмось ім'ям застаріває першого ж дня, коли роль
+      переходить далі.</div>
+    <h3>Що саме чекає на нього</h3>
+    <div class="wrap"><table>
+      <tr><th>Клас</th><th>Скільки</th><th>Де лежить</th></tr>
+      <tr><td>числа, які потребують реальних даних</td><td>відсоток тарифу тренера, пороги лояльності, ставка нарахування, строк життя бонусів</td><td><a href="../design/kit/docs/backlog.md">backlog.md</a> · <a href="../ia/docs/sitemap.md">sitemap.md</a></td></tr>
+      <tr><td>борги доступності</td><td>8, у кожного число, яке має дійти до нуля</td><td><a href="docs/a11y.md">a11y.md</a></td></tr>
+      <tr><td>питання поведінки без джерела</td><td>6</td><td><a href="docs/behaviour.md">behaviour.md</a></td></tr>
+      <tr><td>мертві токени і компонент, що читає примітив</td><td>4 + 1</td><td><a href="../design/kit/docs/backlog.md">backlog.md</a></td></tr>
+      <tr><td>розбіжності всередині <code>flows.md</code></td><td>3</td><td><a href="docs/onboarding-gaps.md">onboarding-gaps.md</a></td></tr>
+    </table></div>
+    <p><strong>Зведений список один</strong> - розділ «Idle control» в
+      <a href="docs/onboarding-gaps.md">onboarding-gaps.md</a> тримає число рядків, скільки з них
+      закрито і скільки адресовано власнику. Він і є тим єдиним місцем, якого бракувало.</p>
+  </section>
+
+  <section id="notdone">
+    <div class="section-number">10</div>
+    <h2>Що свідомо не зроблено</h2>
+    <p>Рішення, прочитане як діра, коштує стільки ж, скільки діра. Тому кожне з них назване і має
+      причину.</p>
+    <ul>
+      <li><strong>Квіз як діалог підбору</strong> - у MVP шість плиток цілі, квіз це збагачена
+        післязапускова версія. Екран зібраний, але вузол лишається ПОТІМ.</li>
+      <li><strong>Нагадування «знову в наявності»</strong> - післязапускове, тому глухий кут
+        «немає альтернативи» у флоу справді глухий.</li>
+      <li><strong>Ручна модерація верифікації тренера</strong> - столу модерації в MVP немає, тож
+        верифікація, якої не лагодить повторне надсилання посилання, лишається явним глухим кутом.</li>
+      <li><strong>Підтримка з екрана «ціна не застосувалась»</strong> - каналу підтримки в MVP
+        немає; поведінка це зберегти сесію і заблокувати чекаут.</li>
+      <li><strong>Мій набір, гейміфікація лояльності, живий чат, приватна марка</strong> - поза
+        обсягом MVP з етапу 01.</li>
+    </ul>
+    <p>Повний перелік із причинами - <a href="../design/kit/docs/backlog.md">backlog.md</a> і розділ
+      «Backlog» у <a href="../ia/docs/flows.md">flows.md</a>.</p>
+  </section>
+
+  <section id="gaps">
+    <div class="section-number">11</div>
+    <h2>Було незрозуміло -&gt; стало</h2>
+    <p>Етап стоїть на читачеві з чистим контекстом, а не на уяві: субагент, який цей продукт не
+      будував, читав його як чужий і записав, чого не зрозумів і що зрозумів неправильно.</p>
+    <div class="wrap"><table>
+      <tr><th>Було незрозуміло</th><th>Стало</th></tr>
+      <tr><td>як завести НОВИЙ екран, коли сіра тека заморожена</td><td>розділ 02 тут, і промпт кроку 7</td></tr>
+      <tr><td>скільки в системі компонентів - три різні числа в прозі</td><td>оголошений список місць у <code>inventory.mjs</code>, кожне переписується з таблиць</td></tr>
+      <tr><td>чому <code>var(--bp-*)</code> ніхто не читає</td><td><code>@media</code> не читає власну властивість; реєстр це проза плюс <code>bp.mjs</code></td></tr>
+      <tr><td>чи можна видалити <code>wireframes/</code></td><td>ні: це рантайм усіх 141 сторінки, розділ 02</td></tr>
+      <tr><td>чи є в проєкту збірка</td><td>немає, і це межа пакета, розділ 02</td></tr>
+      <tr><td>яка тема головна</td><td>розділ 03</td></tr>
+    </table></div>
+    <p>Повний журнал із верифікацією кожного рядка чотирма вердиктами -
+      <a href="docs/onboarding-gaps.md">onboarding-gaps.md</a>. <strong>Крок 8 дописує сюди
+      підсумок класами</strong>, коли обидва іспитові прогони кроку 7 будуть зняті.</p>
+  </section>
+
+</div>
+
+<script>
+window.NAV_BASE = '../';
+window.NAV_SECTIONS = [{"id":"links","label":"Три посилання"},{"id":"scope","label":"Межа пакета"},{"id":"theme","label":"Яка тема головна"},{"id":"route","label":"Маршрут"},{"id":"behaviour","label":"Поведінка"},{"id":"map","label":"Карта"},{"id":"a11y","label":"Доступність"},{"id":"feature","label":"Як додати фічу"},{"id":"owner","label":"Хто ухвалює рішення"},{"id":"notdone","label":"Свідомо не зроблено"},{"id":"gaps","label":"Було -> стало"}];
+</script>
+<script src="../_nav.js"></script>
+</body>
+</html>

@@ -73,7 +73,13 @@ window.NAV = [
      by «UI + Visual», and two roadmap entries on one page break the active
      highlight. `wip` stays until step 7. */
   { label: 'Розкотка',                   page: 'design/index.html', done: true },
-  { label: 'Хендоф',                     page: null }
+  /* 13.1: the stage started. `page` stays null until step 5 builds
+     handoff.html; `wip:true` is what makes the walk hang «Next» here rather than
+     jump past a stage whose pages are all still unbuilt. Removed by step 8. */
+  /* 13.5: the page exists. `wip` stays until step 8 - the stage still owes the release,
+     the one-shot prompt and two examination runs, and `wip` is what keeps «Next» here
+     rather than moving it past a stage that is not finished. */
+  { label: 'Хендоф',                     page: 'handoff/handoff.html', done: true, wip: true }
 ];
 
 (function () {
