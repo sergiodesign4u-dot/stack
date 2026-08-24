@@ -22,7 +22,7 @@ exactly what the node column makes it. Nothing else in this repository writes «
 | f1 | 0.0 | Головна | `index.html` | вже в кольорі | 4 | 4 | 0 | MVP | є |
 | f1 | 2.1 | Категорія (лістинг) | `listing.html` | вже в кольорі | 7 | 7 | 0 | MVP | є |
 | f1 | 2.2 | Ціль-колекція | `goal.html` | вже в кольорі | 4 | 4 | 0 | MVP | є |
-| f1 | 4.x | Квіз (підбір за ціллю) | `quiz.html` | розкочується тут | 1 | 0 | 1 | ПОТІМ | є |
+| f1 | 4.x | Квіз (підбір за ціллю) | `quiz.html` | розкочено 12.11 | 1 | 0 | 1 | ✅ | є |
 | f1 | 3.0 | Картка товару | `product.html` | вже в кольорі | 6 | 6 | 0 | MVP | є |
 | f1 | 6.0 | Кошик | `cart.html` | вже в кольорі | 3 | 3 | 0 | MVP | є |
 | f1 | 6.1 | Оформлення | `checkout.html` | вже в кольорі | 5 | 5 | 0 | MVP | є |
@@ -83,6 +83,12 @@ would mean unfreezing `wireframes/`, which is a decision outside this stage.
 decision 2 puts after launch. The owner's call at step 1: the MVP volume goes first in five batches
 and the quiz is a sixth round on its own word.
 
+**12.11: THE SIXTH ROUND RAN, SO K = 50 OF 50.** The owner gave the separate word after the stage
+had closed at 140 of 141. The screen exists, the registry row is written, `OUT_OF_SCOPE` in
+`tools/coverage.mjs` is now an EMPTY declared list, and the coverage map is green on 141 of 141 for
+the first time. What the round cost is in section E: one component, one badge form, two ladder
+joins and four instrument repairs - which is the same proportion the whole stage found.
+
 ---
 
 ## B. The batches, cut by flow
@@ -97,7 +103,7 @@ canonical data; split across batches they drift in details nobody sees one at a 
 | 3 | The info template (f4a) | 6 / 6 | `info-page` | six subjects, one body |
 | 4 | The rest of content (f4b) | 7 / 8 | card feed + accordion | seven one-offs |
 | 5 | System and global (f5) | 4 / 8 | overlay + minimal page | the pages with no header |
-| 6 | Quiz (ПОТІМ) | 1 / 1 | stepped dialog | a separate round, on the owner's word |
+| 6 | Quiz (12.11) | 1 / 1 | stepped dialog | a separate round, on the owner's word · **done** |
 
 **Batch 1 is deliberately made of screens whose BASE is already coloured** - addresses x6, profile
 x4, order-placed x2, new client, edit client x2. No new component is expected in it, so anything
@@ -317,6 +323,11 @@ a signal about that inventory.
 
 | Step | What | Level | Why the inventory of stage 07 did not see it |
 |---|---|---|---|
+| 12.11 | `quiz.css` - the stepped dialog of node 4.x | 3 | **`wireframes/_wf.css` has zero rules for `q-*`.** The whole dialog lives in that one screen's own `<style>` block - 80 classes, of which the shared grey sheet declares 21 - and an inventory derived from the shared sheet cannot meet a screen that styles itself. It was also the one ПОТІМ screen, so no agent of the five batches ever ordered it. |
+| 12.11 | `.qsc` in `product-card.css` - the third rung, the compact set card | 2 | Same reason, one layer down: the rung is drawn inside the quiz's private block. Stage 04 wrote the decision in `screens.md` in one line - «важкі PLP-картки -> `.qsc`» - and a stylesheet-derived inventory reads stylesheets, not screen notes. |
+| 12.11 | `.tag.tag-base` in `badge.css` - the third badge form | 1 | The badge census was read out of `.pcard .ph .tag` across 51 coloured screens. «Основа» stands on `.qsc`, which was outside that selector AND outside `uivChrome()`'s text-to-form pass, so a bare `class="tag"` there matched no rule at all. The word has been in the product since stage 04 and in no inventory. |
+| 12.11 | `.cnt-row .cap, .q-eyebrow` moved into `section-head.css` - the brow's bold rung | 2 | Not an inventory miss but a DUPLICATE, and the gate caught it the hour the fourth edition landed: the same six declarations were written in `section-head.css` (7.50 folded two of them), `contacts-block.css` (batch 5) and `quiz.css` (batch 6). `dupe.mjs` failed the run at six declarations. Two weights, one edition, in the file that owns brows. |
+| 12.11 | `.q-opt` and `.q-pill` joined `radio.css`; `.q-opt .cb` joined `checkbox.css` | 1 | Nothing was added - 25 of the 59 names the grey screen carries were READ off the ladder instead of drawn a second time. `radio.css` wrote the instruction for its own growth at 7.96 («one name added to a selector list, never a rename»); this is the fourth and fifth time it collected. |
 | 12.2 | `.qmark` in `base.css` - the mark for a number nobody has yet | utility | It was never a rule. Eight `[?]` marks were written as `style="color:var(--text-muted)"` on a bare span, on four coloured screens. An inline attribute is in no stylesheet, and `inventory.md` v2 is derived from stylesheets. |
 | 12.2 | `info-page.css` - the body of a service page | 3 | **`wireframes/_wf.css` has zero rules for `info-*`.** The grey layer draws those six pages with bare structure and no styling at all, so a list built by mapping every RULE onto a component had nothing to map. A class with no rule is invisible to a stylesheet-derived inventory by construction. |
 | 12.2 | `.skline--h1 --price --fig --variant --cta --trust --kicker --sep` in `skeleton.css` | 1 | Sixteen inline geometry attributes on three loading screens. `skeleton.css` states in its own comment that «an inline style beats any rule written here» - and could not see the ones that were beating it. |
@@ -462,6 +473,15 @@ and a direct input to stage 13. Collected here, never answered-and-forgotten.
 **Batch 1: 5 agents, 15 pages, 34 questions.** Sorted by what each one is a defect OF, because that
 is what stage 13 needs - not a list of things agents wanted to know, but a list of places the
 documentation could not answer.
+
+**Batch 6: 1 agent, 1 page, 7 questions, and the shape of them is the stage's own finding one more
+time.** Two were about a badge form that no selector reached; one was about whether a keyboard rule
+belongs to the screen or to the rung; one was a false claim in the markup (`aria-modal="true"` with
+60 controls behind it); two were documentation gone stale about a screen it names (`motion.md`
+section J names `rating.css` on a screen with no rating; `responsive.md` says «THE SAME» about a
+screen whose component carries a registered behaviour change at 620); and one was a defect the agent
+MEASURED and could not fix - the footer row overflowing the phone by 68px on a step behind a click,
+which three width instruments had called clean. All seven were acted on in the same step.
 
 **Batch 2: 4 agents in round one (three of which stopped and ordered rather than drew), 3 in round
 two, 13 pages, 27 questions.** The shape of the round is itself the finding: **three of four

@@ -62,9 +62,25 @@
 <p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U7</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
 <p class="kp-p">Один кабінетний рейл на екран: <code>aside.acc-nav</code> зустрічається рівно раз на всіх 44 сірих і 33 кольорових екранах кабінету.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Колонка, картка тренера і другий рядок</div>
+<p class="kp-p"><code>.acc-main</code> - головна колонка кабінету, і власного вигляду в неї одне оголошення: <code>container-type: inline-size</code>. Це та сама четверта контейнерна межа, яку 10.7 знайшов на <code>account-orders</code>: колонка втрачає 216 в одну мить, коли оболонка відкриває бічну навігацію, тож питати треба її, а не в'юпорт.</p>
+<div class="kp-demo"><div class="acc-main">
+<div class="acard acard--coach">
+  <div class="ah"><h3>Ви тренер</h3></div>
+  <p>Замовляйте для своїх клієнтів за ціною тренера і ведіть історію по кожному окремо.</p>
+  <a class="btn--outline btn--s coach-newcta" href="#">Відкрити кабінет тренера</a>
+</div>
+<div class="acard">
+  <div class="ah"><h3>Адреса доставки</h3></div>
+  <div class="aline">Нова Пошта, відділення № 12<div class="aline-sub">Одеса · збережена за замовчуванням</div></div>
+</div>
+</div></div>
+<p class="kp-p"><code>.acard--coach</code> вирівнює свій вміст по центру й відпускає кнопку до лівого краю, бо в цієї картки немає списку - у неї є одна пропозиція. <code>.aline-sub</code> - другий рядок адреси, який каже, ЯКА це адреса, а не що в ній написано.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>21</b> власний клас і <b>1</b> стан.</p>
-<p class="kp-p"><b>Було 32.</b> Одинадцять із них - <code>.wt-*</code> з чотирма модифікаторами - <b>видалено з файлу</b> 2026-08-16 за рішенням власника: це дерево роадмепу з <code>wireframes/overview.html</code>, хаба прототипу, який CLAUDE.md виключає з корпусу компонентів поіменно. Та сторінка вантажить <code>_wf.css</code> і ніколи систему, <code>_wf.css</code> оголошує цю сім'ю сам, а жодна сторінка на системі цієї розмітки не містить - тобто копія тут була недосяжна від самого розколу. Причина кожного видалення виписана в <code>account-shell.css</code>. Те саме питання, що <code>.only-mobile</code> і <code>.only-desk</code> нижче.</p><div id="idle"></div><script>var KIT_CLS=["abonus", "acc", "acc-cardgrid", "acc-grid", "acc-h1", "acc-link", "acc-links", "acc-nav", "acc-prof", "acc-sub", "acc-tier", "ah", "av", "big", "buyer", "lnk", "logout", "u", "warn", "who", "wl-top"], KIT_STS=[":hover"];</script></section>
+<p class="kp-p"><b>Було 32.</b> Одинадцять із них - <code>.wt-*</code> з чотирма модифікаторами - <b>видалено з файлу</b> 2026-08-16 за рішенням власника: це дерево роадмепу з <code>wireframes/overview.html</code>, хаба прототипу, який CLAUDE.md виключає з корпусу компонентів поіменно. Та сторінка вантажить <code>_wf.css</code> і ніколи систему, <code>_wf.css</code> оголошує цю сім'ю сам, а жодна сторінка на системі цієї розмітки не містить - тобто копія тут була недосяжна від самого розколу. Причина кожного видалення виписана в <code>account-shell.css</code>. Те саме питання, що <code>.only-mobile</code> і <code>.only-desk</code> нижче.</p><div id="idle"></div><script>var KIT_CLS=["abonus", "acc", "acc-cardgrid", "acc-grid", "acc-h1", "acc-link", "acc-links", "acc-nav", "acc-prof", "acc-sub", "acc-tier", "ah", "av", "big", "buyer", "lnk", "logout", "u", "warn", "who", "wl-top","acc-main","acard--coach","coach-newcta","aline-sub"], KIT_STS=[":hover"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-shell-wide</code>, і це <b>рішення, яке довелось ухвалити мовчазним</b>. Кабінет це <b>друга оболонка</b> продукту: від точки він дістає власну колонку навігації 268px, а нижче неї смуга посилань стає горизонтальним скролером. <b>Було 960/959</b>, поза реєстром - пак дозволяє третю точку, але лише як рішення власника, назване вголос. Його не було сказано, тож число складено на ті дві, що є. Зміряно: колонка навігації лишається 268, колонка вмісту виходить 528 проти сьогоднішніх 628 на 960, нового обрізання немає. <b>Пара мусила їхати разом:</b> скласти лише одну половину означало б покласти смугу 1253px у колонку 268px. <code>.acc-grid</code> і <code>.acc-cardgrid</code> казали «одна колонка стає двома» на 640 - це буквально те, на що названо <code>--bp-grid-2col</code>.</div>

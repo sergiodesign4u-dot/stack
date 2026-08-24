@@ -82,10 +82,21 @@
 <section class="kp-sec"><div class="kp-sh">Стани, що є в коді</div>
 <p class="kp-p">Чотири: <code>.ok</code>, <code>.go</code>, <code>.wait</code> і нейтральний без класу. Ховера і натискання немає - пілюля не контрол.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Одна пігулка, чотири імені</div>
+<p class="kp-p">Статус замовлення носить чотири різні класи в чотирьох місцях - в історії акаунта, у картці оформлення, у кабінеті тренера і в рядку замовлення - і всі чотири це ОДНА пігулка: файл пише їх одним селектором, а не чотирма редакціями. П'ятим стоїть <code>.ord-status.way</code>, «у дорозі», який ділить обличчя з <code>.oh-status.go</code>.</p>
+<div class="kp-demo" style="display:flex;flex-wrap:wrap;gap:var(--space-12);align-items:center">
+<span class="oh-status ok">Виконано</span>
+<span class="oc-status ok">Оплачено</span>
+<span class="co-status">Очікує оплати</span>
+<span class="ord-status way">У дорозі</span>
+</div>
+<p class="kp-p">Різне тут лише те, що вирішує ПОВЕРХНЯ - розмір і відступ у щільному рядку; сам стан скрізь той самий, бо для людини «виконано» не залежить від того, на якому екрані воно написане.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>0</b> станів оголошено в <code>status-pill.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["oh-status","ok","go","wait","aord-status","rbadge","ci-oostag"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["oh-status","ok","go","wait","aord-status","rbadge","ci-oostag","oc-status","co-status","ord-status","way"], KIT_STS=[];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>status-pill.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива.</p>

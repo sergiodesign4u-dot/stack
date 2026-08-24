@@ -86,10 +86,18 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Ціль називають результатом, а не товаром.</b> «Набір маси», а не «гейнери»: людина знає, чого хоче досягти, і не знає, як це називається на полиці. Це вся суть механізму наведення.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не додавай сьому плитку.</b> Шість - рішення, а не місткість ряду: на 960 вони стають одним рядом, і сьома ламає і сітку, і обіцянку «ось усі цілі». Нова ціль замінює стару, а не дописується.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Плитка, покладена набік</div>
+<p class="kp-p"><code>.gtile--row</code> - та сама плитка цілі, розгорнута в рядок: значок меншає до 34, текст стає ліворуч, і плитка перестає бути кнопкою-квадратом. Вона потрібна там, де цілі стоять списком у вузькій колонці, а не сіткою на всю ширину.</p>
+<div class="kp-demo" style="max-width:340px;display:flex;flex-direction:column;gap:var(--space-8)">
+<a class="gtile gtile--row" href="#"><span class="gph"></span><span class="gt">Набір маси</span></a>
+<a class="gtile gtile--row" href="#"><span class="gph"></span><span class="gt">Схуднення</span></a>
+</div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["goalcta","goaltiles","gph","gt","gtile","hint"], KIT_STS=[":hover","min-width: 620px","min-width: 960px"];</script></section>
+<script>var KIT_CLS=["goalcta","goaltiles","gph","gt","gtile","hint","gtile--row"], KIT_STS=[":hover","min-width: 620px","min-width: 960px"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-grid-2col</code> і <code>--bp-shell-wide</code>. <b>Що саме міняється:</b> плитки цілей ідуть 2 -> 3 -> 6 колонок. <b>Було 620 і 960</b>, друге поза реєстром. <b>Чому не <code>auto-fit</code>:</b> плиток рівно шість, а шість має рівно три збалансовані розкладки - 2, 3 і 6, свої дільники. Заповнення не можна про це попередити: за будь-якої підлоги, що дає шістку вгорі, дорогою туди з'являться 4+2 і 5+1. Зміряно перед складанням: на 860 шість плиток виходять 128 x 116.4 і нічого не обрізають - та сама висота, що на 960 при ширині 144.7.</div>

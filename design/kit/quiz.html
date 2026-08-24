@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Квіз | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Квіз</h1>
+<p class="kp-lead">Покроковий діалог вузла 4.x: одне запитання на крок, смуга поступу, спокійний вихід будь-якої миті. Останній сірий екран продукту і єдиний ПОТІМ - за рішенням 2 у MVP ціль обирають шістьма плитками, а діалог це збагачена версія після запуску.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/quiz.css</span><span class="kp-tag">вузол 4.x</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">1 кольоровий</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Що цей файл НЕ малює</div>
+<p class="kp-p">Сірий екран приніс <b>59 імен, яких система не мала</b>. Тут оголошено <b>34</b>. Решту 25 не намальовано вдруге - їх <b>прочитано з драбини</b>, і це головна робота компонента:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Сіре ім'я</th><th>Куди пішло</th><th>Чому саме туди</th></tr></thead><tbody>
+<tr><td><code>.q-opt</code></td><td><code>radio.css</code>, рядковий щабель</td><td>шосте ім'я поруч із <code>.co-opt</code>, <code>.pf-lang</code>, <code>.ac-cli</code></td></tr>
+<tr><td><code>.tx .nm .sub</code></td><td><code>.ot .otn .otd</code></td><td>обличчя того самого щабля, а не шосте ім'я для нього</td></tr>
+<tr><td><code>.q-pill</code></td><td><code>radio.css</code>, компактний щабель</td><td>піл, що обирає ЗНАЧЕННЯ, є радіо: «чип фільтрує ВИГЛЯД, радіо обирає ЗНАЧЕННЯ»</td></tr>
+<tr><td><code>.mk.radio</code></td><td><code>.co-radio</code></td><td>кружечок у системі намальований один раз</td></tr>
+<tr><td><code>.mk.check</code></td><td><code>.cb</code></td><td>квадрат і галочка теж</td></tr>
+<tr><td><code>.qsc</code></td><td><code>product-card.css</code></td><td>третій щабель поруч із <code>.pcard</code> і <code>.pcard-l</code></td></tr>
+<tr><td><code>.sv-row</code></td><td><code>.field-grp</code></td><td>поле, зварене з кнопкою, І Є цією композицією</td></tr>
+<tr><td><code>.back .skip .next</code></td><td><code>.btn--outline</code> <code>.btn--text</code> <code>.btn--accent</code></td><td>три кнопки системи; файл лише ставить їх на місце</td></tr>
+<tr><td><code>.sr-live</code></td><td><code>.vh</code></td><td><code>base.css</code> уже ховає живу область</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Слово стану - <code>on</code>, не <code>sel</code>.</b> Скрипт сірого екрана пише <code>.sel</code>; усе, що в цій системі обирають, обирається через <code>.on</code>, і драбина відповідає лише на нього. Клас стану це поведінка, а не структура, тож кольорова копія бере слово системи. Це єдине місце, де два шари навмисно пишуть одне поняття по-різному.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія · крок вступу</div>
+<p class="kp-p">Картка стоїть тут <b>наживо, з усіма своїми оголошеннями</b>. Видимий рівно один крок: <code>.q-step</code> це <code>display:none</code>, доки не отримає <code>.on</code>.</p>
+<div class="kp-demo">
+<div class="q-wrap">
+<div class="q-backdrop"></div>
+<section class="q-card">
+  <div class="q-head">
+    <div class="q-headrow"><span class="q-step-lbl">Крок 1 з 6</span><span class="sp"></span><a class="q-exit" href="#">✕ Просто відкрити каталог</a></div>
+    <div class="q-progress"><div class="bar"></div></div>
+    <span class="vh" aria-live="polite">Крок 1 з 6</span>
+  </div>
+  <div class="q-body">
+    <div class="q-step on">
+      <span class="q-eyebrow">Підбір за ціллю · без реєстрації</span>
+      <h2 class="q-intro-h1">Підберіть спортивне харчування під свою ціль</h2>
+      <p class="q-intro-lead">Не впевнені, з чого почати? Дайте відповідь на кілька простих запитань - і ми зберемо зрозумілий, безпечний стартовий набір саме під вас. Спокійно, без тиску.</p>
+      <div class="q-steps">
+        <div class="q-stepx"><span class="n">1</span><span><span class="st-t">Розкажіть про ціль</span><span class="st-s">Маса, схуднення, відновлення, енергія, імунітет чи витривалість.</span></span></div>
+        <div class="q-stepx"><span class="n">2</span><span><span class="st-t">Кілька уточнень</span><span class="st-s">Досвід, частота тренувань і обмеження (усе - за бажанням).</span></span></div>
+        <div class="q-stepx"><span class="n">3</span><span><span class="st-t">Готовий набір</span><span class="st-s">3–5 товарів зі складом і дозуванням + «чому саме це».</span></span></div>
+      </div>
+      <p class="q-note">Без реєстрації · 1 хвилина</p>
+    </div>
+  </div>
+  <div class="q-foot"><span class="sp"></span><button class="btn--accent btn--l" type="button">Почати</button></div>
+</section>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія · запитання, піли й застереження</div>
+<p class="kp-p">Рядок відповіді належить <code>radio.css</code> цілком; квіз додає до нього тільки плитку значка попереду. Крок 4 бере кілька відповідей, тож той самий рядок носить <code>.cb</code> замість <code>.co-radio</code>.</p>
+<div class="kp-demo">
+<div class="q-wrap">
+<div class="q-backdrop"></div>
+<section class="q-card">
+  <div class="q-head">
+    <div class="q-headrow"><span class="q-step-lbl">Крок 2 з 6</span><span class="sp"></span><a class="q-exit" href="#">✕ Просто відкрити каталог</a></div>
+    <div class="q-progress"><div class="bar"></div></div>
+  </div>
+  <div class="q-body">
+    <div class="q-step on">
+      <span class="q-eyebrow">Запитання 1 з 5</span>
+      <h2 class="q-qh">Яка ваша ціль?</h2>
+      <p class="q-sub">Оберіть головне - від цього залежить базовий набір категорій.</p>
+      <div class="q-opts">
+        <label class="q-opt on"><span class="ic">💪</span><span class="ot"><span class="otn">Набір м'язової маси</span><span class="otd">Протеїн · Гейнери · Креатин · BCAA · Передтрен.</span></span><span class="co-radio"></span></label>
+        <label class="q-opt"><span class="ic">🔥</span><span class="ot"><span class="otn">Схуднення і рельєф</span><span class="otd">Жироспалювачі · L-карнітин · Ізолят · Клітковина</span></span><span class="co-radio"></span></label>
+        <label class="q-opt"><span class="ic">🌿</span><span class="ot"><span class="otn">Відновлення</span><span class="otd">BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній</span></span><span class="co-radio"></span></label>
+        <label class="q-opt"><span class="ic">🥛</span><span class="ot"><span class="otn">Непереносимість лактози</span><span class="otd">Крок 4 бере кілька відповідей, тож той самий рядок носить квадрат</span></span><span class="cb on"></span></label>
+      </div>
+      <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
+      <div class="q-group">
+        <div class="q-glbl">Формат</div>
+        <div class="q-pills"><button class="q-pill on" type="button">Порошок</button><button class="q-pill" type="button">Капсули</button><button class="q-pill" type="button">Готові напої (RTD)</button></div>
+      </div>
+      <div class="q-group">
+        <div class="q-glbl">Бюджет</div>
+        <div class="q-pills"><button class="q-pill" type="button">Економний</button><button class="q-pill on" type="button">Оптимальний</button><button class="q-pill" type="button">Максимальний</button></div>
+      </div>
+      <div class="q-group">
+        <div class="q-safety">
+          <div class="si">⚠</div>
+          <div class="sh">Порадьтеся з лікарем</div>
+          <p>Якщо ви приймаєте ліки або маєте хронічне захворювання - перед початком прийому будь-яких добавок варто проконсультуватися з лікарем. Ми зберемо максимально консервативний і безпечний набір.</p>
+          <p class="disc">Це не медична порада. Stack не замінює консультацію лікаря.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="q-foot"><button class="btn--outline btn--l" type="button">← Назад</button><span class="sp"></span><button class="btn--text" type="button">Пропустити</button><button class="btn--accent btn--l" type="button">Далі</button></div>
+</section>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія · результат</div>
+<p class="kp-p">Єдиний крок, який просить ширшу картку: чотири компактні картки набору стають в один рядок від 620. Питає про це <b>композиція</b>, а не крок - <code>:has()</code> лишає рішення на картці, замість того щоб скрипт додавав клас ширини.</p>
+<div class="kp-demo">
+<div class="q-wrap">
+<div class="q-backdrop"></div>
+<section class="q-card">
+  <div class="q-head">
+    <div class="q-headrow"><span class="q-step-lbl">Крок 6 з 6</span><span class="sp"></span><a class="q-exit" href="#">✕ Просто відкрити каталог</a></div>
+    <div class="q-progress"><div class="bar"></div></div>
+  </div>
+  <div class="q-body">
+    <div class="q-step on">
+      <span class="q-eyebrow">Ваш результат</span>
+      <h2 class="q-res-h">Ваш стартовий набір для набору маси</h2>
+      <div class="q-chips"><span class="q-chip">Набір маси</span><span class="q-chip">Новачок</span><span class="q-chip">3–4 тренування</span></div>
+      <div class="q-setrow"><span class="st-h">Стартовий набір</span><span class="st-c">4 товари</span></div>
+      <div class="q-res-grid">
+        <article class="qsc"><a class="ph" href="#"><span class="tag tag-base">Основа</span>фото</a><div class="bd"><div class="br">Optimum Nutrition</div><a class="nm" href="#">Gold Standard 100% Whey 2270 г</a><div class="why">Базовий білок для росту м'язів - 24 г на порцію.</div><div class="ft"><span class="pr">1 290 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+        <article class="qsc"><a class="ph" href="#"><span class="tag tag-base">Основа</span>фото</a><div class="bd"><div class="br">OstroVit</div><a class="nm" href="#">Creatine Monohydrate 500 г</a><div class="why">Найдоказовіша добавка для сили - 5 г щодня.</div><div class="ft"><span class="pr">549 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+        <article class="qsc"><a class="ph" href="#">фото</a><div class="bd"><div class="br">BioTechUSA</div><a class="nm" href="#">BCAA Flow Zero 360 г</a><div class="why">Амінокислоти для відновлення між тренуваннями.</div><div class="ft"><span class="pr">720 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+        <article class="qsc"><a class="ph" href="#"><span class="tag tag-pop">Популярне</span>фото</a><div class="bd"><div class="br">Power Pro</div><a class="nm" href="#">Hyper Mass 4000 г</a><div class="why">Калорійний гейнер, щоб добрати норму калорій.</div><div class="ft"><span class="pr">1 450 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+      </div>
+      <div class="q-cta">
+        <a class="btn--accent btn--l btn--full" href="#">Додати весь набір у кошик · <span class="setsum">4 009 ₴</span></a>
+        <a class="btn--outline btn--l btn--full" href="#">Переглянути всю колекцію</a>
+      </div>
+      <div class="q-save">
+        <div class="sv-h">Зберегти набір на потім?</div>
+        <div class="sv-s">Надішлемо ваш набір на пошту - повернетесь до нього коли зручно.</div>
+        <div class="field-grp"><input class="field" type="email" placeholder="Ваш email"><button class="btn--accent" type="button">Надіслати</button></div>
+        <p class="sv-opt">Погоджуюсь отримувати добірку й новини Stack. Реєстрація не потрібна. Відписатися можна будь-коли.</p>
+      </div>
+      <p class="q-trust">Це не медична порада. Склад, дозування й сертифікат - на сторінці кожного товару.</p>
+    </div>
+  </div>
+  <div class="q-foot"><button class="btn--outline btn--l" type="button">← Назад</button><span class="sp"></span><a class="btn--accent btn--l" href="#">Показати набір →</a></div>
+</section>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<ul class="kp-ul">
+<li><b>Тільки вузол 4.x.</b> Одна поверхня, одна ціль: перетворити невиразну ціль новачка на безпечний набір</li>
+<li><b>Не <code>auth-dialog.css</code>.</b> Той діалог збирає ОДНЕ значення і закривається; цей веде шість кроків і має пам'ять</li>
+<li><b>Не <code>overlay.css</code>.</b> У прототипі це сторінка, а не оверлей: шапка й футер лишаються доступні, бо «закрити будь-коли» без місця, КУДИ закривати, це глухий кут</li>
+<li><b>Не шість плиток цілі.</b> Рішення 2: у MVP ціль обирають плитками (<code>goal-tile.css</code>), квіз це версія після запуску</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<ul class="kp-ul">
+<li><b>Спершу телефон, і точка - 620.</b> Сіре малює картку й скасовує її під 560. Тут навпаки: шит - звичайний випадок, картка - підсилення від 620. 560 у реєстрі точок немає, 620 є</li>
+<li><b>Смуга поступу - той самий рейок, що в <code>price-slider.css</code></b>: 4 заввишки, <code>--radius-4</code>, <code>--bg-track</code>. Сірі 6 були другою відповіддю на вже відповідане питання</li>
+<li><b>Піл бере радіус щабля, а не свій.</b> Сіре малює <code>--radius-pill</code>; щабель каже 8, і четвертий радіус на щаблі, перебраному заради знищення трьох, був би самим дрейфом</li>
+<li><b>Застереження стоїть на <code>--bg-notice</code></b>, а не на втопленому тлі: це єдине місце потоку, де продукт застерігає, а не пропонує</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<ul class="kp-ul">
+<li><b><code>.q-step.on</code></b> - видимий крок. Решта <code>display:none</code>, тож на сторінці стенда три картки показують три різні кроки</li>
+<li><b><code>.q-opt.on</code> і <code>.q-pill.on</code></b> - обране, і обидва прийшли з <code>radio.css</code> разом із hover, натиском, кільцем фокуса й акцентним тлом. Сірий рядок не мав жодного з чотирьох</li>
+<li><b>hover</b> на виході з квіза: <code>--text-secondary</code> → <code>--text-action</code></li>
+<li><b>РУХ:</b> смуга поступу - робота «статус», <code>--dur-base</code> + <code>--ease-standard</code>, поіменно <code>width</code>: вона не відповідає на натиск, вона показує позицію. Вихід і назва товару - робота «відповідь», <code>--dur-fast</code>. Поява самої картки - робота «зв'язок» і належить переходу між документами, а не цьому файлу</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>43</b> власних класи, і всі стоять вище наживо. <code>.q-backdrop</code> існує лише від 620 - на вужчому вікні його оголошення <code>display:none</code>, і це стан, а не пропуск.</p><div id="idle"></div><script>var KIT_CLS=["q-wrap","q-backdrop","q-card","q-head","q-headrow","q-step-lbl","q-exit","q-progress","bar","q-body","q-step","q-eyebrow","q-qh","q-sub","q-hint-skip","q-note","q-intro-h1","q-intro-lead","q-steps","q-stepx","st-t","st-s","q-opts","q-group","q-glbl","q-pills","q-safety","si","q-foot","q-res-h","q-chips","q-chip","q-setrow","st-h","st-c","q-res-grid","q-cta","setsum","q-save","sv-h","sv-s","sv-opt","q-trust"], KIT_STS=[];</script></section>
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>quiz.css</code>: <b>14</b> семантичних ролей і <b>35</b> примітивів. Список виводить <code>node tools/roles.mjs quiz</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (35)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-notice</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-track</code> <code>--elevation-4</code> <code>--line-hair</code> <code>--line-notice</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-base</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-4</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--scrim-ink-10</code> <code>--size-30</code> <code>--size-38</code> <code>--size-40</code> <code>--size-52</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

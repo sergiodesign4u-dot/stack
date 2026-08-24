@@ -12,6 +12,21 @@
    so it stays on its own line below. Two eyebrows, one edition. */
 .relh, .mech-kicker{ font-size: var(--fs-12); font-weight: var(--fw-black); text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
 .relh{ margin: var(--space-24) 0 0; }
+/* 12.11: THE BROW HAS A SECOND WEIGHT, AND IT HAD TWO WEARERS BEFORE THIS FILE
+   KNEW ABOUT EITHER. 7.50 found `.relh` and `.mech-kicker` written twice twenty
+   lines apart and made them one edition; the same six declarations were being
+   written a THIRD time in contacts-block.css (`.cnt-row .cap`, batch 5) and a
+   fourth in quiz.css (`.q-eyebrow`, batch 6) - identical but for the weight,
+   which is bold rather than black. `dupe.mjs` failed the run on the pair the
+   hour the fourth one landed, which is the check doing exactly its job.
+
+   TWO WEIGHTS IS A RUNG, NOT A DRIFT, and the difference is what the brow stands
+   OVER. Black opens a section of a page, where it competes with a heading and a
+   rule; bold labels a field inside a panel, where nothing else is caps at all and
+   black would shout. Both are 12, caps, muted - so the only thing either edition
+   is allowed to say is the weight, and it is said once. */
+.cnt-row .cap, .q-eyebrow{ display: block; font-size: var(--fs-12); font-weight: var(--fw-bold);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
 .homeh1{ margin: var(--space-16) 0 var(--space-4); }
 .sech{ display: flex; align-items: baseline; justify-content: space-between; gap: var(--space-12); margin: var(--space-32) 0 var(--space-16); }
 /* «Усі товари →» - the text finish (`btn--text`) plus this hook. The finish

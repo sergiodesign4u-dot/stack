@@ -115,10 +115,30 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Форма скелетона = форма контенту.</b> Тоді завантаження виглядає як проявлення, а не як перебудова. Тому <code>.skcard</code> має те саме співвідношення знімка, що й картка товару.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став спінер замість нього на списках.</b> Спінер каже «чекай», скелетон каже «ось що буде». Для однієї дії (надсилання форми) спінер доречний - див. <b>Форма чекауту</b>. І не малюй смугу власної висоти «бо тут заголовок» - для заголовка є <code>.acc-h1sk</code>.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Марки, які розмір мав, а імені не мав <b>12.2</b></div>
+<p class="kp-p">Шістнадцять марок на трьох екранах завантаження стояли інлайновими висотами: смуга, чий РОЗМІР казав, за що вона стоїть, а ім'я не казало нічого. Тепер у кожної своя робота, і два екрани, що малювали ту саму марку двома числами, зійшлись в одну: рядок наявності в блоці покупки (30 x 40%) і провідна цифра картки акаунта (28 x 40%) - це одне, і зветься воно <code>.skline--fig</code>.</p>
+<div class="kp-demo"><div class="skpulse" style="max-width:340px">
+<div class="skline s skline--kicker"></div>
+<div class="skline l skline--h1"></div>
+<div class="skline skline--fig"></div>
+<div class="skline skline--variant"></div>
+<div class="skline skline--price"></div>
+<div class="skline skline--cta"></div>
+<div class="skline skline--sep"></div>
+<div class="skline skline--trust"></div>
+</div></div>
+<p class="kp-p">Цифри поза сходинками притягуються до найближчої, а нічия йде вгору - це власне правило файла про відступи, прочитане на розмір. Там, де сходинки поруч немає, літерал лишається і несе <code>[?]</code>: <code>.skline--trust</code> це 120, і воно стоїть за цілий блок довіри.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Логотип бренда - не фотографія <b>12, партія 2</b></div>
+<p class="kp-p"><code>.skimg</code> це <code>aspect-ratio: 1</code>, бо кожна фотографія цього продукту квадратна. Коробка логотипа не квадратна і не фотографія - вона широка й низька, тож <code>brands-loading</code> обіцяв не ту коробку правильним компонентом. Марка бере ту висоту, яку коробка справді має.</p>
+<div class="kp-demo"><div class="skgrid skpulse"><div class="skcard"><div class="sklogo"></div><div class="skb"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="sklogo"></div><div class="skb"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="sklogo"></div><div class="skb"><div class="skline m"></div><div class="skline s"></div></div></div><div class="skcard"><div class="sklogo"></div><div class="skb"><div class="skline m"></div><div class="skline s"></div></div></div></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>18</b> власних класів і <b>1</b> стан оголошено в <code>skeleton.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["skline", "s", "m", "l", "skgrid", "skcard", "skimg", "skb", "skcardbox", "span2", "skpulse", "sl", "acc-h1sk", "acc-subsk", "co-skel", "auth-skel", "skbtn", "load-note"], KIT_STS=["prefers-reduced-motion"];</script></section>
+<script>var KIT_CLS=["skline", "s", "m", "l", "skgrid", "skcard", "skimg", "skb", "skcardbox", "span2", "skpulse", "sl", "acc-h1sk", "acc-subsk", "co-skel", "auth-skel", "skbtn", "load-note","skline--kicker","skline--h1","skline--fig","skline--variant","skline--price","skline--cta","skline--sep","skline--trust","sklogo"], KIT_STS=["prefers-reduced-motion"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Рух</div>
 <p class="kp-p"><b>Робота: СТАТУС.</b> Рухається: opacity, рівний цикл. Тривалість цикл 1.1s, поза реєстром, крива <code>ease-in-out</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>

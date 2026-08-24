@@ -172,10 +172,15 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Відповідь магазину має рівно одну лінію акценту і жодного заповнення.</b> Голос продавця під чужим відгуком мусить бути видимим і не мусить бути гучнішим за сам відгук. Принцип 1: спершу довіра, потім продаж.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не фарбуй розподіл оцінок акцентом.</b> П'ять помаранчевих смужок читаються як п'ять кнопок. Це факт про товар, а не дія, тому заливка - <code>--bg-inverse</code>.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Чип відповіді магазину</div>
+<p class="kp-p">У відповіді магазину чип носить <code>.lg</code>: без заливки, з акцентним краєм. Це не другий вигляд чипа - це те саме слово, сказане тим, хто відповідає, а не тим, хто питає, і край каже, з якого боку розмови воно звучить.</p>
+<div class="kp-demo"><div class="rvreply"><span class="rchip lg">Відповідь Stack</span></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>17</b> власних класів і <b>6</b> станів. Чотири перші оголошені в <code>review-item.css</code>; два останні - <b>нуль відгуків</b> і <b>кінець списку</b> - навпаки, ті, під які файл навмисно не має жодного оголошення. Вони в списку саме тому: у коді їх не видно, тож холостий контроль стежить, щоб їх було видно тут.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["rvbig","n","s","rvbars","rvbar","track","fill","rvitem","rvmeta","rname","rdate","rvbody","prc","rtext","rvreply","rchip","revcols"], KIT_STS=["min-width: 620px","min-width: 860px",":first-child",":last-child","нуль відгуків","кінець списку"];</script></section>
+<script>var KIT_CLS=["rvbig","n","s","rvbars","rvbar","track","fill","rvitem","rvmeta","rname","rdate","rvbody","prc","rtext","rvreply","rchip","revcols","lg"], KIT_STS=["min-width: 620px","min-width: 860px",":first-child",":last-child","нуль відгуків","кінець списку"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> обидва, і обидва вже були в реєстрі. <code>--bp-grid-2col</code> ставить мета-колонку відгуку зліва (<code>180px 1fr</code>), <code>--bp-shell-wide</code> дає сторінці відгуків бічну колонку 300px. Раунд молекул нічого не змінив: тут не було чого складати.</div>

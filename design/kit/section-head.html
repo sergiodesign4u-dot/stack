@@ -120,10 +120,27 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Заголовок і вихід стоять на одній базовій лінії.</b> Це рядок, а не два елементи поруч: 24px і 14px, вирівняні по центру, дають криву, яку видно навіть тому, хто не знає, чому.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не роби вихід гучнішим за заголовок.</b> Він <code>--text-secondary</code> навмисно: людина прийшла читати розділ, а не йти з нього. Це єдина текстова кнопка продукту, що говорить тихіше за оточення.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Заголовок із лінійкою</div>
+<p class="kp-p"><code>.sech--rule</code> - той самий заголовок розділу, але з правилом під ним: він відкриває блок усередині довгої прози, де самої лише жирності замало, щоб око знайшло межу.</p>
+<div class="kp-demo">
+<div class="sech sech--rule"><h3>Умови повернення</h3></div>
+<p class="kp-p">Текст розділу, який цей заголовок відкриває.</p>
+</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Друга вага брови <b>12.11</b></div>
+<p class="kp-p">Ті самі шість оголошень - 12, капс, приглушене - писались у системі чотири рази. 7.50 звів два з них в одну редакцію; ще два жили в <code>contacts-block.css</code> і <code>quiz.css</code> і відрізнялись лише вагою. Це не дрейф, це щабель, і різниця в тому, НАД ЧИМ брова стоїть: чорна відкриває розділ сторінки, де поруч заголовок і лінійка; жирна підписує поле всередині панелі, де капсом більше нічого немає і чорна кричала б.</p>
+<div class="kp-demo" style="display:flex;flex-direction:column;gap:var(--space-16)">
+<div><span class="relh">Схожі товари</span></div>
+<div class="cnt-row"><span class="g">📞</span><span><span class="cap">Телефон</span><span class="val">0 800 000 000</span></span></div>
+<div><span class="q-eyebrow">Запитання 1 з 5</span></div>
+</div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>3</b> стани оголошено в <code>section-head.css</code>.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["lh1","relh","homeh1","sech","all","rvhead","mech-kicker"], KIT_STS=[":hover", "aria-label=\"Опис\"", "min-width: 620px"];</script></section>
+<script>var KIT_CLS=["lh1","relh","homeh1","sech","all","rvhead","mech-kicker","sech--rule","q-eyebrow","cap"], KIT_STS=[":hover", "aria-label=\"Опис\"", "min-width: 620px"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> шапка блоку відгуків стає трьома колонками (<code>190px 1fr auto</code>). Число вже стояло на реєстрі; раунд молекул нічого не складав.</div>

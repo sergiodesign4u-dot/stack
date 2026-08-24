@@ -11691,3 +11691,100 @@ deliberately not taken, because deriving that list would mean this instrument ke
 of the cascade, and a list it derives can be wrong in exactly the direction that hid a 2.97:1 chip
 for two stages. **Correctness first; the narrowing is a decision with a reason, not an optimisation
 slipped in.**
+
+## Stage 12, batch 6 - the quiz, and the last red gate of the stage (2026-08-24)
+
+**The owner gave the separate word after the stage had closed at 140 of 141.** Locked decision 2
+keeps six goal tiles in MVP and files the quiz dialog after launch, so the screen had sat on the
+coverage map as a counted exception carrying its reason. It is now built, and `OUT_OF_SCOPE` in
+`tools/coverage.mjs` is an EMPTY declared list - which is itself a claim, so the check is written to
+be asked both ways whether the list has rows or not.
+
+**Why the round was a component ORDER and not a dressing job.** The grey quiz carries 80 class names
+and the system declared 21 of them. `wireframes/_wf.css` has no rule for `q-*` at all: the whole
+dialog lives in that one screen's private `<style>` block, so a stylesheet-derived inventory could
+never have met it - and being the one ПОТІМ screen meant no agent of the five batches ever ordered it.
+
+**25 of the 59 missing names were READ off the ladder instead of drawn.** `.q-opt` is the sixth name
+on `radio.css`'s row rung and `.q-pill` the third on its compact rung; that file wrote the
+instruction for its own growth at 7.96 - «one name added to a selector list, never a rename» - and
+this is the fourth and fifth time it has collected. The pills are radios and not chips by the file's
+own opening line: a chip filters a VIEW, a radio picks a VALUE, and «порошок» changes what you buy.
+The marks are `.co-radio` and `.cb`, the footer is three system buttons, the save row is
+`.field-grp`, the live region is `.vh`. What is left - 34 names - is `quiz.css`.
+
+**The state word is `on`, not `sel`.** The grey script writes `.sel`; everything selectable in this
+system is chosen with `.on`, and the ladder answers only to that. A state class is behaviour rather
+than structure, so the coloured copy takes the system's word. It is the one place the two layers
+spell one concept differently on purpose, and `quiz.css` says so rather than leaving a reader to find
+out from a dead rule.
+
+**`.tag-base` - the third badge form, and the first that is not a claim.** `.tag-pop` says how OTHERS
+behave and `.tag-new` how new a thing is; «Основа» says what ROLE a product plays in the set just
+assembled for you. So it carries no glyph: the star and the spark are the boast, and a role has
+nothing to boast about (principle 4). `uivChrome()`'s text-to-form pass gained the third selector,
+`.qsc .ph .tag`, and the third word - a bare `class="tag"` there had matched no rule in `badge.css`
+at all, because the badge census was read out of `.pcard .ph .tag` across 51 coloured screens.
+
+**The brow was being written a fourth time, and `dupe.mjs` failed the run the hour it landed.** Six
+identical declarations stood in `section-head.css` (where 7.50 had already folded two into one), in
+`contacts-block.css` from batch 5, and now in `quiz.css`. Two weights is a RUNG and not a drift -
+black opens a section of a page where it competes with a heading and a rule, bold labels a field
+inside a panel where nothing else is caps at all - so both are declared once, in the file that owns
+brows, and the other two files give the rule up.
+
+**`aria-modal="true"` came off the dialog.** The quiz deliberately does not trap: the header and
+footer stay reachable, because «close any time» with nowhere to close TO is a dead end. The attribute
+was therefore a false claim with 60 controls behind it. `modal-trap.mjs` narrowed with it - the
+subject is the PROMISE, not the role - and the dialogs that make no promise are counted in a census
+line so the narrowing hides nothing.
+
+**The defect was on a step behind a click, and three instruments called it clean.** The footer row
+«Назад · Пропустити · Показати набір →» measures 412px inside a 328 card and drove the DOCUMENT 68px
+sideways at 360 and 42px at 390. `accept.mjs` walks 343 screens at both widths, `split.mjs` sweeps
+its declared frames, `width-sweep.mjs` asks at 129 widths - all three read the document AT REST,
+where the quiz shows one step of eight. The repair is the shape `patterns/action-row.css` named at
+12.3: below 620 the one clear next step takes a full-width row of its own.
+
+**`tools/steps.mjs` is the instrument that asks, and its own first edition failed falsification.** It
+reached every step by applying the visibility switch directly and reported ZERO; the repair it was
+written to verify was then reverted and it reported zero again. A step machine moves two things - the
+body, which the class shows, and the chrome, which the screen's script re-dresses - and none of those
+three button labels exists in the markup at rest. It now walks by CLICKING and opens whatever the
+path never reached with the switch, counting the two apart, because an instrument that shows one
+layer cannot say «clean». Falsified against the known defect afterwards: 68 at 360, 42 at 390,
+blaming `button.btn--accent.btn--l`. Its subject is DERIVED rather than declared - a switch the
+system declares plus a script that toggles it - so a screen that grows a machine is picked up with no
+edit to the file. Three machines in 142 screens today.
+
+**The last red gate of the stage is closed, and ten of the 67 were never real.** `idle.mjs` had
+reported 67 declarations behind their file on 29 of 93 stand pages. One was `.html`, read out of
+`a[href="index.html"]` by a class extractor that stripped comments and nothing else. Two land on
+`html` or `body`, which a demo box physically cannot contain - and because the test is read off the
+css, it excuses `body.pdp-stuck` in the same run that still demands `.pdp-tabs.stuck`. Seven were
+classes the pages had properly declared in `KIT_STS`, which the reverse question never consulted -
+`drawer-open`, `mega-open` and `wfh-menuopen` have been named in prose on `header.html` since 8.31.
+The other **57 were real and were paid with 57 live demos on 26 pages**, «винне демо» at 0 in every
+intermediate run, which was the exact condition under which step 7 had refused to fill the list
+mechanically.
+
+**Two documents were stale about the screen they name, and one correction had never reached its
+owner.** `motion.md` section J names `rating.css` on a screen with no rating; `responsive.md` says
+«THE SAME» about a screen whose component carries a registered behaviour change at 620 in both
+directions. And voice's cluster-8 corrections table had logged the title fix («тест» -> «за ціллю»)
+without it ever reaching `ia/docs/pages/quiz.md` - the file that OWNS SEO copy - so both cells there
+carried the retired word, title and description alike. Repaired in the node and in `ia/quiz.html` the
+same step, along with two `microcopy.md` rows that had never received their own corrections.
+
+**The backtick trap, twice in one hour**, both times a comment written inside a template literal,
+both times caught by `typo.mjs`'s parse gate before a run. No new rule in `CLAUDE.md`: «a repair
+applied by rule still has to know the KIND of every file it opens» already covers a string delimiter
+inside a string, and the gate that caught the apostrophe three times caught this too.
+
+**Gates at close.** `accept` 343/0 at 390 and at 360 · `screen-css` clean on all ten marks · `vars`
+343/0 · `links` 6068 with 0 dead and `DESIGN_NAV` knowing all 141 colour names · `typo` clean with 61
+files parsing · `idle` **94 pages, 0 red, 0 behind** · `steps` 3 machines, 20 steps, 0 driving the
+document sideways · `dupe` 0 · `bp` 4 container thresholds in system and in registry · `modal-trap`
+0 of 27 · `coverage` **141 records / 141 opened / 50 of 50 with their own states / one panel on 141
+of 141** · **`wireframes/` 0 files changed.**
+

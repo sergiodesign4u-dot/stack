@@ -60,6 +60,13 @@ var DESIGN_NAV = [
      its own fallback. One absent line, three measured symptoms, none of them on the
      screen it came from. */
   'goal.html', 'goal-empty.html', 'goal-error.html', 'goal-loading.html',
+  /* 12.11, batch 6 - node 4.x, on the owner's separate word. The last grey screen
+     of the product and the only ПОТІМ one: locked decision 2 keeps six goal tiles
+     in MVP, so the stage closed at 140 of 141 with this row deliberately absent
+     and named on the coverage map. Five screens hard-code `../wireframes/quiz.html`
+     rather than a bare href, which `uivFixLinks()` cannot repair by design - they
+     are re-pointed by hand in the same step this row is written. */
+  'quiz.html',
   'product.html', 'product-loading.html', 'product-error.html', 'product-oos.html',
   'product-reviews.html', 'product-coach.html',
   'auth.html', 'auth-loading.html', 'auth-code.html', 'auth-error.html', 'auth-newuser.html',
@@ -662,11 +669,18 @@ function uivChrome(){
     el.addEventListener('focusin', wfMegaImg, { once: true });
     el.addEventListener('click', wfMegaImg, { once: true });
   });
-  /* product-card corner badge → a typed chip: Популярне = dark + ★, Новинка = accent + ✦ */
-  document.querySelectorAll('.pcard .ph .tag, .pcard-l .lph .tag').forEach(function(t){
+  /* product-card corner badge → a typed chip: Популярне = dark + ★, Новинка = accent + ✦,
+     Основа = paper, no glyph (a role in a set rather than a claim about it).
+     12.11 ADDS THE THIRD SELECTOR AND THE THIRD WORD. `.qsc` - the quiz's compact
+     set card - was outside this pass, so a bare `class="tag"` there matched no rule
+     in badge.css at all and rendered as plain text on the photograph. Found by the
+     agent that assembled the screen, which had to type the modifier by hand and
+     said so rather than leaving it. */
+  document.querySelectorAll('.pcard .ph .tag, .pcard-l .lph .tag, .qsc .ph .tag').forEach(function(t){
     var s = (t.textContent || '').trim().toLowerCase();
     if(/нов/.test(s)) t.classList.add('tag-new');
     else if(/попул|хіт|хит|бестсел/.test(s)) t.classList.add('tag-pop');
+    else if(/основ/.test(s)) t.classList.add('tag-base');
   });
   /* product-card action button → cart, or a bell when it's the OOS "notify" variant */
   document.querySelectorAll('.cartbtn').forEach(function(b){

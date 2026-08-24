@@ -147,10 +147,18 @@
 <p class="kp-p">Коли на сторінці є кошик-полиця, головна дія належить їй, а залита дія смуги стає контурною - правило записане ще на етапі 07 у <code>wireframes/docs/critique.md</code>.</p></section>
 
 
+<section class="kp-sec"><div class="kp-sh">Банер рекомендації</div>
+<p class="kp-p"><code>.recbanner</code> стоїть над добіркою і каже, ЧОМУ вона така. Маскот тут не прикраса: він єдиний у продукті носить власну плинну величину <code>--rbear</code> (68 на 360 -> 92 на 560), бо круг, обрізаний по обличчю, на вузькій ширині мусить меншати швидше за текст поруч.</p>
+<div class="kp-demo"><div class="recbanner">
+<span class="rbear"><img src="../visuals/mascot-face-curious.png" alt=""></span>
+<span class="rt">Підібрали під вашу ціль</span>
+</div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>30</b> власних класів і <b>3</b> стани оголошено в <code>banner.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["hbanners","hslider","hside","hpromo","hptag","hph","hps","hdots","on","hdeal","hd-tag","hd-ph","hd-brand","hd-nm","hd-price","hd-oldline","hd-old","hd-new","hd-meta","hd-cta","pstrip","pt","psp","tband","tbanners","tbn","tbim","tbx","promo","ps"], KIT_STS=[":hover", ".on", "--elevation-2"];</script></section>
+<script>var KIT_CLS=["hbanners","hslider","hside","hpromo","hptag","hph","hps","hdots","on","hdeal","hd-tag","hd-ph","hd-brand","hd-nm","hd-price","hd-oldline","hd-old","hd-new","hd-meta","hd-cta","pstrip","pt","psp","tband","tbanners","tbn","tbim","tbx","promo","ps","recbanner","rbear"], KIT_STS=[":hover", ".on", "--elevation-2"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Три різні відповіді в одному файлі, і це навмисно.</b> <b>1)</b> <code>.tbanners</code> - <b>запит зник</b>: п'ять смуг довіри заповнюють ряд через <code>auto-fit</code> з підлогою <code>8rem</code>. На 360 обидві редакції дають 2 x 158, на 720 - 5 x 128; між ними ряд тепер стає трьома на 440 і чотирма на 580 замість того, щоб тримати дві колонки 360 пікселів поспіль. <b>2)</b> <code>.hbanners</code> і <code>.hpromo</code> - <b>720 -> 620</b>: <code>2fr 1fr</code> з явним розміщенням це композиція, і <code>auto-fit</code> її не вміє. Зміряно: на 620 колонка акції виходить 192px, а на 860, де <code>.hero-wrap</code> бере собі компаньйона і тисне цю сітку до 562, та сама картка вже 183px. <b>3)</b> <code>.recbanner</code> - <b>запит зник</b>: гап, портрет і кегль стрибали на 559, тепер це три пандуси, кожен кінчається тим числом, яке там і стояло. <code>.hpromo</code> <code>min-height</code> пішла тим самим шляхом: 300 на 360, 340 від 620.</div>

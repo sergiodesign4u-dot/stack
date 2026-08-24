@@ -97,8 +97,13 @@
 <p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U6</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
 <p class="kp-p">Одна шторка на екран, і вона телефонна половина пари з <code>filter-rail</code>.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Тіло під шитом</div>
+<p class="kp-p"><code>.fsheet-body</code> - сторінка, над якою шит відкривається. Свого вигляду в неї немає жодного: вона лише заводить контекст накладання (<code>position: relative; z-index: 0</code>), щоб шит і його скрим лягли поверх неї, а не боролися з тим, що вище в дереві.</p>
+<div class="kp-demo"><div class="fsheet-body"><p class="kp-p">Список товарів, над яким відкривається шит фільтрів.</p></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>4</b> власні класи і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["fsheet", "fsheet-foot", "fsheet-h", "fsheet-ov"], KIT_STS=[];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>4</b> власні класи і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["fsheet", "fsheet-foot", "fsheet-h", "fsheet-ov","fsheet-body"], KIT_STS=[];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-shell-wide</code>, уже реєстрове. <b>Що саме міняється:</b> від точки шита немає - фільтри стоять рейкою. Раунд організмів нічого не складав.</div>

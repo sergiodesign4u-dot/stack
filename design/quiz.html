@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Підбір спортивного харчування за ціллю | Stack (wireframe 4.x)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 4.x Квіз / підбір за ціллю (ПОТІМ, рішення 2).
+  Покроковий діалог: Вступ (4.0) → Q1 ціль (обов'язкова) → Q2 → Q3 → Q4 (кілька) →
+  [⚠ застереження, умовний крок] → Q5 → Результат-набір (4.2/4.3). Вихід =
+  добірка колекції цілі (2.2), не один товар. Без реєстрації. Вийти будь-коли.
+
+  ТІЛО МАЛЮЄ quiz.css, і 25 сірих імен сюди не приїхали - їх прочитано з драбини:
+  .q-opt з .ot/.otn/.otd і .co-radio - radio.css, рядковий щабель · .mk.check - .cb
+  (checkbox.css) · .q-pill - radio.css, компактний щабель · .back/.skip/.next і
+  .btn.dark - button.css · .sv-row - .field-grp (field.css) · .sr-live - .vh
+  (base.css) · .qsc - product-card.css, третій щабель · .adds - btn--outline
+  btn--icon. Нічого не оголошено на екрані.
+
+  ТРИ РІЧІ, ЯКИХ СІРИЙ ОРИГІНАЛ НЕ РОБИТЬ, І ЦЕ РІШЕННЯ, А НЕ ДРЕЙФ.
+  1) Слово стану - `on`, не `sel`: у цій системі все, що обирають, обирається
+     через `.on`, і драбина radio.css відповідає лише на нього.
+  2) Справжніх <input> у рядку відповіді немає. Канон системи - `span.cb` і
+     `span.co-radio` (checkbox.css: «351 span.cb проти 5 справжніх input»), тож
+     стан тримає клас, а семантику - role="radio"/"checkbox" + aria-checked на
+     самому рядку. Кільце фокуса `.q-opt:focus-visible` в radio.css існує саме
+     для цього, тож рядок отримує tabindex і стрілки, як мав нативний радіо.
+  3) `＋` на картці набору - це `+`, бо саме його UIV_SIGN_ONLY міняє на іконку
+     набору, і доступна назва кнопки - канон словника «У кошик».
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Хлібні крихти (індексована сторінка вступу /pidbir) -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Підбір за ціллю</span>
+  </nav>
+
+  <div class="q-wrap">
+    <div class="q-backdrop" aria-hidden="true"></div>
+
+    <section class="q-card" role="dialog" aria-labelledby="q-live" id="q-card">
+
+      <!-- ГОЛОВА: поступ + вихід -->
+      <div class="q-head">
+        <div class="q-headrow">
+          <span class="q-step-lbl" id="q-step-lbl">Крок 1 з 6</span>
+          <span class="sp"></span>
+          <a class="q-exit" href="catalog-page.html" aria-label="Закрити і відкрити каталог">✕ Просто відкрити каталог</a>
+        </div>
+        <div class="q-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="16" id="q-bar-wrap">
+          <div class="bar" id="q-bar"></div>
+        </div>
+        <span class="vh" id="q-live" aria-live="polite">Крок 1: вступ</span>
+      </div>
+
+      <!-- ТІЛО -->
+      <div class="q-body">
+
+        <!-- КРОК 0 · ВСТУП (4.0) -->
+        <div class="q-step on" data-step="0" id="step-intro">
+          <span class="q-eyebrow">Підбір за ціллю · без реєстрації</span>
+          <h1 class="q-intro-h1">Підберіть спортивне харчування під свою ціль</h1>
+          <p class="q-intro-lead">Не впевнені, з чого почати? Дайте відповідь на кілька простих запитань -
+            і ми зберемо зрозумілий, безпечний стартовий набір саме під вас. Спокійно, без тиску.</p>
+          <div class="q-steps" aria-label="Як це працює">
+            <div class="q-stepx"><span class="n">1</span><span><span class="st-t">Розкажіть про ціль</span><span class="st-s">Маса, схуднення, відновлення, енергія, імунітет чи витривалість.</span></span></div>
+            <div class="q-stepx"><span class="n">2</span><span><span class="st-t">Кілька уточнень</span><span class="st-s">Досвід, частота тренувань і обмеження (усе - за бажанням).</span></span></div>
+            <div class="q-stepx"><span class="n">3</span><span><span class="st-t">Готовий набір</span><span class="st-s">3–5 товарів зі складом і дозуванням + «чому саме це».</span></span></div>
+          </div>
+          <p class="q-note">Без реєстрації · 1 хвилина</p>
+        </div>
+
+        <!-- КРОК 1 · Q1 ЦІЛЬ (одна, ОБОВ'ЯЗКОВА) -->
+        <div class="q-step" data-step="1" id="step-q1">
+          <span class="q-eyebrow">Запитання 1 з 5</span>
+          <h2 class="q-qh">Яка ваша ціль?</h2>
+          <p class="q-sub">Оберіть головне - від цього залежить базовий набір категорій.</p>
+          <div class="q-opts" role="radiogroup" aria-label="Ваша ціль" aria-required="true">
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="0" data-grp="goal" data-val="Набір маси"><span class="ic">💪</span><span class="ot"><span class="otn">Набір м'язової маси</span><span class="otd">Протеїн · Гейнери · Креатин · BCAA · Передтрен.</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="goal" data-val="Схуднення"><span class="ic">🔥</span><span class="ot"><span class="otn">Схуднення і рельєф</span><span class="otd">Жироспалювачі · L-карнітин · Ізолят · Клітковина</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="goal" data-val="Відновлення"><span class="ic">🌿</span><span class="ot"><span class="otn">Відновлення</span><span class="otd">BCAA/EAA · Глютамін · Казеїн · Омега-3 · Магній</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="goal" data-val="Енергія і тонус"><span class="ic">⚡</span><span class="ot"><span class="otn">Енергія і тонус</span><span class="otd">Передтренувальні · Кофеїн · B-вітаміни · Ізотоніки</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="goal" data-val="Імунітет і здоров'я"><span class="ic">🛡️</span><span class="ot"><span class="otn">Імунітет і здоров'я</span><span class="otd">Вітаміни C, D3, цинк · Омега-3 · Адаптогени</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="goal" data-val="Витривалість"><span class="ic">🏃</span><span class="ot"><span class="otn">Витривалість</span><span class="otd">Ізотоніки/електроліти · Бета-аланін · L-карнітин · Гелі</span></span><span class="co-radio"></span></label>
+          </div>
+        </div>
+
+        <!-- КРОК 2 · Q2 ДОСВІД (одна, можна пропустити) -->
+        <div class="q-step" data-step="2" id="step-q2">
+          <span class="q-eyebrow">Запитання 2 з 5</span>
+          <h2 class="q-qh">Який у вас досвід?</h2>
+          <p class="q-sub">Впливає на розмір набору: новачкам - менше й з поясненнями.</p>
+          <div class="q-opts" role="radiogroup" aria-label="Досвід">
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="0" data-grp="exp" data-val="Новачок"><span class="ic">🌱</span><span class="ot"><span class="otn">Новачок</span><span class="otd">Тільки починаю або менше пів року.</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="exp" data-val="Є досвід"><span class="ic">📈</span><span class="ot"><span class="otn">Є досвід</span><span class="otd">Тренуюся регулярно, орієнтуюся в базовому.</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="exp" data-val="Досвідчений"><span class="ic">🏆</span><span class="ot"><span class="otn">Досвідчений</span><span class="otd">Знаю, що мені треба - потрібен повний стек.</span></span><span class="co-radio"></span></label>
+          </div>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити (за замовчуванням «Новачок»).</p>
+        </div>
+
+        <!-- КРОК 3 · Q3 ЧАСТОТА (одна, можна пропустити) -->
+        <div class="q-step" data-step="3" id="step-q3">
+          <span class="q-eyebrow">Запитання 3 з 5</span>
+          <h2 class="q-qh">Як часто тренуєтесь?</h2>
+          <p class="q-sub">Частіші тренування - додамо відновлення й електроліти.</p>
+          <div class="q-opts" role="radiogroup" aria-label="Частота тренувань">
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="0" data-grp="freq" data-val="1–2 рази"><span class="ic">🗓️</span><span class="ot"><span class="otn">1–2 рази на тиждень</span><span class="otd">Мінімальний, базовий набір.</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="freq" data-val="3–4 рази"><span class="ic">📅</span><span class="ot"><span class="otn">3–4 рази на тиждень</span><span class="otd">Оптимальний режим.</span></span><span class="co-radio"></span></label>
+            <label class="q-opt" role="radio" aria-checked="false" tabindex="-1" data-grp="freq" data-val="5+ разів"><span class="ic">🔁</span><span class="ot"><span class="otn">5+ разів на тиждень</span><span class="otd">Додамо intra-workout і відновлення.</span></span><span class="co-radio"></span></label>
+          </div>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
+        </div>
+
+        <!-- КРОК 4 · Q4 ОБМЕЖЕННЯ (кілька, можна пропустити) -->
+        <div class="q-step" data-step="4" id="step-q4">
+          <span class="q-eyebrow">Запитання 4 з 5</span>
+          <h2 class="q-qh">Чи є щось, що нам врахувати?</h2>
+          <p class="q-sub">Можна обрати кілька. Ми підберемо набір без зайвого для вас.</p>
+          <div class="q-opts" role="group" aria-label="Обмеження">
+            <label class="q-opt" role="checkbox" aria-checked="false" tabindex="0" data-grp="cons" data-val="Без лактози"><span class="ic">🥛</span><span class="ot"><span class="otn">Непереносимість лактози</span><span class="otd">Протеїн → ізолят / рослинний.</span></span><span class="cb"></span></label>
+            <label class="q-opt" role="checkbox" aria-checked="false" tabindex="0" data-grp="cons" data-val="Веган/веге"><span class="ic">🌱</span><span class="ot"><span class="otn">Вегетаріанство / веганство</span><span class="otd">Рослинний протеїн, без тваринного.</span></span><span class="cb"></span></label>
+            <label class="q-opt" role="checkbox" aria-checked="false" tabindex="0" data-grp="cons" data-val="Алергії"><span class="ic">⚠️</span><span class="ot"><span class="otn">Алергії (горіхи, глютен…)</span><span class="otd">Виключимо відповідні складники.</span></span><span class="cb"></span></label>
+            <label class="q-opt" role="checkbox" aria-checked="false" tabindex="0" id="opt-meds" data-grp="cons" data-val="Ліки/хронічне"><span class="ic">💊</span><span class="ot"><span class="otn">Приймаю ліки / хронічне захворювання</span><span class="otd">Покажемо застереження + консервативний набір.</span></span><span class="cb"></span></label>
+            <label class="q-opt" role="checkbox" aria-checked="false" tabindex="0" data-grp="cons" data-val="Нічого"><span class="ic">✅</span><span class="ot"><span class="otn">Нічого з переліченого</span></span><span class="cb"></span></label>
+          </div>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
+        </div>
+
+        <!-- КРОК 5 · ЗАСТЕРЕЖЕННЯ (умовний: лише якщо обрано ліки/хронічне) -->
+        <div class="q-step" data-step="5" id="step-safety">
+          <div class="q-safety">
+            <div class="si">⚠</div>
+            <div class="sh">Порадьтеся з лікарем</div>
+            <p>Якщо ви приймаєте ліки або маєте хронічне захворювання - перед початком прийому будь-яких
+              добавок варто проконсультуватися з лікарем. Ми зберемо максимально консервативний і безпечний набір.</p>
+            <p class="disc">Це не медична порада. Stack не замінює консультацію лікаря.</p>
+          </div>
+        </div>
+
+        <!-- КРОК 6 · Q5 ФОРМАТ / БЮДЖЕТ (можна пропустити) -->
+        <div class="q-step" data-step="6" id="step-q5">
+          <span class="q-eyebrow">Запитання 5 з 5</span>
+          <h2 class="q-qh">Що вам зручніше?</h2>
+          <p class="q-sub">Підберемо форму й цінову категорію під ваш комфорт.</p>
+          <div class="q-group">
+            <div class="q-glbl">Формат</div>
+            <div class="q-pills" role="radiogroup" aria-label="Формат">
+              <button type="button" class="q-pill" data-grp="format" role="radio" aria-checked="false">Порошок</button>
+              <button type="button" class="q-pill" data-grp="format" role="radio" aria-checked="false">Капсули</button>
+              <button type="button" class="q-pill" data-grp="format" role="radio" aria-checked="false">Готові напої (RTD)</button>
+            </div>
+          </div>
+          <div class="q-group">
+            <div class="q-glbl">Бюджет</div>
+            <div class="q-pills" role="radiogroup" aria-label="Бюджет">
+              <button type="button" class="q-pill" data-grp="budget" role="radio" aria-checked="false">Економний</button>
+              <button type="button" class="q-pill" data-grp="budget" role="radio" aria-checked="false">Оптимальний</button>
+              <button type="button" class="q-pill" data-grp="budget" role="radio" aria-checked="false">Максимальний</button>
+            </div>
+          </div>
+          <p class="q-hint-skip">Не обов'язково - можна пропустити.</p>
+        </div>
+
+        <!-- КРОК 7 · РЕЗУЛЬТАТ (4.2 / 4.3) -->
+        <div class="q-step" data-step="7" id="step-result">
+          <span class="q-eyebrow">Ваш результат</span>
+          <h2 class="q-res-h" id="res-headline">Ваш стартовий набір для набору маси</h2>
+          <div class="q-chips" id="res-chips" aria-label="Чому саме цей набір">
+            <span class="q-chip">Набір маси</span>
+            <span class="q-chip">Новачок</span>
+            <span class="q-chip">3–4 тренування</span>
+          </div>
+
+          <div class="q-setrow">
+            <span class="st-h">Стартовий набір</span>
+            <span class="st-c">4 товари</span>
+          </div>
+
+          <div class="q-res-grid">
+            <!-- компактні картки набору: фото · бренд · назва · один рядок «чому» · ціна + додати -->
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag tag-base">Основа</span></a>
+              <div class="bd">
+                <div class="br">Optimum Nutrition</div>
+                <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+                <div class="why">Базовий білок для росту м'язів - 24 г на порцію.</div>
+                <div class="ft"><span class="pr">1 290 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="У кошик">+</button></div>
+              </div>
+            </article>
+
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag tag-base">Основа</span></a>
+              <div class="bd">
+                <div class="br">OstroVit</div>
+                <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
+                <div class="why">Найдоказовіша добавка для сили - 5 г щодня.</div>
+                <div class="ft"><span class="pr">549 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="У кошик">+</button></div>
+              </div>
+            </article>
+
+            <article class="qsc">
+              <a href="product.html" class="ph">фото</a>
+              <div class="bd">
+                <div class="br">BioTechUSA</div>
+                <a href="product.html" class="nm">BCAA Flow Zero 360 г</a>
+                <div class="why">Амінокислоти для відновлення між тренуваннями.</div>
+                <div class="ft"><span class="pr">720 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="У кошик">+</button></div>
+              </div>
+            </article>
+
+            <article class="qsc">
+              <a href="product.html" class="ph">фото<span class="tag tag-pop">Популярне</span></a>
+              <div class="bd">
+                <div class="br">Power Pro</div>
+                <a href="product.html" class="nm">Hyper Mass 4000 г</a>
+                <div class="why">Калорійний гейнер, щоб добрати норму калорій.</div>
+                <div class="ft"><span class="pr">1 450 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="У кошик">+</button></div>
+              </div>
+            </article>
+          </div>
+
+          <div class="q-cta">
+            <a href="cart.html" class="btn--accent btn--l btn--full">Додати весь набір у кошик · <span class="setsum">4 009 ₴</span></a>
+            <a href="goal.html" class="btn--outline btn--l btn--full">Переглянути всю колекцію</a>
+          </div>
+
+          <!-- збереження набору на пошту (без акаунта; opt-in розсилки 8.12) -->
+          <div class="q-save">
+            <div class="sv-h">Зберегти набір на потім?</div>
+            <div class="sv-s">Надішлемо ваш набір на пошту - повернетесь до нього коли зручно.</div>
+            <div class="field-grp">
+              <input class="field" type="email" placeholder="Ваш email" aria-label="Ваш email">
+              <button class="btn--accent" type="button">Надіслати</button>
+            </div>
+            <p class="sv-opt">Погоджуюсь отримувати добірку й новини Stack. Реєстрація не потрібна. Відписатися можна будь-коли.</p>
+          </div>
+
+          <p class="q-trust">Це не медична порада. Склад, дозування й сертифікат - на сторінці кожного товару.</p>
+        </div>
+
+      </div><!-- /q-body -->
+
+      <!-- ЛИПКА НАВІГАЦІЯ КРОКІВ -->
+      <div class="q-foot" id="q-foot">
+        <button type="button" class="btn--outline btn--l" id="q-back">← Назад</button>
+        <span class="sp"></span>
+        <button type="button" class="btn--text" id="q-skip">Пропустити</button>
+        <button type="button" class="btn--accent btn--l" id="q-next">Почати</button>
+      </div>
+
+    </section>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>
+/* ---- рушій кроків квіза - логіка сірого оригіналу, з двома замінами:
+       слово стану `sel` -> `on`, і відповідь тримає клас, а не прихований input ---- */
+(function () {
+  var steps = ['intro', 'q1', 'q2', 'q3', 'q4', 'safety', 'q5', 'result'];
+  var idx = 0;                     // покажчик у steps[]
+  var TOTAL = 6;                   // «Крок N з 6»: вступ + 5 запитань, результат складається у потік
+
+  var elBar = document.getElementById('q-bar');
+  var elBarWrap = document.getElementById('q-bar-wrap');
+  var elLbl = document.getElementById('q-step-lbl');
+  var elLive = document.getElementById('q-live');
+  var elBack = document.getElementById('q-back');
+  var elNext = document.getElementById('q-next');
+  var elSkip = document.getElementById('q-skip');
+
+  // підписи для поступу й для оголошення; індекс збігається зі steps[]
+  var labels = {
+    intro:  {n: 1, txt: 'Вступ'},
+    q1:     {n: 2, txt: 'Запитання 1: ціль'},
+    q2:     {n: 3, txt: 'Запитання 2: досвід'},
+    q3:     {n: 4, txt: 'Запитання 3: частота'},
+    q4:     {n: 5, txt: 'Запитання 4: обмеження'},
+    safety: {n: 5, txt: 'Застереження щодо безпеки'},
+    q5:     {n: 6, txt: 'Запитання 5: формат і бюджет'},
+    result: {n: 6, txt: 'Результат: ваш набір'}
+  };
+
+  function picked(grp) {
+    return document.querySelector('.q-opt.on[data-grp="' + grp + '"]');
+  }
+  function val(grp) {
+    var el = picked(grp);
+    return el ? el.getAttribute('data-val') : '';
+  }
+  function medsChecked() {
+    var el = document.getElementById('opt-meds');
+    return !!el && el.classList.contains('on');
+  }
+  // чи цей крок у активному шляху? (застереження - лише коли обрано ліки)
+  function stepActive(name) {
+    if (name === 'safety') return medsChecked();
+    return true;
+  }
+  function goalChosen() {
+    return !!picked('goal');
+  }
+
+  function show(name) {
+    document.querySelectorAll('.q-step').forEach(function (s) { s.classList.remove('on'); });
+    document.getElementById('step-' + name).classList.add('on');
+    document.querySelector('.q-body').scrollTop = 0;
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    render(name);
+  }
+
+  function render(name) {
+    var meta = labels[name];
+    var pct = Math.round((meta.n / TOTAL) * 100);
+    elBar.style.width = pct + '%';
+    elBarWrap.setAttribute('aria-valuenow', pct);
+    elLbl.textContent = 'Крок ' + meta.n + ' з ' + TOTAL;
+    elLive.textContent = 'Крок ' + meta.n + ': ' + meta.txt;
+
+    // НАЗАД видно скрізь, крім вступу
+    elBack.style.display = (name === 'intro') ? 'none' : 'inline-flex';
+
+    // ПРОПУСТИТИ - лише на необов'язкових запитаннях (q2, q3, q4, q5)
+    var skippable = (name === 'q2' || name === 'q3' || name === 'q4' || name === 'q5');
+    elSkip.style.display = skippable ? 'inline-flex' : 'none';
+
+    // ДАЛІ: підпис + гейт
+    if (name === 'intro') {
+      elNext.textContent = 'Почати';
+      elNext.disabled = false;
+    } else if (name === 'q1') {
+      elNext.textContent = 'Далі';
+      elNext.disabled = !goalChosen();     // Q1 тримає «Далі»
+    } else if (name === 'safety') {
+      elNext.textContent = 'Зрозуміло, далі';
+      elNext.disabled = false;
+    } else if (name === 'q5') {
+      elNext.textContent = 'Показати набір →';
+      elNext.disabled = false;
+    } else if (name === 'result') {
+      elNext.style.display = 'none';
+      elSkip.style.display = 'none';
+      return;
+    } else {
+      elNext.textContent = 'Далі';
+      elNext.disabled = false;
+    }
+    elNext.style.display = 'inline-flex';
+  }
+
+  function advance() {
+    // гейт Q1
+    if (steps[idx] === 'q1' && !goalChosen()) return;
+    // наступний активний крок
+    do { idx++; } while (idx < steps.length && !stepActive(steps[idx]));
+    if (idx > steps.length - 1) idx = steps.length - 1;
+    if (steps[idx] === 'result') buildResult();
+    show(steps[idx]);
+  }
+
+  function back() {
+    do { idx--; } while (idx > 0 && !stepActive(steps[idx]));
+    if (idx < 0) idx = 0;
+    show(steps[idx]);
+  }
+
+  elNext.addEventListener('click', advance);
+  elBack.addEventListener('click', back);
+  elSkip.addEventListener('click', advance);
+
+  /* рядок відповіді. Один вибір у групі - радіо, кілька - чекбокс; клас `.on`
+     несе стан, `aria-checked` несе те саме дереву доступності, а рухомий
+     tabindex повертає групі поведінку, яку нативний <input> давав задарма. */
+  function pickRow(el) {
+    var grp = el.getAttribute('data-grp');
+    if (el.getAttribute('role') === 'checkbox') {
+      var now = !el.classList.contains('on');
+      el.classList.toggle('on', now);
+      el.setAttribute('aria-checked', now ? 'true' : 'false');
+    } else {
+      document.querySelectorAll('.q-opt[data-grp="' + grp + '"]').forEach(function (o) {
+        var it = (o === el);
+        o.classList.toggle('on', it);
+        o.setAttribute('aria-checked', it ? 'true' : 'false');
+        o.setAttribute('tabindex', it ? '0' : '-1');
+      });
+    }
+    el.focus();
+    if (grp === 'goal') elNext.disabled = !goalChosen();
+  }
+
+  document.querySelectorAll('.q-opt').forEach(function (o) {
+    o.addEventListener('click', function () { pickRow(o); });
+    o.addEventListener('keydown', function (e) {
+      if (e.key === ' ' || e.key === 'Spacebar' || e.key === 'Enter') { e.preventDefault(); pickRow(o); }
+    });
+  });
+
+  document.querySelectorAll('.q-opts[role="radiogroup"]').forEach(function (g) {
+    g.addEventListener('keydown', function (e) {
+      var fwd = (e.key === 'ArrowDown' || e.key === 'ArrowRight');
+      var bwd = (e.key === 'ArrowUp' || e.key === 'ArrowLeft');
+      if (!fwd && !bwd) return;
+      var rows = [].slice.call(g.querySelectorAll('.q-opt'));
+      var cur = rows.indexOf(document.activeElement);
+      if (cur < 0) return;
+      e.preventDefault();
+      pickRow(rows[(cur + (fwd ? 1 : -1) + rows.length) % rows.length]);
+    });
+  });
+
+  // піли Q5 - один вибір усередині кожної групи (формат / бюджет)
+  document.querySelectorAll('.q-pill').forEach(function (p) {
+    p.addEventListener('click', function () {
+      var grp = p.getAttribute('data-grp');
+      document.querySelectorAll('.q-pill[data-grp="' + grp + '"]').forEach(function (o) {
+        o.classList.remove('on'); o.setAttribute('aria-checked', 'false');
+      });
+      p.classList.add('on'); p.setAttribute('aria-checked', 'true');
+    });
+  });
+
+  // обрані відповіді -> заголовок результату й чипи «чому саме цей набір»
+  function buildResult() {
+    var goal = val('goal') || 'вашої цілі';
+    var exp = val('exp') || 'Новачок';
+    var freq = val('freq');
+    var cons = [].slice.call(document.querySelectorAll('.q-opt.on[data-grp="cons"]'))
+      .map(function (c) { return c.getAttribute('data-val'); })
+      .filter(function (v) { return v !== 'Нічого'; });
+    var fmt = document.querySelector('.q-pill.on[data-grp="format"]');
+    var budget = document.querySelector('.q-pill.on[data-grp="budget"]');
+
+    var goalLower = goal.charAt(0).toLowerCase() + goal.slice(1);
+    document.getElementById('res-headline').textContent = 'Ваш стартовий набір для ' + goalLower;
+
+    var chips = [goal, exp];
+    if (freq) chips.push(freq);
+    cons.forEach(function (c) { chips.push(c); });
+    if (fmt) chips.push(fmt.textContent.trim());
+    if (budget) chips.push(budget.textContent.trim());
+
+    var wrap = document.getElementById('res-chips');
+    wrap.innerHTML = '';
+    chips.forEach(function (t) {
+      var s = document.createElement('span');
+      s.className = 'q-chip';
+      s.textContent = t;
+      wrap.appendChild(s);
+    });
+  }
+
+  render('intro');
+})();
+</script>
+<script>wfHeader(); wfFooter(); wfBar('quiz.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

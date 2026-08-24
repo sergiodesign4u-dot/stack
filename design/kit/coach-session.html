@@ -117,10 +117,17 @@ color: rgb(0,0,0)</div>
 <p class="kp-p"><b>Смуга клієнтів більше не заявляє <code>tablist</code>.</b> Кожен <code>.ctab</code> ніс <code>role="tab"</code> і <code>aria-selected</code>, а обробника не існувало у файлі взагалі: клік не міняв нічого, стрілок не було, і жоден файл стану не малював іншого активного клієнта. Після критики таб - це справжнє місце призначення з <code>?client=</code>, а поточний помічено <code>aria-current</code>, <b>тим самим знаком, що й поточна картка в списку клієнтів</b>. Один акт вибору - одна модель на обох екранах.</p>
 <p class="kp-p"><b>26 позначок <code>[?]</code></b>, усі про геометрію. Пара <code>940</code> / <code>939</code> була останньою в системі, що стояла поза реєстром, і крок 5 етапу 10 її витратив: смуга клієнтів переїхала <b>всередину</b> <code>.cs-grid</code> і від 860 стає рейкою в лівій колонці <code>20rem</code> зі зведенням сесії під нею, а кошик активного клієнта бере решту. Заміряно: 860 дає <code>320 | 488</code>, 1440 - <code>320 | 828</code>.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Уточнення біля числа</div>
+<p class="kp-p"><code>.qual</code> - слово, що стоїть біля суми і каже, ЧОГО саме вона стосується: «без доставки», «за тарифом тренера». Воно легше за саме число і важче за підпис, бо без нього сума в рядку сесії читається як остаточна.</p>
+<div class="kp-demo"><div class="coach">
+<div class="cs-tot">12 480 ₴ <span class="qual">без доставки</span></div>
+</div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>52</b> класи і <b>0</b> станів оголошено в <code>coach-session.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["add", "bt", "cc-goal", "cc-goals", "cc-name", "cl-ctrls", "cl-nm", "cl-ph", "cl-right", "cl-tag", "cl-var", "cline", "cline-sub", "cprice", "cs-banner", "cs-bar", "cs-blocknote", "cs-cli", "cs-client", "cs-go", "cs-grid", "cs-lines-h", "cs-meta", "cs-note", "cs-panel", "cs-save", "cs-summ", "cs-summ-empty", "cs-summ-h", "cs-top", "cs-tot", "cs-warn", "cs-wrap", "ctab", "ctabs", "ctg", "ctn", "cts", "on", "oos", "qa-add", "qa-av", "qa-bd", "qa-nm", "qa-ph", "qa-row", "qadd", "qadd-h", "qadd-res", "tierchip", "wa", "ws", "wt", "zero"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["add", "bt", "cc-goal", "cc-goals", "cc-name", "cl-ctrls", "cl-nm", "cl-ph", "cl-right", "cl-tag", "cl-var", "cline", "cline-sub", "cprice", "cs-banner", "cs-bar", "cs-blocknote", "cs-cli", "cs-client", "cs-go", "cs-grid", "cs-lines-h", "cs-meta", "cs-note", "cs-panel", "cs-save", "cs-summ", "cs-summ-empty", "cs-summ-h", "cs-top", "cs-tot", "cs-warn", "cs-wrap", "ctab", "ctabs", "ctg", "ctn", "cts", "on", "oos", "qa-add", "qa-av", "qa-bd", "qa-nm", "qa-ph", "qa-row", "qadd", "qadd-h", "qadd-res", "tierchip", "wa", "ws", "wt", "zero","qual"], KIT_STS=[];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>619</code>, дзеркало <code>--bp-grid-2col</code>, для перекладання рядка питання. <b>Було 479</b>. <b>А ДРУГА ПАРА ФАЙЛУ, 939/940, НЕ ЧІПАНА НАВМИСНО:</b> це і є коуч-спліт-в'ю - сесія дістає колонку підсумку 320px і ховає липку смугу - а аудит ширини назвав його <b>єдиною справді новою поведінкою цього етапу</b>, тобто предметом кроку 5. Скласти число тут означало б вирішити в раунді компонентів те, заради чого існує окремий крок.</div>

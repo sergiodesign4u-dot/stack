@@ -117,12 +117,39 @@ const EXPR = `(() => {
    definition inventory.mjs uses for its Screens walk. */
 const CDIR = join(ROOT, 'design/system/components');
 const cssFiles = readdirSync(CDIR).filter(f => f.endsWith('.css'));
-const stripCss = t => t.replace(/\/\*[\s\S]*?\*\//g, ' ');
+/* 12.11: A FILE EXTENSION IS NOT A CLASS. The stripper took out comments and
+   nothing else, so `a[href="index.html"]` in header.css read as a declaration of
+   `.html` - one component owned it, so it became an ANCHOR, so header.html was
+   red for a class that does not exist and no demo could ever have shown it. The
+   same shape would fire on `url(x.svg)` and on `@import 'y.css'`. Attribute
+   values, url() arguments and quoted strings are all places where a dot means a
+   file name; the only place it means a class is the selector itself. Falsified by
+   putting `a[href="q.html"]` into a file with no other anchor and watching the
+   count move, then removing it. */
+const stripCss = t => t
+  .replace(/\/\*[\s\S]*?\*\//g, ' ')
+  .replace(/\[[^\]]*\]/g, ' ')
+  .replace(/url\([^)]*\)/g, ' ')
+  .replace(/"[^"]*"|'[^']*'/g, ' ');
 const classesOf = f => new Set([...stripCss(readFileSync(join(CDIR, f), 'utf8'))
   .matchAll(/\.(-?[_a-zA-Z][\w-]*)/g)].map(m => m[1]));
 const owners = {};
 for (const f of cssFiles) for (const c of classesOf(f)) (owners[c] ||= []).push(f);
-const anchorsOf = f => [...classesOf(f)].filter(c => owners[c].length === 1);
+/* 12.11: A CLASS THAT LANDS ON `html` OR `body` CANNOT BE PUT IN A DEMO BOX.
+   `_idle.js` reads `.kp-demo *`, so the only way a page could satisfy the
+   demand for `html.dr-lock` or `body.pdp-stuck` is to hang the class on a `div`
+   inside the box - which renders nothing and states something untrue. Two of
+   them in the whole stand. They are still DECLARED work: the page names them in
+   `KIT_STS` and the control asks for the name, which is exactly the split this
+   file's header draws between a state and a demo. The test is read off the css
+   and not off a list, so a third one arriving is covered without an edit. */
+const rootOnly = (f, c) => {
+  const css = stripCss(readFileSync(join(CDIR, f), 'utf8'));
+  const uses = [...css.matchAll(new RegExp('(\\S*)\\.' + esc(c) + '(?![\\w-])', 'g'))];
+  return uses.length > 0 && uses.every(m => /(^|[\s>+~])(html|body)$/.test(m[1]));
+};
+const anchorsOf = f => [...classesOf(f)]
+  .filter(c => owners[c].length === 1 && !rootOnly(f, c));
 
 const names = subject(process.argv.slice(2), 'design/kit');
 const srv = await serve();
@@ -144,8 +171,17 @@ for (const p of names) {
   const parked = parkedIn(p.split('/').pop(), r.sts);
   /* the reverse question: does the declaration still cover the file */
   const cssName = p.replace(/^kit\//, '').replace(/\.html$/, '') + '.css';
+  /* 12.11: AND IT ASKED ONLY ONE OF THE PAGE'S TWO LISTS. The reverse question
+     was written against `KIT_CLS` alone, so a class the page had properly
+     declared as a STATE - `drawer-open`, `mega-open`, `wfh-menuopen`, all three
+     named in prose on header.html since 8.31 - still came back as «declaration
+     behind the file». The page had done the right thing and the gate could not
+     see it. A declaration is a declaration in either list; which of the two it
+     belongs in is the question the first half of this file already asks, and
+     `parkedIn` is what stops `KIT_STS` from becoming a place to hide. */
+  const declaredHere = c => (r.cls || []).includes(c) || (r.sts || []).includes(c);
   const uncovered = cssFiles.includes(cssName)
-    ? anchorsOf(cssName).filter(c => !(r.cls || []).includes(c)).sort()
+    ? anchorsOf(cssName).filter(c => !declaredHere(c)).sort()
     : [];
   behind += uncovered.length;
 

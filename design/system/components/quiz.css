@@ -1,0 +1,232 @@
+/* quiz.css - the goal quiz, a stepped dialog (level 3)
+   Added at stage 12, batch 6, by the parent, for node 4.x.
+
+   WHY THE STAGE-07 INVENTORY DID NOT SEE IT. The same reason as `info-page.css`,
+   `nav-tile.css` and `search-overlay.css`, and here it is structural rather than
+   accidental: `wireframes/_wf.css` has no rule for `q-*` at all. The whole dialog
+   lives in that one screen's own `<style>` block - 80 classes, of which the shared
+   grey stylesheet declares 21 - and an inventory derived from the shared sheet
+   cannot meet a screen that styles itself. The quiz was also the ONE ПОТІМ screen
+   of the fan-out, so no agent ever ordered it: locked decision 2 keeps six goal
+   tiles in MVP and files the dialog after launch.
+
+   WHAT THIS FILE IS NOT. Of the 59 class names the grey screen carries that the
+   system did not have, this file declares 34. The other 25 were not drawn twice,
+   they were READ OFF THE LADDER, and that is most of the work of this component:
+
+     .q-opt         -> radio.css, the ROW rung, beside .co-opt / .pf-lang / .ac-cli
+     .q-opt .ot/.otn/.otd   the same rung's children, so the grey's .tx/.nm/.sub
+                            are not a sixth name for a face that has one
+     .q-pill        -> radio.css, the COMPACT rung, beside .vopt / .opt-tile.
+                       A pill that picks a VALUE is a radio; the file's own line
+                       is «a chip filters a VIEW, a radio picks a VALUE»
+     .mk.radio      -> .co-radio          the circle, drawn once in the system
+     .mk.check      -> .cb                the square and its tick
+     .qsc           -> product-card.css, the third rung beside .pcard and .pcard-l
+     .sv-row        -> .field-grp         an input welded to a button IS that
+     .back/.skip/.next, .btn.dark  ->  .btn--outline / .btn--text / .btn--accent
+     .sr-live       -> .vh                base.css already hides a live region
+
+   THE STATE WORD IS `on`, NOT `sel`. The grey screen's script writes `.sel`; every
+   selectable thing in this system is chosen with `.on`, and the ladder above only
+   answers to that. A state class is behaviour, not structure, so the coloured copy
+   takes the system's word. This is the one place the two layers deliberately spell
+   the same thing differently, and the file says so rather than leaving a reader to
+   find out from a dead rule.
+
+   PHONE FIRST, AND THE POINT IS 620. The grey draws the card and undoes it under
+   560. Written the other way round the sheet is the plain case and the card is the
+   enhancement, which is also the only way the boundary can be a REGISTERED one:
+   560 is not in the registry, 620 is. Same fold `search-overlay.css`,
+   `product-grid.css` and `goal-tile.css` already took. */
+
+/* ---------- the layer -------------------------------------------------------
+   Still a page in the prototype rather than a real overlay, so the backdrop is
+   an absolute sheet inside the wrapper and not a fixed scrim: the header and
+   footer stay reachable behind it, which is what «close any time» looks like
+   when there is nowhere yet to close TO. */
+.q-wrap{ position: relative; padding: 0; }
+.q-backdrop{ display: none; }
+.q-card{ position: relative; z-index: 1; display: flex; flex-direction: column;
+  background: var(--bg-page); min-height: calc(100vh - var(--size-40)); }
+
+@media (min-width: 38.75rem){        /* --bp-grid-2col */
+  .q-wrap{ padding: var(--space-24) 0 var(--space-40); }
+  .q-backdrop{ display: block; position: absolute; inset: 0; z-index: 0;
+    background: var(--scrim-ink-10); border-radius: var(--radius-16); }
+  .q-card{ max-width: 35rem; margin: 0 auto; min-height: 33.75rem;
+    border: 1px solid var(--line-strong); border-radius: var(--radius-16);
+    box-shadow: var(--elevation-4); overflow: hidden; }
+  /* the result step is the only one that has to hold four cards in a row, and it
+     is the composition that asks - not the step. `:has()` keeps the decision on
+     the card rather than making the script add a width class. */
+  .q-card:has(.q-step.on .q-res-grid){ max-width: 47.5rem; }
+}
+
+/* ---------- the head: where you are, and the way out ------------------------ */
+.q-head{ padding: var(--space-12) var(--space-16);
+  border-bottom: 1px solid var(--line-hair); }
+.q-headrow{ display: flex; align-items: center; gap: var(--space-12); }
+.q-headrow .sp{ flex: 1; }
+.q-step-lbl{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  color: var(--text-secondary); }
+.q-exit{ display: inline-flex; align-items: center; gap: var(--space-4);
+  font-size: var(--fs-12); font-weight: var(--fw-semibold);
+  color: var(--text-secondary);
+  transition: color var(--dur-fast) var(--ease-standard); }
+.q-exit:hover{ color: var(--text-action); }
+/* the same track price-slider.css draws - 4 high, --radius-4, --bg-track. The
+   grey's 6 was a second answer to a question the system had already answered. */
+.q-progress{ height: 4px; margin-top: var(--space-12);
+  background: var(--bg-track); border-radius: var(--radius-4); overflow: hidden; }
+/* WORK: «status». The bar is the one thing here that reports a process, and the
+   process is the person's own progress, so it moves at --dur-base rather than at
+   the response speed - it is not answering a press, it is showing a position. */
+.q-progress .bar{ height: 100%; background: var(--bg-action);
+  transition: width var(--dur-base) var(--ease-standard); }
+
+/* ---------- the body, and one step is visible at a time --------------------- */
+.q-body{ flex: 1; padding: var(--space-24) var(--space-16); }
+.q-step{ display: none; }
+.q-step.on{ display: block; }
+/* `.q-eyebrow` is declared in section-head.css, on the brow's bold rung beside
+   `.cnt-row .cap`. It is not written here at all: see that file, 12.11. */
+.q-qh{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary);
+  line-height: var(--lh-snug); letter-spacing: var(--ls-lead);
+  margin: var(--space-4) 0 var(--space-4); }
+.q-sub{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-16); }
+/* «you may skip this» and «we do not diagnose» are the same rung of voice: a
+   quiet line under the answers that removes a worry rather than adding a step. */
+.q-hint-skip, .q-note{ font-size: var(--fs-12); color: var(--text-muted); }
+.q-hint-skip{ margin-top: var(--space-12); }
+.q-note{ margin-top: var(--space-16); text-align: center; }
+
+/* ---------- the intro ------------------------------------------------------- */
+.q-intro-h1{ font-size: var(--fs-24); font-weight: var(--fw-black);
+  color: var(--text-primary); line-height: var(--lh-snug);
+  letter-spacing: var(--ls-lead); margin-bottom: var(--space-8); }
+.q-intro-lead{ font-size: var(--fs-14); color: var(--text-secondary);
+  max-width: var(--container-text); margin-bottom: var(--space-16); }
+.q-steps{ display: flex; flex-direction: column; gap: var(--space-12);
+  margin: var(--space-4) 0 var(--space-16); }
+.q-stepx{ display: flex; gap: var(--space-12); align-items: flex-start; }
+.q-stepx .n{ width: var(--size-30); height: var(--size-30); flex: none;
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--line-strong); border-radius: var(--radius-circle);
+  font-size: var(--fs-12); font-weight: var(--fw-black); color: var(--text-primary); }
+.q-stepx .st-t{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); }
+.q-stepx .st-s{ display: block; font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-2); }
+
+/* ---------- the answers ------------------------------------------------------
+   The row itself is radio.css's; what the quiz adds is the tile in front of it.
+   Nothing else about `.q-opt` is declared anywhere but there. */
+.q-opts{ display: flex; flex-direction: column; gap: var(--space-8);
+  margin-top: var(--space-4); }
+/* the two deviations the row rung cannot carry for the whole family. It aligns
+   from the top because a delivery row's second line can run to three lines; the
+   quiz's tile is 38 tall and its text is two short lines, so from the top the
+   circle floats above the words. And the rung has no height of its own - here
+   the icon sets one, so the rows of a question read as one column of equals. */
+.q-opt{ align-items: center; min-height: var(--size-52); }
+.q-opt .ic{ width: var(--size-38); height: var(--size-38); flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-18); background: var(--bg-sunken);
+  border: 1px solid var(--line-hair); border-radius: var(--radius-8); }
+
+/* ---------- two questions inside one step (format, budget) ------------------ */
+.q-group + .q-group{ margin-top: var(--space-24); }
+.q-glbl{ font-size: var(--fs-12); font-weight: var(--fw-black);
+  text-transform: uppercase; letter-spacing: var(--ls-caps);
+  color: var(--text-secondary); margin-bottom: var(--space-8); }
+.q-pills{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+
+/* ---------- the safety step, and it is the trust job -------------------------
+   Principle 1 in one block: the step exists to say what the quiz will NOT do.
+   It reads the notice ground rather than the sunken one, because this is the
+   only place in the flow where the product warns rather than offers. */
+.q-safety{ padding: var(--space-16); background: var(--bg-notice);
+  border: 1px solid var(--line-notice); border-radius: var(--radius-12); }
+.q-safety .si{ font-size: var(--fs-24); }
+.q-safety .sh{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: var(--space-8) 0 var(--space-4); }
+.q-safety p{ font-size: var(--fs-14); color: var(--text-body);
+  margin-bottom: var(--space-8); }
+.q-safety .disc{ font-size: var(--fs-12); color: var(--text-secondary); margin-bottom: 0; }
+
+/* ---------- the foot: back, skip, next --------------------------------------
+   Three buttons of the system, and this file only places them. It is sticky so
+   the one clear next step (principle 2) never scrolls out of a long question. */
+/* THE ROW DOES NOT FIT ON A PHONE, AND THE PAGE PAID FOR IT. Measured by the
+   assembling agent at step Q5: Назад 115 + Пропустити 81 + «Показати набір →»
+   176 = 412 inside a 328 card, and because `overflow: hidden` on `.q-card` only
+   exists inside the 620 query, the DOCUMENT scrolled sideways - 428 at 360, 432
+   at 390. The grey has the same three buttons at 342 and never scrolls, because
+   its base card clips them; clipping is not the repair here, since a clipped
+   ancestor also kills `position: sticky` on this very element.
+
+   So the phone gets the shape `patterns/action-row.css` already named at 12.3
+   for «two actions that will not sit side by side»: the one clear next step
+   takes a row of its own, full width, and back and skip stand above it. Two
+   columns, the primary spanning both. The spacer is a one-row device and has
+   nothing to push apart here, so it stands down. From 620 the single row
+   returns, which is where it was always measured to fit. */
+.q-foot{ position: sticky; bottom: 0; z-index: 2;
+  display: grid; grid-template-columns: auto 1fr; align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-16);
+  background: var(--bg-page); border-top: 1px solid var(--line-hair); }
+.q-foot .sp{ display: none; }
+.q-foot > .btn--accent{ grid-column: 1 / -1; justify-content: center; }
+.q-foot > .btn--text{ justify-self: end; }
+@media (min-width: 38.75rem){        /* --bp-grid-2col */
+  .q-foot{ display: flex; }
+  .q-foot .sp{ display: block; flex: 1; }
+  .q-foot > .btn--accent{ grid-column: auto; }
+}
+
+/* ---------- the result ------------------------------------------------------ */
+.q-res-h{ font-size: var(--fs-24); font-weight: var(--fw-black);
+  color: var(--text-primary); line-height: var(--lh-snug);
+  letter-spacing: var(--ls-lead); }
+/* NOT `.chip`. A chip is a noun you press to filter; these are the answers you
+   already gave, read back to you so the set can be trusted. Nothing here is
+   pressable, so nothing here carries a hover, a press or a focus ring. */
+.q-chips{ display: flex; flex-wrap: wrap; gap: var(--space-8);
+  margin: var(--space-12) 0 var(--space-4); }
+.q-chip{ padding: var(--space-4) var(--space-12);
+  background: var(--bg-sunken); border: 1px solid var(--line-hair);
+  border-radius: var(--radius-pill); font-size: var(--fs-12);
+  font-weight: var(--fw-bold); color: var(--text-primary); }
+.q-setrow{ display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-12); margin: var(--space-24) 0 var(--space-12); }
+.q-setrow .st-h{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); }
+.q-setrow .st-c{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  color: var(--text-muted); }
+/* two across on a phone, four once the card has widened for this step. The
+   count is the composition's, so it belongs to the grid and not to the card. */
+.q-res-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+@media (min-width: 38.75rem){        /* --bp-grid-2col */
+  .q-res-grid{ grid-template-columns: repeat(4, 1fr); gap: var(--space-12); }
+}
+.q-cta{ display: flex; flex-direction: column; gap: var(--space-8);
+  margin: var(--space-24) 0 var(--space-4); }
+.q-cta .setsum{ font-weight: var(--fw-black); }
+
+/* ---------- keeping the set without an account ------------------------------
+   Locked decision 5 has no password anywhere, so this is not a sign-up: it is
+   one address, kept so a set survives a closed tab. The consent line under it is
+   why the block is a block and not a stray field. */
+.q-save{ margin-top: var(--space-16); padding: var(--space-16);
+  background: var(--bg-sunken); border: 1px solid var(--line-hair);
+  border-radius: var(--radius-12); }
+.q-save .sv-h{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin-bottom: var(--space-4); }
+.q-save .sv-s{ font-size: var(--fs-12); color: var(--text-secondary);
+  margin-bottom: var(--space-12); }
+.q-save .sv-opt{ font-size: var(--fs-10); color: var(--text-muted);
+  margin-top: var(--space-8); }
+.q-trust{ font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-16); text-align: center; }

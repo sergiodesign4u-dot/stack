@@ -2098,3 +2098,37 @@ Filling 67 names mechanically would move 67 findings out of «declaration behind
 red is exactly what this stage spent itself proving against.**
 
 The work is 67 demo blocks on 29 pages, and it belongs to whoever owns the showcase.
+
+### 12.11 - CLOSED, AND TEN OF THE 67 WERE NEVER REAL
+
+`node tools/idle.mjs` now exits 0: **94 pages, 0 red, 0 declarations behind their file.** The debt was
+paid, but the shape of the payment is the finding, and it is this stage's signature class one more
+time - **a green counter that could not see its own class, wearing red instead of green.**
+
+Three of the 67 were the instrument being wrong, and each is a separate defect:
+
+- **`.html` is not a class.** The class extractor stripped comments and nothing else, so
+  `a[href="index.html"]` in `header.css` read as a declaration of `.html`; one file owned it, so it
+  became an anchor, so `header.html` was red for a class that does not exist and no demo could ever
+  have shown. Attribute values, `url()` arguments and quoted strings are now stripped: 1137 anchors
+  become 1136, and the one that left is that.
+- **A class that lands on `html` or `body` cannot be put in a demo box.** `_idle.js` reads
+  `.kp-demo *`, so the only way to satisfy a demand for `html.dr-lock` or `body.pdp-stuck` is to hang
+  the class on a `div` inside the box, which renders nothing and states something untrue. The test is
+  read off the css, so it discriminates: on `pdp-tabs.css`, `body.pdp-stuck` is excused in the same
+  run that still demands `.pdp-tabs.stuck`.
+- **It asked only ONE of the page's two lists.** The reverse question was written against `KIT_CLS`
+  alone, so a class the page had properly declared as a STATE - `drawer-open`, `mega-open`,
+  `wfh-menuopen`, all three named in prose on `header.html` since 8.31 - still came back as
+  «declaration behind the file». **That is 7 of the 67**, and 9 anchors rely on it today. The pages
+  had done the right thing and the gate could not see it. `parkedIn` is what stops `KIT_STS`
+  becoming a place to hide, and it still runs.
+
+The books close exactly: **1 + 2 + 7 = 10 were the instrument, and the other 57 were real.** Those
+57 were paid the expensive way - 57 class names demonstrated live across 26 stand pages, not one of
+them declared without being shown. `винне демо` stayed **0** through every intermediate run, which
+was the whole condition for refusing to do it mechanically in the first place.
+
+Batch 6 then ADDED work of its own and paid that too, so the counter is honest rather than merely
+zero: `kit/quiz.html` declares and shows 43 classes of a component that did not exist this morning,
+`section-head.html` gained the brow's bold rung (2), and `badge.html` the third badge form (1).

@@ -23,9 +23,24 @@ import { Conn, newSession, visit } from './cdp.mjs';
 import { serve, chrome, pages } from './lib.mjs';
 const srv = await serve(); const l = await chrome('modal'); const conn = await Conn.open(l.wsUrl);
 const EXPR = `(() => {
-  const openDlg = [...document.querySelectorAll('[role="dialog"],[aria-modal="true"]')]
+  /* 12.11: THE SUBJECT IS THE CLAIM, NOT THE ROLE. This asked every
+     role="dialog", and the quiz of node 4.x is a dialog that deliberately does
+     NOT trap: quiz.css says in its own words that the header and footer stay
+     reachable, because «close any time» with nowhere to close TO is a dead end.
+     Reported as 1 of 27, it was the instrument counting a product decision as a
+     defect. aria-modal="true" is the PROMISE that the background is inert, and
+     a dialog that never made the promise cannot break it. The screen dropped the
+     attribute in the same step - the claim was false while 60 controls sat behind
+     it - and this narrows to what is left: pages that do promise.
+     THE OTHER HALF IS COUNTED OUT LOUD BELOW, so the narrowing cannot hide
+     anything: a role="dialog" with no aria-modal is reported as a census line
+     rather than silently dropped. */
+  const roleDlg = [...document.querySelectorAll('[role="dialog"]')]
     .filter(d => d.offsetParent !== null || getComputedStyle(d).display !== 'none');
-  if (!openDlg.length) return JSON.stringify(null);
+  const openDlg = [...document.querySelectorAll('[aria-modal="true"]')]
+    .filter(d => d.offsetParent !== null || getComputedStyle(d).display !== 'none');
+  if (!openDlg.length) return JSON.stringify(roleDlg.length
+    ? { dlg: 0, inside: 0, behind: 0, ah: 0, nonmodal: roleDlg.length } : null);
   const F = 'a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
   const all = [...document.querySelectorAll(F)].filter(e => {
     if (e.closest('[inert]')) return false;
@@ -37,7 +52,8 @@ const EXPR = `(() => {
   const canvas = document.querySelector('.wf-canvas');
   const behind = all.filter(e => !openDlg.some(d => d.contains(e)) && canvas && canvas.contains(e));
   return JSON.stringify({ dlg: openDlg.length, inside: inside.length, behind: behind.length,
-    ah: behind.filter(e => e.closest('[aria-hidden="true"]')).length });
+    ah: behind.filter(e => e.closest('[aria-hidden="true"]')).length,
+    nonmodal: roleDlg.length - openDlg.length });
 })()`;
 const rows = [];
 for (const p of pages('design')) {

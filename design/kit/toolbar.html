@@ -94,10 +94,18 @@
 <p class="kp-p">Одна панель інструментів на екран. <code>.ltool</code> - десктопна половина: на 390 її не видно ніде, там стоїть <code>.mtoolbar</code>.</p></section>
 
 
+<section class="kp-sec"><div class="kp-sh">Панель, яка вміщає все в один рядок</div>
+<p class="kp-p"><code>.toolbar--all</code> - варіант для екранів, де в панелі стоїть і поле пошуку, і вибір, і лічильник: вона перекладає їх у гнучкий рядок, а полю віддає решту ширини (<code>flex: 1 1 15rem</code>) з мінімумом, нижче якого воно не стискається.</p>
+<div class="kp-demo"><div class="toolbar--all">
+<div class="field-grp field-grp--s"><input class="field field--s" type="search" placeholder="Пошук бренда"><button class="btn--accent btn--s" type="button">Знайти</button></div>
+<span class="count">24 бренди</span>
+</div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>7</b> власних класів і <b>1</b> стан.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["b","count","listing","ltool","mc","mtoolbar","sp"], KIT_STS=["min-width: 860px"];</script></section>
+<script>var KIT_CLS=["b","count","listing","ltool","mc","mtoolbar","sp","toolbar--all"], KIT_STS=["min-width: 860px"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-shell-wide</code>, і це <b>три запити, складені в один</b>. Файл казав <code>min-width: 860</code> тричі, кожен під своїм правилом, і читалось це як три окремі думки про число. Думка одна: на точці оболонки лістинг відрощує ліву колонку фільтрів, з'являється її тулбар, а липка смуга, яка заміняла його на телефоні, зникає. <b>І одне сказано вголос, а не полагоджено:</b> <code>.listing{ grid-template-columns: 240px 1fr }</code> це рамка ЕКРАНА лістингу, а не тулбара, і належить оболонці кроку 3. Переносити її тихо всередині раунду молекул означало б це сховати.</div>

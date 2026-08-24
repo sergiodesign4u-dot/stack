@@ -200,6 +200,7 @@ the unscoped base form, not the component.
 | Сторінка інформації | `info-page.css` | `.info-body`, `.info-card`, `.info-updated` | відповідь: посилання в прозі | fluid | 0 | 281 |
 | Замовлення оформлено | `order-placed.css` | `.op-hero`, `.op-card`, `.op-item` | немає: стану немає | 860 | 0 | 182 |
 | Панель підказок пошуку | `search-overlay.css` | `.ov-panel`, `.ov-row`, `.ov-cb` | відповідь | 620 · fluid | 0 | 129 |
+| Квіз | `quiz.css` | `.q-card`, `.q-step`, `.q-opts`, `.q-res-grid` | статус · відповідь | 620 · fluid | 0 | 210 |
 | Стаття | `article.css` | `.art`, `.art-body`, `.relart` | відповідь | fluid | 0 | 125 |
 | FAQ магазину | `faq-page.css` | `.faq-grp`, `.qa`, `.faq-help` | відповідь | fluid | 0 | 90 |
 | Підписку підтверджено | `newsletter.css` | `.nl-card`, `.nl-promo`, `.nl-check` | відповідь | – | 0 | 73 |

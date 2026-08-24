@@ -105,10 +105,17 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Кожна опція називає, скільки за нею стоїть.</b> «В наявності 71» - це не оздоблення, це те, що дає натиснути впевнено: видно, скільки лишиться. Тренер відсіює 84 до восьми, не гадаючи.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не ховай групи за акордеон, щоб рейка виглядала коротшою.</b> Згортання тут - вибір людини, а не стан за замовчуванням. Коротка рейка, у якій нічого не видно, економить піксель і коштує дотику.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Згорнута група</div>
+<p class="kp-p"><code>.fgroup.collapsed</code> ховає все, крім голови, і повертає стрілку. Це стан, який дописує <code>classList</code> у мить натиску, але показати його можна в спокої: він нічого не робить із часом, він лише інша форма тієї самої групи.</p>
+<div class="kp-demo" style="max-width:300px">
+<div class="fgroup collapsed"><div class="fh">Бренд <span class="ar">▾</span></div><label class="fopt"><span class="cb"></span>Optimum Nutrition</label></div>
+</div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>4</b> стани оголошено в <code>filter-group.css</code>.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["ar","ct","fgroup","fh","fmore","fopt"], KIT_STS=[":last-child",":hover",":focus-visible",".collapsed"];</script></section>
+<script>var KIT_CLS=["ar","ct","fgroup","fh","fmore","fopt","collapsed"], KIT_STS=[":last-child",":hover",":focus-visible",".collapsed"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Рух</div>
 <p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: колір рядка фасета і поворот шеврона групи. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>

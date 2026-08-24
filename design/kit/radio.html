@@ -61,6 +61,13 @@
   <span class="vopt on">450 г</span><span class="vopt">900 г</span><span class="vopt">2270 г</span><span class="vopt off">4540 г</span>
 </div></div>
 <p class="kp-p">Остання - <code>.vopt.off</code>: смак, якого нема в наявності. Перекреслений, пунктирний край, приглушене чорнило, курсор не міняється. Це <b>єдиний стан «недоступно» в усій родині</b>, і в атома чипа такого досі немає - пункт Кроку 6, і копіювати треба звідси.</p>
+<p class="kp-p">На щаблі ще двоє, і сторінка їх не показувала. <code>.opt-tile</code> прийшов на 7.96 - рід тренера на <code>coach-verify</code>, єдиний член родини, який називає себе і <b>пояснює себе</b> другим рядком. <code>.q-pill</code> прийшов на 12.11 разом із квізом: піл, що обирає формат або бюджет, обирає ЗНАЧЕННЯ, а не вигляд, тож він радіо, а не чип. Обидва беруть радіус щабля, а не власний.</p>
+<div class="kp-demo"><div class="vopts">
+  <span class="opt-tile on">Персональний тренер<small>Працюю сам, 5–15 клієнтів</small></span><span class="opt-tile">Зал або студія<small>Команда тренерів, 30+ клієнтів</small></span>
+</div>
+<div class="vopts">
+  <span class="q-pill on">Порошок</span><span class="q-pill">Капсули</span><span class="q-pill">Готові напої (RTD)</span>
+</div></div>
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Три видимі зміни, усі на одному контролі</div>
@@ -120,7 +127,7 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>12</b> власних класів і <b>4</b> стани оголошено в <code>radio.css</code>.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["co-opt","co-radio","ot","otn","otd","op","co-sub","vopt","vopts","pf-lang","pf-langs","rc"], KIT_STS=[".on", ".off", ":hover", ":focus-visible", ":active"];</script></section>
+<script>var KIT_CLS=["co-opt","co-radio","ot","otn","otd","op","co-sub","vopt","vopts","opt-tile","q-pill","pf-lang","pf-langs","rc"], KIT_STS=[".on", ".off", ":hover", ":focus-visible", ":active"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Рух</div>
 <p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color, background, box-shadow, color. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>

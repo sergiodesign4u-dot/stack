@@ -46,10 +46,11 @@ node tools/rollout-table.mjs [--check]  the stage-12 estimate, out of the two re
 node tools/coverage.mjs [--check|--apply]   the coverage map, generated from the registries and then WALKED
 node tools/glyphs.mjs [width] [pages]   a mark the runtime passes did not reach
 python3 tools/key-alpha.py --check [dir]   every PNG, and whether it has the alpha channel a dark page needs
+node tools/steps.mjs [--census] [names]   the steps that stand BEHIND A CLICK, which no other width instrument sees
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
-`inventory`, `dupe`, `typo` and `focus` exit non-zero on a finding, so they
+`inventory`, `dupe`, `typo`, `steps` and `focus` exit non-zero on a finding, so they
 compose.
 
 ---
@@ -1985,6 +1986,39 @@ nobody was looking for: `cart-coach-empty.html` never called `uivCart()`, so its
 raw trolley where `cart-drawer.css` expects the mascot - five screens carry a cart drawer and four
 called the pass. Invisible in a screenshot, invisible in the source.
 
+
+## `steps.mjs` - the seven eighths of a screen that stand behind a click
+
+    node tools/steps.mjs              every screen with a step machine
+    node tools/steps.mjs quiz         only that one
+    node tools/steps.mjs --census     also print the machines found
+
+Every width instrument here loads a page and measures what it finds. `accept.mjs` walks 343 screens
+at 390 and 360, `width-sweep.mjs` asks four questions at 129 widths, `split.mjs` sweeps its declared
+frames - and all three read the document AT REST. On a screen built as an in-page machine that is
+one state of eight.
+
+It was not a theory. The colour quiz arrived with its footer row overflowing at 360 and 390 by 68px,
+taking the whole document sideways, and `width-sweep.mjs quiz` printed «чисто на кожній із 129
+ширин». Three green counters, one of them running 129 times, none of them able to see the class.
+
+**The subject is DERIVED, so it is asked both ways for free.** A step machine is a visibility switch
+the system declares (`.S{display:none}` plus `.S.X{display:...}`) that the screen's own tail script
+toggles with `classList`. Three machines in 142 screens today; a screen that grows one is picked up
+without an edit here.
+
+**Two wrong versions, and the first one was this file's own.** It reached every step by applying the
+switch class directly and reported ZERO - then the repair it was written to verify was reverted, and
+it reported zero again. A step machine moves two things: the body, which the class shows, and the
+chrome around it, which the script re-dresses. The overflowing row was «Назад · Пропустити ·
+Показати набір →», and none of those three words exists in the markup at rest. The second was the
+scope walk: `closest('div')` on a `div.q-step` returns the step itself, so the footer was never in
+scope and the walk stopped on step one.
+
+So it does both and counts them apart: it clicks the machine's own controls, which is the only thing
+that dresses the chrome, and says how many steps that reached; whatever the path never visited is
+opened by the switch and counted separately, with its chrome named as somebody else's. An instrument
+that shows one layer cannot say «clean».
 
 ## `coverage.mjs` - the coverage map, generated and then walked
 

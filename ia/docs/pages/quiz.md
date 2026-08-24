@@ -92,9 +92,16 @@ to Q2)** - the tile's primary action stays → Goal collection (2.2); a banner i
 
 ## SEO block (A–E)
 The quiz is a JS modal flow, but has an **indexable landing page** `/pidbir` (the intro). Optimize that.
-- **Title (≤60):** Підбір спортивного харчування - пройдіть тест | Stack
-- **Description (≤155):** Не знаєте, що обрати? Пройдіть короткий тест - і отримайте безпечний набір
-  спортивного харчування під вашу ціль: склад, дозування, без зайвого.
+- **Title (≤60):** Підбір спортивного харчування за ціллю | Stack
+- **Description (≤155):** Не знаєте, що обрати? Відповідайте на кілька запитань - і отримайте
+  безпечний набір спортивного харчування під вашу ціль: склад, дозування, без зайвого.
+
+> **12.11, and the correction is two stages late.** Voice ruled «тест» out of the quiz dictionary and
+> logged the title fix in the cluster-8 corrections table of `microcopy.md`, but the fix never reached
+> THIS node - which is the file that owns SEO copy. Both cells carried the retired word, the title
+> and a description built on the same verb, so a screen assembled from the node would have shipped
+> it. Found by the agent that assembled `design/quiz.html` in batch 6, which read both files and
+> reported the disagreement rather than choosing one edition silently.
 - canonical `/pidbir/`; hreflang uk/ru/x-default; robots index,follow; OG/Twitter.
 - **H1:** Підберіть спортивне харчування під свою ціль. **H2:** Як це працює (3 кроки) · Кому
   підійде · Часті питання (FAQ).

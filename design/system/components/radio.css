@@ -42,6 +42,24 @@
    the frozen grey layer shares. Same line 7.23 drew for `.dr-chip`, 7.27 for
    `.rstars`, 7.28 for `.sl`. */
 
+/* ---------- 12.11 - `.q-opt` IS THE SIXTH NAME ON THE ROW RUNG, `.q-pill` THE
+   THIRD ON THE COMPACT ONE. The quiz of node 4.x is the last grey screen of the
+   product, and it arrived carrying its own drawing of both: a `<label>` with an
+   icon tile, a title, a line under it and a circle on the right (the row), and a
+   set of value pills side by side (the compact rung). Every deviation it brought
+   was one this file has already settled once - radius 12 against 12, an edge of
+   1.5 against 1, a chosen ground of `--dark` against `--bg-action-soft`.
+
+   THE PILLS ARE RADIOS AND NOT CHIPS, and the line that decides it is this file's
+   own opening: «a chip filters or switches a VIEW, a radio picks a VALUE».
+   Pressing «порошок» or «до 2 000 ₴» in step 5 changes what you will buy, not
+   what you are looking at. The grey drew them at `--radius-pill`; the rung says
+   8, and a fourth radius on a rung rebuilt to remove three would be the drift
+   itself. Taken as the rung has it.
+
+   One name added to each selector list, never a rename - 7.96's instruction,
+   collected for the fourth and fifth time. */
+
 /* ---------- the row rung ----------------------------------------------------
    8.30 - `.ac-cli` IS THE FIFTH NAME ON THIS RUNG, and this file wrote the
    instruction for its own growth at 7.96: «one name added to a selector list,
@@ -55,7 +73,7 @@
    WHAT THE ROW GAINS BY JOINING: a hover, a press, a focus ring and the family's
    chosen ground. It had none of the four - a bordered box you click that
    answered nothing until you clicked it. */
-.co-opt, .pf-lang, .ac-cli{
+.co-opt, .pf-lang, .ac-cli, .q-opt{
   display: flex; align-items: flex-start; gap: var(--space-12);
   border: 1px solid var(--line-hair); border-radius: var(--radius-12);
   padding: var(--space-12) var(--space-16);
@@ -88,7 +106,7 @@
    `<small>` is the explanation, so it takes its own line and the quiet ink; the
    tile is the only member with one, and when a second appears this is the rule
    it should share rather than restate. */
-.vopt, .opt-tile{
+.vopt, .opt-tile, .q-pill{
   display: inline-flex; align-items: center;
   border: 1px solid var(--line-strong); border-radius: var(--radius-8);
   padding: var(--space-8) var(--space-12);
@@ -102,9 +120,10 @@
    did nothing at all - two instances of a control that did not answer the cursor
    while its twins did. One sentence now, two values, because the two rungs rest
    on two different edges. */
-.co-opt:hover, .pf-lang:hover, .ac-cli:hover{ border-color: var(--line-strong); }
-.vopt:hover, .opt-tile:hover{ border-color: var(--line-inverse); }
-.co-opt.on:hover, .pf-lang.on:hover, .ac-cli.on:hover, .vopt.on:hover, .opt-tile.on:hover{ border-color: var(--line-action); }
+.co-opt:hover, .pf-lang:hover, .ac-cli:hover, .q-opt:hover{ border-color: var(--line-strong); }
+.vopt:hover, .opt-tile:hover, .q-pill:hover{ border-color: var(--line-inverse); }
+.co-opt.on:hover, .pf-lang.on:hover, .ac-cli.on:hover, .q-opt.on:hover,
+.vopt.on:hover, .opt-tile.on:hover, .q-pill.on:hover{ border-color: var(--line-action); }
 
 /* ---------- press: the ground, not the edge - step 7.33 ----------------------
    Every state this family had moved a BORDER, and a border is a cursor answer:
@@ -121,16 +140,18 @@
 .co-opt:not(.on):active,
 .pf-lang:not(.on):active,
 .ac-cli:not(.on):active,
+.q-opt:not(.on):active,
 .vopt:not(.on):not(.off):active,
-.opt-tile:not(.on):active{ background: var(--bg-action-soft); }
+.opt-tile:not(.on):active,
+.q-pill:not(.on):active{ background: var(--bg-action-soft); }
 
 /* ---------- chosen: ONE edition, and it is the accent ----------------------- */
-.co-opt.on, .pf-lang.on, .ac-cli.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
+.co-opt.on, .pf-lang.on, .ac-cli.on, .q-opt.on{ border-color: var(--line-action); background: var(--bg-action-soft); }
 /* the picker's private edition put `--bg-sunken` under the chosen row: the same
    edge, a different ground. `--bg-action-soft` is the family's, and it is the one
    the press state above lands on, so a row that rests on sunken would flash to a
    different colour on the way to being chosen. */
-.vopt.on, .opt-tile.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);
+.vopt.on, .opt-tile.on, .q-pill.on{ border-color: var(--line-action); background: var(--bg-page); color: var(--text-body);
   /* the compact rung has no circle, so its edge doubles to carry the state -
      an inset ring rather than a second border, which would move the box */
   box-shadow: inset 0 0 0 1px var(--line-action); }
@@ -154,8 +175,8 @@
 }
 .co-radio{ margin-top: var(--space-2); }
 .pf-lang .rc{ margin-left: auto; }
-.co-opt.on .co-radio, .pf-lang.on .rc{ border-color: var(--line-action); }
-.co-opt.on .co-radio::after, .pf-lang.on .rc::after{
+.co-opt.on .co-radio, .pf-lang.on .rc, .q-opt.on .co-radio{ border-color: var(--line-action); }
+.co-opt.on .co-radio::after, .pf-lang.on .rc::after, .q-opt.on .co-radio::after{
   content: ''; position: absolute; inset: 3px;
   border-radius: var(--radius-circle); background: var(--bg-action);
 }
@@ -168,18 +189,18 @@
    this line is what the eye needs once they are reachable.
    `:focus-visible`, not `:focus`, so a mouse press does not light it up. */
 .co-opt:focus-visible, .vopt:focus-visible, .opt-tile:focus-visible, .pf-lang:focus-visible,
-.ac-cli:focus-visible{
+.ac-cli:focus-visible, .q-opt:focus-visible, .q-pill:focus-visible{
   outline: none; box-shadow: var(--ring-focus-control);
 }
-.vopt.on:focus-visible, .opt-tile.on:focus-visible{ box-shadow: inset 0 0 0 1px var(--line-action), var(--ring-focus-control); }
+.vopt.on:focus-visible, .opt-tile.on:focus-visible, .q-pill.on:focus-visible{ box-shadow: inset 0 0 0 1px var(--line-action), var(--ring-focus-control); }
 /* the language row keeps a real hidden input, and it is the one family that was
    already right. Its focus lands on the label, so the input must not take it. */
 .pf-lang input{ position: absolute; opacity: 0; pointer-events: none; }
 
 /* ---------- what stands inside a row ---------------------------------------- */
-.co-opt .ot{ flex: 1; }
-.co-opt .otn{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-body); }
-.co-opt .otd{ display: block; font-size: var(--fs-12); margin-top: var(--space-2); color: var(--text-secondary); }
+.co-opt .ot, .q-opt .ot{ flex: 1; }
+.co-opt .otn, .q-opt .otn{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-body); }
+.co-opt .otd, .q-opt .otd{ display: block; font-size: var(--fs-12); margin-top: var(--space-2); color: var(--text-secondary); }
 .co-opt .op{ font-size: var(--fs-14); white-space: nowrap;
   font-family: var(--font-mono); font-weight: var(--fw-semibold); color: var(--text-secondary); word-spacing: -.1em; }
 /* the tile names itself on the first line and explains itself on the second */

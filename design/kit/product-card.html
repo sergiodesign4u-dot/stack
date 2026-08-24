@@ -119,6 +119,30 @@
 <tr><td><b>Стан наявності</b></td><td>4 - є · мало · передзамовлення · немає</td><td>Атом <code>availability.css</code>. Картка вирішує тільки, де рядок стоїть.</td></tr>
 </tbody></table></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Липка міні-панель <b>7.55</b></div>
+<p class="kp-p"><code>.pmini</code> - панель, що тримає товар перед очима, поки читають відгуки: <b>один екземпляр на весь продукт</b>, на <code>product-reviews.html</code>. Вона не має власної анатомії - усередині стоїть звичайна <code>.pcard</code>, яку панель лише перекладає в дві колонки від 860 і липне на 88. Своє в неї одне: <code>.pmback</code>, дорога назад до товару.</p>
+<div class="kp-demo"><div class="pmini"><article class="pcard"><a href="#" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="#" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article><a class="pmback" href="#">← До товару</a></div></div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Третій щабель: компактна картка набору <b>12.11</b></div>
+<p class="kp-p">Квіз вузла 4.x приносить третій щабель однієї картки. Він не є варіантом жодного з двох: рішення записане ще на етапі 04 одним рядком у <code>screens.md</code> - «важкі PLP-картки → <code>.qsc</code>» - бо чотири картки мусять стати в один рядок усередині діалогу завширшки 760, а сама лише <code>.nm</code> сіткової картки резервує 44 висоти.</p>
+<p class="kp-p"><b>Що він скидає</b>, і кожне з цього і робить його щаблем, а не модифікатором: перекресленої ціни немає, чипа знижки немає, рядка за порцію немає, бонусного рядка немає, обраного немає, наявності немає. Картка набору відповідає на ОДНЕ питання - чому це в моєму наборі - і відповідь це <code>.why</code>, якої немає в жодного іншого щабля.</p>
+<div class="kp-demo"><div class="prow">
+<article class="qsc"><a class="ph" href="#"><span class="tag tag-base">Основа</span>фото</a><div class="bd"><div class="br">Optimum Nutrition</div><a class="nm" href="#">Gold Standard 100% Whey 2270 г</a><div class="why">Базовий білок для росту м'язів - 24 г на порцію.</div><div class="ft"><span class="pr">1 290 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+<article class="qsc"><a class="ph" href="#">фото</a><div class="bd"><div class="br">OstroVit</div><a class="nm" href="#">Creatine Monohydrate 500 г</a><div class="why">Найдоказовіша добавка для сили - 5 г щодня.</div><div class="ft"><span class="pr">549 ₴</span><button class="btn--outline btn--icon" type="button" aria-label="Додати у кошик">+</button></div></div></article>
+</div></div>
+<p class="kp-p">Діти повторюють <code>.ph .tag .bd .nm</code>, і це безпечно з тієї самої причини, з якої <code>.pcard-l</code> перейменував свої на <code>.lph .lbd .lnm</code>: імена замикає батько, а тут батько - інше слово.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Скрізь, де товар треба показати <b>у переліку</b>: лістинг, головна, схожі товари, обране, апсел у кошику й в оформленні. На сторінці самого товару картки немає - там працює <b>Блок покупки</b>, бо там товар один і рішення про нього приймають, а не порівнюють.</p></section>
 
@@ -133,7 +157,7 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>32</b> власних класів і <b>3</b> стани оголошено в <code>product-card.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["pcard","pcard-l","ph","lph","tag","bd","lbd","pbrand","lbrand","nm","lnm","pavail","lavail","prow2","pcol","poldline","lold-row","pold","lold","pnew","lprice","lprice-col","pcut","lcut","rate","st","pmeta2","perserv","bonus","lmeta","lactions","dim"], KIT_STS=[":hover", ".dim", "--line-action"];</script>
+<script>var KIT_CLS=["pcard","pcard-l","ph","lph","tag","bd","lbd","pbrand","lbrand","nm","lnm","pavail","lavail","prow2","pcol","poldline","lold-row","pold","lold","pnew","lprice","lprice-col","pcut","lcut","rate","st","pmeta2","perserv","bonus","lmeta","lactions","lfav","dim","pmini","pmback","qsc","br","why","ft","pr"], KIT_STS=[":hover", ".dim", "--line-action"];</script>
 <p class="kp-p">Цей контроль щойно себе виправдав: <b><code>.packlabel</code> і його <code>figcaption</code> пішли з файлу</b> - це були єдині два класи, які демо картки не могло відрендерити, бо вони не картка. <code>.packlabel</code> - це <code>&lt;figure&gt;</code> навколо знімка етикетки на сторінці товару; 38 правил для всього, що <b>всередині</b> нього, уже лежали в <code>spec-table.css</code>, а обгортка - ні.</p></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>

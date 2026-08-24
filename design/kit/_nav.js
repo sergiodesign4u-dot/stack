@@ -440,6 +440,11 @@ window.KIT_NAV = [
     "done": true
    },
    {
+    "label": "Квіз",
+    "page": "quiz.html",
+    "done": true
+   },
+   {
     "label": "Стаття",
     "page": "article.html",
     "done": true

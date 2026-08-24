@@ -130,10 +130,18 @@
 </tbody></table></div>
 <p class="kp-p">Смуга статусу стала <b>сіткою, а не рядком, що переноситься</b>, на кроці 8.0 - і причина в замірі, а не в смаку. Гнучкий рядок ламає лінію за <b>гіпотетичним</b> розміром елемента: речення заявляло свої 685.8 <code>max-content</code> перш ніж будь-що дозволяли стиснути, посилання після нього не вміщалось, починався новий рядок. Один рядок потребував 889.3 вмісту, тобто коробки 921.3 - <b>а це приходить на 1440 і більше ніде</b>.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Смуга тарифу в двох редакціях</div>
+<p class="kp-p">Смуга статусу кабінету має два обличчя. <code>.cstat--free</code> - тариф Free: втоплене тло і тихіший край чипа, бо це стан спокою, а не пропозиція. <code>.cstat--up</code> - та сама смуга, коли вона пропонує перейти: чорнильний край, сторінкове тло і <code>.cs-copy</code> замість підпису, бо тут читають речення, а не позначку. Кожне число тут несе <code>[?]</code>.</p>
+<div class="kp-demo"><div class="coach">
+<div class="cstat cstat--free"><span class="tierchip">Free</span><span class="cnote"><b>До 3 клієнтів</b> <span class="qm">[?]</span><span class="csub">Тариф без оплати</span></span><a class="cmanage" href="#">Керувати</a></div>
+<div class="cstat cstat--up"><span class="tierchip">Pro</span><span class="cs-copy">Без обмежень на клієнтів і ціна тренера на весь каталог - <span class="qm">~99 ₴/міс [?]</span></span><a class="btn--accent btn--s" href="#">Перейти на Pro</a></div>
+</div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>47</b> класів і <b>0</b> станів оголошено в <code>coach-cabinet.css</code>. <code>.coach</code> не рахується - це скоуп.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["ac-cli", "ac-info", "ah", "cav", "cg", "cgo", "cgo-btn", "cinfo", "cli", "cli-add", "cmanage", "cn", "cn-go", "cn-ic", "cn-s", "cn-t", "cn-tx", "cnew", "cnote", "co-fil", "co-filters", "co-info", "co-meta", "co-more", "co-new", "co-no", "co-search", "co-sum", "co-top", "cord", "crestock", "cs-b", "cstat", "csub", "ord", "ord-acts", "ord-chip", "ord-cli", "ord-date", "ord-foot", "ord-h", "ord-meta", "ord-no", "ord-tot", "qm", "rk-lead", "tierchip"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["ac-cli", "ac-info", "ah", "cav", "cg", "cgo", "cgo-btn", "cinfo", "cli", "cli-add", "cmanage", "cn", "cn-go", "cn-ic", "cn-s", "cn-t", "cn-tx", "cnew", "cnote", "co-fil", "co-filters", "co-info", "co-meta", "co-more", "co-new", "co-no", "co-search", "co-sum", "co-top", "cord", "crestock", "cs-b", "cstat", "csub", "ord", "ord-acts", "ord-chip", "ord-cli", "ord-date", "ord-foot", "ord-h", "ord-meta", "ord-no", "ord-tot", "qm", "rk-lead", "tierchip","cstat--free","cstat--up","cs-copy"], KIT_STS=[];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від яких порогів:</b> <code>--bp-grid-2col</code> і його дзеркало. <b>Що саме міняється:</b> смуга статусу кладе чип, примітку і лінк в один рядок; нижче точки ховається швидкий перехід. <b>Було 720 і 520</b>, обидва поза реєстром.</div>

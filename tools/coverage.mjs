@@ -65,13 +65,18 @@ const WF_STATE_LABEL = sliceObject(wf, 'WF_STATE_LABEL');
 const DESIGN_NAV = sliceArray(dg, 'DESIGN_NAV');
 const DESIGN_EXTRA = sliceArray(dg, 'DESIGN_EXTRA');
 
-/* THE ONLY DECLARED EXCEPTION, AND IT CARRIES ITS REASON ON THE PAGE. A screen
+/* THE DECLARED EXCEPTIONS, AND EACH CARRIES ITS REASON ON THE PAGE. A screen
    left out of the scope stays ON the map as its own state, counted, with the
    decision that put it there - the promise of the stage is «нічого не
-   загубилось», not «все зелене». */
-const OUT_OF_SCOPE = {
-  'quiz.html': 'ПОТІМ: locked decision 2 лишає в MVP шість плиток цілі, а квіз-діалог - збагачена версія після запуску. Сірий оригінал є, кольорової копії немає навмисно.',
-};
+   загубилось», not «все зелене».
+
+   12.11: THE LIST IS EMPTY, AND AN EMPTY DECLARED LIST IS ITSELF A CLAIM. It held
+   exactly one row for the whole stage - `quiz.html`, the one ПОТІМ screen - and
+   batch 6 built it on the owner's separate word, so the row came out. The
+   check below is written to be asked both ways whether the list has rows or not:
+   an entry whose screen now exists in colour fails as loudly as a screen with no
+   row, which is what turned this from a comment into a gate. */
+const OUT_OF_SCOPE = {};
 
 const stateFile = (f, st) => f.replace('.html', '-' + st + '.html');
 const label = st => WF_STATE_LABEL[st] || st;

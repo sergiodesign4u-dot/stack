@@ -144,10 +144,15 @@
 <p class="kp-p">Один порожній стан <b>на екран</b> - але <code>.emptybox</code> це порожнеча <b>блока</b>, і їх буває три на одному екрані (<code>account-empty</code>). Плутати два класи не можна: <code>.empty</code> каже «екран порожній», <code>.emptybox</code> - «порожня ця картка».</p></section>
 
 
+<section class="kp-sec"><div class="kp-sh">Широкий значок</div>
+<p class="kp-p"><code>.ei--wide</code> - той самий значок порожнього стану, але коли всередині нього малюнок, а не гліф: малюнок читається меншим за той самий розмір, тож коробка росте до 126.</p>
+<div class="kp-demo"><div class="empty"><div class="ei ei--wide">🗂</div><div class="et">Тут поки порожньо</div></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>4</b> стани оголошено в <code>empty-state.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["empty","emptybox","errbox","loadnote","ei","et","es","eact","mini","hint"], KIT_STS=[".mini", "aria-label=\"Результати\"", "aria-label=\"Помилка\"", ":hover"];</script></section>
+<script>var KIT_CLS=["empty","emptybox","errbox","loadnote","ei","et","es","eact","mini","hint","ei--wide"], KIT_STS=[".mini", "aria-label=\"Результати\"", "aria-label=\"Помилка\"", ":hover"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> жодного. Порожній стан плинний і має свою міру рядка; єдине, що етап 10 йому дав, - <code>--container-text</code> замість двох рукописних <code>ch</code>. Раунд молекул не додав нічого.</div>

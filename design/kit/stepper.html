@@ -83,10 +83,17 @@
 <p class="kp-p"><b>І кільце малював Chrome.</b> Зміряно, не припущено: у спокої клавіша віддавала <code>outline-style: none</code>, під <code>:focus-visible</code> - <code>rgb(0, 95, 204) auto 1px</code>. Це той самий типовий контур, який 7.31 знайшов у чипа, а 7.32 у перемикача вигляду; цей прохід знайшов ще два - тут і на складеній дії. Кільце <b>всередині</b>, бо рамка ріже вміст через <code>overflow: hidden</code>, і зовнішнє кільце на клавіші зрізав би той самий короб, що її тримає. Кільце самої рамки на <code>:focus-within</code> - інша робота й лишається: воно каже «ви в цьому контролі», а це - «ви на цій клавіші».</p>
 <div class="kp-cap">Зміряно дотиком: клавіша прозора <code>-> #FFF9F5</code></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Третє ім'я того самого лічильника</div>
+<p class="kp-p">Кроковий лічильник носить три імені - <code>.ci-qty</code> у рядку кошика, <code>.co-qty</code> в оформленні і <code>.cq</code> у сесії тренера - і файл пише їх одним селектором. Ім'я в кожного своє, бо розмітку пише сірий шар, а він заморожений; обличчя одне, бо збільшити кількість це одна робота.</p>
+<div class="kp-demo" style="display:flex;gap:var(--space-16);align-items:center">
+<div class="cq"><button type="button" aria-label="Менше">-</button><span class="qn">2</span><button type="button" aria-label="Більше">+</button></div>
+</div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>3</b> власних класів і <b>2</b> станів оголошено в <code>stepper.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці. Чужий контекст (його тут немає) не рахується: у цих селекторах компонент не є підметом, він лише стоїть усередині когось.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["ci-qty", "co-qty", "qn"], KIT_STS=[":hover", "[disabled]", ":active", ":focus-visible"];</script></section>
+<script>var KIT_CLS=["ci-qty", "co-qty", "qn","cq"], KIT_STS=[":hover", "[disabled]", ":active", ":focus-visible"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Рух</div>
 <p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color рамки, background і color кнопок. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>

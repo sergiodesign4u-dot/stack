@@ -380,3 +380,51 @@
   .pmini{ top: 88px; }
   .pmini .pcard .ph{ background-size:80%; }
 }
+
+
+/* ---------- 12.11 - THE THIRD RUNG: `.qsc`, THE COMPACT SET CARD --------------
+   This file has held two rungs of one card since stage 08 - `.pcard` the grid
+   card and `.pcard-l` the list row - and the quiz of node 4.x brings the third.
+   It is not a variant of either: stage 04 wrote the decision down in
+   `wireframes/docs/screens.md` in one line, «важкі PLP-картки -> `.qsc`», because
+   four cards have to stand in one row inside a dialog 760 wide, and the grid
+   card's own `.nm` alone reserves 44 of height.
+
+   WHAT IT DROPS, and each is the reason it is a rung and not a `--compact`
+   modifier: no struck price, no discount chip, no per-serving line, no bonus
+   line, no favourite, no availability. A set card answers ONE question - why is
+   this in my set - and the answer is `.why`, which no other rung has.
+
+   IT IS STILL A PRODUCT CARD, so it lives here. A ladder is read by JOB: the
+   thing shows a photograph, a brand, a name, a price and a way into the cart,
+   and a fourth file drawing that would be the drift `.pcard-l` was split out to
+   stop. Its children repeat `.ph .tag .bd .nm`, and that is safe for the same
+   reason `.pcard-l` renamed its own to `.lph .lbd .lnm` - the parent scopes them,
+   and here the parent is a different word. */
+.qsc{ position: relative; display: flex; flex-direction: column; overflow: hidden;
+  background: var(--bg-page); border: 1px solid var(--line-hair);
+  border-radius: var(--radius-8); }
+/* 5/4 rather than the grid card's square: the row is four across inside a
+   dialog, so height is the scarce dimension and the photograph gives it up. */
+.qsc .ph{ aspect-ratio: 5 / 4; display: flex; align-items: center; justify-content: center;
+  position: relative; background: var(--bg-media); color: var(--mark-faint);
+  font-size: var(--fs-10); }
+.qsc .tag{ position: absolute; top: var(--space-4); left: var(--space-4); }
+.qsc .bd{ display: flex; flex-direction: column; flex: 1; padding: var(--space-8); }
+.qsc .br{ font-size: var(--fs-10); color: var(--text-brandline);
+  margin-bottom: var(--space-2); }
+.qsc .nm{ font-size: var(--fs-12); font-weight: var(--fw-bold); color: var(--text-primary);
+  line-height: var(--lh-snug); display: -webkit-box; -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; overflow: hidden;
+  transition: color var(--dur-fast) var(--ease-standard); }
+.qsc .nm:hover{ color: var(--text-action); }
+/* the rung's whole reason. Two lines, clamped, because a third would push the
+   price out of the card and the price is what the row of four is compared on. */
+.qsc .why{ font-size: var(--fs-10); color: var(--text-secondary);
+  line-height: var(--lh-snug); margin: var(--space-4) 0 var(--space-8);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; }
+.qsc .ft{ margin-top: auto; display: flex; align-items: center;
+  justify-content: space-between; gap: var(--space-4); }
+.qsc .pr{ font-size: var(--fs-14); font-weight: var(--fw-black);
+  color: var(--text-primary); white-space: nowrap; }

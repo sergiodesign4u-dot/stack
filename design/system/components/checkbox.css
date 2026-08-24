@@ -107,7 +107,13 @@
    `.fopt` did this and `.optin` did not - 200 against 1, and the one was simply
    never given it. */
 .fopt:hover, .optin:hover{ color: var(--text-action); }
-.fopt:hover .cb, .optin:hover .cb{ border-color: var(--line-action); }
+/* 12.11: `.q-opt` is the third wearer of the square. Step 4 of the quiz is the
+   one question in the flow that takes more than one answer, so its rows carry a
+   `.cb` instead of a `.co-radio` - the same row, a different input, which is
+   exactly the split radio.css named when `.ac-cli` joined it at 8.30. The square
+   itself needed nothing: `.cb` is a bare class and already matched. What was
+   missing is the row answering FOR it, which is these two lines. */
+.fopt:hover .cb, .optin:hover .cb, .q-opt:hover .cb{ border-color: var(--line-action); }
 
 /* ---------- press - step 7.33 ------------------------------------------------
    THE LABEL IS PRESSED, THE BOX ANSWERS. `:active` does not reach descendants, so
@@ -117,8 +123,8 @@
    The checked box goes one step darker rather than soft: it already rests on
    `--bg-action`, exactly like the accent button, and takes that button's pressed
    ground. */
-.fopt:active .cb, .optin:active .cb{ background: var(--bg-action-soft); }
-.fopt:active .cb.on, .optin:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
+.fopt:active .cb, .optin:active .cb, .q-opt:active .cb{ background: var(--bg-action-soft); }
+.fopt:active .cb.on, .optin:active .cb.on, .q-opt:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
 
 /* ---------- focus - step 7.34, and until then there was nothing to focus ------
    Both names were unreachable, so what a ring looks like here had never come up.

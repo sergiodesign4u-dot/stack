@@ -125,10 +125,21 @@
 </tbody></table></div>
 <p class="kp-p"><b>41 позначка <code>[?]</code></b> - найбільше у всій системі, і всі про геометрію: 9, 11, 14, 15, 21, 56, 160. Відступи мають два правила, що суперечать одне одному на тих самих числах, тож жодне з них не рухається без рішення. Окремо названо <b>160</b> - колонка підписів у списку даних клієнта: це <b>єдине 160 у системі</b>, а <code>spec-table.css</code> малює ту саму пару <code>dt</code>/<code>dd</code> зі своєю власною відповіддю.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Розкладка «список і деталь» <b>10.5</b></div>
+<p class="kp-p">Від широкої ширини список клієнтів перестає бути сіткою і стає лівою колонкою поруч із деталлю: <code>.clsplit</code> кладе їх у дві колонки і повертає <code>.clist</code> в одну, а <code>.cldetail</code> липне до верху й нижче 620 не існує взагалі. Картку клієнта в цій розкладці відкривають кнопкою <code>.ccard-sel</code> - вона успадковує шрифт і колір, бо мусить лишитись НАЗВОЮ, а не виглядати кнопкою.</p>
+<div class="kp-demo"><div class="coach"><div class="clsplit">
+<div class="clist">
+  <article class="ccard" aria-current="true"><button class="ccard-sel" type="button">Андрій Мельник</button></article>
+  <article class="ccard"><button class="ccard-sel" type="button">Ірина Бондар</button></article>
+</div>
+<aside class="cldetail"><div class="cc-note">Деталь обраного клієнта: цілі, історія замовлень, нотатки.</div></aside>
+</div></div></div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>44</b> класи і <b>0</b> станів оголошено в <code>coach-clients.css</code>. <code>.coach</code> не рахується - це скоуп, а <code>.btn</code> тут не компонент, а місце в ряду.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["cc-cta", "cc-note", "cc-wrap", "ccard", "ccard-acts", "ccard-av", "ccard-goal", "ccard-hd", "ccard-meta", "ccard-nm", "cd-h", "cd-list", "cd-row", "cdetails", "ch", "ch-av", "ch-edit", "ch-goal", "ch-id", "ch-name", "cl-acts", "cl-h1", "cl-search", "cl-sech", "cl-sub", "cl-tools", "cl-top", "clist", "dot", "oc-actions", "oc-item", "oc-items", "oc-meta", "oc-nm", "oc-no", "oc-ph", "oc-qty", "oc-sum", "oc-top", "ocard", "oh-h", "ohist"], KIT_STS=[];</script></section>
+<script>var KIT_CLS=["cc-cta", "cc-note", "cc-wrap", "ccard", "ccard-acts", "ccard-av", "ccard-goal", "ccard-hd", "ccard-meta", "ccard-nm", "cd-h", "cd-list", "cd-row", "cdetails", "ch", "ch-av", "ch-edit", "ch-goal", "ch-id", "ch-name", "cl-acts", "cl-h1", "cl-search", "cl-sech", "cl-sub", "cl-tools", "cl-top", "clist", "dot", "oc-actions", "oc-item", "oc-items", "oc-meta", "oc-nm", "oc-no", "oc-ph", "oc-qty", "oc-sum", "oc-top", "ocard", "oh-h", "ohist","clsplit","cldetail","ccard-sel"], KIT_STS=[];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від яких порогів:</b> <code>--bp-grid-2col</code> і його дзеркало. <b>Що саме міняється:</b> список клієнтів іде з однієї колонки у дві; нижче точки рядок клієнта складається в стовпчик. <b>Було 640 і 520</b>, обидва поза реєстром. 520 це <b>власне число потоку тренера</b>, яке трапилось тричі - тут, у <code>coach-cabinet</code> і в <code>coach-verify</code> - і не було зареєстроване жодного разу.</div>

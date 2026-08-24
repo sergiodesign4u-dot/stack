@@ -254,7 +254,7 @@ WIDER. Measured, not asserted: `.cs-grid` resolves `328px` at 360 and `320px 692
 | `product-loading` | studies the product and adds it to the cart | NEW BEHAVIOUR · in the code | point 860 (gallery and buy box side by side, the sticky bar goes) | Job 3 verify safety + Job 5 show the evidence to the athlete |
 | `product-oos` | studies the product and adds it to the cart | NEW BEHAVIOUR · in the code | point 860 (gallery and buy box side by side, the sticky bar goes) | Job 3 verify safety + Job 5 show the evidence to the athlete |
 | `product-reviews` | reads the reviews and the certificate | WIDER · air | container + line measure | – |
-| `quiz` | answers the questions one at a time | THE SAME | container | – |
+| `quiz` | answers the questions one at a time | **NEW BEHAVIOUR** | 620 | 12.11: the audit row said «THE SAME» about a screen whose component carries a registered change at 620 in BOTH directions - sheet becomes a card, the backdrop appears, the result grid goes 2-up to 4-up. Written before `quiz.css` existed and never re-asked. |
 | `search` | filters the results | NEW BEHAVIOUR · in the code | point 860 (permanent filter rail against a sheet) + fluid grid | Job 3, narrowing to a safe set. Barrier: the filter takes two taps, not seven |
 | `search-empty` | sees an empty state and the one way out of it | THE SAME | container | – |
 | `search-loading` | filters the results | NEW BEHAVIOUR · in the code | point 860 (permanent filter rail against a sheet) + fluid grid | Job 3, narrowing to a safe set. Barrier: the filter takes two taps, not seven |
