@@ -58,10 +58,20 @@
 @import 'components/filter-group.css';
 @import 'components/gallery.css';
 @import 'components/goal-tile.css';
+/* 12.4: ONE component on TWO agents' orders. The brand card of node 2.4 and
+   the category tile of node 2.0 declare the same shell and differ only in
+   what stands inside it; two files here would have been the drift that
+   central ordering exists to prevent. Level 2, in the molecules' group. */
+@import 'components/nav-tile.css';
 @import 'components/loyalty-rung.css';
 @import 'components/order-row.css';
 @import 'components/pagination.css';
 @import 'components/product-card.css';
+/* 12.8: node 8.10. The blog card and the promotion card share a shell and are
+   still two components - one asks to be read, the other to be bought on these
+   terms, and principle 1 puts a wall exactly there. Level 2, beside the card it
+   is most often mistaken for. */
+@import 'components/promo-card.css';
 @import 'components/qa-item.css';
 @import 'components/related.css';
 @import 'components/restock-note.css';
@@ -93,6 +103,34 @@
 @import 'components/product-grid.css';
 @import 'components/review-modal.css';
 @import 'components/system-page.css';
+/* 12.2: ordered before a screen asked, on the owner's decision - six content
+   screens of the fan-out share one template. Level 3, beside the system page it
+   borrows its card from. */
+@import 'components/info-page.css';
+/* 12.5: node 8.3 only. The IA node names it a DECLARED VARIANT of the service
+   template, and it is the one page of the six with no prose column at all - a
+   two-column answer sheet instead. Level 3, beside the template it varies. */
+@import 'components/contacts-block.css';
+/* 12.8: node 8.1. Prose in a column, and NOT `info-page.css`: that file opens by
+   naming its six service pages, and its own `.info-tbl` refused to borrow
+   `.ctable` on the same ground one batch ago. Level 3, beside the body it is not. */
+@import 'components/article.css';
+/* 12.8: node 8.9. A disclosure that stands CLOSED, which is why it is not
+   `.trustsec` - a trust block that opened on a click would break principle 1.
+   The mechanics are taken from that file verbatim rather than re-derived. */
+@import 'components/faq-page.css';
+/* 12.8: node 8.12. The success state of a footer component. Not `order-placed`,
+   whose plate is drawn in the SUCCESS family because money changed hands, and
+   not `system-page`, whose job is to report a fault. Level 3. */
+@import 'components/newsletter.css';
+/* 12.3: node 6.2, ordered by a subagent that stopped rather than drew. Level 3,
+   beside the two pages it borrows its plate and its card from. */
+@import 'components/order-placed.css';
+/* 12.4: node 2.5, ordered by the agent that stopped rather than drew. Level 3:
+   a surface the system had never had - a dropdown that is a full-screen sheet
+   on a phone and holds five kinds of row. menu.css, overlay.css and
+   cat-overlay.css were each read and each declines the job in its own words. */
+@import 'components/search-overlay.css';
 @import 'components/tabbar.css';
 @import 'components/auth-dialog.css';
 @import 'components/city-dialog.css';

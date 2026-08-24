@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Підписку підтверджено | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Підписку підтверджено</h1>
+<p class="kp-lead">Сторінка, на яку веде посилання з листа подвійного підтвердження: картка по центру, знак, промокод і два виходи. Вузол 8.12, один екран, <code>noindex</code>.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/newsletter.css</span><span class="kp-tag">73 рядки</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p"><code>.nl-wrap</code> центрує, <code>.nl-card</code> - картка з максимумом 30rem, <code>.nl-check</code> - знак на 46 (рівень драбини, а не 60 із сірого блоку), далі заголовок і рядок під ним, плита промокоду <code>.nl-promo</code> пунктиром і <code>.nl-foot</code> дрібним.</p>
+<div class="kp-demo">
+<div class="nl-wrap">
+  <div class="nl-card">
+    <div class="nl-check">✓</div>
+    <div class="sys-h">Підписку підтверджено</div>
+    <div class="sys-s">Тепер ви отримуватимете добірку раз на два тижні: розбори складу, нові надходження і тихі знижки. Без спаму.</div>
+    <div class="nl-promo">
+      <div class="cap">Промокод на першу покупку</div>
+      <div class="code">STACK-10</div>
+      <div class="note">-10% на замовлення від 800 ₴. Діє 30 днів.</div>
+    </div>
+    <div class="actions actions--center">
+      <a class="btn btn--accent" href="#">До каталогу</a>
+      <a class="btn btn--outline" href="#">На головну</a>
+    </div>
+    <div class="nl-foot">Передумали? <a href="#">Відписатись</a> можна в один клік з будь-якого листа.</div>
+  </div>
+</div>
+</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на <b>вузлі 8.12</b>. Сама форма підписки - це компонент ПІДВАЛУ; ця сторінка є її станом успіху, і більше ніде вона не стоїть.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p"><b>Не позичати плиту з <code>order-placed.css</code>.</b> Та плита намальована родиною УСПІХУ - <code>--line-success-soft</code>, <code>--bg-success-soft</code>, <code>--text-success</code> на диску - і заслуговує на неї: гроші перейшли, замовлення існує. Тут нічого не куплено. Позичена родина сказала б відвідувачу, що покупка відбулась, а це єдине, чого ця сторінка казати не має. Та сама форма, інша заява, і заява живе в ролях.</p>
+<p class="kp-p"><b>І не <code>system-page.css</code>.</b> <code>.sys-min</code> - це гола центрована колонка без картки, і її робота - доповісти про ЗБІЙ: 404, 500, технічні роботи. Підтвердження, намальоване як сторінка збою, - та сама помилка в інший бік.</p>
+<p class="kp-p">Заголовок і рядок під ним - це <code>.sys-h</code> і <code>.sys-s</code>, які <code>system-page.css</code> уже публікує саме як «центрований заголовок і його речення». Пара кнопок - <code>.actions .actions--center</code>. Цей файл малює лише картку, знак і плиту коду.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Один, і це робота <b>ВІДПОВІДЬ</b>: посилання у <code>.nl-foot</code> міняє чорнило на <code>--text-action</code> за <code>--dur-fast</code>. Станів порожнечі, помилки чи завантаження в цієї сторінки немає за визначенням - на неї потрапляють уже після того, як усе відбулось.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">У <code>wireframes/_wf.css</code> немає правила для <code>nl-*</code>. Четвертий файл партії з цим рядком, і на четвертому це вже не збіг: <b>уся група f4 стилювала себе у власних блоках <code>&lt;style&gt;</code></b>, тож інвентар, виведений зі спільної таблиці стилів, не бачив групи цілком - не одного компонента, а семи екранів разом.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>1</b> стан, показаний наживо вище.</p><div id="idle"></div><script>var KIT_CLS=["nl-wrap","nl-card","nl-check","nl-promo","nl-foot","cap","code","note"], KIT_STS=["hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>newsletter.css</code>: <b>8</b> семантичних ролей і <b>19</b> примітивів. Список виводить <code>node tools/roles.mjs newsletter</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--size-46</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

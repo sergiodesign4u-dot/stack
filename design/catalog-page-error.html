@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Каталог - помилка - Stack (wireframe 2.0 · error)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.0 Каталог-хаб - ERROR (visible exit, never a dead end).
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Каталог</span>
+  </nav>
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Каталог</h1>
+  </section>
+
+  <section aria-label="Помилка" role="alert">
+    <div class="empty">
+      <div class="ei">⚠</div>
+      <div class="et">Не вдалося завантажити каталог</div>
+      <div class="es">Перевірте з'єднання з інтернетом і спробуйте ще раз.</div>
+      <div class="eact">
+        <a class="btn--accent btn" href="catalog-page.html">Спробувати ще раз</a>
+        <a class="btn--outline btn" href="index.html">На головну</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('catalog-page.html', 'error');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

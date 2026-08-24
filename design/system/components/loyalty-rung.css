@@ -147,5 +147,113 @@ table.led tr.burn td.amt{ color:var(--text-warning); }
    twenty eight characters in a wide box that wraps zero times. The measure is
    about the LINE and the instrument was measuring the BOX - wrong version 9,
    fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
+/* 12.8: the eighth reader of the measure in this file, and it only appears when
+   the band is at its widest - `.ls` is `--fs-14` inside a column sized at 16px,
+   so it runs 73.9 of its OWN characters where the box holds 68 of the parent's.
+   The same arithmetic 12.7 found on `info-page.css`, third file to carry it. */
+.loy .ls{ max-width: var(--container-text); }   /* measured peak 73.9ch at 1335 */
 .led-note{ max-width: var(--container-text); }   /* measured peak 109.8ch */
 .led-empty{ max-width: var(--container-text); }   /* measured peak 98.1ch */
+
+/* ---------- 12.8: NODE 8.7, THE PUBLIC LOYALTY PAGE ------------------------
+   The owner's ruling opened this: «the bonus ledger belongs to 7.4 AND to 8.7».
+   That answer is worth more than the two screens it settles, because it decides
+   the whole shape of the addition. `table.led`, `.led-wrap`, `.led-head` and
+   `.led-note` are REUSED here byte for byte - the public page shows the same
+   ledger the account does - and this block adds only what the account genuinely
+   does not have.
+
+   WHAT WAS MEASURED BEFORE A RULE WAS WRITTEN, and it is most of the screen.
+   The grey block for node 8.7 declares `.loy-mechs`, `.loy-card`, `.loy-tbl`,
+   `.loy-faq`, `.loy-q`, `.loy-h2`, `.loy-qmark` and ten `me-*` names. Read
+   against the coloured node 7.4, every one of them already exists under another
+   name: `.loy-two` is the two-mechanism grid, `.acard` + `.ah` + `.mech-kicker`
+   is the mechanism card, `.loy-tbl` is `table.led`, `.loy-q` is `.qaitem`,
+   `.loy-h2` is `section-head`, `.loy-qmark` is `.qmark` from `base.css`, and the
+   whole `me-*` family is `.lt` + `.lbar` + `.ls` beside `.big` + `.u` + `.warn`.
+   Publishing them would have been the same ten decisions written a second time
+   under new names, which is precisely the drift central ordering exists to stop.
+
+   SO THREE THINGS ARE ADDED, AND NOTHING ELSE.
+     1  the landing hero, which the account has no use for - 7.4 lives inside the
+        account shell and is never introduced to anybody;
+     2  the ladder as ROWS. 7.4 draws three rungs across, a compact «where am I»;
+        the public page draws four down, each with what it costs and what it
+        gives, which is an explainer rather than a status. Same object, second
+        arrangement, so it is a form of `.ladder` and not a new ladder;
+     3  the personal band, which is a BOX around parts that already exist. It
+        carries `class="loy loy-me"` on purpose: everything inside it is the
+        `.loy` scope's own `.lt`, `.lbar` and `.ls`, and the box adds an edge and
+        a second column. Nothing inside it is new.
+
+   AND THE SPLIT IS 620, NOT THE GREY's 760 OR 800. Neither is in the registry,
+   and `bp.mjs` fails a run on a third point. */
+
+/* 1. the hero of the public page */
+.loy-hero{ text-align: center; padding: var(--space-24) 0;
+  border-bottom: 1px solid var(--line-hair); }
+.loy-hero p{ font-size: var(--fs-14); color: var(--text-secondary);
+  max-width: var(--container-text); margin: var(--space-12) auto var(--space-16);
+  line-height: var(--lh-airy); }
+/* the pair of buttons under it is `.actions .actions--center`, which
+   `patterns/action-row.css` already publishes; `.loy-hero .cta` would have been
+   a fourth private name for a flex row with a 12 gap. */
+
+/* 2. the ladder as rows: an explainer, not a status strip */
+.loy .ladder--rows{ flex-direction: column; }
+.loy .ladder--rows .lrung{ flex: none; display: flex; align-items: center;
+  gap: var(--space-12); text-align: start; padding: var(--space-12); }
+.loy .ladder--rows .lrung .md{ font-size: var(--fs-20); width: var(--size-26);
+  text-align: center; flex: none; }
+.loy .ladder--rows .lrung .nm{ font-size: var(--fs-14); font-weight: var(--fw-black);
+  color: var(--text-primary); display: block; }
+.loy .ladder--rows .lrung .cond{ font-size: var(--fs-12); color: var(--text-muted);
+  display: block; margin-top: var(--space-2); }
+.loy .ladder--rows .lrung .pct{ margin-inline-start: auto; font-size: var(--fs-18);
+  font-weight: var(--fw-black); color: var(--text-primary); }
+/* «you are here», and it is a chip rather than a colour: the rung already says
+   its state with a border, and a second colour on the same row would be two
+   marks for one fact. */
+.loy .ladder--rows .lrung .youchip{ font-size: var(--fs-12); font-weight: var(--fw-black);
+  border: 1px solid var(--line-action); color: var(--text-action);
+  border-radius: var(--radius-pill); padding: 0 var(--space-8);
+  margin-inline-start: var(--space-8); }
+
+/* 3. the personal band. `class="loy loy-me"` - the parts inside are the scope's */
+.loy-me{ display: grid; grid-template-columns: 1fr; gap: var(--space-16);
+  border: 1px solid var(--line-action); padding: var(--space-16);
+  margin: var(--space-16) 0 var(--space-8); }
+.loy-me .me-r{ border-top: 1px solid var(--line-hair); padding-top: var(--space-16); }
+@media (min-width: 38.75rem){
+  .loy-me{ grid-template-columns: 1.4fr 1fr; }
+  .loy-me .me-r{ border-top: none; padding-top: 0;
+    border-inline-start: 1px solid var(--line-hair); padding-inline-start: var(--space-16); }
+}
+
+/* ---------- colour ---------- */
+.loy-hero h1{ color: var(--text-primary); }
+.loy .ladder--rows .lrung{ border-radius: var(--radius-8); }
+.loy .ladder--rows .lrung .pct{ font-family: var(--font-mono); }
+.loy-me{ border-radius: var(--radius-16); background: var(--bg-surface); }
+
+/* ---------- 12.8, the three the built screens measured -----------------------
+   Every one of these was found by an agent with a BROWSER on a screen the
+   author had already called finished, which is the shape of this whole stage:
+   a stylesheet cannot see a gap of zero or a heading that never fills its line.
+
+   1  `.loy-hero` centres its text and `.lh1` is a flex row with no justification
+      (`section-head.css:8`), so the anonymous item holding the words sat at
+      flex-start. Measured at 1280: the box runs 232..1264 and the text 232..718
+      - 546px of dead space beside a paragraph that IS centred underneath. It
+      self-corrects only when the heading is long enough to fill the line, which
+      is why the stand demo never showed it.
+   2  the band's actions had no air above them: the warn ended at y=430 and the
+      row began at y=430. The grey spaced them with `.me-cta`, a private name
+      with no rule, which a screen file may not carry.
+   3  «ваш рівень» broke to two lines inside the chip at 390 and grew the rung
+      from 70 to 89 tall. The chip is a label, and a label that wraps is a badge
+      that has stopped being one. The kit demo used a shorter word and so never
+      met it - a demo is not the corpus. */
+.loy-hero .lh1{ justify-content: center; }
+.loy-me .me-r .actions{ margin-top: var(--space-12); }
+.loy .ladder--rows .lrung .youchip{ white-space: nowrap; }

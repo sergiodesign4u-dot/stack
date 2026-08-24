@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Акції - Stack (wireframe 8.10)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.10 Акції / Промо (listing). Entry = meta-bar «Акції».
+  Breadcrumb → H1 + lead → promo card grid → SEO block. Inherited header/footer
+  from ../wireframes/_nav.js.
+  CALM - NO COUNTDOWN TIMERS (Principle 4). `.until` is ONE quiet line with a
+  date, and promo-card.css carries nothing that moves by itself. The grey screen
+  says the same in its own comment.
+  Cards drawn by promo-card.css: `.promo-grid` is fluid (`auto-fill` on the
+  panel floor gives one, two or three columns by the width available) - the grey
+  block's 720 is in no registry of breakpoints. Inside `.pcard-promo`: `.banner`
+  21/9 with `.badge` ON it (so the mark reads `--bg-media` / `--text-onmedia`,
+  rule 8), then `.bd` with `.ttl`, `.desc`, `.until` and the button.
+  The four banner photographs come from promo-card.css by POSITION
+  (`.promo-grid > .pcard-promo:nth-child(1…4)`), so the frame carries no word.
+  Lead = `.lintro` (seo-text.css). `.cta` takes `btn--accent`, the same reading
+  of the grey layer's `dark` marker that content-contacts.html made at batch 3;
+  rule U8 of architecture.md - an accent is the one action of a REGION, and each
+  card is a region.
+  The 8.x family keeps its emoji: uivChrome() does not enter <main>, so the 🗓
+  of `.until` is drawn by the font like the 21 emoji of content-about.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb. The slash is drawn by breadcrumb.css - a typed one shows twice. -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Акції</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Акції</h1>
+    <p class="lintro">Актуальні пропозиції Stack - знижки на перевірені товари й набори. Без
+      таймерів і поспіху: кожна акція діє до вказаної дати, обирайте спокійно.</p>
+  </section>
+
+  <!-- Promo card grid -->
+  <div class="promo-grid">
+
+    <article class="pcard-promo">
+      <div class="banner"><span class="badge">−20%</span></div>
+      <div class="bd">
+        <div class="ttl">−20% на весь протеїн</div>
+        <p class="desc">Сироватковий, ізолят, казеїн і рослинний - від перевірених брендів.
+          Знижка вже врахована в ціні товарів категорії.</p>
+        <span class="until">🗓 Діє до 31 липня</span>
+        <a class="btn--accent cta" href="listing.html">До товарів акції</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner"><span class="badge">Набір</span></div>
+      <div class="bd">
+        <div class="ttl">Стартовий набір для початківця</div>
+        <p class="desc">Протеїн + креатин + шейкер за вигіднішою ціною, ніж окремо. Простий і
+          безпечний старт під ціль «Набір маси».</p>
+        <span class="until">🗓 Діє до 15 серпня</span>
+        <a class="btn--accent cta" href="goal.html">Переглянути набір</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner"><span class="badge">−15%</span></div>
+      <div class="bd">
+        <div class="ttl">Креатин Creapure® дешевше</div>
+        <p class="desc">Найбільш вивчена добавка для сили й об'єму - зі знижкою на монобренд
+          преміального моногідрату.</p>
+        <span class="until">🗓 Діє до 20 липня</span>
+        <a class="btn--accent cta" href="product.html">До товару</a>
+      </div>
+    </article>
+
+    <article class="pcard-promo">
+      <div class="banner"><span class="badge">Бонуси ×2</span></div>
+      <div class="bd">
+        <div class="ttl">Подвійні бонуси на вітаміни</div>
+        <p class="desc">Замовляйте вітаміни, омегу й товари для здоров'я - нараховуємо вдвічі
+          більше бонусних гривень на рахунок.</p>
+        <span class="until">🗓 Діє до 31 липня</span>
+        <a class="btn--accent cta" href="listing.html">До категорії</a>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис акцій">
+    <div class="h">Акції та знижки на спортивне харчування Stack</div>
+    <p>У розділі «Акції» - актуальні знижки на протеїн, гейнери, креатин, амінокислоти, вітаміни та
+      готові набори від перевірених брендів. Уся продукція оригінальна й сертифікована, з гарантією
+      виробника.</p>
+    <p>Ми не використовуємо таймери зворотного відліку й тиск - кожна пропозиція діє до чесно
+      вказаної дати. Оформлюйте зручно: доставка Новою Поштою, оплата картою чи при отриманні,
+      повернення протягом 14 днів.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-promo.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

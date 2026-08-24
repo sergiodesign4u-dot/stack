@@ -11,17 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* NOTHING PRIVATE LEFT HERE, AND THE SHELL OUTLIVED THE CONTENTS - step 8.42.
-   Four rules went at step 8.30 and the block stayed behind as six blank lines,
-   which is the same defect as a comment nobody can find a rule for: the page
-   said «I paint something of my own» and painted nothing.
-   What left: `.cart-drawer{ max-width: 440px }`, `.cd-body{ padding: 0 18px }`,
-   `.cd-empty{ padding: 40px 12px }` and `.cd-empty .es{ line-height: 1.5 }`.
-   cart-drawer.css declares all four names, so the drawer's own numbers now
-   stand on this screen as they do on the buyer's: 420 rather than 440, 8/16
-   rather than 0/18, 40/8 rather than 40/12, and `--lh-airy` rather than 1.5. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -41,7 +30,7 @@
 </div>
 
 <!-- ===== CART DRAWER - empty ===== -->
-<div class="cart-ov" id="cart-ov"><a href="coach-session.html" aria-label="Закрити кошик" style="position:absolute;inset:0;display:block"></a></div>
+<div class="cart-ov" id="cart-ov"><a href="coach-session.html" aria-label="Закрити кошик"></a></div>
 <aside class="cart-drawer" role="dialog" aria-modal="true" aria-label="Кошик за клієнтами">
   <header class="cd-head">
     <h1>Кошик <span class="cd-cnt">0 товарів</span></h1>
@@ -54,7 +43,7 @@
       <div class="et">Кошик порожній</div>
       <div class="es">Додайте товари клієнтам у сесії замовлення - вони згрупуються тут за клієнтами.</div>
       <a class="btn--accent btn--s btn" href="coach-session.html">Повернутись до сесії</a>
-      <a class="btn--outline btn--s btn cont" href="coach-clients.html">До списку клієнтів</a>
+      <a class="btn--outline btn--s btn" href="coach-clients.html">До списку клієнтів</a>
     </div>
   </div>
 </aside>
@@ -65,7 +54,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('cart-coach.html', 'empty');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('cart-coach.html', 'empty');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

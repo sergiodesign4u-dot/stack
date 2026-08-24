@@ -118,7 +118,20 @@ const EXPR = [
   '    for (let a = el.parentElement; a && a !== root.parentElement; a = a.parentElement) {',
   '      const ov = getComputedStyle(a).overflowX;',
   '      if (ov === "auto" || ov === "scroll") { rail = true; break; }',
-  '      if (ov === "hidden" || ov === "clip") break;',
+  /* WRONG VERSION 13: A CLIPPING ANCESTOR ENDED THE SEARCH FOR A RAIL, AND THOSE
+     ARE TWO DIFFERENT QUESTIONS. `.hpromo` carries `overflow:hidden` and sits
+     inside `.hslider`, which scrolls X - so the card itself was correctly called
+     a rail item while `SPAN.hptag` INSIDE it broke at the card and was reported
+     as cut off by 488px on the four home screens. Clipping decides whether the
+     pixels are gone; only a scroller decides whether they are reachable. The
+     break stays for the case it was written for - the child that escapes the
+     clipper's own box really is lost, and no scroll above brings it back - and
+     an element still inside that box keeps climbing, because the reason it sits
+     off the viewport lies further up. */
+  '      if (ov === "hidden" || ov === "clip") {',
+  '        const ar = a.getBoundingClientRect();',
+  '        if (r.right > ar.right + 1 || r.left < ar.left - 1) break;',
+  '      }',
   '    }',
   '    if (over > 1 && rail && (!railWorst || over > railWorst.over)) railWorst = { over: +over.toFixed(1), tag: el.tagName, cls: (typeof el.className === "string" ? el.className : "").split(" ").filter(Boolean).slice(0, 3).join(".") };',
   '    if (over > 1 && !rail && (!worst || over > worst.over)) {',
@@ -289,15 +302,29 @@ for (const p of corpus) {
       prevKeys = nowKeys;
     }
     /* the peak belongs to the OWNER the row is printed beside - wrong version 6 -
-       and it is read off the whole sweep rather than off the crossing, where the
+       and it is read off the sweep rather than off the crossing, where the
        reading is always barely over by construction. */
     for (const [k, rec] of seen) {
-      for (const { o } of rows)
+      /* WRONG VERSION 14: THE RECORD WAS FILED BY ITS FIRST CROSSING, AND THE
+         FIRST CROSSING IS NOT THE FINDING. `rec.ats[0] < FLOOR` sent the WHOLE
+         record to the below-floor block, which prints and does not fail - so an
+         owner crossing at 324 AND at 374, 424, 474, 524 and 574 was filed under
+         «the product never promised to work there», and the class counter above
+         it read a clean zero. A defect that starts below the floor and survives
+         above it is a defect above the floor. It is filed by whether ANY
+         crossing is at or above 360, and then measured only inside the band it
+         is judged in: a peak read at 320 would arrive wearing an above-floor
+         width and overstate every such row. */
+      const atsAbove = rec.ats.filter(a => a >= FLOOR);
+      const hardHere = atsAbove.length > 0;
+      let peak = null, det = rec.det;
+      for (const { w, o } of rows) {
+        if (hardHere && w < FLOOR) continue;
         for (const own of cl.owners(o))
-          if (own.k === k && (rec.peak == null || own.v > rec.peak)) { rec.peak = own.v; rec.det = own.det; }
-      const at = rec.ats[0];
-      (at < FLOOR ? below : findings).push({ page: p, cls: key, name: cl.name, at, ats: rec.ats,
-        peak: rec.peak, det: rec.det, owner: k });
+          if (own.k === k && (peak == null || own.v > peak)) { peak = own.v; det = own.det; }
+      }
+      (hardHere ? findings : below).push({ page: p, cls: key, name: cl.name,
+        at: hardHere ? atsAbove[0] : rec.ats[0], ats: rec.ats, peak, det, owner: k });
     }
   }
 }

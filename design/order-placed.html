@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Замовлення №1024 прийнято - Stack (wireframe 6.2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.2 «Замовлення оформлено» / Order placed (state).
+  BASE = GUEST end (flows.md Job 2 → okg): success + guest→account offer.
+  Success end of the beginner checkout. Sibling state: account-end.
+
+  ROLLOUT 12 · the whole body is order-placed.css (level 3); the three next
+  steps are the action-row pattern in its --stack variant. Four figures come
+  from rollout.md section C rather than from the grey original, and each is
+  named where it stands.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <div class="op-wrap">
+
+    <!-- Success hero. Phone: the masked form of section C, +380 ** *** 45 67.
+         The grey masked a different last quartet (12 34) - the buyer's number
+         is +380 67 123 45 67, so the mask ends 45 67. -->
+    <section class="op-hero" aria-label="Підтвердження замовлення">
+      <div class="op-check" aria-hidden="true">✓</div>
+      <h1>Замовлення №1024 прийнято</h1>
+      <p class="op-sub">Ми надіслали <b>SMS із підтвердженням</b> на номер +380 ** *** 45 67. Трек-номер надішлемо у SMS, щойно замовлення зберемо.</p>
+    </section>
+
+    <div class="op-grid">
+
+      <!-- LEFT: order summary -->
+      <div>
+        <section class="op-card" aria-label="Склад замовлення">
+          <h2>Ваше замовлення</h2>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">Optimum Nutrition · США</div>
+              <div class="op-nm">Gold Standard 100% Whey 2270 г</div>
+              <div class="op-vmeta">Подвійний шоколад · 2270 г</div>
+            </div>
+            <div class="op-price">1 290 ₴<span class="qx">× 1</span></div>
+          </div>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">BioTechUSA · Угорщина</div>
+              <div class="op-nm">Iso Whey Zero 908 г</div>
+              <div class="op-vmeta">Ваніль · 908 г</div>
+            </div>
+            <div class="op-price">2 100 ₴<span class="qx">× 2</span></div>
+          </div>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">OstroVit · Польща</div>
+              <div class="op-nm">Creatine Monohydrate 500 г</div>
+              <div class="op-vmeta">Без смаку · 500 г</div>
+            </div>
+            <div class="op-price">549 ₴<span class="qx">× 1</span></div>
+          </div>
+
+          <!-- money breakdown (guest - no loyalty discount / bonuses until account).
+               «Товари (3)»: the count is POSITIONS (cart.md locked 10), and there
+               are three lines above. The grey said «(4)» - a defect microcopy.md
+               records against itself. The coloured 6.1 already says «Сума товарів (3)». -->
+          <div class="op-sum">
+            <div class="op-row"><span>Товари (3)</span><b>3 939 ₴</b></div>
+            <div class="op-row"><span>Доставка (Нова Пошта)</span><b>60 ₴</b></div>
+            <div class="op-total"><span class="l">Разом</span><span class="v">3 999 ₴</span></div>
+          </div>
+        </section>
+
+        <!-- delivery + payment facts -->
+        <section class="op-card" aria-label="Доставка та оплата">
+          <h2>Доставка та оплата</h2>
+          <div class="op-facts">
+            <div class="op-fact">
+              <div class="fk">Спосіб доставки</div>
+              <div class="fv">Нова Пошта - відділення №12<span>вул. Катерининська, 27, Одеса</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Отримувач</div>
+              <div class="fv">Вікторія Гість<span>+380 ** *** 45 67</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Оплата</div>
+              <div class="fv"><span class="op-paid">Сплачено карткою онлайн</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Орієнтовна доставка</div>
+              <div class="fv">1–2 робочі дні<span>відстеження прийде в SMS</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- bonus accrued -->
+        <div class="op-bonus">
+          <b>★ Створіть акаунт - і ми нарахуємо +40 ₴ бонусів</b> за це замовлення (~1% від суми). Бонуси діють 3 місяці, а історія та адреси збережуться для замовлень в один дотик. Реєстрація за номером телефону нижче.
+        </div>
+      </div>
+
+      <!-- RIGHT: next steps + guest→account offer -->
+      <aside class="op-aside" aria-label="Що далі">
+
+        <section class="op-card" aria-label="Наступні кроки">
+          <h2>Що далі?</h2>
+          <div class="actions actions--stack">
+            <button class="btn--outline btn" type="button">Відстежити замовлення</button>
+            <a class="btn--outline btn" href="account.html">Мої замовлення</a>
+            <a class="btn--outline btn" href="index.html">Продовжити покупки</a>
+          </div>
+        </section>
+
+        <!-- GUEST end: create account offer. The one accent of the screen. -->
+        <section class="op-offer" aria-label="Створити акаунт">
+          <h2>Створіть акаунт</h2>
+          <p>Збережіть історію замовлень, нараховані бонуси та адреси доставки - щоб наступного разу замовляти в один дотик. Реєстрація за номером телефону, без пароля.</p>
+          <a class="btn--accent btn--l btn--full btn" href="order-placed-account-end.html" onclick="openAuth('phone','order-placed-account-end.html');return false">Створити акаунт</a>
+        </section>
+
+      </aside>
+    </div>
+
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('order-placed.html');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

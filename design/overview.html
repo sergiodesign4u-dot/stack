@@ -8,7 +8,7 @@
 <link rel="icon" type="image/svg+xml" href="concept/assets/logo-mark.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1C1C1C; --canvas:#FFFFFF; --orange:#FF5A00; --warm:#F2F0ED;
@@ -76,6 +76,18 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
   .invtab th, .invtab td { text-align:left; padding:10px 14px; border-bottom:1px solid #F2F0ED; vertical-align:top; }
   .invtab th { font-size:10.5px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:#6E6A62; }
   .invtab tr:last-child td { border-bottom:0; }
+
+  /* 12.10 - THE COVERAGE MAP IS GENERATED, SO ITS TWO CELL STATES NEED NAMES.
+     A page that exists in colour is a link; a page deliberately outside the
+     scope is NOT a link and must not read as one - it stays on the map, in its
+     row, with the decision that put it there in the next cell. */
+  .invtab td a { color:var(--ink); font-weight:600; text-decoration:underline; text-decoration-color:var(--line); text-underline-offset:2px; }
+  .invtab td a:hover { text-decoration-color:var(--d-accent); }
+  .invtab .miss { color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line); }
+  /* the verdict column is two or three words on 49 rows and a whole sentence on
+     one; without a floor the short ones wrap and every row grows a second line
+     for nothing, while a hard nowrap would push the one long cell off the page. */
+  .invtab td:last-child { min-width:9.5em; }
 </style>
   <link rel="stylesheet" href="../_nav.css">
 </head>
@@ -301,11 +313,35 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
     замовлення з трьох</b>. <code>uivFixLinks</code> робив рівно те, що мав - переписував посилання
     на екран, кольорової копії якого немає, - тож полагодити це можна було тільки трьома екранами.</p>
 
+
+  <h2 class="sech2" id="rollout">Розкотка - етап 12</h2>
+  <p class="sub">Журнал розкотки - <code>design/kit/docs/rollout.md</code>. Там лежать кошторис усього продукту,
+    склад партій, канонічні дані одним переліком і <b>контракт субагента дослівно</b>. Кошторис не набраний
+    руками: <code>node tools/rollout-table.mjs</code> виводить його з тих самих реєстрів, за якими живуть обидва
+    прототипи, і це <b>єдине місце в репозиторії, де записано зв'язок «екран → вузол IA»</b> - етап 13 читає його теж.</p>
+
+  <p class="sub"><b>Числа розкотки більше не набрані тут руками.</b> Ця таблиця стояла на цьому місці з
+    першої партії й показувала «118 у кольорі · 23 лишилось» ще довго після того, як лишилась одна
+    сторінка: шість рядків, які ніхто не переписував, бо переписати їх не було чим. Вони знялись, а не
+    виправились - те саме правило, за яким знімається будь-яке число без господаря. Живі числа стоять
+    нижче, у розділі <a href="#coverage">«Карта покриття»</a>, і їх виводить
+    <code>node tools/coverage.mjs</code> з тих самих двох реєстрів.</p>
+
+  <p class="foot-note"><b>Підлога контракту вичищена ДО фанауту</b>, за рішенням власника і по всіх 91 екрані, а не
+    лише на шаблонах: атрибут <code>style=</code> зі <b>102 на 38 екранах</b> до <b>20</b> (усі 20 - оголошений
+    виняток: відсоток на смузі є ЗНАЧЕННЯМ, бо в статичного прототипу немає сервера, щоб його порахувати), тег
+    <code>&lt;style&gt;</code> з <b>31</b> до <b>0</b>, літерал <code>px</code> з <b>92</b> до <b>0</b>. Тридцять
+    порожніх блоків несли записи про те, що пішло з екрана на кроках 8.30-8.42; жоден не втрачено - усі тридцять
+    лежать дослівно в <code>consolidation.md</code>. Прилад, яким міряється кожна партія, -
+    <code>tools/screen-css.mjs</code>, і він доведений червоним, а не обіцянкою.</p>
+
   <p class="foot-note">Це засів <b>етапу 06</b>: мова доведена на еталоні й станах. Кожне рішення (колір, форма, шрифт,
     іконка) має пару в <b>DESIGN-artifacts.md</b> / стенді <code>concept.html</code>. Повний UI + Visual - кіт компонентів
     - це <b>етап 07</b>, і він закритий: <a href="kit/kit.html">кіт компонентів</a> зібраний,
-    інвентар прочитаний з усіх 142 файлів вайрфреймів. У кольорі стоять <b>87 екранів + хаб</b> (46 покупця, 41 тренера) - перераховано 2026-08-14 кроком 6; попереднє число, 50, застигло на етапі 07 і відстало на 37 екранів;
-    решта карти фарбується на <b>розкотці етапу 08</b>, уже на готовій системі, а не двічі.</p>
+    інвентар прочитаний з усіх 142 файлів вайрфреймів. Решта карти пофарбувалась на <b>розкотці етапу 12</b>,
+    уже на готовій системі, а не двічі. <b>Скільки саме стоїть у кольорі, тут більше не написано</b>: це число
+    жило в цьому абзаці двічі й обидва рази відстало (50 з етапу 07, потім 87 з 14.08.2026), бо абзац
+    розповідає ІСТОРІЮ, а історія не переписується щопартії. Живе число - у <a href="#coverage">карті покриття</a>.</p>
 
   <p class="foot-note">Плаский кіт розколотий: <b>етап 08</b> зібрав
     <a href="kit/overview.html">дизайн-систему</a> - два рівні токенів у
@@ -313,12 +349,150 @@ h1{font-family:Oswald; font-weight:700; text-transform:uppercase; letter-spacing
     <code>kit.html</code> лишається як <b>заморожений смоук</b> етапу 07: якщо він виглядає так
     само, як до розколу, система зібрана правильно. Новий компонент іде на власну сторінку в
     <code>design/kit/</code>, а не рядком у нього.</p>
+<!-- coverage:start -->
+  <h2 class="sech2" id="coverage">Карта покриття - усі 141 сторінок</h2>
+  <p class="sub">Ця таблиця не набрана руками: <code>tools/coverage.mjs</code> виводить її з <code>WF_FLOWS</code> (весь продукт,
+    сірий) і <code>DESIGN_NAV</code> (те, що існує в кольорі), і переписує розділ між маркерами. Зелене стоїть на тому, що
+    увійшло в <b>обсяг</b>; свідомо не зроблене лишається окремим станом <b>з причиною</b> і рахується числом, бо обіцянка
+    етапу це «нічого не загубилось», а не «все зелене».</p>
+  <p class="sub">Обхід приладом <code>node tools/coverage.mjs</code>, 1280px: <b>записів 141</b> · <b>відкрилось 140</b> · <b>зі своїми станами 49</b> з 49 екранів обсягу. Панель на сторінці рівно одна: 140 з 140. Не відкрилось 1 - це рівно ті сторінки, що поза обсягом.</p>
+
+  <div class="section-h">
+    <span class="n">f1</span>
+    <h2>Флоу 1 · Покупець-новачок</h2>
+    <span class="hint">10 екранів · 41 сторінок · у кольорі 40</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>0.0</td><td>Головна</td><td><a href="index.html">база</a> · <a href="home-buyer.html">Покупець</a> · <a href="home-coach.html">Тренер</a> · <a href="home-cart.html">Кошик-полиця</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>2.1</td><td>Категорія (лістинг)</td><td><a href="listing.html">база</a> · <a href="listing-filtered.html">З фільтрами</a> · <a href="listing-list.html">Списком</a> · <a href="listing-sheet.html">Фільтри (шит)</a> · <a href="listing-empty.html">Порожньо</a> · <a href="listing-loading.html">Завантаження</a> · <a href="listing-error.html">Помилка</a></td><td>у кольорі 7 з 7</td></tr>
+        <tr><td>2.2</td><td>Ціль-колекція</td><td><a href="goal.html">база</a> · <a href="goal-empty.html">Порожньо</a> · <a href="goal-loading.html">Завантаження</a> · <a href="goal-error.html">Помилка</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>4.x</td><td>Квіз (підбір за ціллю)</td><td><span class="miss">база</span></td><td><b>поза обсягом</b> - ПОТІМ: locked decision 2 лишає в MVP шість плиток цілі, а квіз-діалог - збагачена версія після запуску. Сірий оригінал є, кольорової копії немає навмисно.</td></tr>
+        <tr><td>3.0</td><td>Картка товару</td><td><a href="product.html">база</a> · <a href="product-loading.html">Завантаження</a> · <a href="product-error.html">Помилка</a> · <a href="product-oos.html">Немає в наявності</a> · <a href="product-reviews.html">Відгуки (Job 3)</a> · <a href="product-coach.html">Тренер</a></td><td>у кольорі 6 з 6</td></tr>
+        <tr><td>6.0</td><td>Кошик</td><td><a href="cart.html">база</a> · <a href="cart-empty.html">Порожньо</a> · <a href="cart-oos.html">Немає в наявності</a></td><td>у кольорі 3 з 3</td></tr>
+        <tr><td>6.1</td><td>Оформлення</td><td><a href="checkout.html">база</a> · <a href="checkout-loggedin.html">У кабінеті</a> · <a href="checkout-noaddr.html">Без адреси</a> · <a href="checkout-loading.html">Завантаження</a> · <a href="checkout-declined.html">Оплата відхилена</a></td><td>у кольорі 5 з 5</td></tr>
+        <tr><td>1.x</td><td>Авторизація</td><td><a href="auth.html">база</a> · <a href="auth-code.html">Крок коду</a> · <a href="auth-loading.html">Завантаження</a> · <a href="auth-newuser.html">Новий користувач</a> · <a href="auth-error.html">Помилка</a></td><td>у кольорі 5 з 5</td></tr>
+        <tr><td>6.2</td><td>Замовлення оформлено</td><td><a href="order-placed.html">база</a> · <a href="order-placed-account-end.html">З акаунтом</a></td><td>у кольорі 2 з 2</td></tr>
+        <tr><td>7.0</td><td>Кабінет покупця</td><td><a href="account.html">база</a> · <a href="account-empty.html">Порожньо</a> · <a href="account-loading.html">Завантаження</a> · <a href="account-error.html">Помилка</a></td><td>у кольорі 4 з 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-h">
+    <span class="n">f2</span>
+    <h2>Флоу 2 · Тренер</h2>
+    <span class="hint">13 екранів · 44 сторінок · у кольорі 44</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>5.0</td><td>Для тренерів (лендинг)</td><td><a href="coach-landing.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>5.1</td><td>Стати тренером</td><td><a href="coach-verify.html">база</a> · <a href="coach-verify-loading.html">Завантаження</a> · <a href="coach-verify-error.html">Помилка</a> · <a href="coach-verify-deadend.html">Глухий кут</a> · <a href="coach-verify-tier.html">Вибір тарифу</a></td><td>у кольорі 5 з 5</td></tr>
+        <tr><td>5.2</td><td>Кабінет тренера</td><td><a href="coach-home.html">база</a> · <a href="coach-home-empty.html">Порожньо</a> · <a href="coach-home-free.html">Тариф Free</a> · <a href="coach-home-loading.html">Завантаження</a> · <a href="coach-home-error.html">Помилка</a></td><td>у кольорі 5 з 5</td></tr>
+        <tr><td>5.2a</td><td>Тариф (керування)</td><td><a href="coach-tariff.html">база</a> · <a href="coach-tariff-free.html">Тариф Free</a> · <a href="coach-tariff-cancel.html">Скасування Pro</a></td><td>у кольорі 3 з 3</td></tr>
+        <tr><td>5.3</td><td>Клієнти</td><td><a href="coach-clients.html">база</a> · <a href="coach-clients-empty.html">Порожньо</a> · <a href="coach-clients-loading.html">Завантаження</a> · <a href="coach-clients-error.html">Помилка</a> · <a href="coach-clients-cap.html">Ліміт клієнтів</a></td><td>у кольорі 5 з 5</td></tr>
+        <tr><td>5.3a</td><td>Новий клієнт</td><td><a href="coach-client-new.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>5.4</td><td>Профіль клієнта</td><td><a href="coach-client.html">база</a> · <a href="coach-client-empty.html">Порожньо</a> · <a href="coach-client-loading.html">Завантаження</a> · <a href="coach-client-error.html">Помилка</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>5.4a</td><td>Редагування клієнта</td><td><a href="coach-client-edit.html">база</a> · <a href="coach-client-edit-confirm.html">Підтвердження</a></td><td>у кольорі 2 з 2</td></tr>
+        <tr><td>5.5</td><td>Мультиклієнтська сесія</td><td><a href="coach-session.html">база</a> · <a href="coach-session-addclient.html">Додати клієнта (вибір)</a> · <a href="coach-session-addempty.html">Додати клієнта (порожньо)</a> · <a href="coach-session-loading.html">Завантаження</a> · <a href="coach-session-oos.html">Немає в наявності</a> · <a href="coach-session-priceblock.html">Ціна не підтверджена</a> · <a href="coach-session-newclient.html">Новий клієнт</a> · <a href="coach-session-empty.html">Порожньо</a></td><td>у кольорі 8 з 8</td></tr>
+        <tr><td>5.6</td><td>Замовлення тренера</td><td><a href="coach-orders.html">база</a> · <a href="coach-orders-empty.html">Порожньо</a> · <a href="coach-orders-loading.html">Завантаження</a> · <a href="coach-orders-error.html">Помилка</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>5.8</td><td>Обране тренера</td><td><a href="coach-wishlist.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>5.7</td><td>Деталі замовлення</td><td><a href="coach-order.html">база</a> · <a href="coach-order-loading.html">Завантаження</a> · <a href="coach-order-error.html">Помилка</a></td><td>у кольорі 3 з 3</td></tr>
+        <tr><td>6.0</td><td>Кошик (за клієнтами)</td><td><a href="cart-coach.html">база</a> · <a href="cart-coach-empty.html">Порожньо</a></td><td>у кольорі 2 з 2</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-h">
+    <span class="n">f3</span>
+    <h2>Каталог та пошук</h2>
+    <span class="hint">4 екранів · 12 сторінок · у кольорі 12</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>2.0</td><td>Каталог-хаб</td><td><a href="catalog-page.html">база</a> · <a href="catalog-page-loading.html">Завантаження</a> · <a href="catalog-page-error.html">Помилка</a></td><td>у кольорі 3 з 3</td></tr>
+        <tr><td>0.0</td><td>Рейка категорій з головної (flyout-оверлей)</td><td><a href="home-catalog.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>2.4</td><td>Бренди (індекс)</td><td><a href="brands.html">база</a> · <a href="brands-empty.html">Порожньо</a> · <a href="brands-loading.html">Завантаження</a> · <a href="brands-error.html">Помилка</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>2.5</td><td>Пошук</td><td><a href="search.html">база</a> · <a href="search-suggest.html">Підказки</a> · <a href="search-empty.html">Порожньо</a> · <a href="search-loading.html">Завантаження</a></td><td>у кольорі 4 з 4</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-h">
+    <span class="n">f4</span>
+    <h2>Контент, інфо та лояльність</h2>
+    <span class="hint">13 екранів · 14 сторінок · у кольорі 14</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>8.7</td><td>Бонусна програма</td><td><a href="content-loyalty.html">база</a> · <a href="content-loyalty-buyer.html">Покупець</a></td><td>у кольорі 2 з 2</td></tr>
+        <tr><td>8.9</td><td>FAQ</td><td><a href="content-faq.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.0</td><td>Блог</td><td><a href="content-blog.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.1</td><td>Стаття</td><td><a href="content-article.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.10</td><td>Акції</td><td><a href="content-promo.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.11</td><td>Відгуки про магазин</td><td><a href="content-reviews.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.2</td><td>Про нас</td><td><a href="content-about.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.3</td><td>Контакти</td><td><a href="content-contacts.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.4</td><td>Доставка й оплата</td><td><a href="content-delivery.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.5</td><td>Повернення</td><td><a href="content-returns.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.6</td><td>Правова інформація</td><td><a href="content-legal.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.8</td><td>Гарантія та сертифікати</td><td><a href="content-guarantee.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>8.12</td><td>Розсилка (підтвердження)</td><td><a href="content-newsletter.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-h">
+    <span class="n">f5</span>
+    <h2>Системні та глобальні</h2>
+    <span class="hint">5 екранів · 8 сторінок · у кольорі 8</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>0.1</td><td>Мега-меню «Каталог» (оверлей)</td><td><a href="megamenu.html">база</a> · <a href="megamenu-protein.html">Протеїн</a> · <a href="megamenu-health.html">Здоров'я</a> · <a href="megamenu-vitamins.html">Вітаміни</a></td><td>у кольорі 4 з 4</td></tr>
+        <tr><td>S</td><td>Сторінку не знайдено (404)</td><td><a href="404.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>S</td><td>Помилка сервера (500)</td><td><a href="500.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>S</td><td>Технічні роботи (503)</td><td><a href="maintenance.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+        <tr><td>S</td><td>Глобальні компоненти (cookie · тости)</td><td><a href="system.html">база</a></td><td>у кольорі 1 з 1</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section-h">
+    <span class="n">f6</span>
+    <h2>Кабінет покупця · розділи</h2>
+    <span class="hint">5 екранів · 22 сторінок · у кольорі 22</span>
+  </div>
+  <div class="invtab">
+    <table>
+      <thead><tr><th>Вузол</th><th>Екран</th><th>Сторінки</th><th>Стан</th></tr></thead>
+      <tbody>
+        <tr><td>7.2</td><td>Замовлення</td><td><a href="account-orders.html">база</a> · <a href="account-orders-empty.html">Порожньо</a></td><td>у кольорі 2 з 2</td></tr>
+        <tr><td>7.4</td><td>Знижки та бонуси</td><td><a href="account-loyalty.html">база</a> · <a href="account-loyalty-empty.html">Порожньо</a> · <a href="account-loyalty-max.html">Максимальний рівень</a></td><td>у кольорі 3 з 3</td></tr>
+        <tr><td>7.5</td><td>Адреси</td><td><a href="account-addresses.html">база</a> · <a href="account-addresses-empty.html">Порожньо</a> · <a href="account-addresses-add.html">Додати - вибір способу</a> · <a href="account-addresses-viddilennia.html">Відділення</a> · <a href="account-addresses-postomat.html">Поштомат</a> · <a href="account-addresses-courier.html">Кур'єр</a> · <a href="account-addresses-edit.html">Редагувати</a> · <a href="account-addresses-delete.html">Видалення</a></td><td>у кольорі 8 з 8</td></tr>
+        <tr><td>7.1</td><td>Профіль</td><td><a href="account-profile.html">база</a> · <a href="account-profile-withemail.html">E-mail додано</a> · <a href="account-profile-phone.html">Змінити номер</a> · <a href="account-profile-email.html">Додати e-mail</a> · <a href="account-profile-lang.html">Мова інтерфейсу</a> · <a href="account-profile-delete.html">Видалення</a></td><td>у кольорі 6 з 6</td></tr>
+        <tr><td>7.6</td><td>Обране</td><td><a href="account-wishlist.html">база</a> · <a href="account-wishlist-empty.html">Порожньо</a> · <a href="account-wishlist-many.html">Багато (пагінація)</a></td><td>у кольорі 3 з 3</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="foot-note"><b>Разом: 141 сторінок у реєстрі</b> · у кольорі <b>140</b> · поза обсягом <b>1</b> (Квіз (підбір за ціллю)) · без причини <b>0</b>. Реєстр кольорового прототипу (<code>DESIGN_NAV</code>) називає 140 імен плюс 1 оголошений виняток (<code>overview.html</code> - хаб, і він навмисно поза реєстром екранів).</p>
+  <!-- coverage:end -->
 </main>
 
 
 <script>
 window.NAV_BASE = '../';
-window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}, {"id": "coach", "label": "Потік тренера"}, {"id": "inventory", "label": "Інвентар"}];
+window.NAV_SECTIONS = [{"id": "states", "label": "Доменні стани"}, {"id": "pdp", "label": "Стани картки"}, {"id": "auth", "label": "Кроки входу"}, {"id": "cart", "label": "Стани кошика"}, {"id": "checkout", "label": "Стани оформлення"}, {"id": "home", "label": "Ролі на головній"}, {"id": "account", "label": "Розділи кабінету"}, {"id": "coach", "label": "Потік тренера"}, {"id": "inventory", "label": "Інвентар"}, {"id": "rollout", "label": "Розкотка"}, {"id": "coverage", "label": "Карта покриття"}];
 </script>
 <script src="../_nav.js"></script>
 </body>

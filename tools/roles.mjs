@@ -21,8 +21,10 @@
 
    node tools/roles.mjs            every component that has a page
    node tools/roles.mjs badge chip only those */
-import { readdirSync, readFileSync, existsSync } from 'node:fs';
+import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { ROOT } from './lib.mjs';
 
 const CDIR = join(ROOT, 'design/system/components');
@@ -45,6 +47,24 @@ const semantic = (() => {
   return new Set([...s.slice(0, end).matchAll(/(?:^|[{;])\s*(--[a-z0-9-]+)\s*:/gm)].map(m => m[1]));
 })();
 
+/* 12.10 - `--apply`, AND THE REASON IS IN THIS FILE'S OWN FIRST PARAGRAPH:
+   «all of those lists are typed by hand». A list typed by hand drifts, which is
+   why this instrument exists - and for two stages the only thing it could do
+   about the drift was name it. At the close of the rollout it named 29 of 93
+   pages, twelve of them on one component whose listing form batch 4 had just
+   written. The set is not a judgement: it is `var(--x)` in the css minus what
+   the file declares for itself, split by whether `tokens.css` calls the name
+   semantic. Every part of that is derived, so every part of it can be written.
+
+   THE SEVEN PAGES WITH NO TABLE GET ONE, AND THE PLACEMENT IS A DECLARED
+   DEFAULT. Seven component pages - every one of them written at batches 4 and 5
+   of the rollout - carried no «Токени» section at all, so the convention every
+   other component page keeps was true of 86 of 93. Where the section sits varies
+   (11th of 13 on `address-card`, 16th of 19 on `button`): there is no rule to
+   derive, so a new one is appended LAST and that is said out loud rather than
+   dressed as a derivation. Moving it is one cut and paste; not having it is a
+   page that documents a component without saying what the component reads. */
+const APPLY = process.argv.includes('--apply');
 const want = process.argv.slice(2).filter(a => !a.startsWith('-'));
 const files = readdirSync(CDIR).filter(f => f.endsWith('.css'))
   .map(f => f.slice(0, -4))
@@ -74,7 +94,24 @@ for (const name of files) {
 
   const html = readFileSync(page, 'utf8');
   const tbl = html.match(/Семантичні ролі[\s\S]*?<\/table>/);
-  if (!tbl) { noTable.push(name); continue; }
+  if (!tbl) {
+    noTable.push(name);
+    if (!APPLY) continue;
+    const r = [...reads].filter(t => semantic.has(t)).sort();
+    const q = [...reads].filter(t => !semantic.has(t)).sort();
+    const c = l => l.map(t => '<code>' + t + '</code>').join(' ');
+    const sec = '\n<section class="kp-sec"><div class="kp-sh">Токени</div>\n' +
+      '<p class="kp-p">Прочитані з <code>' + name + '.css</code>: <b>' + r.length +
+      '</b> семантичних ролей і <b>' + q.length + '</b> примітивів. Список виводить ' +
+      '<code>node tools/roles.mjs ' + name + '</code> з самого файла, тож він не може розійтися з ним.</p>\n' +
+      '<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (' + r.length +
+      ')</th><th>Примітиви (' + q.length + ')</th></tr></thead><tbody><tr><td>' + c(r) +
+      '</td><td>' + c(q) + '</td></tr></tbody></table></div></section>\n';
+    writeFileSync(page, html.replace(/\n<\/main>/, sec + '</main>'));
+    console.log('\n' + name + '.html\n   -> розділу «Токени» не було, додано в кінець: ' +
+      r.length + ' ролей, ' + q.length + ' примітивів');
+    continue;
+  }
   const listed = new Set([...tbl[0].matchAll(/<code>(--[a-z0-9-]+)<\/code>/g)].map(m => m[1]));
 
   const missing = [...reads].filter(t => !listed.has(t)).sort();
@@ -86,6 +123,23 @@ for (const name of files) {
   const kind = t => (semantic.has(t) ? 'роль     ' : 'примітив ');
   missing.forEach(t => console.log('   немає на сторінці   ' + kind(t) + t));
   extra.forEach(t => console.log('   немає у файлі        ' + kind(t) + t));
+
+  if (!APPLY) continue;
+  /* the table is rewritten whole: both cells, both headings, and the count in
+     the sentence above it. Nothing here is preserved from the old edition,
+     because everything in it is derived from the two files. */
+  const rolesList = [...reads].filter(t => semantic.has(t)).sort();
+  const primList = [...reads].filter(t => !semantic.has(t)).sort();
+  const cell = list => list.map(t => '<code>' + t + '</code>').join(' ');
+  const table = 'Семантичні ролі (' + rolesList.length + ')</th><th>Примітиви (' +
+    primList.length + ')</th></tr></thead><tbody><tr><td>' + cell(rolesList) +
+    '</td><td>' + cell(primList) + '</td></tr></tbody></table>';
+  let out = html.replace(/Семантичні ролі[\s\S]*?<\/table>/, table);
+  /* the lead sentence carries the same two numbers and drifted with the table */
+  out = out.replace(/(Прочитані з <code>[^<]*<\/code>:\s*)<b>\d+<\/b>(\s*семантич\S*\s*ро\S*\s*і\s*)<b>\d+<\/b>/,
+    (m, a, mid) => a + '<b>' + rolesList.length + '</b>' + mid + '<b>' + primList.length + '</b>');
+  writeFileSync(page, out);
+  console.log('   -> переписано: ' + rolesList.length + ' ролей, ' + primList.length + ' примітивів');
 }
 
 console.log('\n' + files.length + ' компонентів  ·  розійшлось: ' + bad);
@@ -94,4 +148,9 @@ console.log('\n' + files.length + ' компонентів  ·  розійшло
    exists to end. */
 if (noPage.length) console.log('без сторінки (' + noPage.length + '): ' + noPage.join(' '));
 if (noTable.length) console.log('сторінка без таблиці (' + noTable.length + '): ' + noTable.join(' '));
-process.exit(bad ? 1 : 0);
+if (APPLY && (bad || noTable.length)) {
+  console.log('\n=== ПЕРЕПИТУЄМО ТИМ САМИМ ПРИЛАДОМ, уже після правок ===');
+  const again = spawnSync(process.execPath, [fileURLToPath(import.meta.url), ...want], { stdio: 'inherit' });
+  process.exit(again.status ?? 1);
+}
+process.exit(bad || noTable.length ? 1 : 0);

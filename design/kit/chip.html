@@ -25,7 +25,7 @@
 <div class="kp-eyebrow">Компонент · рівень 1</div>
 <h1 class="kp-h1">Чип</h1>
 <p class="kp-lead">Пілюля зі словом, яку натискають, щоб обрати. Фільтр, категорія, вкладка, ціль - одна форма на всі чотири роботи.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">320 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 1</span><span class="kp-tag">design/system/components/chip.css</span><span class="kp-tag">397 рядків</span><span class="kp-tag">8 імен</span><span class="kp-tag">6 файлів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <div class="kp-demo" style="display:flex;gap:var(--space-12);align-items:center;flex-wrap:wrap">
@@ -127,6 +127,27 @@
 <p class="kp-p"><b>Натиск - не те саме питання, що наведення.</b> Обраний чип навмисно не перефарбовується під курсором: акценту нема куди йти по акценту, і це читалось би як завантаження. У натиску є куди - на сходинку темніше. Без цього обраний чип був би єдиним мовчазним у сімействі, а це саме той, по якому тиснуть двічі: фільтр, який вимикають.</p>
 <div class="kp-cap">Зміряно справжнім дотиком у touch-контексті 390 x 844: <code>.flink</code> <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab</code> (це <code>&lt;span&gt;</code>) <code>#FFFFFF -> #FFF9F5</code>, <code>.ptab.on</code> <code>#FF5A00 -> #E85200</code>. Не примусовий стан у DevTools, а тап</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Публічний ряд і чотири форми чипа <b>-&gt; 12.4, 12.9</b></div>
+<p class="kp-p">До партії 2 цей файл мав ТРИ приватні імені для ряду чипів - <code>.dr-chips</code>, <code>.cegoals</code>, <code>.flinks</code> - кожне у власності одного місця. Четверте приватне ім'я було б тим самим рядком, написаним учетверте, тож ряд став публічним: <code>.chips</code>.</p>
+<div class="kp-demo">
+<div class="chips"><a class="chip" href="#">Протеїн</a><a class="chip on" href="#">Креатин</a><a class="chip" href="#">Вітаміни</a><a class="chip" href="#">Амінокислоти</a></div>
+</div>
+<p class="kp-p"><b><code>.chips--center</code></b> - та сама анатомія, змінена лише вісь. Ряд відновлення під центрованим блоком помилки: злівавирівняний ряд там читається як список, що загубив заголовок.</p>
+<div class="kp-demo">
+<div class="chips chips--center"><a class="chip" href="#">Протеїн</a><a class="chip" href="#">Креатин</a><a class="chip" href="#">Вітаміни</a></div>
+</div>
+<p class="kp-p"><b><code>.chip--letter</code></b> - літера покажчика А-Я, з мінімальною шириною, щоб двадцять шість літер стояли колоною. <b><code>.chip.off</code></b> - літера, за якою немає жодного бренду: файл сам записав цей випадок ще на етапі 08 («вимкненого чипа в продукті НЕМАЄ... коли випадок з'явиться, <code>.vopt.off</code> - та форма, яку копіювати»), і на <code>brands</code> чотирнадцять із двадцяти шести літер порожні.</p>
+<div class="kp-demo">
+<div class="chips"><a class="chip chip--letter" href="#">А</a><a class="chip chip--letter" href="#">Б</a><span class="chip chip--letter off">В</span><a class="chip chip--letter" href="#">Г</a><span class="chip chip--letter off">Ґ</span><a class="chip chip--letter on" href="#">Д</a></div>
+</div>
+<p class="kp-p"><b><code>.chip--fill</code></b> - залитий ґрунт замість обведення, коли ряд стоїть на сторінці, а не в панелі. <b><code>.chips--sticky</code></b> - ряд, що липне під шапкою на довгій сторінці; ховає власну смугу гортання і не дає дітям стискатись.</p>
+<div class="kp-demo">
+<div class="chips"><a class="chip chip--fill" href="#">Доставка</a><a class="chip chip--fill" href="#">Оплата</a><a class="chip chip--fill" href="#">Повернення</a></div>
+<div class="kp-note">Той самий ряд липким. Липкість видно лише на довгій сторінці - тут показано, що клас несе ряд, а не як він поводиться при гортанні:</div>
+<div class="chips chips--sticky"><a class="chip chip--fill" href="#">Розділ 1</a><a class="chip chip--fill" href="#">Розділ 2</a><a class="chip chip--fill" href="#">Розділ 3</a><a class="chip chip--fill" href="#">Розділ 4</a></div>
+</div>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Рух</div>
 <p class="kp-p"><b>Робота: ВІДПОВІДЬ.</b> Рухається: border-color, color, background. Тривалість <code>--dur-fast</code> (150ms), крива <code>--ease-standard</code>. Значення читаються через <code>var()</code> з <code>tokens.css</code>: підміна токена в браузері веде за собою кожне з них, тобто числа у файлі немає. При <code>prefers-reduced-motion</code> рух зникає, а стан лишається.</p>
 <div class="kp-demo"><button class="chip" type="button">Протеїн</button></div>
@@ -134,22 +155,14 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>chip.css</code>, не переписані руками. <b>Чотирнадцять ролей на десять примітивів</b> - єдиний атом системи, де ролей більше, ніж примітивів, і причина проста: чип це <b>найповніший набір станів у системі</b>. Сім із чотирнадцяти ролей існують лише заради взаємодії.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (10)</th></tr></thead><tbody>
-<tr><td><code>--bg-action</code> <code>--bg-action-soft</code> <code>--bg-action-pressed</code></td><td><code>--fs-12</code> <code>--fs-14</code></td></tr>
-<tr><td><code>--bg-page</code> <code>--bg-sunken</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
-<tr><td><code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code></td><td><code>--radius-pill</code></td></tr>
-<tr><td><code>--ring-focus-control</code></td><td><code>--space-4</code> <code>--space-8</code></td></tr>
-<tr><td><code>--text-action</code> <code>--text-body</code> <code>--text-muted</code></td><td><code>--space-12</code> <code>--space-16</code></td></tr>
-<tr><td><code>--text-primary</code> <code>--text-onaction-ink</code></td><td>–</td></tr>
-<tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
-</tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (15)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-action-pressed</code> <code>--bg-action-soft</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--ring-focus-control</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-onaction-ink</code> <code>--text-primary</code></td><td><code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--radius-pill</code> <code>--shell-header-h</code> <code>--shell-top-live</code> <code>--size-32</code> <code>--space-12</code> <code>--space-16</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p"><b><code>--bg-action-pressed</code> - це роль, яку завів натиск</b>, і завела саме тому, що ховер уже витратив <code>--bg-action-soft</code>: коли обраний чип уже стоїть на помаранчевій заливці, посвітліти йому нема куди, тож натиск іде на крок ТЕМНІШЕ. Чотири стани, чотири ґрунти, жодного нового hex.</p>
 <p class="kp-p"><b><code>--text-onaction-ink</code> існує через поверхню, а не через колір.</b> Це чорнило НА дії, і поріг йому потрібен текстовий - 4.5:1, - а не той, за яким рахують заливку. Роль, оголошена як заливка й поставлена під дрібний жирний підпис, проходить перевірку поверхні й провалює текстову, і таблиця пар «текст/фон» цього не бачить, бо текстовою її ніхто не оголошував.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>2</b> псевдостани оголошено в <code>chip.css</code>. Обраний тримається на класі <code>.on</code>, тому він у списку класів, а не станів. Нижче - те, чого на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear"], KIT_STS=[":hover", ":focus-visible", ":active"];</script></section>
+<script>var KIT_CLS=["chip", "dr-chip", "dr-chips", "hero-chips", "flink", "flinks", "ct", "mgchip", "ptab", "ord-tab", "cegoals", "on", "afilters", "afilter", "x", "clear", "chips", "chips--center", "chips--sticky", "chip--letter", "chip--fill", "off"], KIT_STS=[":hover", ":focus-visible", ":active"];</script></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>
 <div class="kp-code">&lt;span class="chip"&gt;Протеїн&lt;/span&gt;

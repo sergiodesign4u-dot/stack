@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сторінку не знайдено (404) - Stack (wireframe S)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · 404. ПОМИЛКА, ЯКА ЛИШАЄ СОБІ ОБОЛОНКУ. Магазин працює,
+  не працює одна адреса - тому сторінка повна: шапка, підвал, пошук, а сама
+  помилка це СЕКЦІЯ .e404 всередині звичайної сторінки, а не сторінка цілком.
+  Сірий каже це у власному коментарі - «ніколи не глухий кут». HTTP 404 (ніколи
+  soft-404 з 200) + noindex.
+
+  Body drawn by system-page.css: .e404 + .sys-code · .sys-h · .sys-s ·
+  .sys-search · .sys-links. Відновлення - .chips .chips--center з .chip
+  (chip.css) і .prow + .pcard (product-card.css) під двома .sech
+  (section-head.css).
+
+  ПОЛЕ ПОШУКУ БІЛЬШЕ НЕ МАЄ ВЛАСНОЇ ОБОЛОНКИ. .sys-search задає лише ширину і
+  центрування; коробку дає .field-grp з field.css, а .field-grp > .btn--accent
+  приварює сабміт. Це рівно те, що шапка вже робить у рантаймі, і вузол S -
+  ДРУГИЙ екран, що тягнеться по оболонку до системи замість писати п'яту власну
+  (перший - brands.html). Сірий .rec-chips з власним бордером і радіусом теж не
+  переїхав сюди: та сама пігулка вже є як .chip, і їй бракувало тільки осі.
+
+  Сірий малює .sys-code, .sys-h, .sys-s, .sys-search і .sys-links БЕЗ обгортки
+  .sys-min - і це не недогляд: .sys-min це min-height 78vh плюс центрування за
+  обома осями, і на сторінці з шапкою й підвалом воно виштовхнуло б усе за згин.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <section class="e404" aria-label="Сторінку не знайдено">
+    <div class="sys-code">404</div>
+    <h1 class="sys-h">Такої сторінки немає</h1>
+    <p class="sys-s">Можливо, посилання застаріло або сторінку переміщено. Спробуйте пошук
+      або перейдіть до потрібного розділу - нічого не загубилось.</p>
+
+    <form class="sys-search field-grp field-grp--s" role="search" action="search.html">
+      <input class="field field--s" type="search" placeholder="Пошук товарів, брендів…" aria-label="Пошук">
+      <button class="btn btn--accent btn--s go" type="submit">Знайти</button>
+    </form>
+
+    <nav class="sys-links" aria-label="Швидкі посилання">
+      <a href="index.html">На головну</a>
+      <a href="catalog-page.html">Каталог</a>
+      <a href="../wireframes/quiz.html">Підбір за ціллю</a>
+      <a href="content-promo.html">Акції</a>
+      <a href="content-contacts.html">Підтримка</a>
+    </nav>
+  </section>
+
+  <!-- Відновлення: популярні розділи (як OOS-відновлення на картці товару) -->
+  <div class="sech"><h2>Популярні розділи</h2><a class="btn--text all" href="catalog-page.html">Увесь каталог →</a></div>
+  <div class="chips chips--center">
+    <a class="chip" href="listing.html">Протеїн</a><a class="chip" href="listing.html">Креатин</a><a class="chip" href="listing.html">Гейнери</a>
+    <a class="chip" href="listing.html">BCAA</a><a class="chip" href="listing.html">Передтренувальні</a><a class="chip" href="listing.html">Вітаміни</a>
+    <a class="chip" href="goal.html">Набір маси</a><a class="chip" href="goal.html">Схуднення</a><a class="chip" href="brands.html">Бренди</a>
+  </div>
+
+  <!-- Відновлення: рекомендовані товари (канонічна картка) -->
+  <div class="sech"><h2>Можливо, вам підійде</h2><a class="btn--text all" href="listing.html">Усі товари →</a></div>
+  <div class="prow">
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">OstroVit · Польща</div>
+        <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">BioTechUSA · Угорщина</div>
+        <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="product.html" class="nm">Hyper Mass 4000 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 450 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.6</span> · 74 відгуки</div>
+        <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+14 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('404.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

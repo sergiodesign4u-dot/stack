@@ -165,9 +165,17 @@ for (const [k, v] of rows) {
 }
 
 console.log('\n' + visited + ' сірих екранів без кольорового двійника · система знає ' + KNOWN.size + ' класів');
-console.log('без компонента: ' + gap.size + ' класів у ' + rows.length + ' сім'ях');
+/* THE APOSTROPHE RULE MET JAVASCRIPT, AND JAVASCRIPT LOST. These two lines
+   read `сім'ях` and `ім'я` until 12.1: a blanket replacement of the curly
+   apostrophe with the ASCII one closed the single-quoted string mid-word and
+   this file stopped parsing. `typo.mjs` was green on it the whole time - the
+   apostrophe form was correct, the file just no longer ran. Reworded rather
+   than escaped, the same repair `width-sweep.mjs` took at 10.7, and the
+   missing half is now a gate inside `typo.mjs`: a .js or .mjs it opens must
+   still parse. */
+console.log('без компонента: ' + gap.size + ' класів у ' + rows.length + ' родинах');
 console.log('коротких імен (1-2 літери, локальні всередині блоку): ' + shorthand.size +
   ' - вони їдуть за своїм батьком і окремим питанням не є');
-console.log('уже на відповіданій території (хромованість або мертве ім'я транформації): ' + dropped.size);
+console.log('уже на відповіданій території (хромованість або мертва назва трансформації): ' + dropped.size);
 if (!dropped.size)
   console.log('ХОЛОСТИЙ КОНТРОЛЬ ВПАВ: жодного класу лише-в-сірому, хоча прототип має спільну хромованість');

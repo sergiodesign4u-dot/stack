@@ -83,6 +83,21 @@ const FRAMES = [
   { name: 'сесія',   frame: '.cs-grid', list: '.ctabs', pane: '.cs-panel',
     box: null, minBox: null },
 ];
+/* 12.10 - THE ONE PAGE THAT CARRIES A LIST AND MAY NOT CARRY THE FRAME, and
+   until now its case was argued in a COMMENT inside the screen file, where no
+   instrument reads it. `coach-client-new` is the client list with the «new
+   client» dialog over it: the DIALOG is the subject, and giving the page behind
+   it a two-column frame would put a «choose a client» panel beside a form that
+   is creating one. Verified at 1024 by closing the dialog - a single column,
+   where `coach-clients` at the same width shows list + panel.
+
+   By this project's own rule an exception belongs in the instrument, not in
+   prose, and it carries an idle control: if the page stops existing, or starts
+   carrying the frame after all, the entry covers nothing and the run says so.
+   That is the same test every other declared list here takes. */
+const CARRIER_EXEMPT = {
+  'coach-client-new': 'the dialog is the subject; the list behind it is the page being written ON, and a «choose a client» panel beside a form creating one is two answers to one question',
+};
 const SUBJ = FRAMES.filter(f => !ONLY || f.frame === ONLY);
 if (!SUBJ.length) { console.error(`немає такої рамки: ${ONLY}`); process.exit(2); }
 
@@ -133,12 +148,13 @@ const visit = async (p, w) => {
 
 /* pass one: who carries what, asked at the widest width so nothing is display:none */
 const carries = new Map(SUBJ.map(f => [f.frame, []]));
-const loose = [];
+const loose = [], exempted = [];
 for (const p of corpus) {
   const o = await visit(p, 1440);
   for (const d of SUBJ) {
     const g = o.f[d.frame]; if (!g) continue;
     if (g.has && g.inFrame) carries.get(d.frame).push(p);
+    else if (CARRIER_EXEMPT[p]) exempted.push(p);
     else loose.push(`${p}   ${d.list} поза ${d.frame}${g.has ? ' (рамка є, список не в ній)' : ''}`);
   }
 }
@@ -239,7 +255,11 @@ for (const d of SUBJ) {
 /* IDLE CONTROL, side two: the list stands somewhere and no frame holds it */
 console.log('');
 if (loose.length) { fails += loose.length; console.log(`носій без рамки (${loose.length}):`); loose.forEach(x => console.log('  ПРОВАЛ ' + x)); }
-else console.log('носій без рамки: 0 - кожна сторінка зі списком стоїть у своїй рамці');
+else console.log('носій без рамки: 0 - кожна сторінка зі списком стоїть у своїй рамці або оголошена нижче');
+for (const k of Object.keys(CARRIER_EXEMPT)) {
+  if (exempted.includes(k)) console.log(`  оголошений виняток: ${k} - ${CARRIER_EXEMPT[k]}`);
+  else { fails++; console.log(`  ХОЛОСТИЙ ВИНЯТОК: ${k} оголошено носієм без рамки, а прогін його таким не побачив - або сторінка зникла, або вона вже в рамці`); }
+}
 
 console.log('');
 if (belowFloor.length) {

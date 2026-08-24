@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Пошук «креатин» - завантаження (wireframe 2.5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук - STATE = loading (debounced search running).
+  Skeleton grid in place of results; transient - resolves to results or no-results.
+
+  AGREED WITH ITS BASE, NOT WITH THE GREY STATE (rollout contract, rule 2a). The
+  grey copy of this state carries no filter rail, no sheet, no intro and a «Фільтри»
+  button that opens nothing - while its own base `search.html` carries all four and
+  `responsive.md` prescribes THIS screen point 860 with a permanent rail. The state
+  page agrees with its base; the delta is named out loud in the agent's report.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Пошук</span>
+  </nav>
+
+  <!-- H1 while searching -->
+  <section aria-label="Пошук">
+    <h1 class="lh1">Шукаємо за запитом «креатин»…</h1>
+    <p class="lintro">Моногідрат, Creapure®, креатин HCl та комплекси від перевірених брендів.
+      Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете.</p>
+  </section>
+
+  <div class="ltool">
+    <span class="ctrl count">Шукаємо…</span>
+    <span class="sp"></span>
+    <button class="btn--outline btn--s ctrl" type="button"><span class="cap">Сортування:</span> <span class="menu-val">Релевантні</span></button>
+    <span class="vtoggle"><span class="on">▦</span><span>☰</span></span>
+  </div>
+
+  <div class="mtoolbar">
+    <button class="btn--outline mc" onclick="openSheet()">Фільтри</button>
+    <button class="btn--outline mc" type="button"><span class="menu-val">Релевантні</span></button>
+  </div>
+
+  <!-- Filters are ready; only the results are loading -->
+  <div class="listing">
+    <aside class="frail" id="wf-rail"></aside>
+
+    <section aria-label="Завантаження результатів" aria-busy="true">
+      <div class="skgrid skpulse">
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+        <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div><div class="skline s"></div></div></div>
+      </div>
+      <p class="loadnote">Шукаємо товари…</p>
+    </section>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- inherited mobile filter bottom-sheet (injected) -->
+<div id="wf-sheet"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfCatalogRail(); wfFooter(); wfSheet(); wfBar('search.html', 'loading'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

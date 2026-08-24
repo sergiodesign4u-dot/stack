@@ -319,6 +319,19 @@
    both lifted off the page, the Free column is not. */
 .coach .cmp-cell.feat{ font-weight: var(--fw-bold); color: var(--text-primary); background: var(--bg-surface); }
 .coach .cmp-cell.pro{ background: var(--bg-surface); }
+/* 12.10 - A RULE THE GREY HAD AND THE COLOURED COPY LOST, and the only one of
+   twenty-four such names that was not a leftover. `.cmp .yes` in the grey was
+   `font-weight: 800; color: var(--strong)`: the three Pro cells that answer the
+   comparison («Максимальний опт», «Безлімітні клієнти», «Так, без обмежень»)
+   stood out from the Free column's plain sentences, and that contrast IS the
+   argument of the table. Rolled out, the class came across and the rule did
+   not, so all six cells read the same weight and the table stopped arguing.
+   Found by the tenth mark of `screen-css.mjs`, added the same step - the ban on
+   «a class the system does not declare» was in the contract from batch 1 and in
+   no instrument until now. 800 is written as `--fw-black`, which this system
+   resolved to 700 at step 7.65 because the face has no 800 - so the grey's 800
+   never drew as 800 either, and nothing shifts by writing the token. */
+.coach .cmp-cell.pro .yes{ font-weight: var(--fw-black); color: var(--text-primary); }
 .coach .cmp-head .cmp-cell{ padding: 18px 15px; /* [?] neither 18 nor 15 has a rung */ }
 .coach .cmp-head .plan{ font-size: var(--fs-18); /* grey 17 -> 18: 5.6, ties go UP - see the block at the top */
   font-weight: var(--fw-black); color: var(--text-primary); }
@@ -551,3 +564,26 @@
    about the LINE and the instrument was measuring the BOX - wrong version 9,
    fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
 .coach .clh-note{ max-width: var(--container-text); }   /* measured peak 102.1ch */
+
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* the note under the Free / Pro comparison. `.lintro`'s own margin is written
+   for a lead paragraph under an H1; here the paragraph follows a table and reads
+   downward from it. 12 is a rung. */
+.coach .cmp + .lintro{ margin: var(--space-12) 0 0; }

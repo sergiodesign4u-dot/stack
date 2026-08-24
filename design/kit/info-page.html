@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Сторінка інформації | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Сторінка інформації</h1>
+<p class="kp-lead">Тіло сервісної сторінки: рядок «оновлено», колонка прози на мірі читання і картка для того, що не є реченням. Шість сторінок вузла 8.x - «Про нас», «Контакти», «Доставка й оплата», «Гарантія», «Повернення», «Правова інформація» - це один шаблон під шістьма темами.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/info-page.css</span><span class="kp-tag">281 рядок</span><span class="kp-tag">49 селекторів</span><span class="kp-tag">6 сірих екранів</span><span class="kp-tag">5 кольорових</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що в сірому оригіналі <code>wireframes/content-about.html</code>. Заголовок і <code>.lintro</code> стоять над тілом і належать своїм компонентам; цей файл починається з дати.</p>
+<div class="kp-demo">
+  <h1 class="lh1">Про Stack</h1>
+  <p class="info-updated">Оновлено: 1 липня 2026</p>
+  <p class="lintro">Ми - український магазин спортивного харчування. Наша задача проста: провести людину від «хочу досягти результату» до безпечного, зрозумілого набору продуктів.</p>
+  <div class="info-body">
+    <h3>Хто ми</h3>
+    <p>Stack - це команда, яка любить спорт і розбирається в харчуванні. Кожна картка товару показує склад, дозування, походження й сертифікацію відкрито, а не ховає їх у дрібному шрифті. Докладніше про це - у <a href="#">гарантії та сертифікатах</a>.</p>
+    <h3>Наші принципи</h3>
+    <div class="info-card">
+      <div class="ic-h">🛡️ Спочатку довіра</div>
+      <p>Склад, дозування, походження й сертифікат - це не другорядні деталі, а головне. Спершу знімаємо сумнів, потім пропонуємо купити.</p>
+    </div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Дата</b> <code>.info-updated</code> - 12, <code>--text-muted</code>. Найтихіший рядок сторінки навмисно: це походження, а не зміст. Стоїть на всіх шести</span></div>
+  <div class="a"><i>2</i><span><b>Колонка</b> <code>.info-body</code> - <code>--container-text</code>, 68ch. П'ятий читач міри в системі; до 10.6b їх було двоє</span></div>
+  <div class="a"><i>3</i><span><b>Заголовок усередині</b> <code>h3</code> - 18/700, і відступи несиметричні: <b>32 згори, 8 знизу</b>. Далеко від того, що скінчилось, близько до того, що починає - через це низка h3 + p читається блоками, а не стіною</span></div>
+  <div class="a"><i>4</i><span><b>Картка</b> <code>.info-card</code> - волосина, радіус 12, 16 усередині. <b>Ті самі числа, що в <code>.syscard</code></b>: це той самий об'єкт на сусідній сторінці, і другий набір чисел для нього був би саме тим дрейфом, проти якого стоїть цей етап</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Що додала партія 3</div>
+<p class="kp-p">Компонент завели наперед на кроці 12.2 - і половина ставки зіграла: тіло сервісної сторінки закрило всі шість екранів без питань. Друга половина і є урок: шість сторінок виявились не «одним шаблоном під шістьма темами». Нижче те, що дописали два агенти, які на цьому зупинились.</p>
+<div class="kp-demo">
+<div class="info-fact info-fact--lead"><span class="n">14</span><span><span class="th">днів на повернення</span><span class="ts">Товар належної якості, якщо збережено товарний вигляд</span></span></div>
+<div class="info-grid">
+  <div class="info-fact"><span class="n">10 000+</span><span class="l">клієнтів</span></div>
+  <div class="info-fact"><span class="n">24</span><span class="l">бренди</span></div>
+  <div class="info-fact"><span class="g">🛡️</span><span class="th">Оригінальний товар</span><span class="ts">Документи на кожну партію</span></div>
+</div>
+<nav class="info-toc"><div class="tt">Зміст</div><ol>
+  <li><span class="num">1</span><a href="#">Способи доставки</a></li>
+  <li><span class="num">2</span><a href="#">Терміни</a></li>
+</ol></nav>
+<div class="info-body">
+  <h3>🚚 Нова Пошта</h3>
+  <ul><li>Відділення по всій Україні</li><li>Трек-номер приходить у SMS</li></ul>
+  <table class="info-tbl"><thead><tr><th>Спосіб</th><th>Термін</th></tr></thead>
+    <tbody><tr><td><b>Відділення</b></td><td>1-3 дні</td></tr><tr><td><b>Кур'єр</b></td><td>1-2 дні</td></tr></tbody></table>
+  <ol class="info-steps">
+    <li><span class="sh">Напишіть нам</span><span class="ss">Вкажіть номер замовлення</span></li>
+    <li><span class="sh">Відправте товар</span><span class="ss">Будь-яким зручним перевізником</span></li>
+  </ol>
+</div>
+<div class="info-card info-card--note">Замовлення, оформлені до 15:00, відправляємо того ж дня.</div>
+<div class="legal-sec"><h2>Публічна оферта</h2><div class="info-updated">Оновлено 12.08.2026</div><h4>1. Предмет договору</h4><p>Продавець зобов'язується передати покупцеві товар.</p></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">Цей компонент замовлено <b>до того, як екран його попросив</b> - перший такий випадок у проєкті, і за рішенням власника: етап 12 роздає 50 екранів субагентам, а те, що потрібне шістьом із них, шестеро вигадали б окремо.</p>
+<p class="kp-p">Але цікавіше, <b>чому його не було в системі досі</b>. <code>inventory.md</code> v2 виведений <b>зі стилів</b>, правило за правилом - саме цим виправленням він пишається, і саме воно зробило цю родину невидимою:</p>
+<div class="kp-code">grep -c 'info-' wireframes/_wf.css
+0</div>
+<p class="kp-p">Сірий шар малює ці шість сторінок <b>голою структурою без жодного правила</b>. Список, зібраний зіставленням кожного ПРАВИЛА з компонентом, не мав чого зіставляти. Клас без правила не потрапляє в інвентар, виведений зі стилів, - за побудовою, а не через недогляд.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Три класи, а не вісім</div>
+<p class="kp-p">Родина <code>info-*</code> має вісім імен. У систему пішли три. Заміряно по шести сірих оригіналах:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Клас</th><th>Екранів</th><th>Куди</th></tr></thead><tbody>
+<tr><td><code>info-updated</code></td><td>6</td><td>сюди</td></tr>
+<tr><td><code>info-body</code></td><td>4</td><td>сюди</td></tr>
+<tr><td><code>info-card</code></td><td>3</td><td>сюди</td></tr>
+<tr><td><code>info-toc</code></td><td>2</td><td>ще ні</td></tr>
+<tr><td><code>info-stats</code> · <code>info-stat</code></td><td>1</td><td>ще ні</td></tr>
+<tr><td><code>info-vals</code></td><td>1</td><td>ще ні</td></tr>
+<tr><td><code>info-steps</code></td><td>1</td><td>ще ні</td></tr>
+</tbody></table></div>
+<p class="kp-p">Правило сходинки власне й каже: композиція потребує <b>трьох</b> екранів. Нижче цього - це блок свого екрана, і його замовлять тоді, коли той екран збиратимуть; на той момент буде видно, чи це нова річ, чи <code>link-row</code> під місцевим іменем. Побудувати всі вісім зараз означало б <b>вигадати п'ять</b>.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Стан тут один, і він на посиланні в прозі. Картка не клікабельна на жодному з шести екранів, а дата не є контролом - отже станів у них немає, і це записано словами, а не порожньою клітинкою.</p>
+<div class="kp-demo">
+  <div class="info-body">
+    <p>Звичайне посилання в прозі: <a href="#">умови повернення</a> - підкреслене, чорнилом сторінки. Наведіть, щоб побачити відповідь.</p>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Спокій</b> - <code>--text-primary</code>, 700, підкреслення з відступом 2px</span></div>
+  <div class="a"><i>2</i><span><b>Наведення</b> - <code>--text-action</code> за <code>--dur-fast</code>. Робота «<b>відповідь</b>»: відгук, повільніший за 150 мс, уже не відповідь</span></div>
+  <div class="a"><i>3</i><span><b>Фокус</b> - кільце з <code>base.css</code>, компонент свого не оголошує</span></div>
+</div>
+<p class="kp-p"><b>Підкреслення, а не колір.</b> Акцент у цьому продукті - це дія купівлі, а правова сторінка нічого не продає. Той самий вибір зробив <code>.sys-links a</code> на системних сторінках.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Пари теми немає, і це правило</div>
+<p class="kp-p">У файлі <b>немає блоку <code>[data-theme="dark"]</code></b>, і це не пропуск. Кожен колір тут - семантичний токен, а семантичний токен уже несе власну пару світло/темрява. Другий блок був би другою редакцією рішення, яке <code>tokens.css</code> уже ухвалив.</p>
+<div class="kp-code">.info-updated{ color: var(--text-muted) }   /* пара вже всередині токена */</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>info-page.css</code>: <b>12</b> семантичних ролей і <b>33</b> примітивів. Літералів у файлі немає жодного.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (33)</th></tr></thead><tbody><tr><td><code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-34</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--grid-col-fluid</code> <code>--grid-col-min-panel</code> <code>--grid-gap-fluid</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--size-20</code> <code>--size-32</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів і <b>0</b> станів, які вона може назвати, але не показати наживо.</p><div id="idle"></div><script>var KIT_CLS=["ic-h","info-body","info-card","info-card--note","info-updated","info-grid","info-fact","info-fact--lead","info-toc","info-steps","info-tbl","legal-sec","tt","sh","ss"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді</div>
+<div class="kp-anat">
+<ul style="margin:0;padding-left:18px;line-height:1.7">
+<li><b>Зміст сторінки</b> <code>.info-toc</code> - на двох екранах із шести, тобто нижче порога сходинки. Замовлення прийде разом із «Доставкою»</li>
+<li><b>Сітка карток</b> <code>.info-vals</code> - контейнер для <code>.info-card</code> живе на одному екрані; сама картка в системі, її сітка ні</li>
+<li><b>Кроки процесу</b> <code>.info-steps</code> і <b>цифри</b> <code>.info-stats</code> - по одному екрану кожен</li>
+<li><b>Жодного кольорового екрана поки що</b> - компонент стоїть у системі раніше за свої сторінки, тож <code>comp-width.mjs</code> покаже 0. Це корпус говорить, а не мертвий файл, і те саме сьогодні каже <code>system-page.css</code></li>
+</ul></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

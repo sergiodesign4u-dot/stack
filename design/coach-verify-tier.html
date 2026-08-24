@@ -11,16 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 8 rules, step 8.40.
-   Every name here was prefixed `cv-`, which is that file's own; the four state
-   screens carried it and the base did not. What each copy cost is written in
-   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
-   `.btn{ display: block }` turned the main action's `btn--full` back into a
-   block, and the lead had no measure on any of them.
-   This screen already wrote `cv-lead` and never needed a rule for it - it is the
-   control that says the other three had simply mistyped the name. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -62,26 +52,26 @@
       <div class="tier-sub">безкоштовно, активація одразу</div>
       <ul>
         <li>Гуртові ціни, кращі за роздрібні</li>
-        <li>Мультиклієнтські замовлення - до 3 клієнтів у сесії <span style="color:var(--text-muted)">[?]</span></li>
+        <li>Мультиклієнтські замовлення - до 3 клієнтів у сесії <span class="qmark">[?]</span></li>
         <li>Збережені клієнти та історія по кожному</li>
         <li class="muted">Без максимальної гуртової знижки</li>
       </ul>
-      <a class="btn--outline btn--l btn--full tier-cta" href="coach-home.html">Активувати Free</a>
+      <a class="btn--outline btn--l btn--full" href="coach-home.html">Активувати Free</a>
       <div class="tier-note">Активується миттєво, без оплати</div>
     </div>
 
     <!-- PRO -->
     <div class="acard tier pro">
       <div class="tier-top"><span class="tier-name">Pro</span><span class="tier-flag">максимум опту</span></div>
-      <div class="tier-price">~99 ₴ <small>/ міс <span style="color:var(--text-muted)">[?]</span></small></div>
+      <div class="tier-price">~99 ₴ <small>/ міс <span class="qmark">[?]</span></small></div>
       <div class="tier-sub">підписка · для 5–30+ клієнтів</div>
       <ul>
         <li>Максимальна гуртова ціна</li>
         <li>Безлімітні клієнти в мультиклієнтській сесії</li>
         <li>Збережені клієнти, історія, швидке повторне замовлення</li>
-        <li>Пріоритетні сповіщення про наявність <span style="color:var(--text-muted)">[пізніше]</span></li>
+        <li>Пріоритетні сповіщення про наявність <span class="qmark">[пізніше]</span></li>
       </ul>
-      <a class="btn--accent btn--l btn--full tier-cta" href="coach-home.html">Оформити Pro</a>
+      <a class="btn--accent btn--l btn--full" href="coach-home.html">Оформити Pro</a>
       <div class="tier-note">Підписку можна скасувати будь-коли · ціна [?]</div>
     </div>
   </div>
@@ -98,7 +88,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'tier');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'tier');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

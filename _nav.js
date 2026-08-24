@@ -65,7 +65,14 @@ window.NAV = [
 
   { label: 'Адаптив',                    page: 'design/kit/responsive.html', done: true },
   { label: 'Анімація',                   page: 'design/kit/motion.html', done: true },
-  { label: 'Розкотка',                   page: null },
+  /* 12.1: the stage started. `page` stays null until step 6 gives it
+     `design/index.html`; `wip` is what makes the walk hang «Next» here rather
+     than on Хендоф while every one of this stage's pages is still unbuilt.
+     12.10, step 6: the page is `index.html` and NOT `overview.html`, which the
+     stage pack states and which is not a preference - the hub is already taken
+     by «UI + Visual», and two roadmap entries on one page break the active
+     highlight. `wip` stays until step 7. */
+  { label: 'Розкотка',                   page: 'design/index.html', done: true },
   { label: 'Хендоф',                     page: null }
 ];
 

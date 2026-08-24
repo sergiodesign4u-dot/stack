@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Замовлення оформлено | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&amp;family=Inter:wght@400;500;600;700&amp;family=IBM+Plex+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Замовлення оформлено</h1>
+<p class="kp-lead">Тіло сторінки підтвердження, вузол 6.2. Плита успіху, чек із рядками замовлення й підсумком, факти доставки й оплати, і панель, що або пропонує акаунт (кінець гостя), або підтверджує, що все вже збережено (кінець з акаунтом).</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/order-placed.css</span><span class="kp-tag">182 рядки</span><span class="kp-tag">24 класів</span><span class="kp-tag">1 поріг · --bp-shell-wide</span><span class="kp-tag">2 сірі екрани</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Як цей компонент замовили</div>
+<p class="kp-p">Перший компонент проєкту, замовлений <b>субагентом, який зупинився</b>. Він не намалював нічого й не лишив чернетки: віддав сім замовлень із зоною і сірим джерелом кожного. <code>dry-run.mjs</code> передбачив це ще на етапі 08 - «23 класи родини <code>op-*</code>, без компонента», тобто тіло екрана цілком.</p>
+<p class="kp-p"><b>А <code>architecture.md</code> A19 казав протилежне</b>, і це знахідка під знахідкою. A19 називає <code>op-*</code> і відкладає: «це робота екрана, і етапи 09-12 зроблять її, не чіпаючи систему». Але екран не має права на власні стилі - правило 10 у <code>design/system/CLAUDE.md</code> і дев'ять знаків. Два речення можуть бути істинними разом лише якщо 6.2 збирається з наявних компонентів - а плити результату не було ніколи.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Розмітка звідси - та сама, що в сірому оригіналі <code>wireframes/order-placed.html</code>.</p>
+<div class="kp-demo">
+  <div class="op-wrap">
+    <div class="op-hero">
+      <div class="op-check" aria-hidden="true">✓</div>
+      <h1>Замовлення №1024 прийнято</h1>
+      <p class="op-sub">Ми надіслали SMS із підтвердженням на <b>+380 ** *** 45 67</b>. Трек-номер надішлемо у SMS, щойно замовлення зберемо.</p>
+    </div>
+    <div class="op-grid">
+      <div>
+        <div class="op-card">
+          <h2>Ваше замовлення</h2>
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">Optimum Nutrition · США</div>
+              <div class="op-nm">Gold Standard 100% Whey 2270 г</div>
+              <div class="op-vmeta">Подвійний шоколад · 2270 г</div>
+            </div>
+            <div class="op-price">1 290 ₴<span class="qx">× 1</span></div>
+          </div>
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">Optimum Nutrition · США</div>
+              <div class="op-nm">Creatine Monohydrate 500 г</div>
+              <div class="op-vmeta">Без смаку · 500 г</div>
+            </div>
+            <div class="op-price">549 ₴<span class="qx">× 1</span></div>
+          </div>
+          <div class="op-sum">
+            <div class="op-row"><span>Товари (2)</span><b>1 839 ₴</b></div>
+            <div class="op-row"><span>Доставка</span><b>60 ₴</b></div>
+            <div class="op-total"><span class="l">Разом</span><span class="v">1 899 ₴</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="op-aside">
+        <div class="op-card">
+          <h2>Доставка та оплата</h2>
+          <div class="op-facts">
+            <div class="op-fact"><div class="fk">Доставка</div><div class="fv">Нова Пошта, відділення № 12<span>Одеса · Вікторія Коваль</span></div></div>
+            <div class="op-fact"><div class="fk">Оплата</div><div class="fv"><span class="op-paid">Сплачено карткою онлайн</span></div></div>
+          </div>
+          <div class="op-bonus"><b>+18 ₴ бонусів</b> нарахуємо після отримання замовлення.</div>
+        </div>
+        <div class="op-offer">
+          <h2>Створіть акаунт</h2>
+          <p>Історія замовлень, збережені адреси й бонуси - без пароля, за номером телефону.</p>
+          <div class="actions actions--stack">
+            <a class="btn--accent btn--l btn" href="#">Створити акаунт</a>
+            <a class="btn--outline btn" href="#">Відстежити замовлення</a>
+            <a class="btn--text btn" href="#">Продовжити покупки</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><b>Плита</b> <code>.op-hero</code> - м'яке тло успіху, волосина, радіус 12. <b>Не залита</b>: принцип 4 тримає сторінку спокійною, і замовлення, яке дійшло, не святкує</span></div>
+  <div class="a"><i>2</i><span><b>Диск</b> <code>.op-check</code> - 64, біле тло сторінки, грань і чорнило успіху. Це <code>.cv-ok .m</code> (46) на розмір більший, бо момент більший. 2.5px грані сірого -&gt; одна волосина: система малює одну товщину</span></div>
+  <div class="a"><i>3</i><span><b>Рядок чека</b> <code>.op-item</code> - <b>не <code>.ob-line</code> і не <code>.ci</code></b>: у першого немає слотів бренда й варіанта і він несе «Залишити відгук», другий несе степер і «Видалити». Тут нічого змінити не можна - це чек</span></div>
+  <div class="a"><i>4</i><span><b>Рамка фото</b> <code>.op-thumb</code> - <b>квадрат</b>, 52. Сірий малював 52 × 58, до того як правило 7.68 сказало «коробка, що обрамляє фото товару, - квадратна»</span></div>
+  <div class="a"><i>5</i><span><b>Мітка оплати</b> <code>.op-paid::before</code> - ✓ <b>малюється</b>, ніколи не набирається. <code>accept.mjs</code> валить компонент, що малює гліф, який розмітка теж друкує; сіра розмітка тут не друкує нічого</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Нічого тут не є новим виглядом</div>
+<p class="kp-p">Кожне оголошення - це сірий оригінал, перекладений картою <code>tools/grey-vars.mjs</code>, або скопійоване з сусіда, якого система вже вирішила:</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Що</th><th>Звідки</th></tr></thead><tbody>
+<tr><td>плита успіху</td><td><code>.cv-ok</code> (coach-verify.css) - м'яке тло, волосина, радіус 12, диск білий зі знаком успіху</td></tr>
+<tr><td>рамка фото</td><td><code>product-thumb.css</code> - квадрат, радіус 8, запале тло, волосина</td></tr>
+<tr><td>сильна грань панелі</td><td><code>.acc-tier</code> (account-shell.css:59) відповів на сіре <code>1.5px solid var(--dark)</code> токеном <code>--line-strong</code></td></tr>
+<tr><td>поріг 860</td><td>уже в реєстрі: <code>--bp-shell-wide</code>, дзеркало 859</td></tr>
+</tbody></table></div>
+<p class="kp-p"><b>Числа поза рампою прилипають до сходинки, і зміна названа.</b> 13.5 і 11.5 не існують на жодній шкалі системи; 10 і 6 не є радіусами; 60 не є розміром. Єдине число, що лишилось літералом, несе <code>[?]</code> - ширина колонки 53.75rem. <b>І це НЕ <code>--bp-shell-wide</code>, хоч число те саме</b>: той токен - точка адаптиву, а тут контейнер, і саме цю помилку крок 10.6b упіймав на <code>.pf-note</code>, який носив <code>--bp-grid-2col</code> як міру читання.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Власних станів компонент не має: на сторінці підтвердження нічого не наводиться й нічого не натискається, крім кнопок, які належать <code>button.css</code>. Те, що виглядає як стан, - це <b>дві редакції правої панелі</b>, і вони обидві базові.</p>
+<div class="kp-demo">
+  <div class="op-saved">
+    <h2>Історію та бонуси збережено</h2>
+    <p>Замовлення вже у вашому кабінеті - разом із трек-номером, щойно він з'явиться.</p>
+  </div>
+</div>
+<div class="kp-anat">
+  <div class="a"><i>1</i><span><code>.op-offer</code> - <b>кінець гостя</b>: запрошення. Сильна грань, бо це дія, якої ще не зробили</span></div>
+  <div class="a"><i>2</i><span><code>.op-saved</code> - <b>кінець з акаунтом</b>: квитанція. Волосина й тепла поверхня, бо тут нема чого робити</span></div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Пари теми немає, і це правило</div>
+<p class="kp-p">Жодного блоку <code>[data-theme="dark"]</code>. Кожен колір тут - семантична роль, а роль уже несе обидві половини в <code>tokens.css</code>. Другий блок був би другою редакцією ухваленого рішення.</p></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>order-placed.css</code>: <b>11</b> семантичних ролей і <b>28</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (11)</th><th>Примітиви (28)</th></tr></thead><tbody><tr><td><code>--bg-success-soft</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-strong</code> <code>--line-success</code> <code>--line-success-soft</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code></td><td><code>--container-text</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-20</code> <code>--fs-24</code> <code>--fs-30</code> <code>--fs-8</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-regular</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--size-52</code> <code>--size-64</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>24</b> власних класів і <b>0</b> станів, які вона може назвати, але не показати наживо.</p>
+<div id="idle"></div><script>var KIT_CLS=['op-aside', 'op-bonus', 'op-brand', 'op-card', 'op-check', 'op-fact', 'op-facts', 'op-grid', 'op-hero', 'op-in', 'op-item', 'op-nm', 'op-offer', 'op-paid', 'op-price', 'op-row', 'op-saved', 'op-sub', 'op-sum', 'op-thumb', 'op-total', 'op-vmeta', 'op-wrap', 'qx'], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Немає в коді</div>
+<div class="kp-anat">
+<ul style="margin:0;padding-left:18px;line-height:1.7">
+<li><b>Плита результату як ПАТЕРН</b> - ця форма стоїть у продукті під <b>сімома</b> іменами (<code>.cv-ok</code>, <code>.co-err-*</code>, <code>.co-proc-*</code>, <code>.sys-*</code>, <code>.emptybox</code>, <code>.errbox</code>, диск авторизації). Правило вимагає трьох екранів; тут сім. Не взято за рішенням власника, з числом, у <code>backlog.md</code></li>
+<li><b>Липкий відступ 120px</b> - це заміряна висота власної шапки, а не сходинка. <code>[?]</code></li>
+<li><b>Ширина колонки 53.75rem</b> - 860 не має сходинки як контейнер. <code>[?]</code></li>
+<li><b>Фото товару в рядку чека</b> - <code>.op-thumb</code> показує слово «фото». <code>checkout-form.css</code> дає своїм рядкам справжні знімки через <code>.co-line[data-img]</code>; тут такого немає. Питання субагента, не закрите: 6.2 лишається без фото чи винен рядок <code>data-img</code></li>
+</ul></div></section>
+
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

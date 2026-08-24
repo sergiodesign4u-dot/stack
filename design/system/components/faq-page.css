@@ -1,0 +1,89 @@
+/* faq-page.css - the shop FAQ, node 8.9 (level 3)
+   Added at stage 12, batch 4, by the parent.
+
+   WHY IT IS NOT `.trustsec`, WHICH IS ALREADY A DISCLOSURE. The two differ in
+   the one place the ladder is read - the JOB - and design principle 1 is what
+   makes the difference load-bearing. The trust section on a product page exists
+   to reduce doubt, so it stands OPEN by default: «composition, dosage, origin and
+   certification are the lead, not a detail under a fold». A shop FAQ exists so a
+   visitor finds the one answer they came for among sixteen, so it stands CLOSED
+   and is read as a list of titles. A trust block that opened on a click would
+   break principle 1; an FAQ that stood open would stop being scannable.
+
+   AND THE MECHANICS ARE TAKEN FROM `trust-strip.css` VERBATIM, not re-derived:
+   `list-style: none` plus the webkit marker, the chevron rotating on `[open]`.
+   A second derivation of the same three lines is a second answer waiting to
+   disagree with the first - the rule `width-sweep.mjs` states about the carrier
+   question, in css.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT. `wireframes/_wf.css` has no rule
+   for `faq-*`; the grey screen carries its own `<style>` block. Third file in
+   this batch with that line, and by now it is the finding rather than the
+   excuse: an inventory derived from the shared stylesheet is blind to every
+   screen that styled itself, and the whole f4 group did.
+
+   WHAT THIS FILE DOES NOT DRAW, AND THE LIST GREW WHILE IT WAS BEING WRITTEN.
+   The jump links are `.chips` + `.chip`, the row `chip.css` published one batch
+   ago for exactly this shape. And the
+   lead paragraph under the H1 is `.lintro`, which `seo-text.css` describes in
+   its own words as «the lead paragraph directly under the H1 of a listing» and
+   already carries on eleven pages - four screens of this batch had declared it
+   again under four private names (`faq-lead`, `blog-lead`, `promo-lead`,
+   `rev-lead`), which is one decision written five times. */
+
+/* ---------- structure ---------- */
+.faq-grp{ margin-top: var(--space-32); }
+/* THE GROUP HEADING IS THIS FILE'S, AND THE HEADER ABOVE ONCE SAID IT WAS
+   `section-head`'s - prose disagreeing with the code three lines under it, and
+   an agent read both and had to pick. It cannot be `.sech`: that carries a
+   32px top margin for a page-level break, and these six headings each open a
+   card-sized group with a glyph tile beside the words. The prose was wrong and
+   is gone; the rule is here because the glyph tile is here. */
+.faq-grp > h2{ font-size: var(--fs-18); font-weight: var(--fw-black);
+  color: var(--text-primary); margin-bottom: var(--space-12);
+  display: flex; align-items: center; gap: var(--space-8); }
+/* the glyph beside a group title, in a tile so a run of six lines up. Same
+   reason `info-page.css` gave its own `h3` a flex row: a mark and its words on
+   one baseline. */
+.faq-grp > h2 .ic{ width: var(--size-30); height: var(--size-30); flex: none;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-14); border: 1px solid var(--line-hair); }
+
+.qa{ border: 1px solid var(--line-hair); margin-bottom: var(--space-8);
+  overflow: hidden; }
+.qa > summary{ display: flex; justify-content: space-between; align-items: center;
+  gap: var(--space-12); cursor: pointer; list-style: none;
+  font-size: var(--fs-16); font-weight: var(--fw-bold); color: var(--text-primary);
+  padding: var(--space-12) var(--space-16); }
+.qa > summary::-webkit-details-marker{ display: none; }
+.qa > summary .chev{ flex: none; color: var(--text-muted); }
+.qa[open] > summary .chev{ transform: rotate(180deg); }
+.qa .a{ font-size: var(--fs-14); color: var(--text-body);
+  line-height: var(--lh-airy); padding: 0 var(--space-16) var(--space-16); }
+.qa .a a{ color: var(--text-primary); font-weight: var(--fw-bold);
+  text-decoration: underline; text-underline-offset: 2px; }
+
+/* the band at the foot: the one clear next step when no answer fitted. */
+.faq-help{ border: 1px solid var(--line-strong); padding: var(--space-16);
+  margin-top: var(--space-32); display: flex; gap: var(--space-16);
+  align-items: center; flex-wrap: wrap; }
+.faq-help .t{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); }
+.faq-help .s{ font-size: var(--fs-14); color: var(--text-secondary);
+  margin-top: var(--space-2); }
+.faq-help .sp{ flex: 1; }
+
+/* ---------- colour ---------- */
+.faq-grp > h2 .ic{ border-radius: var(--radius-8); background: var(--bg-sunken); }
+.qa{ border-radius: var(--radius-12); background: var(--bg-page); }
+.qa > summary{ transition: background var(--dur-fast) var(--ease-standard); }
+.qa > summary:hover{ background: var(--bg-sunken); }
+.qa > summary:hover .chev{ color: var(--text-action); }
+.qa[open] > summary{ border-bottom: 1px solid var(--line-hair); }
+.faq-help{ border-radius: var(--radius-12); background: var(--bg-surface); }
+
+/* the reading measure, on the elements that carry the characters - the lesson of
+   12.7: a ceiling written in `ch` is only that ceiling on the font it is read
+   against, so it goes on the leaf and not on a parent with a larger font. */
+.qa .a{ max-width: var(--container-text); }
+.faq-help .s{ max-width: var(--container-text); }

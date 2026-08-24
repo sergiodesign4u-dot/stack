@@ -1,0 +1,71 @@
+/* promo-card.css - the promotion card, node 8.10 (level 2)
+   Added at stage 12, batch 4, by the parent.
+
+   WHY IT IS NOT THE BLOG CARD, WHICH HAS THE SAME SHELL. Batch 2 merged a brand
+   card and a category tile into `nav-tile.css` because the ladder is read by JOB
+   and both open a scope of the catalogue. The same reading SEPARATES these two:
+   a blog card asks to be READ and carries a date and a reading time; a promotion
+   card asks to be BOUGHT ON THESE TERMS and carries a deadline and a button.
+   Design principle 1 puts a wall exactly there - «trust first, then sell» is only
+   a principle if the two are distinguishable objects. `product-card.css` had
+   already drawn that wall in its own words, listing `.hpromo`, `.blogcard` and
+   `.certthumb` among the things it is not.
+
+   AND THE DEADLINE IS A DATE, NEVER A TIMER. Principle 4: no countdown, no
+   urgency. The grey screen says the same in its own comment, and this file draws
+   `.until` as one quiet line rather than as anything that moves.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT. `wireframes/_wf.css` has no rule
+   for `pcard-promo`; the grey screen styles itself.
+
+   THE GRID IS FLUID, NOT THE GREY's 720. 720 is in no registry of breakpoints
+   and `bp.mjs` fails a run on a third point. Four cards, and `auto-fill` on the
+   panel floor gives one, two or three of them by the width available, which is
+   what `responsive.md` means by «WIDER · grid | fluid». */
+
+/* ---------- structure ---------- */
+.promo-grid{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min-panel), 100%), 1fr));
+  gap: var(--grid-gap-fluid); margin-top: var(--space-24); }
+
+.pcard-promo{ border: 1px solid var(--line-hair); overflow: hidden;
+  display: flex; flex-direction: column; }
+/* 21/9 rather than the blog card's 16/9: a promotion banner is a strip, and the
+   two aspect ratios are the one place the two cards differ in geometry. */
+.pcard-promo .banner{ aspect-ratio: 21 / 9; position: relative;
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-14); }
+.pcard-promo .badge{ position: absolute; top: var(--space-12); inset-inline-start: var(--space-12);
+  font-size: var(--fs-12); font-weight: var(--fw-bold); padding: var(--space-4) var(--space-12); }
+.pcard-promo .bd{ padding: var(--space-16); display: flex; flex-direction: column;
+  flex: 1; gap: var(--space-8); }
+.pcard-promo .ttl{ font-size: var(--fs-18); font-weight: var(--fw-black);
+  color: var(--text-primary); line-height: var(--lh-snug); }
+.pcard-promo .desc{ font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); flex: 1; }
+.pcard-promo .until{ font-size: var(--fs-12); color: var(--text-muted);
+  display: inline-flex; align-items: center; gap: var(--space-4);
+  margin-top: var(--space-4); }
+.pcard-promo .cta{ margin-top: var(--space-4); }
+
+/* ---------- colour ---------- */
+.pcard-promo{ border-radius: var(--radius-12); background: var(--bg-page);
+  box-shadow: var(--elevation-1);
+  transition: transform var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard); }
+.pcard-promo:hover{ transform: translateY(-2px); box-shadow: var(--elevation-2); }
+/* THE MARK STANDS ON A PICTURE, SO IT READS THE PICTURE'S ROLES - rule 8 of
+   `design/system/CLAUDE.md`, and the rule this stage broke three times in one
+   day before the theme census caught it. `--text-onmedia` on `--bg-media`, never
+   the page's own ink on a ground that does not follow the page. */
+.pcard-promo .banner{ background: var(--bg-sunken) center/cover no-repeat;
+  color: var(--text-secondary); }
+.pcard-promo .badge{ border-radius: var(--radius-pill);
+  background: var(--bg-media); color: var(--text-onmedia); }
+.promo-grid > .pcard-promo:nth-child(1) .banner{ background-image: url(../../visuals/banner-promo-a.jpg); }
+.promo-grid > .pcard-promo:nth-child(2) .banner{ background-image: url(../../visuals/banner-new-a.jpg); }
+.promo-grid > .pcard-promo:nth-child(3) .banner{ background-image: url(../../visuals/banner-promo-b.jpg); }
+.promo-grid > .pcard-promo:nth-child(4) .banner{ background-image: url(../../visuals/banner-new-b.jpg); }
+
+/* the reading measure on the leaf that carries the characters - 12.7. */
+.pcard-promo .desc{ max-width: var(--container-text); }

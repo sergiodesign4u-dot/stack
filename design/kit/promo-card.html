@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Картка акції | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Картка акції</h1>
+<p class="kp-lead">Картка, якою відкривають пропозицію: смуга 21/9, мітка на ній, назва, умова, дата закінчення і кнопка. Вузол 8.10, чотири картки.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/promo-card.css</span><span class="kp-tag">72 рядки</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p"><code>.promo-grid</code> плинна: <code>auto-fill</code> від <code>--grid-col-min-panel</code>. Сірий блок ставить точку на 720, якої немає в реєстрі точок, а <code>bp.mjs</code> валить прогін на третій. Плинна сітка дає одну, дві або три колонки за наявною шириною - це і є те, що <code>responsive.md</code> зве «WIDER · grid | fluid».</p>
+<p class="kp-p">Усередині <code>.pcard-promo</code>: <code>.banner</code> 21/9 з фотографією, <code>.badge</code> НА ній, далі <code>.bd</code> з <code>.ttl</code>, <code>.desc</code>, <code>.until</code> і кнопкою.</p>
+<div class="kp-demo">
+<div class="promo-grid">
+  <a class="pcard-promo" href="#"><div class="banner"><span class="badge">-15%</span></div>
+    <div class="bd"><div class="ttl">Whey-тиждень</div><div class="desc">Знижка на весь сироватковий протеїн Optimum Nutrition і Biotech USA.</div>
+    <div class="until">Діє до 20 липня</div><span class="btn btn--outline btn--s cta">Дивитись товари</span></div></a>
+  <a class="pcard-promo" href="#"><div class="banner"><span class="badge">Новинка</span></div>
+    <div class="bd"><div class="ttl">Нові смаки Iso Whey Zero</div><div class="desc">П'ять смаків, які ми додали цього місяця. Склад той самий, сертифікат той самий.</div>
+    <div class="until">Діє до 31 липня</div><span class="btn btn--outline btn--s cta">Подивитись</span></div></a>
+</div>
+</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на <b>вузлі 8.10</b> - сторінці акцій. Кожна картка веде в добірку (2.x) або на товар.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p"><b>Ніяких таймерів.</b> Принцип 4: спокійно і впевнено, без зворотного відліку і без терміновості. <code>.until</code> - це ОДИН тихий рядок з датою, і в цьому файлі немає нічого, що рухається саме по собі.</p>
+<p class="kp-p"><b>Це не картка блогу, хоча оболонка та сама.</b> Партія 2 звела картку бренду і плитку категорії в один <code>nav-tile.css</code>, бо драбина читається за РОБОТОЮ і обидві відкривають обсяг каталогу. Те саме читання ці дві РОЗВОДИТЬ: картка блогу просить, щоб її ПРОЧИТАЛИ, і несе дату й час читання; картка акції просить, щоб КУПИЛИ на цих умовах, і несе дату закінчення й кнопку. Принцип 1 ставить стіну рівно там - «спершу довіра, потім продаж» є принципом лише тоді, коли це два розрізнювані об'єкти.</p>
+<p class="kp-p">Мітка стоїть на ФОТОГРАФІЇ, тож читає ролі фотографії - <code>--bg-media</code> і <code>--text-onmedia</code>, а не чорнило сторінки. Це правило 8 системи, і саме його цей етап зламав тричі за один день, доки перепис тем не впіймав третій випадок.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Один, і це робота <b>ВІДПОВІДЬ</b>: <code>:hover</code> піднімає картку на 2px і міняє тінь з <code>--elevation-1</code> на <code>--elevation-2</code> за <code>--dur-fast</code>. Та сама відповідь, що в <code>.blogcard</code> - однакова робота, однакова тривалість.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">У <code>wireframes/_wf.css</code> немає правила для <code>pcard-promo</code>: сірий екран стилює себе сам. І другий бік того самого - <code>product-card.css</code> ще на етапі 08 перелічив <code>.hpromo</code>, <code>.blogcard</code> і <code>.certthumb</code> серед того, чим він НЕ є, тобто система вже знала, що медійних карток кілька родів. Чого інвентар не сказав - що одного з тих родів у ньому немає зовсім.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>1</b> стан, показаний наживо вище.</p><div id="idle"></div><script>var KIT_CLS=["promo-grid","pcard-promo","banner","badge","bd","ttl","desc","until","cta"], KIT_STS=["hover"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>promo-card.css</code>: <b>10</b> семантичних ролей і <b>19</b> примітивів. Список виводить <code>node tools/roles.mjs promo-card</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--bg-media</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-hair</code> <code>--text-muted</code> <code>--text-onmedia</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-18</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--grid-col-min-panel</code> <code>--grid-gap-fluid</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

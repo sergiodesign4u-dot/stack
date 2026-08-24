@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Картка блогу</h1>
 <p class="kp-lead">Три статті внизу головної й сторінки товару. Єдине місце, де Stack говорить, нічого не продаючи, - і тому єдина картка системи <b>без ціни, без кнопки й без наявності</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/blog-card.css</span><span class="kp-tag">37 рядків</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">26 оголошень</span><span class="kp-tag">6 екранів</span><span class="kp-tag">36 карток</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/blog-card.css</span><span class="kp-tag">89 рядків</span><span class="kp-tag">29 селекторів</span><span class="kp-tag">68 оголошень</span><span class="kp-tag">6 екранів</span><span class="kp-tag">36 карток</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>index.html</code>. Фото приходять із того самого правила, що в крамниці: <b>по позиції в ряду</b>.</p>
@@ -74,10 +74,33 @@
 <section class="kp-sec"><div class="kp-sh">Правило і антиправило</div>
 <div class="kp-pair"><div class="kp-do"><h4>Правило</h4><b>Стаття обіцяє час, а не новизну.</b> «8 хв читання» - те, що вирішує, читати зараз чи ні. Дата статті про дозування креатину не змінює нічого і тільки старить блок.</div><div class="kp-dont"><h4>Антиправило</h4><b>Не став у блог рекламу власного товару.</b> Це єдине місце, де магазин говорить, нічого не продаючи, і воно працює рівно доти, доки це правда. Картка без ціни й без кнопки - не недогляд, а умова.</div></div></section>
 
+<section class="kp-sec"><div class="kp-sh">Друга форма: лістинг блогу, вузол 8.0 <b>-&gt; 12.8</b></div>
+<p class="kp-p">Досі цей файл малював одне: ряд із трьох карток у підвалі домашньої сторінки, з фіксованим зображенням 158px, назвою і датою. Вузол 8.0 - це та сама картка на сторінці, яка існує ЗАРАДИ неї: шість штук, у кожної категорія, речення статті і час читання. <b>Два розміри однієї ідеї, сказані вголос: це щабель, а не другий компонент</b>, і оболонка внизу - це оболонка вгорі.</p>
+<p class="kp-p"><b>Чому імена не сірі.</b> Сірий екран зве свою картку <code>.bcard</code> - і <code>.bcard</code> це ТАКОЖ те, як <code>wireframes/brands.html</code> зве картку бренду. Одне ім'я на два різні компоненти; партія 2 розв'язала це, віддавши картку бренду в <code>nav-tile.css</code>. Файл не має права публікувати ім'я, яке означає дві речі, тож форма лістингу лишається в родині <code>b*</code> цього файлу, а зіткнення вмирає разом із сірим шаром.</p>
+<p class="kp-p"><b>Сітка плинна, а ряд угорі - ні, і це навмисне.</b> Ряд - це рівно три картки, у трьох є дві врівноважені розкладки, і точка там доречна. Лістинг - це шість, де <code>auto-fill</code> дає дві, три або чотири колонки за наявною шириною і жодному запиту не треба вгадувати, яку. 1040 із сірого блоку немає в реєстрі точок.</p>
+<div class="kp-demo">
+<div class="blogfeed">
+  <a class="blogcard" href="#"><div class="bim"><span class="bcat">Базові знання</span></div>
+    <div class="btx"><div class="bt">Скільки протеїну потрібно насправді</div>
+    <div class="bex">1,6-2,0 г на кілограм ваги, і більша частина цього приходить з їжею, а не з банки.</div>
+    <div class="bfoot"><span class="bdt">12 серпня 2026</span><span class="bread">Читати -&gt;</span></div></div></a>
+  <a class="blogcard" href="#"><div class="bim"><span class="bcat">Розбір складу</span></div>
+    <div class="btx"><div class="bt">Креатин: як приймати без завантаження</div>
+    <div class="bex">Фаза завантаження не обов'язкова. 3-5 г на добу щодня дають той самий результат за місяць.</div>
+    <div class="bfoot"><span class="bdt">4 серпня 2026</span><span class="bread">Читати -&gt;</span></div></div></a>
+  <a class="blogcard" href="#"><div class="bim"><span class="bcat">Цілі</span></div>
+    <div class="btx"><div class="bt">Набір маси без зайвого жиру</div>
+    <div class="bex">Профіцит 300-400 ккал, а не 1000. Решта - це терпіння і сон.</div>
+    <div class="bfoot"><span class="bdt">28 липня 2026</span><span class="bread">Читати -&gt;</span></div></div></a>
+</div>
+</div>
+<p class="kp-p">Мітка категорії стоїть НА фотографії, тож читає ролі фотографії - <code>--bg-media</code> і <code>--text-onmedia</code>. Це правило 8 системи. І шість карток на три фотографії: цикл написаний циклом (<code>:nth-child(3n+1)</code>), а не шістьма правилами, щоб сьома картка успадкувала зображення, а не порожнечу.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>6</b> власних класів і <b>3</b> стани.</p>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>11</b> власних класів і <b>3</b> стани.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["bdt","bim","blogcard","blogrow","bt","btx"], KIT_STS=[":hover",":nth-child","min-width: 720px"];</script></section>
+<script>var KIT_CLS=["bdt","bim","blogcard","blogrow","blogfeed","bcat","bex","bfoot","bread","bt","btx"], KIT_STS=[":hover",":nth-child","min-width: 720px"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> ряд статей іде з однієї колонки в три. <b>Було 720</b>, поза реєстром. <b>Чому не <code>auto-fit</code>:</b> карток три, і три має дві збалансовані розкладки - одну і три; заповнення дорогою поставило б дві в ряд і лишило третю саму внизу. Зміряно на 620: 188 x 288.9, нічого не обрізано (на 720 сьогодні 221.3 x 270.8 - картка вужчає і виростає на рядок заголовка).</div>
@@ -87,9 +110,8 @@
 </section>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>blog-card.css</code>: <b>7</b> семантичних ролей і <b>9</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (7)</th><th>Примітиви (9)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
-</tbody></table></div>
+<p class="kp-p">Прочитані з <code>blog-card.css</code>: <b>10</b> семантичних ролей і <b>20</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (20)</th></tr></thead><tbody><tr><td><code>--bg-media</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--elevation-2</code> <code>--line-hair</code> <code>--text-body</code> <code>--text-onmedia</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--grid-col-min-panel</code> <code>--grid-gap-fluid</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--radius-pill</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p">Повз шкалу три числа: <code>1px</code> краю, <code>158px</code> висоти кадру й межа <code>720</code>. <b>158 - не з драбини розмірів</b> і мало б туди потрапити: сусідній кадр опису бере <code>aspect-ratio</code>, кадр картки товару - квадрат (7.68), а цей стоїть окремим числом. Кандидат на рішення етапу 09 разом із розміром плитки товару.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">A/B</div>

@@ -85,19 +85,19 @@ door only the driver has measures a different product. **Fix through a rule, not
 file**; a check rebuilt from memory is a hand fix, a repeatable one goes in `tools/` with its wrong
 versions. **A repair applied by rule still has to know the KIND of every file it opens.**
 
-**Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in a comment has no check under it,
-and **a claim about the corpus goes stale in silence** - the event that stales it happens in another
-file - so it is re-asked, not re-read. **A comparison whose two sides differ in more than the thing
-being measured is not a proof:** name the reference by hand when the tree holds earlier work, and
-read the whole report - one read through `tail` is not a read.
+**Ask the OUTPUT, and ask it of the whole corpus.** A rule stated in prose has no check under it, and
+**an instrument the rule NAMES still has to ask that rule's question** - nine marks of ten is a true
+answer to nine tenths of a sentence. **A claim about the corpus goes stale in silence**, so it is
+re-asked, not re-read. **A comparison whose two sides differ in more than the thing measured is not a
+proof:** name the reference by hand, and read the whole report - one read through `tail` is not a read.
 
 **A zero from an instrument that cannot see the class is not a zero.** Before a green counter is
 believed, name what would turn it red: a check that has never failed has not been shown to work.
-Every declared list gets the same test - an allow-list, a registry row or an exception that covers
-nothing fails as loudly as an undeclared case. **A repair is re-checked by the instrument that found
-the defect**, because a repair stales its own neighbours. **A number nobody maintains is removed,
-not corrected.** **And an instrument that shows one layer at a time cannot say «clean»** - only «one
-more round», and the round count is invisible in its own output.
+Every declared list is asked BOTH ways and on the WHOLE corpus: membership and existence, and an
+allow-list, a registry row or an exception that covers nothing fails as loudly as an undeclared
+case. **A repair is re-checked by the instrument that found the defect**, because a repair stales
+its own neighbours. **A number nobody maintains is removed, not corrected.** **And an instrument
+that shows one layer cannot say «clean»** - only «one more round», and the count is invisible in it.
 
 **A path named in prose is a TAIL, not an address** (`tools/paths.mjs`): it resolves against the
 tree, not against the folder it was typed in. **A record names history, a rule names an address** -

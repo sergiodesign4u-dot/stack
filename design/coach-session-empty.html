@@ -11,13 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE LAST RULE ON THIS SCREEN IS GONE - step 8.41. `.cs-summ-empty` is the
-   line the summary shows when nothing is in the session, and it moved into
-   `coach-session.css` beside `.cs-summ` itself. The block above it went at 8.30:
-   `.cs-empty` was the sixth private edition of `.emptybox`, and its sibling
-   `coach-session-newclient` carried the seventh until today. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -96,7 +89,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'empty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'empty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

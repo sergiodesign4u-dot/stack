@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бренди - завантаження - Stack (wireframe 2.4, loading)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.4 Бренди - LOADING. Skeleton A–Z grid + loadnote.
+  `.sklogo` is the WIDE, LOW box a brand card opens with - not `.skimg`,
+  which is square because every photograph in this product is.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="catalog-page.html">Каталог</a><span class="sep"></span>
+    <span class="cur">Бренди</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Бренди спортивного харчування</h1>
+    <p class="lintro">Усі бренди, які представлені в Stack - світові та українські. Для кожного товару
+      показуємо <b>склад, походження і сертифікат</b> - щоб ви бачили, що берете.</p>
+  </section>
+
+  <div class="toolbar--all">
+    <div class="field-grp"><span class="lead">🔍</span><input class="field" type="search" placeholder="Пошук бренду…" aria-label="Пошук бренду"></div>
+    <button class="btn--outline btn--s" type="button">Країна: всі ▾</button>
+    <button class="btn--outline btn--s" type="button">Категорія: всі ▾</button>
+  </div>
+
+  <!-- Skeleton brand grid -->
+  <div class="skgrid skpulse" aria-hidden="true">
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="sklogo"></div><div class="skline l"></div><div class="skline s"></div></div></div>
+  </div>
+  <p class="loadnote">Завантажуємо бренди…</p>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('brands.html','loading'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

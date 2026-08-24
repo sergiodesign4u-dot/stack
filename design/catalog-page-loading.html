@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Каталог - завантаження - Stack (wireframe 2.0 · loading)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.0 Каталог-хаб - LOADING (skeleton).
+  H1 + intro stay; the three blocks below render as skeleton while data loads.
+  THREE GRIDS, NOT TWO. The grey original promised 6 boxes and 4 product cards and
+  said nothing about the 12 category tiles, which are half the base screen.
+  skeleton.css states its own rule twice - «a skeleton is a promise about the box
+  that replaces it» (7.68), «the skeleton wears the component it promises» (8.38) -
+  so the missing promise is written in: 6 goal tiles · 12 category tiles · 4 cards.
+  THE SECTION HEADS STAY, exactly as the H1 and the intro do: what a loading screen
+  keeps is what is known before the data, and «За ціллю / Категорії / Популярні
+  товари» are known. They also carry the gaps - `.sech + .skgrid` in skeleton.css -
+  where the grey set them with `style="margin-top:20px"` and `14px`. Measured
+  without them at 360, 390 and 1280: the first grid stands 0px under the intro.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Каталог</span>
+  </nav>
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Каталог</h1>
+    <p class="lintro">Усе спортивне харчування Stack - оберіть <b>ціль</b> або <b>категорію</b>.</p>
+  </section>
+
+  <!-- 6 goal tiles (.gtile--row): the mark, the name and the hint -->
+  <div class="sech"><h2>За ціллю</h2></div>
+  <div class="skgrid skpulse" aria-hidden="true">
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+  </div>
+  <!-- 12 category tiles (.ntile): the name and the sub-line of children -->
+  <div class="sech"><h2>Категорії</h2></div>
+  <div class="skgrid skpulse" aria-hidden="true">
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+    <div class="skcard"><div class="skb"><div class="skline l"></div><div class="skline s"></div></div></div>
+  </div>
+  <!-- 4 product cards (.pcard): the square photo and the body -->
+  <div class="sech"><h2>Популярні товари</h2></div>
+  <div class="skgrid skpulse" aria-hidden="true">
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+    <div class="skcard"><div class="skimg"></div><div class="skb"><div class="skline s"></div><div class="skline l"></div><div class="skline m"></div></div></div>
+  </div>
+  <p class="loadnote">Завантажуємо каталог…</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('catalog-page.html', 'loading');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

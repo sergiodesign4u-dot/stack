@@ -95,27 +95,27 @@ the unscoped base form, not the component.
 
 | Component | css file | Anchors | Рух | Width | Screens | Lines |
 |---|---|---|---|---|---|---|
-| Кнопка | `button.css` | `.btn`, `.navbtn`, `.go` | відповідь | ramp | 86 | 621 |
+| Кнопка | `button.css` | `.btn` | відповідь | ramp | 86 | 621 |
 | Меню вибору | `menu.css` | `.menu`, `.menu-trig`, `.menu-val` | відповідь · зв'язок | 620 | 8 | 190 |
-| Ціна | `price.css` | `.pnew`, `.pold`, `.perserv` | немає: стану немає | – | 44 | 418 |
-| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | відповідь | 860 · fluid | 82 | 320 |
-| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink`, `.flinks` | відповідь | fluid | 81 | 270 |
-| Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | статус | 860 · fluid | 11 | 295 |
-| Поле | `field.css` | `.fld`, `.cef`, `.txt-field` | відповідь | – | 85 | 269 |
+| Ціна | `price.css` | `.pnew`, `.pold` | немає: стану немає | – | 44 | 418 |
+| Чип | `chip.css` | `.mgchip`, `.dr-chip`, `.dr-chips` | відповідь | 860 · fluid | 82 | 397 |
+| Рядок посилань | `link-row.css` | `.linkrow`, `.seolink` | відповідь | fluid | 81 | 270 |
+| Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | статус | 860 · fluid | 11 | 355 |
+| Поле | `field.css` | `.fld`, `.cef` | відповідь | – | 85 | 286 |
 | Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | відповідь | – | 82 | 218 |
 | Чекбокс | `checkbox.css` | `.cb`, `.optin` | відповідь | – | 8 | 210 |
 | Радіо | `radio.css` | `.co-radio`, `.co-opt` | відповідь | fluid | 9 | 196 |
-| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status`, `.pill` | немає: стану немає | – | 11 | 190 |
-| Бейдж | `badge.css` | `.tag`, `.gnote` | немає: стану немає | – | 11 | 180 |
+| Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status` | немає: стану немає | – | 11 | 190 |
+| Бейдж | `badge.css` | `.tag` | немає: стану немає | – | 11 | 180 |
 | Бейдж знижки | `discount.css` | `.pcut`, `.wtag` | немає: стану немає | – | 21 | 168 |
 | Рейтинг | `rating.css` | `.rate`, `.st` | відповідь | – | 21 | 164 |
-| Лічильник кількості | `stepper.css` | `.ctrl` | відповідь | – | 12 | 142 |
+| Лічильник кількості | `stepper.css` | `.cq`, `.qn`, `.ci-qty` | відповідь | – | 12 | 142 |
 | Мітка наявності | `availability.css` | `.pavail` | немає: стану немає | – | 26 | 141 |
 | Перемикач вигляду | `view-toggle.css` | `.vtoggle` | відповідь | 860 | 7 | 144 |
 | Перемикач | `switch.css` | `.sw` | відповідь | – | 2 | 113 |
 | Іконка | `icon.css` | `.uiv-ic`, `.chev` | відповідь | – | – | 89 |
 | Мініатюра товару | `product-thumb.css` |  | немає: стану немає | – | – | 83 |
-| Лічильник | `counter.css` | `.cnt`, `.hbadge`, `.tbadge` | немає: стану немає | – | – | 62 |
+| Лічильник | `counter.css` | `.cnt` | немає: стану немає | – | – | 62 |
 | Обране | `favourite.css` | `.fav`, `.wlrm` | відповідь | – | 20 | 47 |
 | OTP-комірка | `otp.css` | `.otp` | відповідь | – | 4 | 35 |
 
@@ -124,67 +124,69 @@ the unscoped base form, not the component.
 > так - у `consolidation.md`.
 
 
-**23 files, 4565 lines.**
+**23 files, 4719 lines.**
 
 ## Molecules (level 2)
 
 | Component | css file | Anchors | Рух | Width | Screens | Lines |
 |---|---|---|---|---|---|---|
-| Картка товару | `product-card.css` | `.pcard`, `.packlabel` | відповідь | 620 · 860 · fluid | 21 | 383 |
-| Банер | `banner.css` | `.banner`, `.tbanner`, `.tbanners` | відповідь | 620 · ramp · fluid | 6 | 269 |
-| Рядок замовлення | `order-row.css` | `.oh`, `.ocard`, `.aord` | відповідь · зв'язок | 620 · 860 · fluid | 2 | 254 |
-| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | відповідь | 620 · 860 · ramp · fluid | 5 | 225 |
-| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable`, `.dl` | немає: стану немає | 620 · fluid | 2 | 195 |
+| Картка товару | `product-card.css` | `.pcard` | відповідь | 620 · 860 · fluid | 21 | 383 |
+| Банер | `banner.css` | `.tbanners` | відповідь | 620 · ramp · fluid | 6 | 269 |
+| Рядок замовлення | `order-row.css` | `.oh`, `.aord` | відповідь · зв'язок | 620 · @container · fluid | 2 | 277 |
+| Смуга довіри | `trust-strip.css` | `.trustsec`, `.truststrip`, `.tsx` | відповідь | 620 · 860 · ramp · fluid | 5 | 238 |
+| Таблиця складу | `spec-table.css` | `.spectbl`, `.ctable` | немає: стану немає | 620 · fluid | 2 | 195 |
 | Рядок кошика | `cart-row.css` | `.ci` | відповідь | fluid | 11 | 169 |
-| Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | немає: стану немає | fluid | 19 | 157 |
+| Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | немає: стану немає | fluid | 19 | 189 |
 | Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | немає: стан hover - це зміна тла рядка списку; рух тут сказав би, що рядок кудись іде, а він лишається | fluid | 6 | 145 |
-| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | немає: стану немає | 620 · 860 · fluid | 3 | 133 |
-| Галерея | `gallery.css` | `.gal`, `.pmini` | відповідь | 860 | 4 | 131 |
-| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | немає: стану немає | – | 2 | 118 |
-| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy` | відповідь | fluid | 26 | 134 |
-| Запитання | `qa-item.css` | `.qaitem` | немає: стану немає | – | 2 | 104 |
-| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | немає: стану немає | fluid | 2 | 133 |
-| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | відповідь | fluid | 3 | 101 |
-| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt`, `.frange` | відповідь | – | 7 | 99 |
-| SEO-текст | `seo-text.css` | `.seotext` | відповідь | 860 | 12 | 91 |
+| Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | немає: стану немає | 620 · 860 · fluid | 3 | 146 |
+| Галерея | `gallery.css` | `.gal` | відповідь | 860 | 4 | 131 |
+| Блок опису | `desc-block.css` | `.pdesc`, `.pd` | немає: стану немає | – | 2 | 131 |
+| Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy`, `.loy-me` | відповідь | 620 · fluid | 26 | 260 |
+| Запитання | `qa-item.css` | `.qaitem` | немає: стану немає | – | 2 | 121 |
+| Нотатка про поповнення | `restock-note.css` | `.restock`, `.rk` | немає: стану немає | fluid | 2 | 163 |
+| Мініатюра сертифіката | `cert-thumb.css` | `.certthumb`, `.certbox` | відповідь | fluid | 3 | 173 |
+| Група фільтра | `filter-group.css` | `.fgroup`, `.fopt` | відповідь | – | 7 | 99 |
+| SEO-текст | `seo-text.css` | `.seotext` | відповідь | 860 | 12 | 123 |
 | Хлібні крихти | `breadcrumb.css` | `.crumb` | відповідь | – | 87 | 78 |
-| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | відповідь | 620 · fluid | 24 | 92 |
-| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | немає: те саме, що рядок клієнта - hover міняє тло картки в списку, не її місце | fluid | 3 | 94 |
+| Заголовок секції | `section-head.css` | `.sech`, `.relh`, `.rvhead` | відповідь | 620 · fluid | 24 | 144 |
+| Картка адреси | `address-card.css` | `.addr`, `.addr-card`, `.addr-list` | немає: те саме, що рядок клієнта - hover міняє тло картки в списку, не її місце | fluid | 3 | 111 |
 | Пагінація | `pagination.css` | `.pgnav`, `.loadmore`, `.pages` | немає: disabled і busy це ЗАБОРОНА і ОЧІКУВАННЯ, а не відповідь на дію; рух на забороненому контролі читається як спрацювало | – | 8 | 70 |
-| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | немає: стану немає | 860 · fluid | 7 | 63 |
-| Плитка цілі | `goal-tile.css` | `.gcard`, `.gtile`, `.goaltiles` | відповідь | 620 · 860 · fluid | 4 | 58 |
+| Тулбар | `toolbar.css` | `.ltool`, `.mtoolbar`, `.listing` | немає: стану немає | 860 · fluid | 7 | 97 |
+| Плитка цілі | `goal-tile.css` | `.gtile`, `.goaltiles` | відповідь | 620 · 860 · fluid | 4 | 106 |
+| Плитка розділу | `nav-tile.css` | `.ntile`, `.ntiles`, `.nt-top` | відповідь | fluid | 0 | 89 |
 | Тост | `toast.css` | `.wf-toast`, `.wf-toasts` | зв'язок | – | 20 | 76 |
-| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow` | відповідь | 620 | 6 | 37 |
-| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | відповідь | 620 | 4 | 26 |
+| Картка блогу | `blog-card.css` | `.blogcard`, `.blogrow`, `.blogfeed` | відповідь | 620 · fluid | 6 | 89 |
+| Картка акції | `promo-card.css` | `.pcard-promo`, `.promo-grid` | відповідь | fluid | 0 | 72 |
+| Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | відповідь | 620 | 4 | 34 |
 | Схожі товари | `related.css` | `.relbox`, `.relrow` | відповідь | fluid | 2 | 14 |
 
-**27 files, 3449 lines.**
+**29 files, 4192 lines.**
 
 ## Organisms (level 3)
 
 | Component | css file | Anchors | Рух | Width | Screens | Lines |
 |---|---|---|---|---|---|---|
-| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | немає: стану немає | 620 · fluid | 8 | 972 |
-| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | немає: open тут перемикає КРОК майстра всередині сторінки, а не поверхню; крок не приходить нізвідки | 620 · 860 · fluid | 5 | 916 |
-| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | немає: open розкриває секцію кошика сесії; висоту не анімуємо (розкладка щокадру в списку), а проявлення без зсуву тут нічого не повідомляє | 620 · 860 · fluid | 8 | 889 |
-| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | зв'язок | 620 · 860 · fluid · @container | 10 | 863 |
-| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | немає: стану немає | 620 · 860 · fluid | 1 | 537 |
-| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | немає: стану немає | fluid | 3 | 426 |
+| Кабінет тренера | `coach-cabinet.css` | `.cstat`, `.cnote`, `.csub` | немає: стану немає | 620 · fluid | 8 | 1027 |
+| Перевірка тренера | `coach-verify.css` | `.cv-wrap`, `.cv-steps`, `.cv-step` | немає: open тут перемикає КРОК майстра всередині сторінки, а не поверхню; крок не приходить нізвідки | 620 · 860 · fluid | 5 | 952 |
+| Сесія замовлення | `coach-session.css` | `.cs-wrap`, `.cs-top`, `.cs-meta` | немає: open розкриває секцію кошика сесії; висоту не анімуємо (розкладка щокадру в списку), а проявлення без зсуву тут нічого не повідомляє | 620 · 860 · fluid | 8 | 951 |
+| Клієнти тренера | `coach-clients.css` | `.cl-top`, `.cl-h1`, `.ch-name` | зв'язок | 620 · 860 · fluid · @container | 10 | 892 |
+| Лендинг тренера | `coach-landing.css` | `.clh`, `.kicker`, `.clh-cta` | немає: стану немає | 620 · 860 · fluid | 1 | 590 |
+| Тариф тренера | `coach-tariff.css` | `.tf-lead`, `.tf-cur`, `.tf-cur-h` | немає: стану немає | fluid | 3 | 443 |
 | Замовлення тренера | `coach-order.css` | `.od-wrap`, `.od-head`, `.od-head-t` | немає: стану немає | 620 · fluid | 3 | 448 |
-| Форма чекауту | `checkout-form.css` | `.co`, `.smeths`, `.pf` | відповідь · статус | 620 · 860 · ramp · fluid | 26 | 386 |
+| Форма чекауту | `checkout-form.css` | `.co`, `.pf` | відповідь · статус | 620 · 860 · ramp · fluid | 26 | 459 |
 | Хедер | `header.css` | `.wfh` | відповідь · зв'язок | 860 · @container · fluid | 82 | 435 |
-| Блок покупки | `buy-box.css` | `.bb` | немає: hover належить кнопкам усередині (button.css), сам блок нерухомий - він не контрол, а місце | 620 · fluid | 4 | 292 |
+| Блок покупки | `buy-box.css` | `.bb` | немає: hover належить кнопкам усередині (button.css), сам блок нерухомий - він не контрол, а місце | 620 · fluid | 4 | 306 |
 | Картка тарифу | `plan-card.css` | `.tier`, `.tf-col`, `.tiers`, `.tf-compare` | немає: open це вибір тарифу, тобто СТАН вибору; його несе рамка й колір, і рух додав би святкування, якого забороняє Принцип 4 | 620 | 3 | 261 |
-| Обране тренера | `coach-wishlist.css` | `.cw-note` | немає: стану немає | – | 1 | 278 |
-| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | відповідь | 620 · 860 · fluid | 33 | 294 |
-| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | немає: hover і focus-vis належать рядкам усередині; сама шухляда їде transform-ом на власному рівні і тому не має тут другого запису | 620 | 5 | 228 |
-| Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | зв'язок · статус | 860 | 5 | 218 |
+| Обране тренера | `coach-wishlist.css` | `.cw-note` | немає: стану немає | – | 1 | 295 |
+| Оболонка кабінету | `account-shell.css` | `.acc`, `.acard`, `.abonus` | відповідь | 620 · 860 · fluid | 33 | 368 |
+| Шухляда кошика | `cart-drawer.css` | `.cart-drawer`, `.cart-behind`, `.cd` | немає: hover і focus-vis належать рядкам усередині; сама шухляда їде transform-ом на власному рівні і тому не має тут другого запису | 620 | 5 | 269 |
+| Діалог входу | `auth-dialog.css` | `.auth-modal`, `.auth` | зв'язок · статус | 860 | 5 | 248 |
 | Діалог клієнта | `client-dialog.css` | `.cemodal`, `.cedlg`, `.ce` | немає: стану немає | 620 | 13 | 115 |
 | Оверлей каталогу | `cat-overlay.css` | `.wf-catov`, `.wf-catov-h`, `.ctitle` | зв'язок | 860 | 0 | 121 |
 | Смуга покупки | `buy-bar.css` | `.mbuybar` | немає: стану немає | 860 | 3 | 96 |
-| Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptab`, `.ptabs` | відповідь | 860 · ramp · fluid | 8 | 95 |
+| Вкладки товару | `pdp-tabs.css` | `.pdp`, `.ptabs` | відповідь | 860 · ramp · fluid | 8 | 95 |
 | Шит фільтрів | `filter-sheet.css` | `.fsheet` | зв'язок | 860 | 7 | 94 |
-| Футер | `footer.css` | `.wff`, `.fh` | відповідь | 620 · 860 · fluid | 77 | 84 |
+| Футер | `footer.css` | `.wff` | відповідь | 620 · 860 · fluid | 77 | 84 |
 | Шухляда меню | `nav-drawer.css` | `.wf-drawer`, `.dr-lock`, `.dr-b` | зв'язок | 860 | 82 | 99 |
 | Таб-бар | `tabbar.css` | `.wf-tab`, `.wf-tabbar` | немає: selected це мітка сторінки, на якій ви стоїте; вона не приходить і не йде, вона просто є | 860 | 82 | 80 |
 | Модалка відгуку | `review-modal.css` | `.pm` | зв'язок · відповідь | – | 3 | 88 |
@@ -193,13 +195,20 @@ the unscoped base form, not the component.
 | Мега-меню | `mega-menu.css` | `.mega`, `.catov` | відповідь | 860 · fluid | 82 | 56 |
 | Банер cookie | `cookie-banner.css` | `.wf-cookie`, `.wf-ckset`, `.ck` | зв'язок · відповідь | 620 · fluid | 0 | 84 |
 | Діалог міста | `city-dialog.css` | `.wf-city`, `.city` | зв'язок | 620 · fluid | 82 | 65 |
-| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | немає: стану немає | 620 · 860 · fluid | 0 | 42 |
+| Системна сторінка | `system-page.css` | `.sys`, `.syscard`, `.sysdemo` | немає: стану немає | 620 · 860 · fluid | 0 | 127 |
+| Блок контактів | `contacts-block.css` | `.cnt-grid`, `.cnt-row`, `.cnt-block` | відповідь | 860 · fluid | 0 | 92 |
+| Сторінка інформації | `info-page.css` | `.info-body`, `.info-card`, `.info-updated` | відповідь: посилання в прозі | fluid | 0 | 281 |
+| Замовлення оформлено | `order-placed.css` | `.op-hero`, `.op-card`, `.op-item` | немає: стану немає | 860 | 0 | 182 |
+| Панель підказок пошуку | `search-overlay.css` | `.ov-panel`, `.ov-row`, `.ov-cb` | відповідь | 620 · fluid | 0 | 129 |
+| Стаття | `article.css` | `.art`, `.art-body`, `.relart` | відповідь | fluid | 0 | 125 |
+| FAQ магазину | `faq-page.css` | `.faq-grp`, `.qa`, `.faq-help` | відповідь | fluid | 0 | 90 |
+| Підписку підтверджено | `newsletter.css` | `.nl-card`, `.nl-promo`, `.nl-check` | відповідь | – | 0 | 73 |
 | Повзунок ціни | `price-slider.css` | `.uiv-slider`, `.uiv-track`, `.uiv-fill` | відповідь | – | 7 | 33 |
-| Сітка товарів | `product-grid.css` | `.prow`, `.prow2`, `.plist` | немає: стану немає | fluid | 20 | 34 |
-| Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | зв'язок | – | 82 | 38 |
-| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | немає: стану немає | – | 2 | 102 |
+| Сітка товарів | `product-grid.css` | `.prow`, `.plist` | немає: стану немає | fluid | 20 | 34 |
+| Оверлей | `overlay.css` | `.wf-ov`, `.ceov` | зв'язок | – | 82 | 58 |
+| Панель Pro | `upsell.css` | `.upsell`, `.ubar`, `.ulist`, `.uacts` | немає: стану немає | – | 2 | 133 |
 
-**34 files, 8920 lines.**
+**41 files, 10529 lines.**
 
 ### Three things this table did not say, found at 8.29 and closed at 8.37
 
@@ -275,7 +284,7 @@ of the product**, so they are now `system-page.css` at level 3.
 
 ## What the inventory says about the product
 
-- **84 components: 23 atoms, 27 molecules, 34 organisms.** Every one has a css file in
+- **93 components: 23 atoms, 29 molecules, 41 organisms.** Every one has a css file in
   `design/system/components/`, and `tools/inventory.mjs` fails if that stops being true. The number
   read 70 from step 5 until 2026-08-16, which is fourteen components of drift in one column.
 - **The heaviest file is `checkout-form.css`.** Checkout is a quarter of the product's CSS and had

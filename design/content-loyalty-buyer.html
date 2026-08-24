@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бонусна програма та знижки - Stack (wireframe 8.7 · для покупця)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.7 Бонусна програма та знижки - LOGGED-IN (buyer) state.
+  The same public landing; for an authenticated buyer the register-hero is
+  swapped for the PERSONAL STATUS BAND `.loy loy-me` - real tier, progress bar,
+  bonus balance and nearest expiry, all mirrored from the account (7.4). The
+  ladder marks «ваш рівень» with `.youchip` and the ledger shows the buyer's own
+  movement. Header = buyer. Guest twin = `content-loyalty.html`.
+  Canonical buyer: Вікторія Коваль, 🥈 Срібло, −5%, 124 ₴ bonus, 18 ₴ expiring
+  20.09.2026. Lifetime spend 8 400 ₴ and 6 600 ₴ to Золото - the arithmetic that
+  closes against the 15 000 ₴ threshold. Every figure is a hypothesis [?].
+  Nothing here is a new class: loyalty-rung.css block 12.8 maps every private
+  `me-*` name of the grey block onto `.lt` + `.lbar` + `.ls` beside `.big` +
+  `.u` + `.warn`, and the box around them is `.loy-me`.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Бонусна програма</span>
+  </nav>
+
+  <h1 class="lh1">Бонусна програма та знижки</h1>
+  <p class="lintro">Ваш поточний статус і як працюють дві переваги, що діють разом.</p>
+
+  <!-- PERSONAL STATUS BAND (logged-in) - replaces the guest register-hero -->
+  <section class="loy loy-me" aria-label="Ваш статус лояльності">
+    <div>
+      <div class="lt">Вікторіє, ось ваш статус лояльності</div>
+      <div class="ls">Рівень <b>Срібло</b> · персональна знижка <b>−5%</b> застосовується
+        автоматично в кошику.</div>
+      <div class="lbar"><i style="width:56%"></i></div>
+      <div class="ls">Куплено на <b>8 400 ₴</b> за весь час · до 🥇 Золота (−8%) ще <b>6 600 ₴</b></div>
+    </div>
+    <div class="me-r">
+      <div class="abonus">
+        <div class="big">124 ₴</div>
+        <div class="u">бонусів на рахунку · 1 бонус = 1 ₴</div>
+        <div class="warn"><b>18 ₴ згорять 20.09.2026.</b> Використайте їх у кошику під час наступного замовлення.</div>
+      </div>
+      <div class="actions">
+        <a class="btn--accent btn" href="account-loyalty.html">Кабінет → Лояльність</a>
+        <a class="btn--outline btn" href="catalog-page.html">До каталогу</a>
+      </div>
+    </div>
+  </section>
+  <p class="lintro">Усі відсотки та суми - орієнтовні (уточнюються) <span class="qmark">[?]</span></p>
+
+  <!-- Two mechanisms (same educational content; your tier highlighted) -->
+  <div class="loy-two">
+
+    <!-- (1) personal discount -->
+    <section class="acard loy" aria-label="Персональна знижка">
+      <div class="ah"><span class="mech-kicker">Механізм 1</span></div>
+      <h2 class="lt">Персональна знижка</h2>
+      <p class="lintro">Що більше ви купуєте <b>за весь час</b> - то більша ваша особиста знижка.
+        Сума покупок <b>не згорає</b>, а знижка застосовується <b>автоматично в кошику</b>.</p>
+      <div class="ladder ladder--rows">
+        <div class="lrung done"><span class="md">🥉</span><span><span class="nm">Бронза</span><span class="cond">від 0 ₴ покупок</span></span><span class="pct">−3%</span></div>
+        <div class="lrung now"><span class="md">🥈</span><span><span class="nm">Срібло</span><span class="cond">від 6 600 ₴ покупок</span></span><span class="youchip">ваш рівень</span><span class="pct">−5%</span></div>
+        <div class="lrung next"><span class="md">🥇</span><span><span class="nm">Золото</span><span class="cond">від 15 000 ₴ покупок</span></span><span class="pct">−8%</span></div>
+      </div>
+      <div class="abonus"><div class="warn">Пороги та відсотки - гіпотеза <span class="qmark">[?]</span>. Повний прогрес - у кабінеті → «Знижки та бонуси».</div></div>
+    </section>
+
+    <!-- (2) bonus account -->
+    <section class="acard loy" aria-label="Бонусний рахунок">
+      <div class="ah"><span class="mech-kicker">Механізм 2</span></div>
+      <h2 class="lt">Бонусний рахунок</h2>
+      <p class="lintro">Повертаємо <b>~1%</b> від кожного замовлення бонусами (1 бонус = 1 ₴).
+        Бонуси <b>діють 3 місяці</b> - оплачуйте ними частину наступних покупок. Ваш рух:</p>
+      <!-- the SAME ledger the account draws - owner's ruling, loyalty-rung.css
+           block 12.8: the bonus ledger belongs to 7.4 AND to 8.7. The four rows
+           are the buyer's own, and the last one has not happened yet: it is the
+           burn this page warns about above. -->
+      <div class="led-wrap">
+        <table class="led">
+          <thead>
+            <tr><th>Дата</th><th>Операція</th><th class="num">Бонуси</th><th class="num">Баланс</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="dt">12.06</td><td>Нараховано за замовлення № 10432</td><td class="num amt pos">+23</td><td class="num bal">124 ₴</td></tr>
+            <tr><td class="dt">03.06</td><td>Використано в кошику (№ 10418)</td><td class="num amt neg">−40</td><td class="num bal">101 ₴</td></tr>
+            <tr><td class="dt">03.06</td><td>Нараховано за замовлення № 10418</td><td class="num amt pos">+12</td><td class="num bal">141 ₴</td></tr>
+            <tr class="burn"><td class="dt">20.09</td><td>Згорять (мин. 3 місяці)</td><td class="num amt neg">−18</td><td class="num bal">–</td></tr>
+          </tbody>
+        </table>
+        <div class="led-note">Ставка нарахування, максимум оплати бонусами й термін дії - гіпотеза <span class="qmark">[?]</span>.
+          Повний журнал - у кабінеті → <a class="btn--text btn--inline" href="account-loyalty.html">«Знижки та бонуси»</a>.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- FAQ -->
+  <section aria-label="Часті питання">
+    <div class="sech"><h2>Часті питання</h2></div>
+    <div class="qaitem">
+      <div class="qq">Чи згорає моя знижка?</div>
+      <div class="qans">Ні. Персональна знижка залежить від суми покупок за весь час - вона лише зростає й не згорає.</div>
+    </div>
+    <div class="qaitem">
+      <div class="qq">Коли нараховуються бонуси?</div>
+      <div class="qans">Після отримання замовлення бонуси з'являються на рахунку. Повний баланс і журнал - у кабінеті → «Знижки та бонуси».</div>
+    </div>
+    <div class="qaitem">
+      <div class="qq">Скільки діють бонуси?</div>
+      <div class="qans">Орієнтовно 3 місяці з моменту нарахування <span class="qmark">[?]</span>. У кабінеті видно і нарахування, і коли бонуси згорять.</div>
+    </div>
+    <div class="qaitem">
+      <div class="qq">Чи працюють знижка й бонуси разом?</div>
+      <div class="qans">Так, це два незалежні механізми: спершу застосовується ваша персональна знижка, потім ви можете доплатити частину бонусами.</div>
+    </div>
+    <div class="qaitem">
+      <div class="qq">А що для тренерів?</div>
+      <div class="qans">У тренерів окрема гуртова ціна (тариф Free / Pro) - див. сторінку <a class="btn--text btn--inline" href="coach-landing.html">Для тренерів</a>.</div>
+    </div>
+  </section>
+
+  <!-- CTA (logged-in - to the cabinet, not to register) -->
+  <section class="loy-hero">
+    <h2 class="lh1">До Золота (−8%) залишилось 6 600 ₴</h2>
+    <div class="actions actions--center">
+      <a class="btn--accent btn" href="catalog-page.html">До каталогу</a>
+      <a class="btn--outline btn" href="account-loyalty.html">Мій статус у кабінеті</a>
+    </div>
+  </section>
+
+  <!-- SEO (same public copy; bots see the guest page) -->
+  <section class="seotext" id="seo" aria-label="Про бонусну програму">
+    <div class="h">Бонусна програма Stack - знижки та бонуси за покупки</div>
+    <p>У Stack діють дві переваги для покупців: персональна накопичувальна знижка (3 рівні - Бронза,
+      Срібло, Золото - залежно від суми покупок за весь час) і бонусний рахунок, на який повертається
+      близько 1% від кожного замовлення. Знижка застосовується автоматично в кошику, а бонусами можна
+      оплатити частину наступних покупок.</p>
+    <p>Реєстрація безкоштовна - акаунт створюється за номером телефону. Точні відсотки, пороги рівнів,
+      ставка нарахування та термін дії бонусів уточнюються.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('buyer'); wfFooter(); wfBar('content-loyalty.html', 'buyer'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

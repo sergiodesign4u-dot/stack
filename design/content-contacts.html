@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Контакти - Stack (wireframe 8.3, Info page A + contacts block)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.3 Контакти - Info page (A) + contacts block.
+  Контакти = єдине джерело правди разом із футером. Header/footer inherited.
+  The one page of the 8.x family with no .info-body at all: the prose column is
+  replaced by the two-column answer sheet of contacts-block.css -
+  .cnt-grid > .cnt-block + .cnt-side (.cnt-map + .info-card.cnt-form).
+  .cnt-side is why this screen waited a round: without it the map and the form
+  met as one 2px line. Emoji stay emoji - uivChrome() does not enter <main>.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Контакти</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Контакти</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Зв'яжіться з нами будь-яким зручним способом - відповідаємо щодня.
+      Ці ж контакти дублюються у футері магазину.</p>
+  </section>
+
+  <div class="cnt-grid">
+
+    <!-- LEFT - contact facts (single source of truth with the footer) -->
+    <div class="cnt-block">
+      <div class="cnt-row"><span class="g">📞</span><div>
+        <span class="cap">Телефон</span>
+        <span class="val">0 800 000 000</span>
+        <span class="sub">Безкоштовно в межах України</span>
+      </div></div>
+      <div class="cnt-row"><span class="g">🕘</span><div>
+        <span class="cap">Графік роботи</span>
+        <span class="val">Пн–Нд · 9:00–21:00</span>
+        <span class="sub">Замовлення на сайті - цілодобово</span>
+      </div></div>
+      <div class="cnt-row"><span class="g">✉️</span><div>
+        <span class="cap">E-mail</span>
+        <span class="val">hello@stack.ua</span>
+        <span class="sub">Відповідаємо протягом дня</span>
+      </div></div>
+      <div class="cnt-row"><span class="g">💬</span><div>
+        <span class="cap">Месенджери</span>
+        <div class="cnt-msgrs">
+          <span class="cnt-msg">✈️ Telegram</span>
+          <span class="cnt-msg">📲 Viber</span>
+        </div>
+      </div></div>
+      <div class="cnt-row"><span class="g">📍</span><div>
+        <span class="cap">Пункт самовивозу</span>
+        <span class="val">Одеса</span>
+        <span class="sub">Адреса й точний час - при оформленні самовивозу</span>
+      </div></div>
+    </div>
+
+    <!-- RIGHT - map placeholder + «Напишіть нам» form -->
+    <div class="cnt-side">
+      <div class="cnt-map">🗺️ Мапа · пункт самовивозу, Одеса</div>
+
+      <form class="info-card cnt-form" onsubmit="return false">
+        <div class="ic-h">Напишіть нам</div>
+        <div class="fs">Залиште повідомлення - ми зв'яжемося з вами.</div>
+        <div class="fld"><label for="cf-name">Ім'я</label><input class="field" id="cf-name" type="text" placeholder="Ваше ім'я"></div>
+        <div class="fld"><label for="cf-reply">E-mail або телефон</label><input class="field" id="cf-reply" type="text" placeholder="Куди відповісти"></div>
+        <div class="fld"><label for="cf-msg">Повідомлення</label><textarea class="field" id="cf-msg" placeholder="Ваше питання"></textarea></div>
+        <button class="btn--accent btn--full">Надіслати</button>
+      </form>
+    </div>
+
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-faq.html">Часті питання</a>
+    <a class="relbox" href="content-about.html">Про нас</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-contacts.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

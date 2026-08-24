@@ -121,6 +121,87 @@ controls in the same position: search chips, the brand alphabet index, role tile
 field. If step 6 had started without this list, a form for each would have been improvised
 separately on separate screens.
 
+## THIRD MEASUREMENT - stage 12 step 5, and the first time this instrument saw the whole product
+
+Stage 08 took this census twice and both times over a SELECTION. Here it walks both corpora at both
+widths with the product finished: **566 loads, 87 712 observations of something clickable** (34 647
+grey, 53 065 coloured), of which **18 505 are boxy** (8 847 grey, 9 658 coloured).
+
+### Drift, grey against colour
+
+| what was measured | grey | colour |
+|---|---:|---:|
+| border colour, distinct values | 12 | **11** |
+| radius | 9 | **7** |
+| type size | 12 | **10** |
+| padding | **48** | **21** |
+| border width | 2 | **3** |
+
+Four axes of five closed, and padding more than halved. **The one that went the other way is the
+one worth the row.** Measured in the source, separating `border` from `border-radius`:
+`323 x 1px · 11 x 2px · 5 x 1.5px · 4 x 2.5px`. The system publishes TWO rungs, 1 and 2, and writes
+four. And the file that writes `1.5px` had already marked it itself -
+`/* [?] 1.5px is on no rung; the set is 1 / 2 */` - so this is **a deferred question nobody
+collected**, plus a `2.5px` in the price slider that nobody marked at all. The browser resolves 1.5
+to 1 or 2 by pixel density, which is why it reads as a third value in the census and as nothing in a
+mockup.
+
+### Work with no form: EMPTY, and each of the nine closed by a named route
+
+Stage 08 listed nine action buttons that existed in grey and had never been rendered in colour. All
+nine are closed:
+
+- **built with a form**, each with a rule in the system: `ch-edit` · `cv-cta` · `tier-cta` · `ctab` ·
+  `wa` · `next`
+- **injected by the runtime and now drawn in colour**: `coach-newcta` · `ck-btn`. Batch 5 is what
+  closed these - `system.html` is the first coloured screen that calls `wfCookie()` at all.
+- **closed by SUBSTITUTION**: `rev-google`. The batch-4 agent took `.btn .btn--outline` instead of
+  writing a fifth private name, so the grey name simply dies with the grey layer.
+
+**Two of them were nearly reported dead by a static scan**, and that is the finding worth more than
+the list. A grep gave `coach-newcta` zero wearers in `design/` against four rules in the system - the
+exact silhouette of a dead class - and it is injected by `wireframes/_nav.js` into every page that
+asks for it. **A number about a class taken from TEXT is not a number about the product until the
+browser has been asked.** The same scan first produced 73 «dead classes» and every one of them was
+the shell.
+
+### One job, more than one form - re-asked by RANK, not by class token
+
+Comparing raw class strings returns 177 labels and is unreadable, because the same word is a footer
+SEO link, a mega-menu category, a goal tile and a filter chip - four different jobs. Two corrections
+make the list mean something:
+
+1. **only actions** - elements carrying `btn`;
+2. **compare the RANK, not the token**. 691 class tokens in the coloured corpus have no rule
+   anywhere in the system and therefore are not a form. Most of them are one word: the grey shell
+   renders `class="btn--accent btn dark"` in sixteen places, so **every coloured page inherits a
+   dead rank word from an injected component**, and a token-level comparison counts it as a
+   treatment. `dark` has no rule in `design/system/`, `wireframes/` is frozen, and nothing was
+   visibly wrong - it inflated a measurement, which is how it was found.
+
+Re-asked that way: **185 labelled actions, 35 wearing more than one rank.** They sort into three
+kinds and only the third is a defect.
+
+- **Same rank, different SIZE** (`btn--accent` against `btn--accent.btn--s`): a size follows the
+  region it stands in, not the job. Not a finding.
+- **One label, two CARRIERS** - «Каталог», «Кошик», «Обране», «Кабінет», «Знайти» each appear as
+  `btn--stack` in the tab bar and as a header control. That is the shell fork of stage 10 doing what
+  it was built to do.
+- **One job, two EMPHASES**, and this is the list: «До каталогу» is outline in 26 places and
+  **accent in 4** · «Залишити відгук» accent on the product screens, outline in the account ·
+  «Зв'язатися з нами» accent on node 8.9, outline on maintenance · «Обрати іншу ціль» accent on the
+  empty state, outline on the error · «Повідомити про надходження» a text link in the cart and an
+  accent on the product · plus «Продовжити покупки», «Повернутись до сесії», «Усі замовлення»,
+  «Змінити», «Додати адресу», «Стати тренером», «Оформити замовлення», «Додати клієнта».
+
+**And the cause is one sentence, which is why the list is not a list of mistakes.** The rank is read
+from the grey screen and never chosen in colour - `btn-rank.mjs` and `clone-to-colour.mjs` both say
+so, and every one of these 35 is faithful to its own original. **The grey layer is not consistent
+with itself across screens, so the coloured product inherits that inconsistency exactly.** Deciding
+them means deciding in the GREY vocabulary («is this the region's one action?») and the answer is the
+owner's, one label at a time. Two of the four accent «До каталогу» are on screens built in batches 4
+and 5, so the drift is still arriving.
+
 ## Withdrawn on verification
 
 **`.go` - not a gap, and the error was mine.** Grepping the static HTML for "Знайти" returned

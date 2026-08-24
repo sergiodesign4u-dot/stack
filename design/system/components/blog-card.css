@@ -34,3 +34,55 @@
 .blogrow > .blogcard:nth-child(3) .bim{ background-image:url(../../visuals/blog-goals.jpg); }
 .blogcard .bt{ color:var(--text-body); font-size:var(--fs-14); }
 .blogcard .bdt{ color:var(--text-secondary); line-height:var(--lh-airy); }
+
+/* ---------- 12.8: THE SECOND FORM - the blog LISTING, node 8.0 --------------
+   Until now this file drew one thing: the three-card teaser row at the foot of
+   the home page, with a fixed 158px image and a title and a date. Node 8.0 is
+   the same card on the page that exists FOR it - six of them, each with the
+   category it belongs to, a sentence of the article and how long it takes to
+   read. Two sizes of one idea, said out loud: this is a rung, not a second
+   component, and the shell below is the shell above.
+
+   WHY THE GREY NAMES ARE NOT THE NAMES HERE. The grey screen calls its card
+   `.bcard`, and `.bcard` is ALSO what `wireframes/brands.html` calls a brand
+   card - one name over two different components, which batch 2 resolved by
+   giving the brand card `nav-tile.css`. A file may not publish a name that means
+   two things, so the listing form keeps this file's own `b*` family and the
+   collision dies with the grey layer.
+
+   THE GRID IS FLUID AND THE TEASER ROW IS NOT, on purpose. The row above is
+   exactly three cards, so it has two balanced arrangements and a point is right.
+   The listing is six, where `auto-fill` gives two, three or four by the width
+   available and no query has to guess which. `responsive.md` carries node 8.0 as
+   «WIDER · grid», and the grey block's 1040 is in no registry. */
+.blogfeed{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min-panel), 100%), 1fr));
+  gap: var(--grid-gap-fluid); margin-top: var(--space-24); }
+.blogfeed .blogcard{ display: flex; flex-direction: column; }
+/* the image box becomes a ratio instead of a height: a fixed 158 is right for a
+   row of three at one width and wrong for a fluid track at every other. */
+.blogfeed .blogcard .bim{ aspect-ratio: 16 / 9; height: auto; position: relative; }
+.blogcard .bcat{ position: absolute; top: var(--space-8); inset-inline-start: var(--space-8);
+  font-size: var(--fs-12); font-weight: var(--fw-bold); padding: var(--space-2) var(--space-8); }
+.blogfeed .blogcard .btx{ display: flex; flex-direction: column; flex: 1;
+  gap: var(--space-8); }
+.blogfeed .blogcard .bt{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); }
+.blogcard .bex{ font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); flex: 1; }
+.blogcard .bfoot{ display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-12); margin-top: var(--space-4); }
+.blogfeed .blogcard .bdt{ margin-top: 0; }
+.blogcard .bread{ font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); }
+
+/* the mark stands ON a picture, so it reads the picture's roles - rule 8. */
+.blogcard .bcat{ border-radius: var(--radius-pill);
+  background: var(--bg-media); color: var(--text-onmedia); }
+/* six cards, three photographs: the cycle is written as a cycle rather than as
+   six rules, so a seventh card inherits an image instead of inheriting nothing. */
+.blogfeed > .blogcard:nth-child(3n+1) .bim{ background-image: url(../../visuals/blog-protein.jpg); }
+.blogfeed > .blogcard:nth-child(3n+2) .bim{ background-image: url(../../visuals/blog-creatine.jpg); }
+.blogfeed > .blogcard:nth-child(3n+3) .bim{ background-image: url(../../visuals/blog-goals.jpg); }
+/* the reading measure on the leaf that carries the characters - 12.7. */
+.blogcard .bex{ max-width: var(--container-text); }

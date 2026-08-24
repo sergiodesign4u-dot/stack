@@ -154,3 +154,35 @@
 .errbox .es{ color:var(--text-secondary); }
 .errbox .ei{ color:var(--text-danger); font-size:0; }
 .errbox .ei .uiv-ic svg{ width:var(--size-34); height:var(--size-34); }
+
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* NOTHING IS ADDED HERE, AND THAT IS THE REPAIR. `product-error` carried
+   `style="margin-top:24px"` on its error box, and the first move was to give the
+   rule an anatomy selector: `section[role="alert"] > .empty`. Measured in a
+   browser afterwards, that reaches THREE screens - `goal-error` and
+   `listing-error` as well - and neither of those had ever asked for the gap.
+
+   THE CHECK THAT MISSED IT WAS A REGEX, and the reason is worth keeping: it
+   looked for `<div class="empty"` straight after the `<section>` tag, and both
+   other screens have an html COMMENT between the two. A text search sees the
+   comment; the `>` combinator does not. So the reach of a rule is a question for
+   the DOM, and the answer changed the decision - the inline was one screen
+   disagreeing with its two siblings, and dropping it makes three error screens
+   render the same way. `tools/_reach.mjs` is that question, kept. */

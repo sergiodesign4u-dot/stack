@@ -33,6 +33,12 @@ export async function launch(userDataDir, port) {
   return { proc, wsUrl: ver.webSocketDebuggerUrl };
 }
 
+/* The deadline is a KNOB, not a constant, for one reason only: a check that has
+   never fired has not been shown to work. `CDP_TIMEOUT_MS=200` makes every walk in
+   this folder stall on purpose, which is the only way to see what an instrument
+   prints when the renderer stops answering. Nothing in the repo sets it. */
+const DEADLINE = Number(process.env.CDP_TIMEOUT_MS || 60000);
+
 export class Conn {
   constructor(ws) { this.ws = ws; this.id = 0; this.pending = new Map(); this.handlers = []; }
   static async open(wsUrl) {
@@ -63,7 +69,7 @@ export class Conn {
      argued with, silence is mistaken for work in progress. No CDP call in this
      repository legitimately takes a minute, so the deadline is generous enough
      to never fire by accident and finite enough to always fire. */
-  send(method, params = {}, sessionId, timeoutMs = 60000) {
+  send(method, params = {}, sessionId, timeoutMs = DEADLINE) {
     const id = ++this.id;
     const msg = { id, method, params };
     if (sessionId) msg.sessionId = sessionId;
@@ -72,7 +78,7 @@ export class Conn {
       const t = setTimeout(() => {
         if (!this.pending.has(id)) return;
         this.pending.delete(id);
-        rej(new Error('CDP мовчить ' + Math.round(timeoutMs / 1000) + 'с: ' + method));
+        rej(new Error('CDP мовчить ' + (timeoutMs < 1000 ? timeoutMs + 'мс' : Math.round(timeoutMs / 1000) + 'с') + ': ' + method));
       }, timeoutMs);
       t.unref?.();
       this.pending.set(id, {

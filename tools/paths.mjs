@@ -56,13 +56,21 @@ import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { ROOT } from './lib.mjs';
 
-/* path -> why it is named though it is gone. An entry that matches nothing is a defect. */
+/* path -> why it is named though it is gone. An entry that matches nothing is a defect.
+
+   12.10: TWO ENTRIES CAME OFF, AND THE IDLE CONTROL IS WHY. `design/system.html`
+   and `design/content-loyalty.html` were both declared here as «named in prose,
+   gone from disk» - and stage 12 BUILT both of them, at batches 5 and 4. The
+   run then reported «ХОЛОСТИЙ ВИНЯТОК - запис не покриває нічого (2)», which is
+   the control doing exactly its job: an exclusion for a file that came back is
+   a hole in the check, silent and permanent, because nothing else asks about a
+   path that is excused. The prose that named them still exists and still reads
+   correctly as a record of the day it was written; it just no longer names a
+   dead path, so it no longer needs an excuse. */
 const KNOWN_GONE = {
   'design/kit/shell.html': 'never existed in this project. The stage 10 method assumes an assembled shell page; responsive.md says out loud that there is none, and the shell lives as header.html + tabbar.html instead',
   'design/kit/kit.css': 'the flat sheet of stage 07, deleted at 8.8; DESIGN.md keeps it in the drawn value chain as a dead middle step, with the reason beside it, because every token in tokens.css cites the declaration it came from',
-  'design/system.html': 'tools/README.md quotes it as the 404 an early sweep produced - the sentence is ABOUT the dead path, the same shape as decisions.md quoting the em dash it forbids',
   'home-buyer/cart/coach.html': 'voice/docs/microcopy.md writes three screen names in one shorthand; it is an enumeration, not a path, and no guard on segment shape separates it from a real one without guessing',
-  'design/content-loyalty.html': 'backlog.md names it inside the step-6 withdrawals: an isolated audit agent reported a finding on it and the page does not exist - the loyalty screen in colour is account-loyalty.html, and content-loyalty is one of the fifty still grey. The sentence is ABOUT the missing file, the same shape as tools/README.md quoting design/system.html',
   /* the three NAMES stage 06 asked the owner to save the plates under. They came back
      numbered (-1, -2, -3) and a fourth direction appeared that this instruction never
      knew about; the README records both and keeps the instruction as it was given. */

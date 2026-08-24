@@ -55,3 +55,51 @@
   align-items: center; gap: var(--space-12); }
 .goalcta .hint{ font-size: var(--fs-14); color: var(--text-secondary);
   line-height: var(--lh-airy); }
+
+/* ---------- the row arrangement - stage 12, batch 2 -------------------------
+   ORDERED TWICE, BY TWO AGENTS, FOR TWO SCREENS. `catalog-page` wants six goals
+   under «За ціллю» and `search-empty` wants the same six as the way out of a
+   dead search, and both grey blocks describe the identical thing: the mark moves
+   from above the word to beside it, and a second line of explanation appears.
+
+   THE HINT IS THE WHOLE POINT, and it is why this is a variant rather than a
+   re-use of `.gtile`. Three sources disagreed about it - the grey screens and
+   `microcopy.md` carry a hint under every goal, `ia/docs/pages/catalog-page.md`
+   describes block 3 without one - and the owner's call was 2:1 for the hint,
+   because dropping it would be a LOSS OF TEXT dressed as a re-use. `.gtile`
+   proper has no third element and gains none here.
+
+   The mark's box is `--size-34` and framed, which is the grey's own 34: the
+   circle of the vertical tile is 52 and would swallow a row 44 tall. */
+.gtile--row{ flex-direction: row; align-items: center; text-align: left;
+  gap: var(--space-12); }
+.gtile--row .gph{ width: var(--size-34); height: var(--size-34);
+  border-radius: var(--radius-8); border: 1px solid var(--line-hair); flex: none; }
+.gtile--row .gph .uiv-ic svg{ width: var(--size-20); height: var(--size-20); }
+.gtile--row .gtx{ min-width: 0; }
+.gtile--row .gt{ display: block; }
+.gtile--row .hint{ display: block; font-size: var(--fs-12); color: var(--text-muted);
+  line-height: var(--lh-airy); margin-top: var(--space-2); }
+/* the row does not lift: it stands in a list, and a list that lifts under the
+   pointer moves its neighbours' apparent baseline. The edge answers instead. */
+.gtile--row:hover{ transform: none; box-shadow: var(--elevation-1); }
+/* AND THE VARIANT INHERITED A GRID IT CANNOT STAND IN. Two measurements, both
+   the builder agent's:
+   1. `1fr` is `minmax(auto, 1fr)` and `.gtile` has no `min-width: 0`, so a
+      track sizes to its own min-content. The vertical tile never noticed - it
+      holds one short word - but the hint line carries «Жироспалювачі» and
+      «Передтреники», and six tiles came out at six different widths (spread 8px
+      at 1280 against 0 for the plain tile on index.html). nav-tile.css had
+      already written this answer for itself and this file had not.
+   2. From 860 `.goaltiles` is SIX columns, which is right for a centred word and
+      impossible for a row that also carries a mark and a sentence: about 92px of
+      text column, so «Витривалість» plus «Ізотоніки · Гелі · Електроліти» breaks
+      into four lines. The six-column step belongs to the tile it was measured on
+      (kit/goal-tile.html: «116 на кожній ширині»), so the row variant stops at
+      three. Same query, later and more specific, so it wins without touching the
+      rule above it. */
+.gtile--row{ min-width: 0; }
+.gtile--row .gt, .gtile--row .hint{ overflow-wrap: anywhere; }
+@media (min-width: 860px){
+  .goaltiles:has(.gtile--row){ grid-template-columns: repeat(3, 1fr); }
+}

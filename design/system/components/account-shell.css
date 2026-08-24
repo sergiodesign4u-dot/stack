@@ -262,8 +262,23 @@
      of the account rail is a link, and below the shell point it had none. */
   .acc-link[aria-current="page"]{ background:var(--bg-action); border-color:var(--line-action); color:var(--text-onaction-ink); }
   .acc-link[aria-current="page"]:not(:focus-visible){ box-shadow:none; }
-  .acc-link[aria-current="page"] .ic{ color:var(--text-body); }
-  .acc-link[aria-current="page"] .ct{ border-color:var(--line-hair); color:var(--text-body); }
+  /* 12.10, FOUND BY A BROWSER AGENT AND ONLY BELOW 860. The pill's ground is
+     `--bg-action`, which does NOT invert between themes; its label two lines
+     above correctly reads `--text-onaction-ink`. Its icon and its count read
+     `--text-body` - a PAGE ink role - so in light they were charcoal on orange
+     and right by coincidence, and in dark they flipped to near-white and
+     measured 2.97:1 on the same unmoved orange. The count's ring did the same
+     with `--line-hair`, drawing a near-black hairline on the fill. Photographed
+     at 390: three marks, one word charcoal, an icon and a number white, in one
+     pill. Eleven screens.
+
+     THE DISEASE IS THE ONE `docs/decisions.md` ALREADY RECORDS at 3670 - «twelve
+     component files were corrected that day». This block was not among them,
+     and nothing caught it for two stages because `theme.mjs` visited at 1280
+     only and this rule exists only below 859. A verdict measured at one width is
+     a claim about that width. */
+  .acc-link[aria-current="page"] .ic{ color:var(--text-onaction-ink); }
+  .acc-link[aria-current="page"] .ct{ border-color:var(--line-onaction); color:var(--text-onaction-ink); }
 }
 .acc-h1{ /* 10.2: fluid page heading, see section-head.css */ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-display); letter-spacing:var(--ls-lead); }
 .acc-sub{ color:var(--text-secondary); }
@@ -291,3 +306,62 @@
    parked here. It has now gone on to order-row.css with the rest of the order
    body, and the two names still in that grouped selector went with it. */
 
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* the strong link inside the account subtitle - «Докладніше про програму →» on
+   the three loyalty screens. The subtitle is `--text-secondary`; the link steps
+   up to the body ink and to bold, which is what a link inside quiet prose has
+   to do to be seen at all. */
+.acc-sub a{ color: var(--text-primary); font-weight: var(--fw-bold); }
+
+/* THE CARD HEADER'S LINK GETS NO RULE, AND THE BASE IS WHY. `account-empty`
+   wrote `font-size:12.5px; font-weight:700` on its «Як це працює →»; `account`,
+   which is the same screen in its populated state, has FIVE of those links and
+   writes nothing on any of them. Measured: the selector reaches six screens.
+   So the two states of one screen disagreed, and the state page was the one
+   that had drifted - dropping the attribute makes it agree with its own base,
+   where adding the rule would have moved five links to match one. */
+
+/* THE BONUS WARNING HAS TWO HABITATS AND ONLY ONE OF THEM ASKED. Inside
+   `.acard.abonus` it follows the balance and its unit line, and it has never
+   carried a margin of its own. Under the discount ladder it stands ALONE in a
+   bare `.abonus`, and there the three loyalty screens were writing
+   `margin-top:14px` inline. `:first-child` is what separates the two: in the
+   second habitat the warning is the whole content of its box.
+   `.abonus .warn` was the first writing and it reached five screens, `account`
+   among them - a card that had never asked for the gap. 14 -> `--space-16`. */
+.abonus > .warn:first-child{ margin-top: var(--space-16); }
+
+/* the saved-address sub-line on the dashboard - city and recipient under the
+   branch. 12.5 -> `--fs-12`, 2 is already a rung. */
+.aline-sub{ font-size: var(--fs-12); margin-top: var(--space-2); color: var(--text-secondary); }
+
+/* the saved-products grid under the subtitle, on three wishlist screens.
+   18 is on no rung. 16 is the one below, 24 the one above, and the rhythm this
+   panel already keeps between its own blocks is 16. */
+.acc-sub + .prow{ margin-top: var(--space-16); }
+
+/* THE BECOME-A-COACH BANNER, which was three inline declarations on two screens.
+   It is a card with short prose and a button narrower than itself, so it centres
+   what it holds instead of stretching it. The `id` stays: `account.html` swaps
+   the banner's words by script when the role is already active. */
+.acard--coach{ display: flex; flex-direction: column; justify-content: center; }
+.acard--coach p{ font-size: var(--fs-14);   /* 13.5 -> --fs-14 */
+  color: var(--text-secondary); margin-bottom: var(--space-16); }   /* 14 -> --space-16 */
+.acard--coach .btn{ align-self: flex-start; }

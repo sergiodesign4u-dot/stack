@@ -1,0 +1,88 @@
+/* nav-tile.css - the tile that opens a SCOPE of the catalogue (level 2)
+   Added at stage 12, batch 2, by the parent, on two subagents' orders that
+   turned out to be one order.
+
+   WHY IT IS ONE COMPONENT AND NOT TWO. Two agents, working on two screens with
+   no knowledge of each other, sent the same request in different words: a
+   «brand card» for `brands.html` (29 of them) and a «category tile» for
+   `catalog-page.html` (12). Read side by side, their grey blocks declare the
+   SAME SHELL - `border: 1.5px var(--hair2)`, `border-radius: 12px`,
+   `padding: 13px`, a column with a small gap - and differ only in what stands
+   inside it. The ladder is read by JOB: both are a tile you press to enter a
+   scope of the catalogue, and so is nothing else in the system. Two components
+   here would have been the drift the central ordering exists to prevent, and it
+   would have been invisible - two files, two names, one decision.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT. The inventory is derived from
+   the STYLESHEETS, and `wireframes/_wf.css` has no rule for `chub-*` or for
+   `b*`: both screens carry their whole tile layout in their own `<style>` block,
+   which is legal in the grey layer and invisible to anything that reads the
+   shared sheet. The same reason `info-page.css` was missing at 12.2.
+
+   THE GRID IS FLUID BECAUSE THE AUDIT ALREADY SAID SO. `responsive.md` carries
+   `brands` as «WIDER · grid | fluid (auto-fit)» and `catalog-page` the same, so
+   the two fixed queries the grey blocks carry (720 and 1040) are not folded here
+   by taste - 1040 is not in the registry of breakpoints at all, and
+   `product-grid.css` deleted its own 1040 at stage 10 after measuring that it
+   never drew four equal tracks. */
+
+/* ---------- structure ---------- */
+.ntiles{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-fluid), 100%), 1fr));
+  gap: var(--grid-gap-fluid); }
+.ntile{ position: relative; display: flex; flex-direction: column; min-width: 0; }
+.nt-top{ display: flex; align-items: center; gap: var(--space-8); min-width: 0; }
+.nt-ic{ width: var(--size-32); height: var(--size-32); flex: none;
+  display: flex; align-items: center; justify-content: center; }
+/* `overflow-wrap: anywhere` is the grey block's own, and it is load-bearing:
+   «Вітаміни та мінерали» has no break opportunity inside a 2-column grid at
+   360, so without it the tile widens its track and the row stops being equal. */
+.nt-nm{ min-width: 0; overflow-wrap: anywhere; }
+
+/* ---------- colour ---------- */
+.ntile{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  background: var(--bg-page); padding: var(--space-12); gap: var(--space-8);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              box-shadow var(--dur-fast) var(--ease-standard); }
+/* NO LIFT ON HOVER, and that is a decision rather than an omission. `.gtile`
+   raises itself 2px because six tiles are the whole screen; here twenty-nine of
+   them stand in one grid, and `transform` on a card that large is paid for in
+   paint on every pointer move. The edge and the shadow say the same thing for
+   the price the system already pays elsewhere. */
+.ntile:hover{ border-color: var(--line-action); box-shadow: var(--elevation-1); }
+.nt-ic{ color: var(--text-action); }
+.nt-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary); }
+
+/* the sub-line: a list of children (categories) or the country (brands) */
+.nt-sub{ font-size: var(--fs-12); color: var(--text-secondary); line-height: var(--lh-airy); }
+.nt-sub a{ color: var(--text-secondary); text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  transition: color var(--dur-fast) var(--ease-standard),
+              text-decoration-color var(--dur-fast) var(--ease-standard); }
+.nt-sub a:hover{ color: var(--text-action); text-decoration-color: var(--line-action); }
+.nt-ctry{ font-size: var(--fs-12); color: var(--text-muted); }
+.nt-cnt{ font-size: var(--fs-12); color: var(--text-secondary); }
+
+/* THE BADGE, AND THE HALF THAT WAS MISSING. `.tag` and `.tag-new` exist in
+   `badge.css` and already mean this word; what did not exist is a PLACE for one
+   on a tile with no photograph. `product-card.css:27` positions `.tag` only
+   inside `.pcard .ph`, so on a brand card the badge would have landed in the
+   text flow. One declaration, in the file that owns the box it sits in. */
+.ntile .tag{ position: absolute; top: var(--space-8); right: var(--space-8); }
+
+/* ---------- TWO FORMS, BECAUSE ONE OF THEM CANNOT HOLD A LINK ---------------
+   The grey category tile is `<a class="chub-cat">` with three more `<a>` inside
+   it, which is invalid: the agent building the screen dumped the parsed DOM and
+   Chrome had split one tile into an anchor, an empty duplicate anchor and a
+   loose `.nt-sub` OUTSIDE the grid. Twelve tiles would have rendered as
+   twenty-four grid children. The defect is the frozen grey layer's and is
+   repaired here rather than upstream.
+
+   So: a tile with NO links inside it stays an anchor (that is every brand tile).
+   A tile that carries links is a `<div>` whose NAME is the anchor, stretched
+   over the whole tile - the same idiom `.cart-ov > a` already uses in this
+   system - and the sub-links sit above that hit area. Both forms look identical
+   and only the second is legal. */
+.ntile > .nt-top a.nt-nm::after{ content: ''; position: absolute; inset: 0; }
+.ntile .nt-sub{ position: relative; }
+.ntile .nt-sub a{ position: relative; }

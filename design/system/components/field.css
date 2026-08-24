@@ -266,3 +266,20 @@ select.field{
 
 /* the client editor's own margin */
 .cef{ margin-bottom: var(--space-16); }
+
+/* ---------- the mark that LEADS a group - stage 12, batch 2 -----------------
+   This file already names the shape in its own prose - «the lens and the button
+   around a search» - and `.field-grp` is that shape. What it has never had is a
+   rule for the mark standing BEFORE the input: the one affix in the file is
+   `.ph-field .cc`, the country code, and `.field-grp > *{ min-height: 0 }` leaves
+   a lens with no box of its own, so it collapses against the input.
+
+   FOUR HAND-WRITTEN EDITIONS OF THIS ALREADY EXIST and none could be borrowed:
+   `.cl-search` is scoped inside `.coach `, `.sys-search`, `.city-search` and
+   `.wfh-search` each belong to their own surface. `coach-clients.css` lists them
+   and calls moving them onto `field-grp` «Крок 6». This is the rule that step
+   will need; `brands.html` is the first screen to reach for it from the system
+   instead of writing a fifth. */
+.field-grp > .lead{ flex: none; display: flex; align-items: center;
+  padding-inline-start: var(--space-12); color: var(--text-muted); }
+.field-grp > .lead + .field{ padding-inline-start: var(--space-8); }

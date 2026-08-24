@@ -42,7 +42,7 @@
         <!-- name -->
         <div class="pfield">
           <div class="pf-lbl">Ім'я</div>
-          <input class="pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я">
+          <input class="field pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я">
         </div>
 
         <!-- phone (primary, verified) -->
@@ -50,7 +50,7 @@
           <div class="pf-lbl">Телефон</div>
           <div class="pf-row">
             <div class="pf-val">+380 ** *** 45 67 <span class="ok">✓ підтверджено</span></div>
-            <button type="button" class="pf-act pf-actbtn" onclick="openProfPhone()">Змінити - код у SMS</button>
+            <button type="button" class="btn--text pf-act" onclick="openProfPhone()">Змінити - код у SMS</button>
           </div>
           <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
         </div>
@@ -60,7 +60,7 @@
           <div class="pf-lbl">E-mail</div>
           <div class="pf-row">
             <div class="pf-val">viktoriia.koval@email.com <span class="ok">✓ підтверджено</span></div>
-            <button type="button" class="pf-act pf-actbtn" onclick="openProfEmail('change')">Змінити - код на пошту</button>
+            <button type="button" class="btn--text pf-act" onclick="openProfEmail('change')">Змінити - код на пошту</button>
           </div>
           <div class="pf-hint">Використовується для чеків, статусів замовлень і нагадувань. Зміна підтверджується кодом на пошту.</div>
         </div>
@@ -70,7 +70,7 @@
           <div class="pf-lbl">Мова інтерфейсу</div>
           <div class="pf-row">
             <div class="pf-val">Українська</div>
-            <button type="button" class="pf-act pf-actbtn" onclick="openProfLang()">Змінити</button>
+            <button type="button" class="btn--text pf-act" onclick="openProfLang()">Змінити</button>
           </div>
         </div>
 
@@ -79,7 +79,7 @@
           <div class="pf-lbl">Розсилка та нагадування</div>
           <div class="pf-row">
             <div>
-              <div class="pf-val" style="font-size:14px">Отримувати листи й нагадування про поповнення</div>
+              <div class="pf-val pf-val--label">Отримувати листи й нагадування про поповнення</div>
               <div class="pf-hint">Нагадування про закінчення запасів - за оцінкою циклу споживання.</div>
             </div>
             <span class="sw" id="nl-toggle" role="switch" aria-checked="true" aria-label="Згода на розсилку"><i></i></span>
@@ -92,7 +92,7 @@
 
       <div class="pf-note"><b>Без пароля.</b> Ваш акаунт захищено входом за одноразовим кодом (SMS або e-mail) - немає пароля й немає «забули пароль».</div>
 
-      <div class="pf-danger"><button type="button" class="pf-dangerbtn" onclick="openProfDelete()">Видалити акаунт</button></div>
+      <div class="pf-danger"><button type="button" class="btn--text btn--danger pf-dangerbtn" onclick="openProfDelete()">Видалити акаунт</button></div>
 
     </div>
   </div>
@@ -127,7 +127,7 @@
   });
   // prefill name for coach variant to match shell persona
   if (isCoach) { var ni = document.querySelector('.pf-input'); if (ni) ni.value = 'Олена Кравець'; }
-  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+  uivFixLinks(); uivBar(); uivChrome(); uivInert(); uivAccount();
 </script>
 </body>
 </html>

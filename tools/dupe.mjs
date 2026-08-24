@@ -80,9 +80,14 @@ const ALLOWED = [
     why: 'the section label of a mobile panel. Two panels, two files, one shape - and a shared label '
        + 'atom is the honest fix. Recorded in backlog.md, section «Six blocks the system writes twice»' },
   { sites: [['components/footer.css', '.wff-col h4'],
-            ['components/header.css', '.wfh-mega .mgt']],
-    why: 'the column heading of a link list, in the footer and in the mega menu. Same shape, same '
-       + 'backlog section' },
+            ['components/header.css', '.wfh-mega .mgt'],
+            ['components/info-page.css', '.info-toc .tt']],
+    why: 'the column heading of a link list - in the footer, in the mega menu, and since 12.2 over the '
+       + 'numbered index of a service page. THE THIRD SITE IS WHY THIS ENTRY IS WORTH MORE THAN A MUTE: '
+       + 'the pair was declared when it was a pair, `info-page.css` arrived at batch 3 and the group grew '
+       + 'under it, and this check said so on the next run instead of staying green. Three identical '
+       + 'blocks is where a caps-label atom stops being a preference - recorded in backlog.md, section '
+       + '«Six blocks the system writes twice»' },
 ];
 
 const walk = (d, out = []) => {

@@ -277,7 +277,15 @@
    7.23, when it moved into this file whole - so its ROW had been left behind in
    the text link's file, which is how link-row.css came to hold a row of chips.
    Found by looking at the rebuilt stand and asking why there were pills on it. */
-.dr-chips, .cegoals, .flinks{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+/* 12.4: `.chips` is the FOURTH name on this line and the first that is not
+   private to one block. Two agents ordered a row of chips in the same round -
+   the A-Z strip on `brands` and the popular queries on `search-empty` and
+   `search-suggest` - and the file had three names for this row, every one of
+   them owned by a particular place (`.dr-chips` the drawer, `.cegoals` the coach
+   dialog, `.flinks` the footer). A fourth private name would have been the same
+   line written a fourth time; a public one is the line the next screen reaches
+   for. Nothing changes for the three that were here. */
+.dr-chips, .cegoals, .flinks, .chips{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
 .flinks{ margin-top: var(--space-8); }
 .hero-chips{ display: flex; gap: var(--space-8); overflow-x: auto; padding-bottom: var(--space-4); scrollbar-width: none; }
 .hero-chips::-webkit-scrollbar{ display: none; }
@@ -317,3 +325,72 @@
    of the chip row. Its ink, weight and underline went to link-row.css; the size
    stays here, because how big it is belongs to the row it stands in. */
 .afilters .clear{ font-size: var(--fs-12); }
+
+/* ---------- one letter wide, and the state this file predicted --------------
+   THE A-Z STRIP OF `brands.html`, and the second half of it is a case this file
+   wrote down before it existed. The rung comment above says, in its own words:
+   «THERE IS NO DISABLED CHIP IN THE PRODUCT. Zero instances carry `disabled`...
+   When the case appears, `.vopt.off` is still the shape to copy.» The case has
+   appeared: fourteen of the twenty-six latin letters have no brand under them,
+   and the grey strip draws them pale, hairline-edged and unclickable.
+
+   THE SHAPE IS COPIED, BUT NOT ALL OF IT, and the difference is meaning rather
+   than taste. `.vopt.off` is a flavour that is OUT OF STOCK: struck through,
+   dashed edge, quiet ink, `cursor: default`. A letter with no brands is not
+   withdrawn - there was never anything there - so the strike-through and the
+   dashed edge are dropped and the quiet three are kept. `pointer-events: none`
+   is the grey's own and is what makes the row skippable rather than a tab stop
+   that goes nowhere.
+
+   `min-width` is what keeps «W» and «I» the same box; without it a strip of
+   twenty-seven single letters comes out ragged, which reads as a defect long
+   before anyone works out why. */
+.chip--letter{ min-width: var(--size-32); text-align: center; }
+.chip.off{ border-color: var(--line-hair); color: var(--text-muted);
+  cursor: default; pointer-events: none; }
+.chip.off:hover{ border-color: var(--line-hair); color: var(--text-muted); }
+/* the twenty-seventh element of the strip is not a letter but a scope - «А-Я
+   (UA)» - and the grey marks it by filling it rather than by any new geometry */
+.chip--fill{ background: var(--bg-sunken); }
+
+/* ---------- the row that STAYS while the page scrolls - 12, batch 3 ----------
+   `content-legal` needs an in-page nav over three documents. The pills already
+   exist - `.chip`, `.chip.on`, and the row `.chips` added one batch ago - so what
+   is missing is only the CARRIER: sticky, scrollable sideways, closed by a
+   hairline. `pdp-tabs.css` has exactly this shape and cannot be borrowed: it is
+   the product page's furniture (`.tprice`, `.tbuy`, `body.pdp-stuck`, and it
+   declares the `.pdp` grid), so lending it to a legal page would stand a product
+   shelf on a document. The top is a relation, not the grey's 57. */
+/* AND `--dr-top` WAS THE WRONG RELATION, measured rather than reasoned: it is set
+   as an INLINE STYLE on `#drawer` by `wfDrawerTop()` and nowhere else, so on a
+   page that never opens the burger it never resolves and the hard fallback draws.
+   At 390 on content-legal the header ended at 113 and the stuck row started at
+   56, under a header at z 30 against this row's 20 - the legal nav disappeared at
+   the exact moment it did its job. `.mtoolbar` in toolbar.css is the one rule in
+   this system proven to stick under this header, and it uses 57. Same number,
+   same reason, and it stays a literal until the header publishes its height -
+   which is a debt, not a decision.
+
+   12.10: THE DEBT IS PAID AND THE 57 WAS WRONG IN BOTH DIRECTIONS. `uivStickyHeader()`
+   now publishes `--shell-header-h` (the condensed height, measured) and
+   `--shell-top-live` (what the harness above the product has taken), the same
+   way the stand panel has always published `--uiv-side-h`. Measured on
+   `content-legal` at 1600 scroll: header 0..77 at 1280, pills 69..109 - eight
+   pixels of every pill behind an opaque header at z 30. The literal stays as the
+   FALLBACK only, for a page that renders no header at all. */
+.chips--sticky{ position: sticky;
+  top: calc(var(--shell-top-live, 0px) + var(--shell-header-h, 57px)); z-index: 20;
+  background: var(--bg-page); padding: var(--space-12) 0;
+  border-bottom: 1px solid var(--line-hair);
+  flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; }
+.chips--sticky::-webkit-scrollbar{ display: none; }
+.chips--sticky > *{ flex: none; }
+
+/* 12.9: THE ROW, CENTRED. `.chips` is `display:flex` with a gap and no
+   justification, which is right everywhere it stands today - a filter row, an
+   A-Z strip and a jump bar all begin at the start of their column. Node S puts
+   the same row under a centred error block, where a left-aligned row of
+   recovery links reads as a list that lost its heading. One declaration, and it
+   is a MODIFIER rather than a second row: the anatomy, the gap and the wrap are
+   the row's, and only the axis changes. */
+.chips--center{ justify-content: center; }

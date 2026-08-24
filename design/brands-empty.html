@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бренди - нічого не знайдено - Stack (wireframe 2.4, empty)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.4 Бренди - EMPTY (search «Xyzzy Labs» → 0 matches).
+  Never a dead end: «Очистити пошук» → brands.html (full A–Z index).
+  Toolbar = .toolbar--all with a typed value; the box = empty-state.css.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="catalog-page.html">Каталог</a><span class="sep"></span>
+    <span class="cur">Бренди</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Бренди спортивного харчування</h1>
+    <p class="lintro">Усі бренди, які представлені в Stack - світові та українські. Для кожного товару
+      показуємо <b>склад, походження і сертифікат</b> - щоб ви бачили, що берете.</p>
+  </section>
+
+  <!-- Toolbar with a typed query -->
+  <div class="toolbar--all">
+    <div class="field-grp"><span class="lead">🔍</span><input class="field" type="search" value="Xyzzy Labs" aria-label="Пошук бренду"></div>
+    <button class="btn--outline btn--s" type="button">Країна: всі ▾</button>
+    <button class="btn--outline btn--s" type="button">Категорія: всі ▾</button>
+  </div>
+
+  <!-- Empty result -->
+  <div class="empty">
+    <div class="ei ei--wide"><img src="visuals/mascot-face-reassure.png" alt="" loading="lazy" decoding="async" width="1024" height="1024"></div>
+    <div class="et">Бренд «Xyzzy Labs» не знайдено</div>
+    <div class="es">Перевірте написання або перегляньте повний список брендів - можливо, потрібний
+      бренд є під іншою назвою.</div>
+    <div class="eact">
+      <a class="btn--accent btn" href="brands.html">Очистити пошук</a>
+      <a class="btn--outline btn" href="catalog-page.html">До каталогу</a>
+    </div>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('brands.html','empty'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

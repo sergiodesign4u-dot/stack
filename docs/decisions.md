@@ -10947,3 +10947,747 @@ Replacing the modifier apostrophe by rule closed a single-quoted JavaScript stri
 stopped parsing. The lesson is already written here from stage 11 step 4 - *a repair applied by rule
 still has to know the kind of every file it opens* - and it was collected again rather than learned
 again. The class label was reworded instead of escaped.
+
+## Stage 12, steps 1-2 - the floor was cleaned before fifty agents copied from it (2026-08-23)
+
+### The entry gate asked an instrument a question and the instrument did not parse
+
+`tools/dry-run.mjs` - the shortfall forecast for the fan-out, the one thing that can say what fifty
+grey screens will ask the system for - **had been broken for two stages**:
+
+    console.log('... ' + rows.length + ' сім'ях');   SyntaxError
+
+The apostrophe closed the string. This is the fourth time in this repository that replacing the
+curly apostrophe by rule has broken a JavaScript file, and it is the first time the breakage
+SURVIVED, because nothing ran the file in between. `typo.mjs` was green on it every single run: the
+apostrophe form was perfectly correct and the file simply did not execute.
+
+**The missing half is now a gate inside `typo.mjs`:** every `.js` and `.mjs` the walk opens must
+parse, and `node --check` is the authority rather than a regex, because the question is exactly
+«does the engine accept this». Proved red by writing a two-line file holding `'сім'ях'` into
+`tools/` and watching the run fail with the engine's own message; 54 scripts, all parse.
+
+The lesson under it is older than the bug: **an instrument nobody runs reports nothing, and nothing
+looks exactly like zero.**
+
+### The estimate, and the one thing in the repository that had never been written down
+
+50 pages over 28 screens remain; 91 of the registry's 141 are in colour; **zero have no grey
+original**. The single node with no wireframe is `0.2 Футер`, which is a render function and not a
+page. K = 49 of 50: the only ПОТІМ screen in the whole remainder is the quiz.
+
+The table is generated - `tools/rollout-table.mjs` - and not typed, because it holds **the only
+written «screen -> IA node» map in this repository**. Stage 13 reads it and the parent substitutes
+its node column into every subagent contract. A hand-typed version of that goes stale in silence:
+nothing downstream can tell a wrong node from a right one.
+
+### The three debts were not empty, and the owner closed all four
+
+`census.md`'s «control with no form» is empty AS A SYSTEM GAP - `backlog.md` list 1 settled that at
+stage 08 - and the 22 that remain are tirage on screens this stage colours. What was not empty:
+`backlog.md` names four rows as stage 12's own work, and the floor the fan-out would have copied
+from carried three of the nine forbidden marks.
+
+Measured before deciding: **`style=` 102 on 38 screens · `<style>` 31 · `px` 92**, against zero for
+the other six marks. The owner chose to clean all 91 coloured screens rather than only the templates
+the agents copy, to order `info-page` ahead of the first stop, and to close the two stage-11 debts
+inside the fan-out.
+
+### What the sweep turned out to be
+
+Not one defect repeated 102 times, but three different things wearing one attribute:
+
+- **20 are a VALUE.** `style="width:82%"` on a rating bar is data; a static prototype has no server
+  to compute it, and a class per percentage would be a scale of one-use names. Declared as the one
+  exception, with a COUNT rather than a pass.
+- **16 were skeleton geometry**, and `skeleton.css` had already written the sentence that condemns
+  them: «an inline style beats any rule written here». It could not see the ones beating it. Named
+  by job rather than by screen - and naming them found that the buy box's availability mark (30 x
+  40%) and the account card's leading figure (28 x 40%) are **one thing**, drawn twice.
+- **66 were a screen answering a question its component had never been asked.** Every one landed in
+  its component as a rule or a modifier, with any off-ramp figure snapped to the nearest rung and
+  the change named beside it: 13.5 and 12.5 exist on no scale in this system.
+
+### Two rules were written, measured, and withdrawn BY the measurement
+
+`section[role="alert"] > .empty` looked like the anatomy reading of one screen's inline margin. In a
+browser it reaches **three** error screens, and two of them had never asked for the gap. The check
+that missed it was a regex looking for `<div class="empty"` after the `<section>` tag - and both
+other screens have an **html comment** between the two. A text search sees the comment; the `>`
+combinator does not.
+
+**The reach of a rule is a question for the DOM.** The reading changed the decision, not just the
+selector: the inline was one screen disagreeing with its two siblings, so dropping it makes three
+error screens render alike and the system gains nothing.
+
+The second was `.acard .ah .lnk`. `account-empty` sized its header link inline; `account`, the same
+screen populated, has FIVE such links and sizes none of them. Adding the rule would have moved five
+links to match one. **A state page agrees with its base**, so the attribute went and no rule came.
+
+### The floor, and the instrument that guards it
+
+`tools/screen-css.mjs` asks all nine marks at once, carries its exceptions as counts, strips html
+and script comments before asking (one screen holds the word `<style>` inside a JS comment), and was
+**proved red by injection before its zero was believed**.
+
+| mark | before | after |
+|---|---:|---:|
+| `style=` | 102 on 38 screens | **20**, all the declared percentage |
+| `<style>` | 31 | **0** |
+| `px` | 92 | **0** |
+| the other six | 0 | **0** |
+
+The 30 comment-only blocks were records of what left each screen at steps 8.30-8.42. None was
+deleted: all thirty are kept verbatim in `consolidation.md`. **A ban with thirty declared exceptions
+inside the very template fifty subagents copy from is not a ban.**
+
+### The third exception the pack demanded, and its own idle control killed it
+
+The pack names INLINE SVG as the exception this instrument must carry. The first version stripped
+`<svg>...</svg>` and then asked how many bytes it had removed: **zero, on all 91 coloured screens
+and all 142 grey ones.** This product has no svg in its markup at all - `uivChrome()` swaps every
+emoji for an icon at runtime - so a source-reading instrument never meets one. The exception covered
+nothing, and it would have hidden the case that matters: a subagent hand-writing an icon, which
+should fail on `hex` and on `px`.
+
+### `info-page`, and why an inventory built from stylesheets could not see it
+
+Ordered before a screen asked - the first time in this project, and on the owner's word. Six content
+screens share one template, and six agents would have invented it six times.
+
+The useful half is why it was missing: **`wireframes/_wf.css` has ZERO rules for `info-*`.** The
+grey layer draws those six pages with bare structure and no styling at all. `inventory.md` v2 is
+derived FROM the two stylesheets rule by rule - the correction it is proud of - and **a class with
+no rule is invisible to a stylesheet-derived inventory by construction.**
+
+Three of the eight `info-*` classes went in, not eight. Measured: `info-updated` on 6 screens,
+`info-body` on 4, `info-card` on 3; `info-toc` on 2 and the other three on 1 each. The ladder's own
+rule is that a composition needs three screens. Building all eight would have been inventing five.
+
+### And `inventory.mjs` had not been re-run since stage 10
+
+26 of the `Lines` cells were stale, most of them from 10.7's cap sweep across twenty component
+files. The number is maintained by an instrument, so it is corrected rather than removed:
+`--apply`, and the level totals moved 84 -> 85 components with the new organism.
+
+## Stage 12, batch 1 - the contract gate found four defects in the parent (2026-08-23)
+
+Five subagents, 15 pages, one node stopped. The batch was chosen precisely because 13 of its 15
+pages sit on bases that were already coloured, so anything that failed would be the CONTRACT failing
+rather than the system. That is what happened, and every one of the four was mine.
+
+### Three agents found the same defect independently, in the instrument the contract points at
+
+The contract orders every one of fifty subagents to self-check with
+`node tools/screen-css.mjs <свій екран>` and expect «чисто». **No filtered run could ever say it.**
+`DECLARED_VALUES = 20` is a whole-corpus constant and the idle control compared it against whatever
+the subject filter had selected, so a perfectly clean screen failed and printed «ПРОВАЛ: 0 знаків
+повз контракт» in the same breath. One agent measured it on four subjects including the already
+accepted `coach-clients`; another proved the counter could go red first by injecting five marks into
+its own file, and only then noticed the green was unreachable.
+
+Three independent finds is not three findings. It is one defect in the parent's instrument, standing
+exactly where fifty agents were told to look.
+
+### The other three, and they are the same shape: a rule written from ONE screen
+
+- **The example screen for node 6.2 was `design/checkout.html`** - one of the ELEVEN screens in 99
+  that carry no `.wf-canvas`, no `#wf-header` and no `#wf-footer`, because rule U2 keeps the shell
+  out of the checkout flow. The contract says «copy the example's body skeleton verbatim» and «take
+  the structure from your grey original», and for that pairing the two sentences produced two
+  different bodies.
+- **The body skeleton in the contract named `<div id="wf-sheet">`** as part of the frame. That is
+  the mobile FILTER sheet: 21 screens of 99 have it and no account screen does. It was written by
+  reading `listing.html`. An agent following it literally writes a placeholder nothing fills and
+  omits `#wf-addr` and `#wf-toast`, which are the ones that work.
+- **Section C, the canonical data, was itself the drift it exists to prevent.** «Gold Standard
+  1 480 ₴» - 1 480 is `Casein Pro 1816 г`; Gold Standard is 1 520 struck to 1 290, on 73 files
+  against 20. One delivery figure where the product has three tariffs. One phone form where it has
+  two, and the masked one is used seven times more often. All three were written by reading a screen
+  instead of asking the corpus, which is the exact mistake the section forbids to fifty agents.
+
+### Rule 2a, and the grey layer's own state pages were behind its base
+
+Found before the fan-out, by reading all five grey originals by hand. The six `account-addresses`
+state pages carry a body their own base outgrew: two address cards instead of three, `<a href="#">`
+placeholders instead of real `onclick` buttons, and no city hint. `wireframes/` is frozen since
+stage 05, so it cannot be repaired upstream.
+
+**A state page agrees with its base**, and the delta is named out loud. The system had already
+applied that line to itself twice at step 2 - `account-empty` against `account`, `product-error`
+against its two sibling error screens - and this is the third.
+
+### A defect in the frozen grey that nothing could have seen from the source
+
+`openClientDelete()` is the only one of the three client-dialog openers that does not call
+`wfClientEdit()` first. So `wireframes/coach-client-edit-confirm.html`, run exactly as its own init
+line runs it, **draws no dialog at all**: 0 `.ceov` elements, at 390 and at 1280. Measured by the
+subagent, repaired in the coloured copy, and the grey keeps it.
+
+### The link that is alive and still wrong, and it is a rule rather than a repair
+
+`uivFixLinks()` re-points a link to an uncoloured screen into the grey layer, and deliberately skips
+anything already written as `../` - both halves correct. Together they leave a hole: a link
+hard-coded as `../wireframes/x.html` while `x` was grey keeps pointing at grey forever, even after
+`x` is coloured and registered. Batch 1 coloured three coach screens and instantly stranded EIGHT
+such links on seven accepted screens plus the split-view renderer inside `design/_nav.js` - the same
+defect step 8.7 fixed by hand for «Обране», «Тариф» and «Деталі».
+
+Every batch will grow a fresh crop, so the question now lives in `links.mjs`. **Its first writing
+printed a clean zero on a corpus holding eight**: the guard `rel.includes('/')` was copied from
+`pages()`, which returns bare stems, while `walk()` returns paths - so every file was skipped.
+
+### 8.14 reversed, and by evidence rather than by preference
+
+`design/_nav.js` step 8.14 counted 13 states that «auto-open a DIALOG the coloured screen already
+reaches through its own function, so cloning those would be a second edition of a state that
+exists». Ten of batch 1's fifteen pages are exactly those.
+
+Two things were not known when that was written. **The state rail**: `wfBar()` draws sibling-state
+links on every account screen, and `uivFixLinks()` sends any unregistered one into `../wireframes/`,
+so without the coloured copies a person pressing «Змінити номер» walks out of colour. And **the
+coloured layer's own precedent**: `listing-sheet` and `auth-code` are dialog states and were cloned
+at stage 07, before the note existed. The reversal is recorded beside the note it reverses.
+
+### The page behind an open modal was reachable by keyboard, on 26 screens of 26
+
+The subagent on 5.4a reported `aria-hidden="true"` covering nine focusable controls. Asked of the
+whole corpus, the class was far bigger: **26 screens open a dialog at load and every one of them
+left 91 to 118 focusable controls behind it in the tab order** - the cart, all five auth steps, the
+address and profile dialogs, the client dialogs, the tariff confirm.
+
+`tab-walk.mjs` reported nothing, correctly: its question is «is focus landing on something
+INVISIBLE», and everything here is perfectly visible. Two instruments, two zeros, one of them
+meaningless for this class. And the half-measure was worse than none: `aria-hidden` removes an
+element from the accessibility tree while leaving it tabbable, so a screen-reader user tabs into
+controls their reader cannot name. `inert` appeared in this product ZERO times.
+
+`uivInert()` in `design/_nav.js` - one place, because the dialogs are drawn by the frozen grey layer
+and fifty screen files would be fifty copies of one decision. **The subject is `.wf-canvas` and
+nothing else**: the first version of the new instrument did not draw that line and still reported
+«26 of 26» after the repair, because it was counting the stand's own panel, which must stay
+reachable. 26 -> 0, proved red by removing the call from one screen.
+
+### `order-placed` stopped, and the stop was worth more than the screen
+
+The agent built nothing and left no draft. Under its seven orders sat a contradiction in the
+documentation: **`architecture.md` A19 names `op-*` and parks it** - «that screen's work, and stages
+09 to 12 will do it without touching the system» - while a screen may not carry styles of its own.
+Both sentences can be true only if 6.2 assembles from components that exist, and the result plate
+never did.
+
+Branch A taken on the owner's word: `order-placed.css` at level 3, every declaration either the grey
+original translated by `grey-vars.mjs` or copied from the sibling the system already decided
+(`.cv-ok` for the plate, `product-thumb` for the frame, `.acc-tier` for the strong edge, and 860 was
+already `--bp-shell-wide`). `.op-steps` went to `patterns/action-row.css` as `.actions--stack` - the
+first of the ten container names that file had already parked for stage 12.
+
+**Branch B is in the backlog with its number: the result plate stands under SEVEN names**
+(`.cv-ok`, `.co-err-*`, `.co-proc-*`, `.sys-*`, `.emptybox`, `.errbox`, the auth disc, and now
+`.op-hero`), where the rule for a pattern is three. The reason it never surfaced is that no two of
+the seven were ever built in the same step. The backlog row carries the warning as well: the seven
+differ in ways that may be the point, and a pattern that flattens «nothing arrived» into «nothing
+exists» would be worse than seven files.
+
+### And the apostrophe closed a JavaScript string for the sixth time
+
+An hour after building the parse gate for exactly this, a blanket replacement of the modifier
+apostrophe by the ASCII one - my own, by rule - broke
+`links.mjs`. The gate caught it.
+
+## Stage 12, batch 2 - catalogue and search (f3): 13 pages, and four defects in the day-old system
+
+**Composition and why.** `catalog-page` x3, `brands` x4, `search` x4, `home-catalog` - one flow, one
+listing template, one set of canonical data. Four agents in round one, three of which **stopped and
+ordered instead of drawing**, which is the contract working rather than failing: a defect of
+appearance costs one screen, a defect of the contract costs twenty.
+
+**Seven orders became two components and nine additions, and the reason is the one thing central
+ordering buys.** Two agents who did not know of each other asked for the same thing in different
+words - a «brand card» for node 2.4 and a «category tile» for node 2.0. Their grey blocks declare the
+same shell byte for byte; the ladder is read by JOB, and both are a tile you press to enter a scope
+of the catalogue. `nav-tile.css` (level 2) is one component with two bodies. Two files would have
+been the drift, and nothing in `tools/` could have caught it: two names, two files, one decision.
+`search-overlay.css` (level 3) is the second, and it is new because `menu.css`, `overlay.css` and
+`cat-overlay.css` each decline the job in their own written words.
+
+**The additions that closed cases the system had already described.** `chip.css` got a PUBLIC name
+for a row of chips (it had three private ones) and the disabled state it had itself predicted in
+prose - «when the case appears, `.vopt.off` is still the shape to copy» - because fourteen of
+twenty-six letters on `brands` have no brand. The strike-through and the dashed edge were NOT
+copied: those mean «withdrawn», and under a letter there was never anything. `toolbar.css` got the
+third case its pair cannot serve. `base.css` got `mark`, which had **no rule anywhere in the
+repository** and would have been the browser's yellow.
+
+**Four defects in the system work written that same day, all found by agents with a browser.**
+`.toolbar--all` promised a row it could not draw (96px tall against 44 repaired, measured at three
+widths). `.gtile--row` inherited a grid it cannot stand in (six tiles at six widths; and six columns
+from 860, which is right for a centred word and impossible for a row with a mark and a sentence).
+`.nt-ic` came out as twelve raw emoji because `uivIcons()` walks six chrome ids and a tile grid is
+not one of them. And the grey category tile is `<a>` inside `<a>`: the agent dumped the PARSED DOM
+and Chrome had split one tile into an anchor, an empty duplicate and a loose `.nt-sub` outside the
+grid. The tile now has two forms, and only the one whose name is the anchor may hold links.
+
+**Four instruments learned to see a class they were blind to.**
+- `inventory.mjs` had never asked its own Anchors column. `.gcard` was written as an anchor of
+  `goal-tile.css` and exists nowhere in the repository. The first writing of the check reported
+  FORTY, which is half the table and therefore a statement about the check: the column holds two
+  legitimate forms, a class and a family prefix, and comparing a prefix against full names made every
+  prefix a defect. Twenty-two survived, and the check now says where each name actually lives.
+- The same file's Width column reader asked only about `px`, and this project stopped writing px in
+  a query at stage 10. `order-placed.css` read as «no boundary at all».
+- `rollout-table.mjs --check` compared only `| flow | node | name |` - exactly the three cells a
+  stage cannot stale - so it was green over nine rows saying «у кольорі 0» about screens that had
+  been coloured for an hour. It compares the whole row now, and `--apply` rewrites it.
+- `links.mjs` could find a link that leads to grey where colour exists, and had no repair. Thirty-six
+  of them; `--write` now closes them, and only where `design/<name>.html` exists.
+
+**`tools/glyphs.mjs` is new, and it exists because no instrument could ask the only question that
+matters about a mark.** A source-reading instrument sees an emoji on every screen and is right; a
+browser instrument sees an icon and is right; neither asks whether a mark SURVIVED the passes. It
+reads `UIV_EMOJI` out of the running page, so the list is the product's. Two opposite questions: a
+character the map knows still sitting in text (a pass did not reach it), and a pictograph the map
+does not know (a hole in the map). Its first corpus run found `cart-coach-empty` missing its
+`uivCart()` call - five screens carry a cart drawer and four called the pass - so its empty state
+kept a raw glyph where the stylesheet expects a mascot. Repaired by making the last three family
+hooks fire by presence, as three others already did.
+
+**`microcopy.md` was behind its own product in 74 cells**, reported independently by three agents and
+settled by measurement rather than by eye: «Хіт» has 0 occurrences in `wireframes/` and 0 in
+`design/` against 40 and 28 for «Популярне». **One was load-bearing** - `uivHome()` matches a goal
+tile's text against `WF_GOAL_MENU` verbatim, so «Енергія / тонус» would have left three tiles of six
+with no icon. Sections E and F of that file were deliberately left alone: their «було» column is the
+record of the change.
+
+**Owner decisions taken during the batch, with their evidence.** The goal tile KEEPS its hint (grey
+and `microcopy.md` for, IA node against - 2:1, and dropping it is a loss of text dressed as a
+re-use). `search-loading` gains the rail and the sheet, because rule 2a says a state agrees with its
+base and `responsive.md` assigns that screen the 860 point. The 29 brand counters do NOT wear
+`.qmark`: twenty-nine question marks would destroy the reading of the grid the marks stand in.
+
+## Stage 12, the width class re-asked - a clean zero that could not have been anything else (2026-08-24)
+
+**Five background probes were killed mid-run and every one of them had written zero bytes.** Nothing
+was lost and nothing was measured, which is the same state as never having asked. Three of them were
+drilling into `width-sweep.mjs` findings, so the honest repair was to re-ask rather than to recall:
+**a claim about the corpus goes stale in silence**, and a probe that never printed is not a claim at
+all.
+
+**Re-running the instrument on a corpus it had not already repaired is what exposed it.** At 10.7 the
+sweep ran on 91 coloured pages and closed the stage; at 12.7 it ran on 124, and two more wrong
+versions surfaced. **Both were showing as a clean zero**, which is the exact failure mode this
+repository keeps paying for: a green counter nobody had asked to turn red.
+
+- **A clipping ancestor ended the search for a rail, and those are two different questions.**
+  `.hpromo` carries `overflow:hidden` and sits inside `.hslider`, which scrolls X. The card itself
+  was correctly counted as rail content while `SPAN.hptag` INSIDE it broke at the card and reported
+  as cut off by 488px on the four home screens. Clipping decides whether the pixels are GONE; only a
+  scroller decides whether they are REACHABLE. The break stays for the case it was written for - a
+  child that escapes the clipper's own box really is lost, and no scroll above brings it back.
+- **A record was filed by its FIRST crossing, and the first crossing is not the finding.**
+  `rec.ats[0] < FLOOR` sent the whole record to the below-floor block, which prints and does not
+  fail. An owner crossing at 324 **and** at 374, 424, 474, 524 and 574 was therefore filed under «the
+  product never promised to work there» while the class counter above it read `0`. A defect that
+  starts below the floor and survives above it is a defect above the floor. The peak moved with it:
+  a record judged above the floor is now measured only in the band it is judged in, because a peak
+  read at 320 would have arrived wearing an above-floor width.
+
+Ten phantom rows left the corpus and four real ones arrived. **Neither number would have appeared
+without the other fix**, which is the argument for repairing an instrument in one pass rather than
+one finding at a time.
+
+**What survived was one cause wearing five faces.** Five rows on the three service pages read
+«77.7ch against a ceiling of 68», and the arithmetic names it without a browser: 77.7 / 68 is exactly
+16 / 14. `--container-text` is `68ch`; a custom property is substituted as a token and resolved on
+the element that USES it; `ch` is a unit of the font it lands on. The ceiling sat on `.info-body` at
+16px while every line of prose inside it is drawn at 14 or 12, so each line got 68 characters of its
+PARENT and 78 of its own - **a cap that reads as honest in the source and is nine characters wide in
+the browser.** This is rule 8 of `design/system/CLAUDE.md` in a second material: a pair assumed to be
+a mirror is only a mirror on the ground it was written for.
+
+**The repair is a nearer ceiling, not a bigger one.** Four declarations in `info-page.css`, each on
+the element that carries the characters, each carrying its measured peak beside it. The list of
+readers has a test and the test is the sweep: a fifth reader arrives there as a row, not as a
+judgement call in the stylesheet. Re-checked by the instrument that found it - **0 above the floor on
+every one of 129 widths across all 124 pages, exit 0.**
+
+**The nineteen rail rows above the floor are printed and do not fail**, by the instrument's own
+decision at 10.7: an item reaching past the edge of a container that scrolls sideways is how a rail
+looks, and the content is one swipe away. Four of those nineteen are new only because wrong version
+14 had been hiding them below the floor.
+
+**And one recorded debt turned out to be a wrong diagnosis of a real symptom.** `inventory.mjs
+--apply` was written down three times in this stage as «needs two passes to converge». It never did.
+Every counter in that file is computed BEFORE the writes, so a run that repaired one drifted `Lines`
+cell printed «Lines розійшлось: 1» and exited 1 - having just closed it. The data converged in one
+pass; the report did not. A wrong diagnosis is worse than none, because this one became a habit of
+running the tool twice and calling that normal.
+
+Closed by the repository's own rule rather than by arithmetic: subtracting the writes from the
+counters would be trusting the write, and re-asking cannot. `--apply` now ends by running the same
+file WITHOUT `--apply` and hands over its verdict and its exit code, so the output keeps three facts
+apart - what the run FOUND, what it WROTE, what it LEFT. **Proved by breaking a `Lines` cell on
+purpose**, and the first version of that proof failed: `new URL(import.meta.url).pathname` returns the
+percent-encoded path, this repository sits under a directory with a space in its name, and the child
+died with `MODULE_NOT_FOUND` while the parent still exited 0 through a pipe. `fileURLToPath` is the
+fix, and the deliberate break left the file byte-identical to where it started.
+
+## Stage 12, batch 4 - the rest of f4b: eight pages, and nobody stopped to order (2026-08-24)
+
+**The owner's ruling opened the batch and decided its shape.** «The bonus ledger belongs to 7.4 AND
+to 8.7» sounds like a question about one table. It is not: node 7.4 is already coloured, so the
+answer forced the parent to read the grey block of 8.7 against a finished screen instead of against
+the system. Seventeen private names resolved to **three** real additions - the ledger is `table.led`,
+the mechanism card is `.acard` + `.mech-kicker`, the FAQ is `.qaitem`, the section head is
+`section-head`, `[?]` is `.qmark`, and the whole ten-name `me-*` family is `.lt` + `.lbar` + `.ls`
+beside `.big` + `.u` + `.warn`. Published as written, they would have been ten decisions taken a
+second time under new names.
+
+**And the same reading found a component ordered four times over.** Four screens of this batch each
+declared a page lead under a private name - `faq-lead`, `blog-lead`, `promo-lead`, `rev-lead`.
+`seo-text.css` describes `.lintro` in its own words as «the lead paragraph directly under the H1»
+and already carries it on eleven pages. **One decision, five writings**, and only central ordering
+could see it, because the four screens never meet. Node 8.11 needed no new css at all as a result.
+
+**Six additions, and the journal column that matters says the same sentence four times.**
+`article.css`, `faq-page.css`, `promo-card.css`, `newsletter.css` are new; `blog-card.css` gained
+the listing form and `loyalty-rung.css` the node-8.7 forms. Layer 89 -> 93. Why the stage-07
+inventory did not see them: `wireframes/_wf.css` has no rule for `art-*`, `faq-*`, `pcard-promo` or
+`nl-*`. **By the fourth file it stops being an excuse and becomes the finding: every screen of the
+f4 group styles itself in its own `<style>` block, so an inventory derived from the shared
+stylesheet was blind to the whole group at once - seven screens, not one component.**
+
+**Three agents, eight pages, zero orders, zero classes outside the system.** The first round of this
+stage where nobody stopped. The reuse map is why, and it is now the thing to hand a batch, not the
+contract alone.
+
+### The instrument was silent over seventeen broken links
+
+An agent opened its own finished screen in a browser AFTER `uivFixLinks()` had run - a thing no
+reader of source can do - and counted **13 links on `content-blog` and 4 on `content-article`
+rewritten to `../wireframes/`**, while `links.mjs` printed «0 stale».
+
+**The two halves were asking different questions.** `uivFixLinks()` decides by MEMBERSHIP of
+`DESIGN_NAV`; the instrument's stale-grey pass decided by EXISTENCE on disk, and only ever looked at
+hrefs already written `../wireframes/`. Between those two questions lies the exact state every screen
+passes through from the moment it is written until its registry row lands: the file exists, the
+registry does not know it, the source says `content-blog.html`, and the browser quietly sends it to
+grey. **A registry row is not bookkeeping here; it is what makes a link work.**
+
+The question is now asked the way the PAGE asks it, read out of `DESIGN_NAV` itself rather than
+re-derived - the same rule `width-sweep.mjs` states about taking the carrier question from
+`tab-walk.mjs` verbatim. It went red on 43 places immediately.
+
+**And its first writing stole its neighbour's findings.** The pattern barred `/` from the first
+character only, so `../wireframes/content-faq.html` matched and 36 of those 43 belonged to the pass
+below it. **A check that overlaps the one beside it does not add a question; it doubles an answer.**
+Narrowed to a bare name, which is the only form `uivFixLinks()` rewrites. Both classes green after
+eight registry rows and `--write` on 42 stale links.
+
+### Seven defects the agents measured in the parent's day-old work
+
+Every one found with a browser, and not one of them is visible in a stylesheet: `.loy-hero` did not
+centre its own heading (546px of dead space at 1280, because `.lh1` is a flex row with no
+justification - and the stand demo's heading happened to be long enough to hide it) · the personal
+band's action row had zero air above it · «ваш рівень» wrapped inside its chip at 390 and grew the
+rung from 70 to 89 · **`.art-hero` drew the WORD «фото» at 686x386 on a finished page**, alone among
+the media frames of the coloured layer, because every other one is painted by the system and this one
+was not · `.lintro` had no air under it on two screens and escaped notice on two others only as a
+SIDE EFFECT of a neighbour's padding · `faq-page.css` said in prose that its group headings were
+`section-head`'s while declaring them three lines below · `DECLARED_VALUES` in `screen-css.mjs` was
+20 against a corpus of 26.
+
+**And three of the parent's own stand pages contradicted the product.** The FAQ stand demoed an
+answer carrying three delivery tariffs where the product deliberately keeps them at `[?]`; the
+newsletter stand wrote a second exit microcopy does not have; the blog stand invented a reading time
+where the product says «Читати ->». **A stand page is written the day its component is and the
+screen arrives a day later: the demo is not the corpus.** Third batch running with this class.
+
+### One number stopped being a discrepancy and became a contradiction
+
+`design/account-loyalty.html` shows 18 400 ₴ spent with «до Золота ще 6 600 ₴» while its own ladder
+prints the Золото threshold at 15 000 ₴ - a buyer 3 400 ₴ PAST the threshold whose card still reads
+Срібло. Node 8.7 says 8 400 ₴, and 8 400 + 6 600 = 15 000 closes. **The arithmetic names 7.4 as the
+file to correct**, which is the first time this open question has had an answer rather than two
+readings. Owner's call, and the only one the batch could not take.
+
+## Stage 12, batch 5 - f5, and the whole MVP scope is in colour (2026-08-24)
+
+**8 pages = 8 done, and the round that delivered ZERO files is the batch's best outcome.** Three
+agents in two rounds: one built the four mega-menu states, one stopped on three of its four screens
+and ordered instead of drawing, a third built those three once the orders were in the system. That
+is the contract doing exactly what batch 1 was designed to prove it does.
+
+**Batches 4 and 5 are the same experiment with the variable flipped.** The whole f5 family needed
+TWO unknown classes across eight screens, against a new component file per screen in f4. The reason
+is one line: f5 screens carry no `<style>` block of their own - they are drawn by the shared
+`wireframes/_wf.css` - so the stage-07 inventory, which is derived from stylesheets, SAW them. f4
+styled itself and was invisible. **A stylesheet-derived inventory is blind exactly to the screens
+that styled themselves, and the size of the blind spot is the size of that group.**
+
+**First appearance in the product: `cookie-banner.css` and `toast.css`.** Until `system.html` was
+coloured, `wfCookie()` was called by exactly one file in the tree and it was grey, so `.ck-tog` -
+whose motion `motion.md` marked «cannot be proved by pixels... proof at stage 12» - is drawn on a
+product screen for the first time here.
+
+### Three defects the agents measured, and one had been shipping since stage 08
+
+`.sys-search .go`, the welded submit, is drawn by the grey sheet and by NOTHING in colour: the split
+of stage 08 promised «selectors are unchanged» and this rule did not survive it, so «Знайти» hung in
+its box with no ground, no padding and no weight - measured `rgba(0,0,0,0)` / `padding 0` / `16/400`.
+**Two repairs were possible and only one shrinks the debt**: restoring the rule would have been the
+FIFTH hand-written edition of «a search field with a welded button», and `field.css` lists the four,
+calls merging them «Крок 6» and ends that paragraph with «`brands.html` is the first screen to reach
+for it from the system instead of writing a fifth». Node S is the second. Four editions became three.
+
+`.sys-code--mark` was written by the parent ONE HOUR earlier as `--fs-display`, which is a clamp, so
+the wrench rendered 30px on a phone against the grey's 44 - a third smaller on the device this
+product is built for first - while its twin digit sits at 60 on every width. **Two twin pages, one
+slot, one mark fixed and one fluid is not a decision anybody took.**
+
+And the quiet line under the actions had no rule at all: without the grey's inline it is four pixels
+of air instead of eighteen, because `.sys-min` has `gap: --space-4` and `.sys-s` has no top margin.
+**The inline was a lost rule, not decoration.** Published as `.sys-foot` / `.sys-foot--fine`, and
+11.5 against 12.5 is grey drift on a ladder with one rung: the real difference is colour.
+
+### Three instruments, one shape, and the third was hiding the stage's headline
+
+**`rollout-table.mjs` asked its declared list in one direction only** - «a name in `DESIGN_NAV` with
+no file behind it», which cannot happen because a row is added after the file is built. The mirror
+happens every batch, and an agent measured 137 html against 132 names. **`links.mjs` could not have
+caught it**: it asks about names a screen's BODY links to, and nothing links to a mega-menu state
+because the only carrier is the stand's own rail. Its green counter was true and useless. **The
+completeness of a declared list is a question about the LIST, not about its readers.**
+
+**A coloured page that is NOT a screen had no way to say so.** `uivFixLinks()` reads `DESIGN_NAV`,
+which drives the stand rail, so putting the hub in it would list `overview` among the product's
+screens; leaving it out made node S's breadcrumb resolve to `../wireframes/overview.html` on a
+finished page. The defect had nowhere to show before, because until batch 5 **no coloured screen
+linked to the hub at all.** Closed with `DESIGN_EXTRA`, read by `links.mjs` rather than copied.
+
+**And the summary under the estimate table was a row nothing compared.** `--check` walked every row,
+found them all right, and printed «збігається ПОВНИМ РЯДКОМ» while the line beneath said «уже в
+кольорі: 91 · розкочується тут: 50 · MVP: 49» - the batch-1 numbers, forty-nine screens stale. It
+matters more than the other two because of WHICH number it hid: the true reading is **«розкочується
+тут: 1 · MVP: 0»**, the headline of the stage. A summary is a SUM; it is generated now and typed
+nowhere, exactly like the level totals in `inventory.md`.
+
+**A verdict that could not say «no» cost five repeats of one mistake.** `typo.mjs` printed «усі
+оголошені» whatever the run had found, in the same breath as a per-file line naming an undeclared
+file. Five times the parent read the green summary, believed it, and shipped a curly apostrophe that
+`accept.mjs` caught in a browser two steps later. Proved by a deliberate break - and the FIRST
+attempt at that proof was vacuous (it replaced a string the file does not contain and reported
+success), which is the same lesson one level up.
+
+### Where the stage stands
+
+**141 pages in the registry · 140 in colour · 1 remaining · MVP remaining: 0.** The only screen left
+is `quiz.html`, which the owner placed after launch at step 1. Gates at close: `accept` 341/0 at 390
+and 341/0 at 360 · `screen-css` clean · `vars` 341/0 · `links` 5909 with 0 dead and 0 routed to grey
+by the registry · `typo` clean · `inventory` 93 components with 0 drift · `rollout-table` matching
+by full row AND by summary · theme census on the eight new screens: 6 forms, **0 broken by the
+theme** (five are the accent button at 3.13, accepted by the owner in `DESIGN-artifacts.md`, and one
+is the `.ms-ph` placeholder already open) · `wireframes/` 0 files changed.
+
+## Stage 12, steps 6 and 7 - the reconcile, and three green counters that could not see their class (2026-08-24)
+
+### The coverage map was a hand-typed list, and a hand-typed map cannot look incomplete
+
+The map on `design/overview.html` had grown screen by screen since stage 06 and named **54 of 141
+pages** at the moment the rollout finished. Nothing was wrong with any row on it. The defect was the
+rows that were never written: a map that has never mentioned a screen has no gap where that screen
+should be, so it reads as complete at every size it happens to be.
+
+That is the same class this stage met five times already - a declared list asked in one direction -
+and the resolution is the same one: the map is now **generated**. `tools/coverage.mjs` reads
+`WF_FLOWS` (the whole product, grey) and `DESIGN_NAV` (what exists in colour) and rewrites the
+section between two markers. Nothing inside it is typed. A state added next month appears the same
+day.
+
+**And then it is WALKED, because a generated list only proves the generator ran.** The instrument
+opens every registry entry in a browser and reads the output: `записів 141 · відкрилось 140 · зі
+своїми станами 49 з 49 · панель рівно одна: 140 з 140`. The one that does not open is `quiz.html`,
+which is the one deliberately out of scope, and the two numbers are compared rather than assumed to
+match. What would turn the counter red is written into the file above the code, because a check
+nobody can make fail has not been shown to work.
+
+Six rows of hand-typed rollout numbers came off the same page in the same step. They said «118 in
+colour · 23 remaining» long after one page was left. **A number nobody maintains is removed, not
+corrected** - and the same paragraph had already carried that number twice before (50 at stage 07,
+87 on 2026-08-14), which is what a paragraph telling HISTORY does when somebody keeps editing it.
+
+### The rail on the product's home page pointed at files that exist in neither tree
+
+The first walk found it in one line: `index.html: Покупець ↗, Тренер ↗, Кошик-полиця ↗` - all three
+states of the home page drawn as grey escapes. Node 0.0 is the one screen in the product with a
+`stateFile`: the file is `index.html` because `index` is the entry point of a folder and nothing
+else, and its states are `home-buyer`, `home-coach`, `home-cart`. The grey registry's own renderer
+writes `wfStateFile(s.stateFile || s.file, st)`. **This copy of it, in `design/_nav.js`, wrote
+`sc.file`** - so it built `index-buyer.html`, a name that exists in neither tree, and then failed to
+recognise the three real state pages as belonging to any screen at all.
+
+Three dead links on the most-visited page of the product, and the state pages showing no «you are
+here». **`links.mjs` cannot see any of it**: the rail is injected at runtime and a source-reading
+link checker never meets it. Same shape as `glyphs.mjs` at 12.4 and as `uivFixLinks()` at 12.9 -
+satisfied in the file, violated in the frame.
+
+### The tenth mark of the contract existed only in prose
+
+Codex, read-only, read the contract and the instrument side by side. The ban list in `rollout.md`
+section D has ended with «плюс клас, якого немає в системі» since batch 1, and the very next line
+sends fifty subagents to `node tools/screen-css.mjs` expecting «чисто». **Nine of the ten marks were
+implemented.** For five batches «чисто» was a true answer to nine tenths of the sentence it was
+answering.
+
+Written, it found **24 names on 101 places in 35 files**, and the split is the interesting half:
+
+- **23 were inert.** The rule had been deleted at stage 08 and the class name stayed on the markup.
+  `coach-session.css` says so in its own comment about one of them - «`.cc-repeat` DELETED, all four
+  declarations» - and the name was still being carried on seven screens. A class with no matching
+  selector cannot change a pixel, so the removal is safe by construction; it was still proved
+  afterwards by `accept` over 341 pages rather than asserted.
+- **One was a real regression.** `.cmp .yes` on `coach-landing` was `font-weight: 800; color:
+  var(--strong)` in the grey: the three Pro cells that answer the comparison stood out from the Free
+  column's plain sentences, and **that contrast is the argument of the table**. The class came
+  across and the rule did not, so all six cells read the same weight and the table stopped arguing.
+  It got its rule in `coach-landing.css`, and the instrument's own list went 24 -> 23 by itself.
+
+A name that SHOULD have had a rule never goes through `--apply`: it gets the rule in the system, and
+the list is one shorter without anyone editing the list. That is the difference between a repair and
+a suppression.
+
+### `typo.mjs` never opened a whole file kind, and said nothing about it
+
+`tools/key-alpha.py` prints a line with a MODIFIER LETTER apostrophe **on every run**, and this
+check had never opened it: `.py` was not in `EXT`. The missing extension is the small half. The
+large half is that the report printed «741 у дереві» as though that were the tree - it was the tree
+as that list sees it. Now `.py` is in the list, the apostrophe is normalised, and **every kind
+present and not opened is printed with its count**, so the next kind that lands is visible the day
+it lands: `.yml 117 · .jpg 93 · .png 56 · .log 21 · .svg 9 · (без розширення) 8 · .json 2`.
+
+`.yml` stays out on purpose and the reason was already written in that file: those are a browser
+tool's own page snapshots, holding hundreds of em dashes because the pages they snapshot belong to
+other people.
+
+### `<meta name="description">` is absent from all 141 pages, and that is now a written decision
+
+The stage pack names `title` and `description` in the file skeleton; the contract carried only
+`title`, and nobody noticed for five batches. Codex asked it directly at step 7: **0 of 140 coloured
+heads carry one, and 0 of 141 grey.**
+
+It stays absent, and the reason is about ownership rather than about SEO. Every page under `design/`
+is `noindex` - it is a stand, not a shop - so the tag would have no function there beyond carrying a
+string that belongs to somebody else. SEO copy belongs to the IA node, and **no product string
+exists in two editions**; a copy in 140 html files would be a second edition with no mechanism
+keeping it in sync.
+
+But half of this is a genuine hole and it is now named with a number: **`description` exists in 6 of
+18 `ia/docs/pages/*.md` and on 4 of 22 `ia/*.html`**, so twelve nodes have that string nowhere at
+all. That is a debt of stage 03 which a rollout may not close by inventing copy. It goes to the
+handoff beside the eight nodes with no A-E block.
+
+### The 123 questions, deduped
+
+Five batches, eighteen agents, 43 pages, **123 questions**, sorted into nine classes in section F of
+`rollout.md`. The proportion is the finding: **59 of the 123 are defects of the INSTRUMENTS, not of
+the screens.** The fan-out did not mainly discover that the documentation was thin - it discovered
+that the checks under the documentation were asking half of their own question and reporting the
+half they asked. The rest is one shape too: every string with no owner ends up owned by the frozen
+grey layer, which is the one layer nobody may edit.
+
+### The critique of step 7, on two instruments, and the pattern held to the last finding
+
+Codex read the source read-only; three Claude agents opened a browser over the content family (14
+screens), catalogue / search / system (20) and the coach flow (46). Sets taken independently, deduped
+after. The table with «who found it» and «withdrawn on verification» lives on
+`design/kit/pixel-proof.html`.
+
+**The two heaviest findings were both about an instrument, which by now is the stage's signature.**
+
+**`theme.mjs` measured one width, and said so nowhere.** All three of its `visit()` calls hard-coded
+1280, so «0 зламала тема» meant «0 at 1280» - and `account-shell.css` puts the active coach-nav chip's
+icon and counter on `--text-body`, a PAGE ink role, inside a block that exists only below 859. In
+light those marks are charcoal on orange and right by accident; in dark they flip to near-white and
+measure **2.97:1** on a fill that does not invert, beside a label on the same pill that stays
+charcoal at 5.45. Three inks, one ground, eleven screens, two stages of green. The walk now takes
+both widths and prints the width beside every finding. **A verdict measured at one width is a claim
+about that width.**
+
+**The transform existed and the check did not.** `key-alpha.py` was written at stage 08 to give a
+white-background PNG the alpha channel it never had, and its own header calls itself «an asset tool
+run by whoever changes an asset, not a check run by every step». Two mascots shipped as colour type
+2 - no alpha at all - and `border-radius: 50%` turned the baked white into an opaque disc brighter
+than the accent button beside it, on three screens. A browser agent found one by looking at a dark
+screenshot; the check, written the same hour, found the second in a byte. `--check` now walks every
+PNG, with two folders exempt and each carrying its count.
+
+**Repaired beyond those two:** the sticky anchor row that hid under an opaque header, closed the way
+`chip.css` had itself asked for two stages («it stays a literal until the header publishes its
+height - which is a debt, not a decision»), so `uivStickyHeader()` now publishes the condensed height
+and both readers take the measurement · `.info-grid` giving prose cards the PHOTO card's floor, 21
+characters a line at 360, closed with `:has(> .info-card)` and the panel floor the token itself
+describes · a separator wearing `--mark-disabled` (the role for a control that is OFF, 1.61:1)
+where the same stage had already answered the same question in `article.css` · a chip carrying `.on`
+with nothing to select it · a reply glued to its own badge · a font weight the face does not have.
+
+**Four findings withdrawn on verification, each with the reason written into the file** so it does not
+return in the same words next time: `visibility 0s var(--dur-slow)` is a delay, not a duration, and
+was closed at 11.6 by the same instrument; `#000` in a mask is the alpha channel, not ink, and a role
+there would mask by the LIGHTNESS of the ink and change what is hidden per theme; the inline-SVG
+exception really does cover nothing, and `screen-css.mjs` recorded that at batch 1 along with the
+decision to COUNT svg rather than excuse it; and the 101 «stray en dashes» came from a question put
+without the rule - `–` is declared for a range AND for the empty-cell mark.
+
+**And one instrument wrote into its own subject.** A critique agent, told in three places to write
+nothing, ran `crop.mjs` with its arguments a place out and left a 29KB PNG with no extension at the
+repository root. `crop.mjs` now refuses rather than warns - a warning on a tool a subagent runs is
+read by nobody - and the refusal is on both halves: the output must end in `.png`, and it must
+resolve outside the tree the instrument photographs.
+
+**What was named and not taken.** Heading ranks with four treatments and six screens skipping a
+level; eight empty 3:4 plates where the sibling component draws paper; loading states that
+under-reserve the page they stand for; the 404's search field on the 40 rung against the system's own
+«44 is the touch minimum»; the mega-menu clipping its last entry at 768 tall; «Повторити замовлення»
+naming two different actions on one screen; the Pro plan printed in five editions across the coach
+flow; and the emoji map, now measured exhaustively - **20 pictographs on 12 product screens with no
+row, of which 12 already have a drawing in `icons.js` and 8 need one**. Every one of these is a
+DECISION, and a rollout decides nothing: an unresolved line arriving here would be invented afresh by
+each agent separately. So each is named with its number and handed to the owner, rather than patched
+on one screen out of twenty.
+
+### Three more instruments gave up the same class, and one of them was doubled on purpose
+
+**`roles.mjs` could name its drift and not close it.** Its own first paragraph says «all of those
+lists are typed by hand», which is why it exists - and for two stages the only thing it could do
+about the drift was report it. At the close of the rollout it reported **29 of 93 stand pages
+adrift**, twelve of the tokens on one component whose listing form batch 4 had written days earlier.
+Nothing in the table is a judgement: the set is `var(--x)` in the component's css minus what the file
+declares for itself, split by whether `tokens.css` calls the name semantic. All of it derived, so all
+of it writable. `--apply` rewrites both cells, both column headings and the two counts in the
+sentence above the table, then re-asks with itself. **29 -> 0.** And seven pages that carried no
+«Токени» section at all - every one of them written at batches 4 and 5 - now carry one; placement
+varies across the corpus, so the generated section is appended LAST and the file says so rather than
+dressing a default as a derivation.
+
+**`dupe.mjs` had a declared PAIR that had quietly become a trio.** `.wff-col h4` (footer column
+heading) and `.wfh-mega .mgt` (mega-menu column heading) were declared as a pair when they were a
+pair; `info-page.css` arrived at batch 3 with `.info-toc .tt`, byte-identical to both, and **the
+group failed the run instead of staying green**. That is the whole argument for writing an exception
+as a claim rather than as a mute: the list grew under it and the list said so.
+
+**`split.mjs` was red on a page that is correct.** `coach-client-new` carries the client list and may
+not carry the two-column frame - the DIALOG is the subject there, and a «choose a client» panel
+beside a form creating one is two answers to one question. The case was argued in prose inside the
+screen file, where no instrument reads it. Moved into the instrument with its reason and the same
+idle control every declared list here takes. With the one real failure closed beside it - an accent
+button crossing its own card border by 25px at 360-400, which the grey draws as a 12.5px prototype
+route and the rollout promoted to `btn--l` - `split.mjs` went from **6 failures to 0**.
+
+**And `theme.mjs` was doubled deliberately, with the cost written into the file.** It was already the
+longest walk in `tools/` and it is now twice that: on this machine a full corpus run goes from about
+twelve minutes to the better part of an hour. The cheaper design exists - only pages whose
+stylesheets carry a colour declaration inside a media query need the second width - and it is
+deliberately not taken, because deriving that list would mean this instrument keeping its own model
+of the cascade, and a list it derives can be wrong in exactly the direction that hid a 2.97:1 chip
+for two stages. **Correctness first; the narrowing is a decision with a reason, not an optimisation
+slipped in.**

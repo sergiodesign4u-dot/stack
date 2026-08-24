@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Підписку підтверджено - Stack (wireframe 8.12)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.12 Розсилка - стан «Підписку підтверджено», куди веде
+  посилання з листа подвійного підтвердження. Сама форма підписки - компонент
+  ПІДВАЛУ; це її сторінка успіху, і більше ніде вона не стоїть. `noindex` за
+  вузлом IA, а не тільки за правилом стенда. Без хлібних крихт - правило U4:
+  крихти стоять лише там, де є батько.
+
+  Body drawn by newsletter.css: .nl-wrap · .nl-card · .nl-check · .nl-promo +
+  .cap/.code/.note · .nl-foot. Заголовок і рядок під ним - `.sys-h` і `.sys-s`
+  з system-page.css, які вже публікують саме «центрований заголовок і його
+  речення»; пара виходів - `.actions .actions--center`. Класи, елементи не
+  міняють: `.sys-h` стоїть на `<h1>`, бо сторінці потрібен доступний H1.
+
+  ЩО ЦЯ СТОРІНКА НАВМИСНО НЕ ПОЗИЧАЄ. Плиту з `order-placed.css` - вона
+  намальована родиною УСПІХУ (`--bg-success-soft`, `--text-success`) і заслужила
+  її: гроші перейшли. Тут нічого не куплено, і позичена родина сказала б
+  відвідувачу, що покупка відбулась. І `.sys-min` з `system-page.css` - гола
+  колонка без картки, чия робота доповісти про ЗБІЙ. Та сама форма, інша заява.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <div class="nl-wrap">
+    <section class="nl-card" aria-label="Підписку підтверджено">
+      <div class="nl-check" aria-hidden="true">✓</div>
+      <h1 class="sys-h">Підписку підтверджено</h1>
+      <p class="sys-s">Ви підписані на розсилку Stack. Час від часу надсилатимемо акції, новинки
+        й корисні матеріали. Нижче - промокод на першу покупку.</p>
+
+      <div class="nl-promo">
+        <div class="cap">Ваш промокод</div>
+        <div class="code">STACK-XXXX</div>
+        <div class="note">Знижка на перше замовлення. Введіть його в кошику при оформленні. <span class="qmark">[розмір знижки - [?]]</span></div>
+      </div>
+
+      <div class="actions actions--center">
+        <a class="btn--accent" href="catalog-page.html">До каталогу</a>
+        <a class="btn--outline" href="index.html">На головну</a>
+      </div>
+
+      <p class="nl-foot">Передумали? Ви завжди можете
+        <a href="content-newsletter.html">відписатися</a> одним кліком у будь-якому листі.</p>
+    </section>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-newsletter.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

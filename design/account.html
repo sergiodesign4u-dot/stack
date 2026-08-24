@@ -110,16 +110,16 @@
           <div class="adef">
             <div class="tag">За замовчуванням</div>
             <div class="line">Нова Пошта, відділення № 12</div>
-            <div style="font-size:12.5px;color:var(--text-secondary);margin-top:2px">Одеса · Вікторія Коваль</div>
+            <div class="aline-sub">Одеса · Вікторія Коваль</div>
           </div>
           <div class="amore">Ще 1 збережена адреса (кур'єр НП, Одеса).</div>
         </div>
 
         <!-- Become-a-coach (or, if already a coach, go-to-cabinet) - role-aware via JS -->
-        <div class="acard" id="coach-banner" style="display:flex;flex-direction:column;justify-content:center">
+        <div class="acard acard--coach" id="coach-banner">
           <div class="ah"><h3>Ви тренер?</h3></div>
-          <p style="font-size:13.5px;color:var(--text-secondary);margin-bottom:14px">Активуйте роль тренера: гуртові ціни та замовлення одразу для кількох клієнтів в одну сесію.</p>
-          <a class="btn--outline btn--s btn" id="coach-cta" href="coach-verify.html" style="align-self:flex-start">Стати тренером</a>
+          <p>Активуйте роль тренера: гуртові ціни та замовлення одразу для кількох клієнтів в одну сесію.</p>
+          <a class="btn--outline btn--s btn" id="coach-cta" href="coach-verify.html">Стати тренером</a>
         </div>
 
       </div>
@@ -171,7 +171,7 @@
     var rk = document.getElementById('restock-card'); if (rk) rk.style.display = 'none';
   }
 
-  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+  uivFixLinks(); uivBar(); uivChrome(); uivInert(); uivAccount();
 </script>
 </body>
 </html>

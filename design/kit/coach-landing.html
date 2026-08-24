@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Лендинг тренера</h1>
 <p class="kp-lead">Публічні вхідні двері первинної бізнес-моделі: вузол 5.0 «Для тренерів». Єдина сторінка продукту, яку індексує пошук і яка продає, а не обслуговує. Чотири блоки, яких немає більше ніде, - шапка, стрічка переваг, пояснення в чотири кроки і таблиця Free / Pro.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-landing.css</span><span class="kp-tag">537 рядків</span><span class="kp-tag">38 селекторів</span><span class="kp-tag">133 оголошення</span><span class="kp-tag">1 екран</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-landing.css</span><span class="kp-tag">590 рядків</span><span class="kp-tag">41 селектор</span><span class="kp-tag">137 оголошень</span><span class="kp-tag">1 екран</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Розмітка тут <b>не переписана від руки</b>. Її знято з <code>design/coach-landing.html</code> у цій же сесії інструментом <code>tools/demo.mjs</code>: обробники зняті, посилання підняті на два рівні, <b>клас <code>coach</code> на <code>&lt;body&gt;</code> перенесено разом із розміткою</b>. Останнє тут не дрібниця - усі 38 селекторів файлу починаються з <code>.coach</code>, тож у рамці без цього класу не намалювалося б нічого.</p>
@@ -142,20 +142,7 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-landing.css</code>, не переписані руками. Колір іде лише через роль, геометрія - напряму з примітива. <b>Жодного сирого кольору у файлі немає</b>, хоча блок ніколи не проходив через <code>kit.css</code>: він приїхав просто зі сторінки етапу 04, і переклад сірих імен у ролі - це і є вся колірна робота кроку.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (25)</th></tr></thead><tbody>
-<tr><td><code>--bg-hatch</code></td><td><code>--font-display</code></td></tr>
-<tr><td><code>--bg-inverse</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code></td></tr>
-<tr><td><code>--bg-page</code></td><td><code>--fs-18</code> <code>--fs-24</code> <code>--fs-34</code></td></tr>
-<tr><td><code>--bg-surface</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
-<tr><td><code>--line-hair</code></td><td><code>--lh-snug</code> <code>--lh-airy</code></td></tr>
-<tr><td><code>--line-inverse</code></td><td><code>--ls-caps</code> <code>--ls-lead</code></td></tr>
-<tr><td><code>--mark-faint</code></td><td><code>--radius-12</code> <code>--radius-16</code></td></tr>
-<tr><td><code>--text-body</code></td><td><code>--radius-circle</code> <code>--radius-pill</code></td></tr>
-<tr><td><code>--text-muted</code></td><td><code>--size-30</code></td></tr>
-<tr><td><code>--text-oninverse</code></td><td><code>--space-4</code> <code>--space-8</code> <code>--space-12</code></td></tr>
-<tr><td><code>--text-primary</code></td><td><code>--space-16</code> <code>--space-32</code> <code>--space-40</code></td></tr>
-<tr><td><code>--text-secondary</code></td><td>–</td></tr>
-</tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (26)</th></tr></thead><tbody><tr><td><code>--bg-hatch</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--mark-faint</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-oninverse</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--font-display</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-24</code> <code>--fs-34</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-30</code> <code>--space-12</code> <code>--space-16</code> <code>--space-32</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p"><b>Одна роль на два ґрунти, і це навмисно.</b> <code>--bg-surface</code> несе шапку І дві підняті колонки таблиці. У сірому обидва були <code>--fill2</code> і не знали одне про одного; у кольорі це одна й та сама заява - «це зона, а не картка», - тож вони лишаються однією роллю і розійдуться лише тоді, коли таблиці знадобиться власна плита.</p>
 <div class="kp-cap">Одна роль узята за <b>роботою</b>, а не за значенням: <code>--mark-faint</code> на підписі всередині штрихування. За значенням це <code>--text-muted</code>, але напис усередині заповнювача в усьому продукті бере <code>--mark-faint</code>, і елемент <code>aria-hidden</code>, тож це мітка, а не інформація</div></section>
 

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Часті питання - Stack (wireframe 8.9)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.9 FAQ (Часті питання) - the shop-level grouped accordion,
+  separate from the product Q&A (3.2). Body drawn by faq-page.css:
+  .faq-grp > h2 + .ic · details.qa > summary + .chev + .a · .faq-help + .t/.s/.sp.
+  Nothing here is declared on the screen. The four names the grey block invented
+  are the system's already: .faq-lead is `.lintro` (seo-text.css), .faq-jump is
+  `.chips` + `.chip` (chip.css).
+
+  TWO THINGS THE GREY DOES AND THIS DOES NOT.
+  1) The grey opens two of the sixteen questions (`<details class="qa" open>` on
+     «Як оформити замовлення?» and «Якими службами ви доставляєте?»). faq-page.css
+     states the opposite in its own «Обмеження»: a question stands CLOSED, and the
+     line with `.trustsec` is drawn there - the trust block on a product page is
+     open because principle 1 makes it the lead, an FAQ that stood open would stop
+     being a list you can scan. Repaired here, reported to the parent.
+  2) The chevron is `＋` in grey and rotates 45°; the system rotates 180°, which
+     does nothing visible to a plus. `▾` is the glyph the whole product uses for
+     this (`.trustsec`, `.ord`), and marks.js swaps it for the set's chevron IN
+     PLACE so the rotation survives.
+
+  The six group glyphs stay emoji - uivChrome() does not enter <main>. The one
+  exception is `★`, which IS in UIV_SIGN_ONLY and comes back drawn by the set.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Часті питання</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Часті питання</h1>
+    <p class="lintro">Відповіді на найпоширеніші питання про замовлення, доставку, оплату,
+      повернення, оригінальність товару та бонусну програму Stack.</p>
+  </section>
+
+  <div class="chips" aria-label="Розділи">
+    <a class="chip" href="#orders">Замовлення</a>
+    <a class="chip" href="#delivery">Доставка</a>
+    <a class="chip" href="#payment">Оплата</a>
+    <a class="chip" href="#returns">Повернення</a>
+    <a class="chip" href="#product">Товар і сертифікати</a>
+    <a class="chip" href="#bonus">Бонуси</a>
+  </div>
+
+  <!-- Замовлення -->
+  <section class="faq-grp" id="orders" aria-label="Замовлення">
+    <h2><span class="ic">🛒</span>Замовлення</h2>
+    <details class="qa">
+      <summary>Як оформити замовлення? <span class="chev">▾</span></summary>
+      <div class="a">Додайте товари в кошик, натисніть «Оформити», вкажіть спосіб доставки й оплати
+        та підтвердіть замовлення. Реєстрація не обов'язкова - акаунт створюється автоматично за
+        номером телефону.</div>
+    </details>
+    <details class="qa">
+      <summary>Чи можна замовити без реєстрації? <span class="chev">▾</span></summary>
+      <div class="a">Так. На оформленні достатньо ввести номер телефону й отримати код - окремий
+        пароль не потрібен. Ми створимо акаунт, щоб ви бачили історію замовлень.</div>
+    </details>
+    <details class="qa">
+      <summary>Як повторити попереднє замовлення? <span class="chev">▾</span></summary>
+      <div class="a">У розділі <a href="account.html">«Кабінет → Замовлення»</a> біля кожного
+        замовлення є кнопка «↻ Повторити» - товари додаються в кошик у два дотики.</div>
+    </details>
+    <details class="qa">
+      <summary>Я тренер - як замовити одразу для кількох клієнтів? <span class="chev">▾</span></summary>
+      <div class="a">Активуйте роль тренера на сторінці <a href="coach-landing.html">«Для тренерів»</a>.
+        У кабінеті тренера доступна мультиклієнтська сесія: одне замовлення з поділом за клієнтами
+        та оптовими цінами.</div>
+    </details>
+  </section>
+
+  <!-- Доставка -->
+  <section class="faq-grp" id="delivery" aria-label="Доставка">
+    <h2><span class="ic">🚚</span>Доставка</h2>
+    <details class="qa">
+      <summary>Якими службами ви доставляєте? <span class="chev">▾</span></summary>
+      <div class="a">Нова Пошта (відділення та поштомати) й кур'єр по місту, а також самовивіз з нашого
+        магазину в Одесі. Деталі - на сторінці <a href="content-delivery.html">«Доставка й оплата»</a>.</div>
+    </details>
+    <details class="qa">
+      <summary>Скільки коштує доставка? <span class="chev">▾</span></summary>
+      <div class="a">Вартість залежить від служби й тарифу перевізника. Точні тарифи показуємо на
+        етапі оформлення після вибору способу доставки. <span class="qmark">[тарифи - операційне питання]</span></div>
+    </details>
+    <details class="qa">
+      <summary>Скільки днів іде замовлення? <span class="chev">▾</span></summary>
+      <div class="a">Товари в наявності відправляємо того ж або наступного робочого дня. Доставка
+        Новою Поштою зазвичай 1–3 дні залежно від міста.</div>
+    </details>
+  </section>
+
+  <!-- Оплата -->
+  <section class="faq-grp" id="payment" aria-label="Оплата">
+    <h2><span class="ic">💳</span>Оплата</h2>
+    <details class="qa">
+      <summary>Які способи оплати доступні? <span class="chev">▾</span></summary>
+      <div class="a">Оплата картою онлайн (LiqPay / Wayforpay), Apple Pay та Google Pay, накладений
+        платіж і готівка при самовивозі.</div>
+    </details>
+    <details class="qa">
+      <summary>Чи безпечно платити карткою? <span class="chev">▾</span></summary>
+      <div class="a">Так. Оплата картою проходить на захищеній сторінці платіжного провайдера -
+        ми не зберігаємо дані вашої картки.</div>
+    </details>
+  </section>
+
+  <!-- Повернення -->
+  <section class="faq-grp" id="returns" aria-label="Повернення">
+    <h2><span class="ic">↩️</span>Повернення</h2>
+    <details class="qa">
+      <summary>Чи можна повернути товар? <span class="chev">▾</span></summary>
+      <div class="a">Так, протягом 14 днів для товару належної якості з непошкодженим упакуванням.
+        Порядок - на сторінці <a href="content-returns.html">«Повернення»</a>.</div>
+    </details>
+    <details class="qa">
+      <summary>Що робити, якщо товар пошкоджений або не той? <span class="chev">▾</span></summary>
+      <div class="a">Напишіть у підтримку - ми замінимо товар або повернемо кошти. Претензії щодо
+        браку розглядаємо в пріоритеті.</div>
+    </details>
+  </section>
+
+  <!-- Товар і сертифікати -->
+  <section class="faq-grp" id="product" aria-label="Товар і сертифікати">
+    <h2><span class="ic">🛡️</span>Товар і сертифікати</h2>
+    <details class="qa">
+      <summary>Товар оригінальний? <span class="chev">▾</span></summary>
+      <div class="a">Так. Ми працюємо з офіційними постачальниками. На кожен товар є сертифікат
+        відповідності - переглянути можна на сторінці <a href="content-guarantee.html">«Гарантія та сертифікати»</a>
+        або в блоці «Сертифікація» на картці товару.</div>
+    </details>
+    <details class="qa">
+      <summary>Де побачити склад і дозування? <span class="chev">▾</span></summary>
+      <div class="a">На <a href="product.html">картці товару</a> - блок складу з порційною таблицею,
+        інструкція з дозування, походження й сертифікація йдуть одразу під кнопкою купівлі.</div>
+    </details>
+    <details class="qa">
+      <summary>Як зрозуміти, що підійде саме мені? <span class="chev">▾</span></summary>
+      <div class="a">Оберіть свою ціль у <a href="catalog-page.html">каталозі</a> - ми підберемо
+        зрозумілий і безпечний набір. Пізніше з'явиться і покроковий квіз.</div>
+    </details>
+  </section>
+
+  <!-- Бонуси -->
+  <section class="faq-grp" id="bonus" aria-label="Бонуси">
+    <h2><span class="ic">★</span>Бонуси та знижки</h2>
+    <details class="qa">
+      <summary>Як працюють бонуси? <span class="chev">▾</span></summary>
+      <div class="a">За покупки нараховуються бонусні гривні (~1% від суми), якими можна оплатити
+        частину наступного замовлення. Детально - на сторінці
+        <a href="content-loyalty.html">«Бонусна програма та знижки»</a>. <span class="qmark">[відсоток - [?]]</span></div>
+    </details>
+    <details class="qa">
+      <summary>Чи згорають бонуси? <span class="chev">▾</span></summary>
+      <div class="a">Так, бонуси діють обмежений час (орієнтовно 3 місяці від нарахування). Персональна
+        накопичувальна знижка за загальну суму покупок навпаки не згорає й зростає з часом.</div>
+    </details>
+  </section>
+
+  <!-- Не знайшли відповідь → підтримка (no dead end) -->
+  <div class="faq-help">
+    <div>
+      <div class="t">Не знайшли відповідь?</div>
+      <div class="s">Напишіть або зателефонуйте - консультанти Stack допоможуть із вибором і замовленням.</div>
+    </div>
+    <span class="sp"></span>
+    <a class="btn--accent" href="content-contacts.html">Зв'язатися з нами</a>
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис">
+    <div class="h">Часті питання про магазин Stack</div>
+    <p>Тут зібрані відповіді на питання про оформлення й повторення замовлень, способи та строки
+      доставки по Україні, оплату картою, накладеним платежем чи готівкою, обмін і повернення товару,
+      оригінальність продукції та сертифікати, а також бонусну програму й знижки.</p>
+    <p>Якщо потрібної відповіді немає - напишіть у підтримку. Ми відповідаємо швидко й допомагаємо
+      підібрати безпечний і зрозумілий набір спортивного харчування під вашу ціль.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-faq.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

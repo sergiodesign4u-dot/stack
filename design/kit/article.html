@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Стаття | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Стаття</h1>
+<p class="kp-lead">Тіло статті блогу: колонка прози шириною в міру читання, ліда, підзаголовки, врізка і сітка суміжних матеріалів під нею. Вузол 8.1, один екран.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/article.css</span><span class="kp-tag">125 рядків</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p"><code>.art</code> - це колонка, і її ширина <b>не 760</b>, як каже сірий блок, а <code>--container-text</code>. 760 не стоїть у жодному реєстрі, а <code>--container-text</code> - це те, що цей продукт розуміє під «колонкою прози»: <code>info-page.css</code> читає її для сусідніх сторінок, і зображення стоїть завширшки з текстом, якому воно належить.</p>
+<p class="kp-p">Усередині: <code>.art-meta</code> - рядок вихідних даних, <code>.art-hero</code> - кадр 16/9, <code>.art-body</code> - проза з власною лідою (<code>.lede</code>), заголовками <code>h3</code>, списком з намальованим маркером і <code>.art-callout</code> для врізки. <b>Суміжні статті стоять ПОЗА колонкою</b> - це секція після статті, тож вона бере всю сторінку і плинну сітку, як кожна інша сітка карток у системі.</p>
+<div class="kp-demo">
+<div class="art">
+  <h1 class="lh1">Скільки протеїну потрібно насправді</h1>
+  <div class="art-meta"><span>12 серпня 2026</span><span class="dot">·</span><span>7 хв читання</span><span class="dot">·</span><span>Базові знання</span></div>
+  <div class="art-hero">фото</div>
+  <div class="art-body">
+    <p class="lede">Для більшості людей, які тренуються 3-4 рази на тиждень, це 1,6-2,0 г на кілограм ваги на добу - і більша частина цього приходить з їжею, а не з банки.</p>
+    <h3>Звідки взялася ця цифра</h3>
+    <p>Діапазон 1,6-2,0 повторюється в оглядах останніх років і не залежить від бренду добавки. Нижня межа працює для підтримки, верхня - для набору сухої маси.</p>
+    <ul>
+      <li>1,2-1,4 г/кг - якщо ви не тренуєтесь</li>
+      <li>1,6-2,0 г/кг - силові 3-4 рази на тиждень</li>
+      <li>до 2,2 г/кг - на дефіциті калорій, щоб зберегти м'язи</li>
+    </ul>
+    <div class="art-callout">Протеїн з банки не «кращий» за протеїн з їжі. Він зручніший: одна порція закриває 25-30 г тоді, коли готувати ніколи.</div>
+    <p>Порахуйте свою денну норму і відніміть те, що вже приходить зі звичайного раціону. Різниця і є те, що має сенс докривати добавкою.</p>
+  </div>
+</div>
+<div class="kp-note">Суміжні статті нижче стоять уже поза <code>.art</code>:</div>
+<div class="relart">
+  <a href="#"><span class="rt">Креатин: як приймати без завантаження</span><span class="rd">5 хв · Базові знання</span></a>
+  <a href="#"><span class="rt">Що таке BCAA і кому вони потрібні</span><span class="rd">6 хв · Розбір складу</span></a>
+  <a href="#"><span class="rt">Як читати етикетку і не переплатити</span><span class="rd">8 хв · Довіра</span></a>
+</div>
+</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на <b>вузлі 8.1</b> - сторінці статті блогу. Це редакційний матеріал: у нього є автор, дата, час читання і суміжні матеріали.</p>
+<p class="kp-p">Потрібна проза на службовій сторінці (доставка, повернення, гарантія, про нас, контакти, юридичне) - це <code>info-page.css</code> і його <code>.info-body</code>, а не цей файл.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p"><b>Не позичати <code>.info-body</code> і не позичати цьому файлові.</b> <code>info-page.css</code> відкривається переліком своїх шести сторінок, і його власна <code>.info-tbl</code> відмовилась позичити <code>.ctable</code> на цій самій підставі партією раніше: правило вживання виграє в схожості. Службова сторінка ВІДПОВІДАЄ і читається уривками; стаття ВЕДЕ читача далі, і в її тіла є ліда, врізка і кадр.</p>
+<p class="kp-p"><code>.relart</code> не є списком посилань «дивіться також» у підвалі: це три картки після статті. Рядок суміжних ЗАПИТІВ - це <code>.relrow</code> з <code>related.css</code>, інший об'єкт.</p>
+<p class="kp-p">Ліда - одна, і вона одна на статтю. Друга ліда - це просто абзац.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Власних станів компонент не має: стаття не порожня і не завантажується окремо від сторінки. Рухаються тільки посилання - <code>.art-body a</code> міняє чорнило на <code>--dur-fast</code>, і картка суміжної статті бере край і тінь на наведенні. Обидва - робота <b>ВІДПОВІДЬ</b>.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">Та сама будова, що сховала <code>info-page.css</code> і <code>nav-tile.css</code>: у <code>wireframes/_wf.css</code> <b>немає жодного правила для <code>art-*</code></b>. Сірий екран несе все своє тіло у власному блоці <code>&lt;style&gt;</code>, що в сірому шарі законно і невидиме для інвентаря, зібраного зі спільної таблиці стилів. Третій файл партії з цим рядком - і на третьому це вже знахідка, а не виправдання: <b>уся група f4 стилювала себе сама.</b></p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>0</b> станів, які вона може назвати, але не показати наживо.</p><div id="idle"></div><script>var KIT_CLS=["art","art-meta","art-hero","art-body","art-callout","relart","lede","rt","rd"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>article.css</code>: <b>10</b> семантичних ролей і <b>23</b> примітивів. Список виводить <code>node tools/roles.mjs article</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (23)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--grid-col-min</code> <code>--grid-gap-fluid</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--radius-12</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

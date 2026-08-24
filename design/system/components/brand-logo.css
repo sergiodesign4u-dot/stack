@@ -23,3 +23,11 @@
   transition:filter var(--dur-fast) var(--ease-standard), opacity var(--dur-fast) var(--ease-standard); }
 .brandbox:hover img{ filter:none; opacity:1; }
 .brandbox:has(img) .bnm{ display:none; }
+
+/* ---------- the logo box INSIDE a card - stage 12, batch 2 ------------------
+   `brands.html` (node 2.4) is the brand INDEX, not the logo strip: 29 cards,
+   each opening with the same box this file already owns, at 54 rather than 62
+   because it sits inside a tile's padding instead of standing on the page. Size
+   belongs to the component that owns the box - a height written in `nav-tile.css`
+   would be that file reaching into this one's anatomy. */
+.brandbox--card{ height: var(--size-52); }

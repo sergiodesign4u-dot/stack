@@ -11,18 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE SEVENTH PRIVATE EDITION OF `.emptybox` IS GONE - 4 rules, step 8.41, and
-   8.30 had already removed the SIXTH from `coach-session-empty.html` - the
-   sibling of this screen, in the same flow, with the same block. A rename map
-   executed on one screen and not on the next, which is the mechanism this whole
-   item keeps finding. Written in element names (`.ico`, `h3`, `p`) exactly as
-   `coach-client-empty` was before 8.30; the markup takes `.emptybox` with
-   `.ei`, `.et`, `.es`, and every value comes with it - 1.5px dashed -> 1px
-   (7.62: Chrome resolves 1.5 to 1 before layout, so it never drew), radius 12
-   -> `--radius-12`, padding 26/18 -> 46/24, title 15/800 -> the display face at
-   `--fs-18`, body 12.5 -> `--fs-14` with the box's own 440 measure. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -70,7 +58,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Ігор">
       <div class="cs-client">
         <div class="cc-name">Ігор <span class="cc-goal">· ціль: Витривалість</span></div>
-        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -82,7 +70,7 @@
       <!-- IN-SESSION QUICK-ADD - the recovery for an empty client -->
       <div class="qadd">
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Витривалість», не загальний пошук</span></div>
-        <div class="qadd-field field-grp field-grp--s">
+        <div class="field-grp field-grp--s">
           <input class="field field--s" type="text" placeholder="Назва або артикул - ізотонік, BCAA, електроліти…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
@@ -142,7 +130,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'newclient'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'newclient'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

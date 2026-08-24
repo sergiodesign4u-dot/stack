@@ -50,7 +50,7 @@
 
    node tools/idle.mjs              every stand page
    node tools/idle.mjs button chip  only those */
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { Conn, newSession, visit } from './cdp.mjs';
 import { serve, chrome, subject, ROOT } from './lib.mjs';
@@ -96,9 +96,33 @@ const EXPR = `(() => {
     onlyNamed: pills('лише названо'),
     missSts:   pills('станів оголошено'),
     total: KIT_CLS.length,
+    cls: KIT_CLS,
     sts: (typeof KIT_STS === 'undefined' ? [] : KIT_STS),
   });
 })()`;
+
+/* 12.6: AND IT NEVER ASKED THE OTHER HALF. This file asks «is everything the page
+   DECLARED actually shown» - and a page declares its own list, so a page that
+   forgets a class is green about the classes it remembered. Measured the day it
+   was found: info-page.css held 21 classes and kit-info-page.html declared 4,
+   after the file grew by seven rules in one batch. The run printed «89 сторінок,
+   червоних 0». A stand page can lose seventeen classes of twenty-one and pass.
+   That is the exact shape CLAUDE.md forbids: a declared list that covers nothing
+   must fail as loudly as an undeclared case. So the declaration is now measured
+   against the FILE, not only against the demo.
+   AN ANCHOR, NOT EVERY CLASS. A component legitimately styles names it does not
+   own - .tag inside a tile, .btn inside a form - and demanding those in
+   KIT_CLS would turn every borrowed name into a defect. The question is only
+   about names this file and no other component declares, which is the same
+   definition inventory.mjs uses for its Screens walk. */
+const CDIR = join(ROOT, 'design/system/components');
+const cssFiles = readdirSync(CDIR).filter(f => f.endsWith('.css'));
+const stripCss = t => t.replace(/\/\*[\s\S]*?\*\//g, ' ');
+const classesOf = f => new Set([...stripCss(readFileSync(join(CDIR, f), 'utf8'))
+  .matchAll(/\.(-?[_a-zA-Z][\w-]*)/g)].map(m => m[1]));
+const owners = {};
+for (const f of cssFiles) for (const c of classesOf(f)) (owners[c] ||= []).push(f);
+const anchorsOf = f => [...classesOf(f)].filter(c => owners[c].length === 1);
 
 const names = subject(process.argv.slice(2), 'design/kit');
 const srv = await serve();
@@ -106,6 +130,7 @@ const l = await chrome('idle');
 const conn = await Conn.open(l.wsUrl);
 
 let declared = 0, red = 0, states = 0, demos = 0, fake = 0, unnamed = 0;
+let behind = 0;
 for (const p of names) {
   const s = await newSession(conn);
   let r = null;
@@ -117,8 +142,15 @@ for (const p of names) {
   declared++;
 
   const parked = parkedIn(p.split('/').pop(), r.sts);
+  /* the reverse question: does the declaration still cover the file */
+  const cssName = p.replace(/^kit\//, '').replace(/\.html$/, '') + '.css';
+  const uncovered = cssFiles.includes(cssName)
+    ? anchorsOf(cssName).filter(c => !(r.cls || []).includes(c)).sort()
+    : [];
+  behind += uncovered.length;
+
   const all = [...r.missing, ...r.onlyNamed];
-  if (r.ok && !parked.length) continue;
+  if (r.ok && !parked.length && !uncovered.length) continue;
   red++;
 
   const isSt = all.filter(toggled), owed = all.filter(c => !toggled(c));
@@ -130,10 +162,13 @@ for (const p of names) {
   if (owed.length) console.log('   винне демо (' + owed.length + '): ' + owed.join(' '));
   if (r.missSts.length) console.log('   оголошено станом і не названо (' + r.missSts.length + '): ' + r.missSts.join(' '));
   if (parked.length) console.log('   ПОРОЖНІЙ ВИНЯТОК - жоден скрипт не пише (' + parked.length + '): ' + parked.join(' '));
+  if (uncovered.length) console.log('   ОГОЛОШЕННЯ ВІДСТАЛО ВІД ФАЙЛА (' + uncovered.length +
+    ') - є в css, немає в KIT_CLS: ' + uncovered.join(' '));
 }
 l.stop(); srv.stop();
 
 console.log('\n' + declared + ' сторінок зі своїм контролем · червоних: ' + red);
 console.log('стан: ' + states + ' · винне демо: ' + demos +
-  ' · стан не названо: ' + unnamed + ' · порожній виняток: ' + fake);
+  ' · стан не названо: ' + unnamed + ' · порожній виняток: ' + fake +
+  ' · оголошення відстало: ' + behind);
 if (red) process.exit(1);

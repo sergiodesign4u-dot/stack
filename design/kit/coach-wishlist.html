@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Обране тренера</h1>
 <p class="kp-lead">Вузол 5.8 - збережені товари тренера. <b>Восьмий і останній</b> тренерський організм, і найдивніший файл системи: 278 рядків, <b>два селектори, сім оголошень</b>. Майже сорок рядків пояснення на кожне оголошення - рекорд, і майже все з них про те, чого цей файл НЕ робить.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-wishlist.css</span><span class="kp-tag">278 рядків</span><span class="kp-tag">2 селектори</span><span class="kp-tag">7 оголошень</span><span class="kp-tag">1 екран</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-wishlist.css</span><span class="kp-tag">295 рядків</span><span class="kp-tag">3 селектори</span><span class="kp-tag">8 оголошень</span><span class="kp-tag">1 екран</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Приватний блок був двома правилами, а в <code>&lt;main&gt;</code> двадцять шість контролів</div>
 <p class="kp-p">Це співвідношення і є весь файл, і воно протилежне тому, що зустрів крок 7.95: <code>index.css</code> записує приватні таблиці того кроку по <b>13-76 правил</b> кожна, тож там робота полягала у видаленні того, чим уже володів атом. Цей екран ніс <code>.cw-note</code> і <code>.cw-note b</code>, і більше нічого - бо його зібрано з <b>канонічної сітки <code>.pcard</code></b>, а в кожної її частини вже є власник:</p>
@@ -100,11 +100,7 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-wishlist.css</code>. <b>Три ролі й три примітиви на сім оголошень</b> - найкоротша таблиця на стенді, і кожен рядок лівої колонки це переклад сірого імені в роль, яка робить ту саму роботу.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Було в сірому</th><th>Примітиви (3)</th></tr></thead><tbody>
-<tr><td><code>--line-strong</code></td><td><i>--hair2</i> <i>#cfcfcf</i>, «Ash»</td><td><code>--fs-14</code></td></tr>
-<tr><td><code>--text-primary</code></td><td><i>--strong</i> <i>#111</i></td><td><code>--radius-8</code></td></tr>
-<tr><td><code>--text-secondary</code></td><td><i>--sec</i> <i>#777</i></td><td><code>--space-12</code></td></tr>
-</tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (3)</th><th>Примітиви (4)</th></tr></thead><tbody><tr><td><code>--line-strong</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--fs-14</code> <code>--radius-8</code> <code>--space-12</code></td></tr></tbody></table></div>
 <p class="kp-p">Права колонка написана курсивом навмисне: це <b>імена з іншої епохи</b>, не токени. <code>tokens.css</code> 7.69 каже, чому переклади живуть біля правила, а не тут - половина кольору існує, щоб сказати, де кольоровий продукт вирішив ІНАКШЕ, а переказ уже чинного значення нічого не малює й ховає ті рядки, які справді відрізняються. <b>Тут інакше не вирішив ніхто.</b></p>
 <p class="kp-p"><b>Половини кольору тут немає, і це чесний запис, а не порожній заголовок.</b> Кожен файл, розколотий на кроці 3, вийшов із ДВОХ джерел - <code>wireframes/_wf.css</code> для структури і <code>design/kit/kit.css</code> для кольору, - і друге перемагало там, де вони не сходились. У цього екрана редакції в <code>kit.css</code> не було ніколи: він один із трьох, доданих кроком 8.7 після пачки 7.95, і <b>саме через те, що він був лише сірим, обидва ці кроки й існують</b>.</p></section>
 

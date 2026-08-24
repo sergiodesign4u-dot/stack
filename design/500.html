@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Щось пішло не так (500) - Stack (wireframe S)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · 500. МІНІМАЛЬНИЙ ШАБЛОН, НЕЗАЛЕЖНИЙ ВІД БЕКЕНДУ (він сам
+  може лежати): без шапки, без підвалу, без даних каталогу. Гола центрована
+  колонка .sys-min - бо зламався сам магазин, і смуга навігації пропонувала б
+  двері, які не відчиняються. HTTP 500 + noindex. Спокійно, один ясний крок.
+
+  Body drawn by system-page.css: .sys-min · .sys-logo · .sys-code · .sys-h ·
+  .sys-s · .sys-foot. Ряд дій - патерн .actions .actions--center
+  (patterns/action-row.css), не власний контейнер: сірий .sys-acts це один з
+  53 імен, під якими та сама композиція стоїть у продукті.
+
+  H1 - «Щось пішло не так», а не сіре «Помилка на сервері». Обидва власники
+  рядків збігаються: voice/docs/microcopy.md (інтерфейсні рядки) і
+  ia/docs/pages/system.md (SEO-копія); сірий не є власником ані того, ані того
+  роду рядків. Title приведено у відповідність.
+
+  Ранг кнопок прочитано з сірого, а не обрано тут: btn dark -> btn--accent,
+  решта -> btn--outline.
+
+  Тихий рядок під діями - .sys-foot. Сірий пише його як .sys-s з інлайном на
+  верхній відступ і кегль, і без того інлайну виходить чотири пікселі повітря
+  замість вісімнадцяти: .sys-min має gap --space-4, а .sys-s не має верхнього
+  відступу взагалі. Тобто інлайн був не оздобленням, а загубленим правилом.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+
+<main class="sys-min" aria-label="Щось пішло не так">
+  <a class="sys-logo" href="index.html">Stack</a>
+  <div class="sys-code">500</div>
+  <h1 class="sys-h">Щось пішло не так</h1>
+  <p class="sys-s">На нашому боці сталася помилка. Ми вже розбираємось. Спробуйте оновити
+    сторінку за хвилину або поверніться на головну.</p>
+  <div class="actions actions--center">
+    <a class="btn--accent btn" href="500.html">Оновити сторінку</a>
+    <a class="btn--outline btn" href="index.html">На головну</a>
+    <a class="btn--outline btn" href="content-contacts.html">Підтримка</a>
+  </div>
+  <p class="sys-foot">Потрібна допомога? 0 800 000 000 · Telegram · Viber</p>
+</main>
+
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfBar('500.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

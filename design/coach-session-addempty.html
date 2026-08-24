@@ -11,15 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* NOTHING PRIVATE LEFT HERE - step 8.42, and the same block as its sibling:
-   coach-session-addclient carries the full note, this screen is the empty state
-   of the same modal and its 74 rules left the same way at step 8.31b.
-   Written out rather than referred to only by name: `.acov` / `.acmodal` /
-   `.ac-top` / `.ac-x` / `.acact` are now `.ceov` (overlay.css) and `.cemodal` /
-   `.ce-top` / `.ce-x` / `.ceact` (client-dialog.css), which also declares
-   `.ac-new`. This state has no `.ac-list`, because there is no one to list. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -66,7 +57,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
       <div class="cs-client">
         <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
-        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -78,7 +69,7 @@
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
-        <div class="qadd-field field-grp field-grp--s">
+        <div class="field-grp field-grp--s">
           <input class="field field--s" type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
@@ -106,16 +97,16 @@
 
       <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
       <div class="cs-lines-h">Товари для клієнта Андрій</div>
-      <div class="cs-lines">
+      <div>
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
             <div class="cl-var">Смак: Ваніль · Угорщина</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
@@ -123,13 +114,13 @@
 
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
             <div class="cl-var">Смак: Подвійний шоколад · США</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
@@ -176,14 +167,14 @@
     </div>
 
     <!-- launch the FULL new-client flow (separate) -->
-    <a class="ac-new" href="../wireframes/coach-client-new.html">
+    <a class="ac-new" href="coach-client-new.html">
       <span class="ic">＋</span>
       <span>Додати клієнта<span class="ac-new-sub">повне додавання: ім'я, ціль, телефон, e-mail, нотатки</span></span>
     </a>
 
     <div class="ceact">
       <a class="btn--outline btn--s btn" href="coach-session.html">Скасувати</a>
-      <a class="btn--accent btn--l btn" href="../wireframes/coach-client-new.html">Додати першого клієнта</a>
+      <a class="btn--accent btn--l btn" href="coach-client-new.html">Додати першого клієнта</a>
     </div>
   </div>
 </div>
@@ -193,7 +184,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addempty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'addempty'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

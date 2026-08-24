@@ -42,6 +42,7 @@ encodes PNG by hand: the repository has no image library and this is an asset
 tool run by whoever changes an asset, not a check run by every step.
 
     python3 tools/key-alpha.py <in.png> <out.png>
+    python3 tools/key-alpha.py --check [dir]     every PNG in the tree, and whether it has alpha
 """
 import zlib, struct, sys
 from collections import deque
@@ -189,10 +190,74 @@ def key(src, dst):
 
     write_rgba(dst, w, h, out)
     print('%-32s %dx%d  прозорих %.1f%% (%d від краю + %d у %d кишенях)  '
-          'мʼякий рант %d  збережено %d плям / %d px усередині малюнка'
+          "м'який рант %d  збережено %d плям / %d px усередині малюнка"
           % (src.split('/')[-1], w, h, 100*sum(bg)/(w*h), from_border, pocket_px, pockets,
              soft, kept, kept_px))
 
 
+def check(root):
+    """12.10 - THE TRANSFORM EXISTED AND THE CHECK DID NOT, and that cost two
+    assets and three screens. This file says of itself that it is «an asset tool
+    run by whoever changes an asset, not a check run by every step» - which was
+    a true description and a hole. Two mascots shipped as PNG colour type 2, no
+    alpha at all, and on a dark page `border-radius: 50%` turned the baked white
+    background into an opaque disc brighter than the accent button beside it.
+    Nothing in tools/ asked. A browser instrument sees a picture and is right to;
+    a source instrument never opens a PNG. A critique agent found one of the two
+    by looking at a dark screenshot, which is the failure mode this folder exists
+    to end.
+
+    The question is one byte: IHDR colour type. 0 and 2 carry no alpha channel.
+    An illustration composited on white and then placed on a dark ground is the
+    defect; a photograph that fills its own box is not - so the verdict names the
+    file and the caller decides, and the count is printed either way.
+    """
+    import os
+    # A picture only needs alpha if something shows THROUGH it. Two whole folders
+    # do not qualify, and each says why and carries its count - an exemption that
+    # covers nothing fails as loudly as an unasked file.
+    EXEMPT = {
+        'kit/screens': 'full-page screenshots: the picture IS the page, and there is no ground behind it',
+        'concept/assets': 'reference plates on the concept stand, which theme.mjs already declares outside the system by kind',
+    }
+    hits = {k: 0 for k in EXEMPT}
+    bad, seen, excused = [], 0, 0
+    for d, _, fs in os.walk(root):
+        if '/.git' in d or 'node_modules' in d:
+            continue
+        for f in sorted(fs):
+            if not f.endswith('.png'):
+                continue
+            p = os.path.join(d, f)
+            h = open(p, 'rb').read(33)
+            if h[:8] != b'\x89PNG\r\n\x1a\n':
+                continue
+            seen += 1
+            rel = os.path.relpath(p, root)
+            w, ht = struct.unpack('>II', h[16:24])
+            ct = h[25]
+            if ct not in (0, 2):
+                continue
+            ex = next((k for k in EXEMPT if rel.startswith(k + os.sep)), None)
+            if ex:
+                hits[ex] += 1
+                excused += 1
+                continue
+            bad.append((rel, w, ht, ct, os.path.getsize(p)))
+    print('PNG у дереві: %d  ·  БЕЗ АЛЬФА-КАНАЛУ: %d  ·  звільнено за родом: %d' % (seen, len(bad), excused))
+    for rel, w, ht, ct, sz in bad:
+        print('  %-44s %dx%d  colour type %d  %dKB' % (rel, w, ht, ct, sz // 1024))
+    for k, why in EXEMPT.items():
+        print('  виняток %-16s %d файлів - %s%s' % (k, hits[k], why,
+              '' if hits[k] else '   <<< ВИНЯТОК НІЧОГО НЕ ПОКРИВАЄ, його треба зняти'))
+    if bad:
+        print('\n  Малюнок, скомпонований на білому, стає непрозорою плямою на темній темі.')
+        print('  Лікується цим самим файлом: python3 tools/key-alpha.py <in.png> <out.png>')
+    return 1 if bad or not all(hits.values()) else 0
+
+
 if __name__ == '__main__':
+    if '--check' in sys.argv:
+        root = sys.argv[sys.argv.index('--check') + 1] if len(sys.argv) > sys.argv.index('--check') + 1 else 'design'
+        sys.exit(check(root))
     key(sys.argv[1], sys.argv[2])

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Плитка розділу | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 2</div>
+<h1 class="kp-h1">Плитка розділу</h1>
+<p class="kp-lead">Плитка, якою відкривають ОБСЯГ каталогу: категорію, бренд. Одна оболонка, два тіла. Заведена на замовлення двох агентів партії 2, які, не знаючи один про одного, попросили те саме різними словами.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/nav-tile.css</span><span class="kp-tag">89 рядків</span><span class="kp-tag">18 селекторів</span><span class="kp-tag">2 сірі екрани</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p"><b>Дві форми, і лише друга може нести посилання.</b> Плитка без посилань усередині - це якір: <code>&lt;a class="ntile"&gt;</code>. Плитка з підпосиланнями - це <code>&lt;div class="ntile"&gt;</code>, у якому якорем є НАЗВА, розтягнута на всю плитку через <code>::after</code>, а підпосилання стоять над цією зоною. Сірий оригінал кладе три <code>&lt;a&gt;</code> всередину четвертого; агент етапу 12 зняв розібраний DOM і побачив, що Chrome ділить таку плитку на якір, порожній дублікат якоря і <code>.nt-sub</code> ПОЗА сіткою - дванадцять плиток дали б двадцять чотири дитини. Це дефект замороженого сірого шару, полагоджений тут, а не вгору по ланцюгу.</p>
+<p class="kp-p">Сітка <code>.ntiles</code> плинна: <code>auto-fill</code> від <code>--grid-col-fluid</code>, як у <code>.prow</code>. Плитка <code>.ntile</code> - оболонка; усередині або <code>.nt-top</code> з міткою і назвою, або коробка логотипа з <code>brand-logo.css</code>.</p>
+<div class="kp-demo">
+<div class="ntiles">
+  <div class="ntile"><div class="nt-top"><span class="nt-ic">🥛</span><a class="nt-nm" href="#">Протеїн</a></div><div class="nt-sub"><a href="#">Сироватковий</a> · <a href="#">Ізолят</a> · <a href="#">Казеїн</a></div></div>
+  <div class="ntile"><div class="nt-top"><span class="nt-ic">⚗️</span><a class="nt-nm" href="#">Амінокислоти</a></div><div class="nt-sub"><a href="#">BCAA</a> · <a href="#">EAA</a> · <a href="#">Глютамін</a></div></div>
+  <a class="ntile" href="#"><span class="brandbox brandbox--card">OPTIMUM</span><span class="nt-nm">Optimum Nutrition</span><span class="nt-ctry">США</span><span class="nt-cnt">64 товари</span></a>
+  <a class="ntile" href="#"><span class="tag tag-new">Новинка</span><span class="brandbox brandbox--card">AB PRO</span><span class="nt-nm">AB PRO</span><span class="nt-ctry">Україна</span><span class="nt-cnt">18 товарів</span></a>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<ul class="kp-ul">
+<li><b>Плитка веде в ОБСЯГ</b>, а не до товару. Товар - це <code>product-card.css</code>; ціль - <code>goal-tile.css</code>; логотип без назви в стрічці на головній - <code>brand-logo.css</code> (<code>.brandrow</code>)</li>
+<li><b>Тіло-категорія:</b> мітка, назва, під ними перелік дітей посиланнями</li>
+<li><b>Тіло-бренд:</b> коробка логотипа, назва, країна, лічильник товарів</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<ul class="kp-ul">
+<li><b>Сітка не має точок.</b> <code>responsive.md</code> уже приписав обом екранам «WIDER · grid · fluid (auto-fit)». Сірі блоки несуть 720 і 1040; 1040 немає в реєстрі точок узагалі, а <code>product-grid.css</code> свій 1040 видалив на етапі 10, вимірявши, що він жодного разу не намалював чотири рівні колонки</li>
+<li><b>Плитка не підстрибує під курсором.</b> <code>.gtile</code> піднімається на 2px, бо шість плиток - це весь екран; тут їх двадцять дев'ять в одній сітці, і <code>transform</code> на такій картці платиться малюванням на кожен рух миші</li>
+<li><b>Бейдж має місце тільки тут.</b> <code>.tag</code> і <code>.tag-new</code> живуть у <code>badge.css</code> і вже означають це слово; чого не було - МІСЦЯ для бейджа на плитці без фотографії, бо <code>product-card.css</code> позиціонує <code>.tag</code> лише всередині <code>.pcard .ph</code></li>
+<li><b>Висота коробки логотипа належить <code>brand-logo.css</code></b>, не цьому файлу. Розмір - анатомія того компонента, і написаний тут він був би вторгненням</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<ul class="kp-ul">
+<li><b>hover</b> - край іде в <code>--line-action</code>, з'являється <code>--elevation-1</code></li>
+<li><b>hover на посиланні всередині</b> (<code>.nt-sub a</code>) - чорнило й лінія підкреслення йдуть в дію</li>
+<li><b>focus-visible</b> - від <code>base.css</code>, власного немає</li>
+<li><b>РУХ:</b> «відповідь», <code>--dur-fast</code> + <code>--ease-standard</code>, поіменно <code>border-color</code> і <code>box-shadow</code>. Жодного <code>transform</code>: див. «Обмеження»</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">Інвентар виводиться зі СТИЛІВ, а <code>wireframes/_wf.css</code> не має жодного правила ні на <code>chub-*</code>, ні на <code>b*</code>: обидва екрани несуть усю свою розкладку плиток у власному блоці <code>&lt;style&gt;</code>, що в сірому шарі законно й невидиме для всього, що читає спільний аркуш. Та сама причина, що в <code>info-page.css</code> на кроці 12.2.</p>
+<p class="kp-p"><b>І чому це ОДИН компонент, а не два.</b> Два агенти, які не знали один про одного, надіслали те саме замовлення різними словами - «картка бренду» для 29 карток вузла 2.4 і «плитка категорії» для 12 плиток вузла 2.0. Прочитані поруч, їхні сірі блоки оголошують ТУ САМУ оболонку - <code>border 1.5px var(--hair2)</code>, <code>radius 12</code>, <code>padding 13</code>, колонка з малим проміжком - і різняться лише тим, що стоїть усередині. Драбина читається за РОБОТОЮ: обидва - плитка, якою заходять в обсяг каталогу.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>8</b> власних класів і <b>0</b> станів, які вона може назвати, але не показати наживо.</p><div id="idle"></div><script>var KIT_CLS=["ntiles","ntile","nt-top","nt-ic","nt-nm","nt-sub","nt-ctry","nt-cnt"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>nav-tile.css</code>: <b>9</b> семантичних ролей і <b>12</b> примітивів. Список виводить <code>node tools/roles.mjs nav-tile</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (9)</th><th>Примітиви (12)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fw-bold</code> <code>--grid-col-fluid</code> <code>--grid-gap-fluid</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--size-32</code> <code>--space-12</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -11,13 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* TWO RULES GONE - step 8.41. `.ccard-acts .btn` was three declarations and
-   `coach-clients.css:332` had already deleted two of them by name - «KEPT ONLY
-   ITS `flex: 1`. `text-align: center` and the padding ...» - so this screen was
-   carrying the exact rule the component had settled. `.cl-sech` moved into
-   `coach-clients.css`. */
-</style>
 </head>
 <body class="coach">
 <!-- WIREFRAME · node 5.3 Клієнти - CAP (Free client limit reached).
@@ -49,7 +42,7 @@
       <section class="upsell" aria-label="Ліміт тарифу Free">
         <div class="ut">Ви досягли ліміту тарифу Free</div>
         <div class="ubar"><i></i></div>
-        <div class="up">На тарифі Free можна додати до <b>3 клієнтів</b> <span class="cl-sub" style="font-size:11.5px">(число уточнюється [?])</span>. Оновіть до <b>Pro</b>, щоб додавати необмежену кількість клієнтів і замовляти для всіх в одну сесію.</div>
+        <div class="up">На тарифі Free можна додати до <b>3 клієнтів</b> <span class="cl-sub">(число уточнюється [?])</span>. Оновіть до <b>Pro</b>, щоб додавати необмежену кількість клієнтів і замовляти для всіх в одну сесію.</div>
         <ul class="ulist">
           <li>Необмежена кількість клієнтів</li>
           <li>Мультиклієнтська сесія без обмежень</li>
@@ -128,7 +121,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfCoachNav('clients', {tier:'Free', cap:true}); wfBar('coach-clients.html','cap'); wfClientSplit();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfCoachNav('clients', {tier:'Free', cap:true}); wfBar('coach-clients.html','cap'); wfClientSplit();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

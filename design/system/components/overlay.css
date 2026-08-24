@@ -35,3 +35,23 @@
 
 /* ---------- colour (from design/kit/kit.css) ---------- */
 .wf-ov{ background:var(--scrim-overlay); }
+
+/* ---------- the page UNDER an overlay - stage 12, batch 2 -------------------
+   THE THIRD INSTANCE, AND THE FIRST THAT IS A TREATMENT. `rollout.md` section F
+   has carried «two answers to one problem, and neither is written as the rule»
+   since batch 1: `.cart-behind` went into `cart-drawer.css` and `.ce-behind`
+   stayed in a screen's own `<style>`. Reading them beside this one settles which
+   of the three is the odd one - and it is not this one. **`.cart-behind` and
+   `.ce-behind` describe the CONTENT of the page standing behind** (a width, a
+   padding, the size of its heading): they are page bodies that happen to be
+   behind something. `.dimbehind` on `search-suggest` describes what is DONE to
+   whatever is behind, whatever that is - faded, drained of colour, out of reach.
+
+   So the two are not merged into this and this is not merged into them. The name
+   drops its prefix because the treatment belongs to the overlay, not to the
+   page: any surface this file dims answers to it.
+
+   `pointer-events: none` is the half that matters and the half a screenshot
+   cannot show. `aria-hidden` on the same element is the markup's job and is not
+   enough on its own - see `uivInert()`; this rule is the visible half. */
+.behind{ opacity: .5; filter: grayscale(1); pointer-events: none; }

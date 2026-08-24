@@ -223,6 +223,23 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
 .vh{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip-path: inset(50%); border: 0; }
 
+/* THE MARK FOR A NUMBER NOBODY HAS YET - stage 12, step 2.
+   `CLAUDE.md`: «Every number that needs real data stays `[?]` - an invented
+   number poisons every stage below it.» The product keeps that promise on
+   screen: the coach tier percentage, the Free client cap, the Pro price and the
+   later-notification line all show `[?]` where a figure will go. Eight of them
+   were written as `style="color:var(--text-muted)"` on a bare span, on four
+   screens, and the fan-out would have written fifty more the same way.
+
+   IT LIVES HERE AND NOT IN `components/`, AND THE PRECEDENT IS THE RULE ABOVE
+   IT. The contribution rule charges five things for a component - a file, a
+   stand page, a registry row, an inventory row and an import. What it charges
+   them FOR is an object with anatomy, variants and states. This has none: one
+   declaration, no parts, nothing to hover. `.vh` is the same kind of thing and
+   has stood here since stage 08 for the same reason. A stand page of five blocks
+   describing one colour would be a page about a page. */
+.qmark{ color: var(--text-muted); }
+
 /* ==========================================================================
    MOTION THAT BELONGS TO NO COMPONENT - stage 11, step 4
    ========================================================================== */
@@ -314,3 +331,26 @@ input[type="checkbox"], input[type="radio"]{ accent-color:var(--bg-action); }
   ::view-transition-old(root),
   ::view-transition-new(root){ animation: none; }
 }
+
+/* ---------- the search match - stage 12, batch 2 ---------------------------
+   `<mark>` had NO RULE ANYWHERE: not in `design/system/`, not in `_stand.css`,
+   not in the grey `wireframes/_wf.css`. It stands on two grey files and on zero
+   coloured ones, which is exactly why the stage-07 inventory never met it - that
+   inventory is derived from the stylesheets, and there was nothing to derive.
+   Left alone in colour, the browser's own yellow would have been the only
+   highlight in a product that has no yellow.
+
+   It lives here rather than in a component because it is a text-level finish
+   with no anatomy of its own - the same reason `.qmark` sits beside `.vh`. Its
+   SECOND job, the one where the match must not wear a plate, belongs to the
+   surface that has it and is written in `search-overlay.css`. */
+mark{ background: var(--bg-sunken); color: var(--text-primary);
+  padding: 0 var(--space-2); border-radius: var(--radius-4); }
+
+/* 12.9: `<code>` HAD NO RULE ANYWHERE - not here, not in `design/system/`, not in
+   `_stand.css`, not in the grey `wireframes/_wf.css`. Measured on the built node
+   S: `font-family: monospace`, the browser default, in a product that loads IBM
+   Plex Mono and publishes `--font-mono`. Exactly the construction `mark` was in
+   one batch ago: a tag the corpus uses and no stylesheet had ever met, so a
+   stylesheet-derived inventory had nothing to derive. */
+code{ font-family: var(--font-mono); font-size: 0.925em; }

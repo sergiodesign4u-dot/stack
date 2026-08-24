@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Панель підказок пошуку | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Панель підказок пошуку</h1>
+<p class="kp-lead">Випадна панель під полем пошуку, яка на телефоні є повноекранним шитом. П'ять родів рядка в одній поверхні: доповнення запиту, нещодавній запит, піл категорії або бренду, прев'ю товару і вихід «показати все».</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/search-overlay.css</span><span class="kp-tag">129 рядків</span><span class="kp-tag">32 селектори</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p">Панель стоїть тут <b>наживо, з усіма своїми оголошеннями</b>, включно з <code>position: fixed</code> - її ловить сцена <code>.kp-stage</code>: трансформований предок стає контейнером для фіксованого нащадка. Перша редакція цієї сторінки показувала панель без скрима й без самої панелі, «щоб було видно на місці», і холостий контроль одразу сказав, що два власні класи лише названі словами. Сторінка компонента, яка не може показати свій компонент, доводить не більше за коментар.</p>
+<div class="kp-demo kp-stage">
+<div class="ov-dim"></div>
+<div class="ov-panel">
+<div class="ov-field"><span class="mag">🔍</span><span class="q">креа<span class="car"></span></span><button class="btn--text btn--s clr">Очистити</button></div>
+<div class="ov-sec"><div class="ov-sh"><span class="relh">Доповнення</span><a class="more" href="#">Очистити</a></div>
+  <a class="ov-row on" href="#"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин</span><span class="cn">128</span></a>
+  <a class="ov-row" href="#"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин моногідрат</span><span class="cn">64</span></a>
+</div>
+<div class="ov-sec"><div class="ov-sh"><span class="relh">Категорії та бренди</span></div>
+  <div class="ov-cbs"><a class="ov-cb" href="#"><span class="k">Категорія</span>Креатин</a><a class="ov-cb" href="#"><span class="k">Бренд</span>Optimum Nutrition</a></div>
+</div>
+<div class="ov-sec"><div class="ov-sh"><span class="relh">Товари</span></div>
+  <a class="ov-prod" href="#"><span class="th">фото</span><span class="pn">Optimum Nutrition <mark>Крea</mark>tine Monohydrate 500 г</span><span class="pp">890 ₴</span></a>
+</div>
+<a class="ov-all" href="#">Показати всі результати</a>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<ul class="kp-ul">
+<li><b>Тільки під полем пошуку.</b> Кожен рядок ВЕДЕ - до запиту, до товару, до категорії</li>
+<li><b>Не меню.</b> <code>menu.css</code> несе власне антиправило: «не роби меню з того, що веде»</li>
+<li><b>Не оверлей каталогу.</b> <code>cat-overlay.css</code> існує лише нижче 860</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<ul class="kp-ul">
+<li><b>Спершу телефон.</b> Сірий блок малює випадну панель і скасовує її під 560. Тут навпаки: шит - звичайний випадок, випадна панель - підсилення від 620. 560 у реєстрі точок немає, 620 є</li>
+<li><b>Верх - це ВІДНОШЕННЯ, не 96.</b> Панель висить під шапкою, а висоту шапки називає <code>--dr-top</code> ще відколи її потребувала шухляда</li>
+<li><b>Скрим не з <code>overlay.css</code>.</b> <code>.wf-ov</code> - це скрим із нулем дітей на z 60; панель на 41 опинилась би ПІД ним</li>
+<li><b><code>.ov-cb</code> - не чип.</b> Чип - це іменник, який натискають, щоб відфільтрувати; це підписане посилання</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<ul class="kp-ul">
+<li><b><code>.ov-row.on</code></b> - позиція клавіатури в списку. Виглядає так само, як hover, навмисно: для людини це те саме</li>
+<li><b>hover</b> на рядку, прев'ю і пілі; піл додає край дії</li>
+<li><b>РУХ:</b> «відповідь», <code>--dur-fast</code> + <code>--ease-standard</code>, поіменно <code>background</code> і <code>border-color</code>. Поява самої панелі - робота «зв'язок» і належить оверлею, а не цьому файлу</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Дві роботи одного <code>&lt;mark&gt;</code></div>
+<p class="kp-p">У НАЗВІ товару збіг носить плашку, бо назва довга, а збіг - її уламок. У ДОПОВНЕННІ запиту весь рядок і є запит, який дописують, тож плашка на половині читалася б як два слова - там працює сама лише жирність. Перша робота живе в <code>base.css</code> (це текстова обробка без анатомії, як <code>.qmark</code>), друга - тут, бо нею володіє поверхня, яка її має.</p>
+<p class="kp-p"><b>До цього етапу правила на <code>&lt;mark&gt;</code> не було НІДЕ</b> - ні в <code>design/system/</code>, ні в <code>_stand.css</code>, ні в сірому <code>wireframes/_wf.css</code>. Тег стоїть на двох сірих файлах і на нулі кольорових; інвентар етапу 07 виводиться зі стилів, а виводити не було з чого. Лишений як є, у кольорі він віддався б жовтому дефолту браузера - єдиному жовтому в продукті, який жовтого не має.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>15</b> власних класів. Два з них - <code>.ov-dim</code> і <code>.ov-panel</code> - тут навмисно НЕ стоять наживо: обидва <code>position: fixed</code>, і поставлені на вітрині вони накрили б сторінку стенда собою. Названі в тексті, тож контроль має показати їх окремим рядком, а не як пропуск.</p><div id="idle"></div><script>var KIT_CLS=["ov-dim","ov-panel","ov-field","ov-sec","ov-sh","ov-row","ov-cbs","ov-cb","ov-prod","ov-all","mag","tx","k","pn","pp"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>search-overlay.css</code>: <b>14</b> семантичних ролей і <b>21</b> примітивів. Список виводить <code>node tools/roles.mjs search-overlay</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (14)</th><th>Примітиви (21)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-4</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-faint</code> <code>--scrim-overlay</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--dr-top</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-10</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-8</code> <code>--shell-top</code> <code>--size-20</code> <code>--size-46</code> <code>--space-12</code> <code>--space-16</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

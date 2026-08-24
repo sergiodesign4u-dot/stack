@@ -88,3 +88,35 @@
 @media (max-width:859px){
   .uiv-bear{ display:none; }
 }
+
+/* ---------- 12.8: THE LEAD HAD NO AIR UNDER IT, AND TWO SCREENS PROVED IT ----
+   `.lintro` is `margin: 8 0 0` - it spaces itself from the H1 above and says
+   nothing about what follows. On eleven listing pages that never showed,
+   because what follows is a toolbar or a grid that carries its own top margin.
+   Nodes 8.9 and 8.11 put a chip row and a section head directly under it, and
+   both measured ZERO: `content-legal` only escapes because `.chips--sticky`
+   happens to carry padding, and `brands` because `.toolbar--all` happens to
+   carry a bottom margin. A gap that exists as a side effect on two screens and
+   not at all on two others is not a decision anywhere.
+
+   WRONG VERSION 1, AND `dead-sel.mjs` FOUND IT THE SAME DAY IT WAS WRITTEN.
+   The first repair was three adjacency rules - `.lintro + .chips`, `+ .sech`,
+   `+ .toolbar` - and two of them **could never match anything**: `.lintro` is
+   the LAST CHILD of the header `<section>`, and the chip row is a sibling of
+   that section, not of the paragraph. A repair aimed at the wrong element is
+   indistinguishable from no repair, and the browser is the only thing that can
+   tell the two apart.
+
+   MEASURED AT 390 ON SIX PAGES BEFORE THE SECOND ATTEMPT: `content-faq` 0px,
+   `content-reviews` 0px, `content-legal` 0px, `listing` 0px, `brands` 16px,
+   `catalog-page` 32px. The two that are fine get their air from the block that
+   FOLLOWS - `.toolbar--all` and `.sech` each carry their own top margin - so the
+   blocks below do not agree with each other and four of six get nothing.
+
+   SO THE LEAD OWNS THE AIR UNDER IT, and margin collapsing is what makes one
+   declaration correct rather than approximate: the paragraph is the last child
+   of a section with no padding and no border, so its bottom margin collapses
+   through and meets whatever the next block asks for. 16 where there was 0, and
+   `max(16, 16)` and `max(16, 32)` where a neighbour already spoke - the two
+   pages that were right stay exactly as they were. */
+.lintro{ margin-bottom: var(--space-16); }

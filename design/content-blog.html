@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Блог - Stack (wireframe 8.0)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.0 Блог (listing). Breadcrumb → H1 + lead → search + tag
+  chips → card grid → pagination → SEO block. Inherited header/footer from
+  ../wireframes/_nav.js.
+  THE GREY NAMES ARE NOT THE NAMES HERE, and blog-card.css says why: the grey
+  screen calls its card `.bcard`, which is ALSO what brands.html calls a brand
+  card. The listing form of the blog card keeps this file's own `b*` family -
+  `.blogfeed` / `.blogcard` / `.bim` + `.bcat` / `.btx` / `.bt` / `.bex` /
+  `.bfoot` + `.bdt` + `.bread` - and the collision dies with the grey layer.
+  Photographs come from blog-card.css by POSITION (`:nth-child(3n+…)`), so the
+  frame is empty here: six cards over three files, and a seventh would inherit
+  an image rather than nothing.
+  Lead = `.lintro` (seo-text.css), the one name for a lead under an H1.
+  Search = `.field-grp` (field.css) inside `.toolbar--all` (toolbar.css), the
+  toolbar that wraps instead of splitting at 860 - the same shape brands.html
+  reached for. Tags = `.chips`/`.chip` (chip.css). Pager = pagination.css with
+  button.css finishes. The 8.x family keeps its emoji: uivChrome() does not
+  enter <main>, and `.pages` is one of the few named exceptions.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb. The slash is drawn by breadcrumb.css - a typed one shows twice. -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Блог</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Блог</h1>
+    <p class="lintro">Гайди, розбори складу й дозувань, підбірки під ціль та поради від команди
+      Stack - просто й без води, щоб ви обирали спортивне харчування впевнено.</p>
+  </section>
+
+  <!-- Search. One row at every width; the field shares the line, it does not take it. -->
+  <div class="toolbar--all">
+    <form class="field-grp" role="search" onsubmit="return false">
+      <input class="field" type="search" placeholder="Пошук у блозі - напр. «протеїн для початківця»" aria-label="Пошук у блозі">
+      <button class="btn--accent btn--icon" type="submit" aria-label="Знайти">🔎</button>
+    </form>
+  </div>
+
+  <!-- Tag chips: exactly one is on, which is the segment rung of chip.css -->
+  <nav class="chips" aria-label="Категорії блога">
+    <a class="chip on" href="content-blog.html" aria-current="page">Усі</a>
+    <a class="chip" href="content-blog.html">Для початківців</a>
+    <a class="chip" href="content-blog.html">Набір маси</a>
+    <a class="chip" href="content-blog.html">Схуднення</a>
+    <a class="chip" href="content-blog.html">Відновлення</a>
+    <a class="chip" href="content-blog.html">Склад і дозування</a>
+    <a class="chip" href="content-blog.html">Тренерам</a>
+  </nav>
+
+  <!-- Article card grid. Fluid: auto-fill on the panel floor gives two, three or
+       four columns by the width available - the grey block's 1040 is in no registry. -->
+  <div class="blogfeed">
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Для початківців</span></div>
+      <div class="btx">
+        <div class="bt">Протеїн для початківця: з чого почати</div>
+        <div class="bex">Який протеїн обрати новачку, скільки й коли пити, і чому склад важливіший за смак.</div>
+        <div class="bfoot"><span class="bdt">28 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Набір маси</span></div>
+      <div class="btx">
+        <div class="bt">Гейнер чи протеїн: що обрати для набору маси</div>
+        <div class="bex">Розбираємо різницю, кому підходить гейнер, і як не переплатити за зайві калорії.</div>
+        <div class="bfoot"><span class="bdt">24 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Склад і дозування</span></div>
+      <div class="btx">
+        <div class="bt">Креатин моногідрат: скільки, коли і навіщо</div>
+        <div class="bex">Проста інструкція з дозування без фази завантаження - і чому це найбільш вивчена добавка.</div>
+        <div class="bfoot"><span class="bdt">19 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Схуднення</span></div>
+      <div class="btx">
+        <div class="bt">Жироспалювачі й L-карнітин: що реально працює</div>
+        <div class="bex">Чесно про очікування, безпеку й місце добавок у процесі схуднення.</div>
+        <div class="bfoot"><span class="bdt">14 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Відновлення</span></div>
+      <div class="btx">
+        <div class="bt">BCAA, EAA та глютамін: чи потрібні вони вам</div>
+        <div class="bex">Коли амінокислоти мають сенс, а коли вистачить якісного протеїну.</div>
+        <div class="bfoot"><span class="bdt">9 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+    <a class="blogcard" href="content-article.html">
+      <div class="bim"><span class="bcat">Тренерам</span></div>
+      <div class="btx">
+        <div class="bt">Як тренеру швидко замовляти для групи клієнтів</div>
+        <div class="bex">Мультиклієнтська сесія, оптові ціни й історія по кожному клієнту - за один захід.</div>
+        <div class="bfoot"><span class="bdt">3 червня 2026</span><span class="bread">Читати →</span></div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Pagination -->
+  <nav class="pgnav" aria-label="Пагінація">
+    <button class="btn--outline loadmore">Показати ще статті</button>
+    <div class="pages"><a class="btn--outline btn--icon btn--s on" href="?page=1" aria-current="page">1</a><a class="btn--outline btn--icon btn--s" href="?page=2">2</a><a class="btn--outline btn--icon btn--s" href="?page=3">3</a><a class="btn--outline btn--icon btn--s" href="?page=2" aria-label="Наступна сторінка">›</a></div>
+  </nav>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис блога">
+    <div class="h">Блог про спортивне харчування Stack</div>
+    <p>У блозі Stack ми пояснюємо просто: який протеїн, гейнер, креатин чи амінокислоти обрати під
+      вашу ціль, як читати склад і дозування, і як почати без страху й помилок. Матеріали готують
+      із опорою на дані виробників і практику тренерів.</p>
+    <p>Читайте гайди для початківців, підбірки для набору маси, схуднення й відновлення, а також
+      поради тренерам - і переходьте одразу до перевірених товарів у каталозі.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-blog.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

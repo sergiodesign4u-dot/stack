@@ -15,7 +15,15 @@
   background: var(--bg-page); font-size: var(--fs-14);
   color: var(--text-muted); font-weight: var(--fw-semibold); }
 .listing{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); margin-top: var(--space-16); }
-.mtoolbar{ position: sticky; top: 57px; z-index: 20; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+/* 12.10 - THE 57 THAT EVERY OTHER STICKY ROW BORROWED, and it was never proved
+   against the header it clears. `chip.css` cites this rule as «the one rule in
+   this system proven to stick under this header»; it is `display: none` above
+   860 (see the block below), so on a desktop it has never met that header at
+   all, and the number it lent out clipped the row that borrowed it by 8px.
+   `uivStickyHeader()` now publishes the header's CONDENSED height, so both rows
+   read the measurement instead of trading a literal. The literal stays as the
+   fallback, for a page that renders no header. */
+.mtoolbar{ position: sticky; top: calc(var(--shell-top-live, 0px) + var(--shell-header-h, 57px)); z-index: 20; background: var(--bg-page); display: flex; gap: var(--space-12); padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
 .mtoolbar .mc{ flex: 1; }
 .mtoolbar .mc .b{ border-radius: var(--radius-pill); font-size: var(--fs-12); font-weight: var(--fw-black); padding: var(--space-2) var(--space-8); }
 /* 10.4: THREE QUERIES, ONE BEHAVIOUR, ONE BLOCK. This file used to state
@@ -60,3 +68,29 @@
    a descendant that could never match anything, which is why nothing broke and
    nobody noticed. Both halves are gone; the class exists in no html and no
    script. */
+
+/* ---------- the toolbar that does NOT split at 860 - stage 12, batch 2 ------
+   THE PAIR IN THIS FILE IS A PAIR ON PURPOSE, and rule U6 says so: `.ltool` is
+   the desktop half (`display: none` until 860), `.mtoolbar` the phone half
+   (`display: none` from 860), one toolbar per screen. `brands.html` has a third
+   case that neither half can serve: its filter row - search field, country
+   select, sort select - is the SAME row at 360 and at 1280, and the grey block
+   carries no media query at all. Handed either existing half it would have been
+   invisible on half the widths, and invisible in a way no gate reads: both
+   halves are legal css and the screen looks intentional at the width you happen
+   to open.
+
+   It wraps instead of splitting, which is the whole reason it can stay one row:
+   three controls that each have a minimum and no fixed width. */
+.toolbar--all{ display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--space-12); margin: var(--space-16) 0 var(--space-8); }
+/* AND THE FIRST WRITING OF THIS PROMISED A ROW IT COULD NOT DRAW. The comment
+   above says «three controls that each have a minimum and no fixed width», and
+   two of the three are true: the buttons size to their words. The field is not -
+   field.css gives .field-grp `width: 100%`, so as a flex item it takes the whole
+   line by itself and the selects wrap under it at EVERY width. The agent that
+   built brands.html measured that rather than reporting a feeling: 96px tall at
+   620, 860 and 1280, against 44 with the field allowed to share. The two numbers
+   below are the grey block own values (flex 1 1 240px, min-width 180px) written
+   on the rungs this system uses. At 360 it still wraps, which is what grey does. */
+.toolbar--all > .field-grp{ width: auto; flex: 1 1 15rem; min-width: 11.25rem; }

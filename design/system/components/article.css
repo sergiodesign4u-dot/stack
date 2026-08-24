@@ -1,0 +1,124 @@
+/* article.css - the article, node 8.1 (level 3)
+   Added at stage 12, batch 4, by the parent.
+
+   WHY NOT `info-page.css`, WHICH DRAWS A BODY OF PROSE ALREADY. That file opens
+   by naming its six service pages, and its own `.info-tbl` refused to borrow
+   `.ctable` on exactly this ground one batch ago: «the rule of use wins over the
+   resemblance - either the owner widens that sentence, or this file carries its
+   own table. It carries its own.» The same sentence answers this file. And the
+   jobs differ where it shows: a service page ANSWERS (what the delivery costs,
+   how a return works) and its body is a reference read in fragments; an article
+   PERSUADES a reader to keep reading, and its body has a lede, an aside and a
+   picture. Two rungs of «prose in a column» that share no number worth sharing.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT. The same construction that hid
+   `info-page.css` and `nav-tile.css`: `wireframes/_wf.css` has no rule for
+   `art-*` at all. The grey screen carries its whole body in its own `<style>`
+   block, which is legal in the grey layer and invisible to an inventory derived
+   from the shared stylesheet.
+
+   THE COLUMN IS THE MEASURE, NOT 760. The grey block caps the article at 760px,
+   a number in no registry. `--container-text` is what this product means by «a
+   column of prose», `info-page.css` reads it for the sibling pages, and the
+   picture sits at the width of the text it belongs to rather than at a width
+   chosen for it. The related articles are NOT inside that column - they are a
+   section after the article, so they take the page and a fluid grid, which is
+   what every other card grid in this system does. */
+
+/* ---------- structure ---------- */
+.art{ max-width: var(--container-text); }
+
+/* the byline row. `.dot` is written by three other files as a separator; scoped
+   here so this one cannot reach them and they cannot reach it.
+   AND THE DOT IS INK, NOT A LINE. The first writing gave it `--line-strong`,
+   which is the role of an EDGE, and the theme census read it at 1.41 in light
+   and 1.58 in dark against a floor of 4.5 - a separator nobody can see is not a
+   separator. It carries the ink of the row it divides, so it is exactly as
+   legible as the words on either side of it. Caught by running `theme.mjs` on
+   the component instead of on the batch, which is the rule this stage learned
+   the expensive way: three instances of one colour mistake in one day, and the
+   third was written WHILE the first two were being repaired. */
+.art-meta{ display: flex; gap: var(--space-8); flex-wrap: wrap; align-items: center;
+  font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-8); }
+.art-meta .dot{ color: var(--text-muted); }
+
+.art-hero{ aspect-ratio: 16 / 9; border: 1px solid var(--line-hair);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-14); margin: var(--space-24) 0 var(--space-4); }
+
+.art-body{ font-size: var(--fs-16); color: var(--text-body); line-height: var(--lh-airy); }
+/* THE LEDE IS A RUNG OF THE BODY, NOT A SECOND PARAGRAPH STYLE: one sentence
+   that answers the title before any section starts, which is what the IA node
+   asks of an SEO body («simple answer first, then H3 sections»). */
+.art-body .lede{ font-size: var(--fs-18); font-weight: var(--fw-semibold);
+  color: var(--text-primary); line-height: var(--lh-snug);
+  margin: var(--space-24) 0 var(--space-8); }
+/* 12.9: `h3:first-child` REMOVED, measured dead the day it was written. The
+   body of an article opens with the LEDE - that is the IA node's own rule for an
+   SEO body, «simple answer first, then H3 sections» - so an `h3` is never the
+   first child and the reset never ran. Copied from `info-page.css`, where the
+   same selector is alive because a service page does open on a heading. **A rule
+   borrowed from a sibling carries the sibling's markup with it**, and only the
+   browser can say whether it arrived. */
+.art-body h3{ font-size: var(--fs-20); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: var(--space-32) 0 var(--space-12); }
+.art-body p{ margin-bottom: var(--space-16); }
+/* the same broken render `info-page.css` closed at 12.4: `base.css` zeroes every
+   padding without resetting `list-style`, so a bare list loses its indent and
+   keeps a disc that then hangs outside the box. The marker is drawn, like there. */
+.art-body ul{ margin-bottom: var(--space-16); list-style: none; }
+.art-body li{ position: relative; padding-inline-start: var(--space-16); }
+.art-body li + li{ margin-top: var(--space-8); }
+.art-body li::before{ content: '-'; position: absolute; inset-inline-start: 0;
+  color: var(--text-muted); }
+.art-body a{ color: var(--text-primary); font-weight: var(--fw-bold);
+  text-decoration: underline; text-underline-offset: 2px;
+  transition: color var(--dur-fast) var(--ease-standard); }
+.art-body a:hover{ color: var(--text-action); }
+
+/* the aside inside prose. Sunken, for the reason every other aside in this
+   system is sunken - `.info-card--note` made the same call one batch ago. */
+.art-callout{ border: 1px solid var(--line-hair); padding: var(--space-16);
+  font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); margin: var(--space-4) 0 var(--space-24); }
+
+/* ---------- related articles: a section AFTER the column ---------- */
+.relart{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min), 100%), 1fr));
+  gap: var(--grid-gap-fluid); margin-top: var(--space-16); }
+.relart a{ border: 1px solid var(--line-hair); padding: var(--space-12) var(--space-16);
+  display: block; }
+.relart .rt{ display: block; font-size: var(--fs-14); font-weight: var(--fw-black);
+  color: var(--text-primary); line-height: var(--lh-snug); }
+.relart .rd{ display: block; font-size: var(--fs-12); color: var(--text-muted);
+  margin-top: var(--space-8); }
+
+/* ---------- colour ---------- */
+/* 12.8: THE HERO DREW THE WORD «фото», 686x386, ON A PAGE A PERSON READS.
+   Every other media frame in the coloured layer is painted by the system -
+   `blog-card.css`, `promo-card.css`, `product-card.css`, `banner.css` all put
+   the photograph in the stylesheet and the screen file carries none. The
+   article hero was the one frame that did not, so the grey placeholder survived
+   into colour. The label is not deleted from the markup, it is not drawn:
+   `font-size: 0` is the idiom `gallery.css` already uses on `.gmain` for
+   exactly this, so the word stays for whoever reads the source and disappears
+   for whoever reads the page. The photograph is the one this article already
+   owns - it is card #1 of the blog listing, the same subject. */
+.art-hero{ border-radius: var(--radius-12);
+  background: var(--bg-sunken) url(../../visuals/blog-protein.jpg) center/cover no-repeat;
+  color: var(--text-secondary); font-size: 0; }
+.art-callout{ border-radius: var(--radius-8); background: var(--bg-sunken); }
+
+/* THE MEASURE, AND I WROTE THE LESSON AND THEN REPEATED THE MISTAKE IN THE SAME
+   BATCH. `.art` is capped at `--container-text`, which is `68ch` resolved at the
+   column's own 16px; `.art-callout` is `--fs-14`, so the same box is 77.7 of ITS
+   characters - the exact arithmetic 12.7 found on `info-page.css` three files
+   ago. Every other leaf of this batch was capped when it was written and this one
+   was not, which is why the ceiling goes on the LEAF as a habit rather than as a
+   repair: the sweep found it, not the reading. */
+.art-callout{ max-width: var(--container-text); }
+.art-meta{ max-width: var(--container-text); }
+.relart a{ border-radius: var(--radius-8); background: var(--bg-page);
+  transition: border-color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-fast) var(--ease-standard); }
+.relart a:hover{ border-color: var(--line-strong); box-shadow: var(--elevation-1); }

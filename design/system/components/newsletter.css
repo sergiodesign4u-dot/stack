@@ -1,0 +1,72 @@
+/* newsletter.css - the subscription confirmed page, node 8.12 (level 3)
+   Added at stage 12, batch 4, by the parent.
+
+   THE PAGE IS THE SUCCESS STATE OF A FOOTER COMPONENT. The newsletter form
+   itself lives in the footer; this is where the double-opt-in link lands. One
+   screen, `noindex`, and the IA node says so.
+
+   WHY NOT `order-placed.css`, WHICH IS ALREADY A CONFIRMATION PLATE. Its plate
+   is drawn in the SUCCESS family - `--line-success-soft`, `--bg-success-soft`,
+   `--text-success` on the disc - and it earns them: money changed hands and an
+   order exists. Nothing was bought here. Borrowing that ground would tell the
+   visitor a purchase completed, which is the one thing this page must not say.
+   Same shape, different claim, and the roles are where the claim lives.
+
+   WHY NOT `system-page.css`. `.sys-min` is a bare centred column with no card at
+   all, and its job is to report a FAULT - 404, 500, maintenance. A confirmation
+   drawn as a fault page is the same mistake in the other direction.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT. `wireframes/_wf.css` has no rule
+   for `nl-*`. Fourth file of this batch with that sentence, and the pattern is
+   now the finding rather than the excuse: every screen of the f4 group styled
+   itself in its own `<style>` block, so an inventory derived from the shared
+   stylesheet could not see the group at all.
+
+   WHAT IT DOES NOT DRAW. The two buttons are `.actions .actions--center`; the
+   title and the sub-line are `.sys-h` and `.sys-s`, which `system-page.css`
+   already publishes as «a centred title and its sentence» and which this page
+   uses at the same sizes. Only the card, the mark and the code plate are here. */
+
+/* ---------- structure ---------- */
+.nl-wrap{ display: flex; align-items: center; justify-content: center;
+  padding: var(--space-32) 0; }
+.nl-card{ max-width: 30rem; width: 100%; text-align: center;
+  border: 1px solid var(--line-strong); padding: var(--space-32) var(--space-24); }
+/* the mark, one rung below `.op-check`'s 64: this is a quieter moment than an
+   order, and the size is the only thing that says so. The grey block says 60,
+   which is not a rung this system has - the ladder runs 44, 46, 64 - and a
+   fourth number would be a token nobody asked for. 46 is the rung, and it is
+   the one `.cv-ok .m` already stands at for the same kind of moment. */
+.nl-check{ width: var(--size-46); height: var(--size-46); margin: 0 auto;
+  border: 1px solid var(--line-strong); display: flex;
+  align-items: center; justify-content: center; font-size: var(--fs-24);
+  color: var(--text-primary); }
+
+/* the code plate. Dashed, like every other «cut here» plate in this system -
+   `.op-bonus` and `.me-warn`'s ancestor `.abonus .warn` are the two precedents. */
+.nl-promo{ border: 1px dashed var(--line-strong); padding: var(--space-16);
+  margin: var(--space-24) 0 var(--space-4); }
+.nl-promo .cap{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+.nl-promo .code{ font-size: var(--fs-24); font-weight: var(--fw-black);
+  color: var(--text-primary); letter-spacing: var(--ls-caps);
+  margin: var(--space-8) 0 var(--space-4); }
+.nl-promo .note{ font-size: var(--fs-12); color: var(--text-secondary); }
+
+.nl-foot{ font-size: var(--fs-12); color: var(--text-muted);
+  margin-top: var(--space-16); line-height: var(--lh-airy); }
+.nl-foot a{ color: var(--text-secondary); text-decoration: underline;
+  text-underline-offset: 2px; }
+
+/* ---------- colour ---------- */
+.nl-card{ border-radius: var(--radius-16); background: var(--bg-page);
+  box-shadow: var(--elevation-1); }
+.nl-check{ border-radius: var(--radius-circle); background: var(--bg-page); }
+.nl-promo{ border-radius: var(--radius-12); background: var(--bg-sunken); }
+.nl-promo .code{ font-family: var(--font-mono); }
+.nl-foot a{ transition: color var(--dur-fast) var(--ease-standard); }
+.nl-foot a:hover{ color: var(--text-action); }
+
+/* the reading measure on the leaves that carry the characters - 12.7. */
+.nl-promo .note{ max-width: var(--container-text); margin-inline: auto; }
+.nl-foot{ max-width: var(--container-text); margin-inline: auto; }

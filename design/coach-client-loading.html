@@ -11,14 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE LAST RULE ON THIS SCREEN IS GONE - step 8.41, and it is the rule the
-   system had already deleted BY NAME: `coach-clients.css:411` reads
-   «`.cc-cta .btn{ padding: 13px 22px }` DELETED - button.css owns the padding»,
-   with the note that three action rows on these two screens gave the button
-   three different paddings. The base screen took the deletion at 7.96; its
-   loading state kept the copy. */
-</style>
 </head>
 <body class="coach">
 <!-- WIREFRAME · node 5.4 Профіль клієнта (LOADING). Static skeleton of client order history. -->
@@ -42,7 +34,7 @@
         <span class="ch-goal">🎯 Ціль: Набір маси</span>
       </div>
     </div>
-    <a class="ch-edit" href="../wireframes/coach-client-edit.html">Редагувати клієнта</a>
+    <a class="ch-edit" href="coach-client-edit.html">Редагувати клієнта</a>
   </div>
 
   <div class="cc-cta actions"><a class="btn--accent btn--s btn" href="coach-session.html">＋ Нова сесія</a></div>
@@ -78,7 +70,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'loading');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'loading');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

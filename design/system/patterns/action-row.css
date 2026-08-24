@@ -96,3 +96,22 @@
 
 /* centred under a block that is itself centred: an empty state, a verify card */
 .actions--center{ justify-content: center; }
+
+/* ---------- 12.3 · THE COLUMN, and the pattern file had already named it ------
+   `.op-steps` is in the list of 53 container names at the head of this file, in
+   the group it calls «TEN carry no rule at all... they are stage 12's, which
+   rebuilds those screens in colour anyway». This is that rebuild, and it is the
+   first of the ten to arrive.
+
+   IT IS A VARIANT AND NOT A NEW ROW BECAUSE THE JOB IS THE SAME: a block ends
+   and offers a choice. What differs is that node 6.2 offers THREE next steps
+   rather than two, and three buttons side by side on a 360 screen wrap into a
+   shape nobody chose. `--even` makes them share a line, `--center` centres the
+   line; this one turns the line on its side and lets every button own the full
+   measure, which is what a list of next steps is.
+
+   `flex-wrap` is reset to `nowrap`: wrapping is meaningless once the direction
+   is a column, and leaving it on lets a tall row reflow into two columns on a
+   short viewport. */
+.actions--stack{ flex-direction: column; flex-wrap: nowrap; }
+.actions--stack > *{ text-align: center; }

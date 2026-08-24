@@ -11,16 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THREE RULES GONE - step 8.41. `.cs-banner` moved into `coach-session.css`.
-   `.cl-oostag` was `.ci-oostag` under another name - status-pill.css draws the
-   out-of-stock tag in mono at `--fs-10` on `--bg-sunken`, with the reason
-   written there («Principle 4 - calm and confident, written as a weight ...
-   nothing here is green, amber or red»), and this copy was 11px/800 Inter on
-   nothing. `.cl-fix` was a text button typed as a link: `btn--text btn--inline`
-   is the atom, and it brings the hover, the focus ring and the underline offset
-   the copy had none of. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -64,7 +54,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
       <div class="cs-client">
         <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
-        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -76,7 +66,7 @@
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
-        <div class="qadd-field field-grp field-grp--s">
+        <div class="field-grp field-grp--s">
           <input class="field field--s" type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
@@ -105,15 +95,15 @@
       <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
       <div class="cs-banner"><b>Один товар став недоступним.</b> Оберіть аналог або пропустіть його - решта товарів і клієнти в сесії залишаються. Підсумок по клієнту рахується без недоступних товарів.</div>
       <div class="cs-lines-h">Товари для клієнта Андрій</div>
-      <div class="cs-lines">
+      <div>
         <div class="cline oos">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
             <div class="ci-oostag">Немає в наявності</div>
             <div class="cl-ctrls">
               <a class="btn--text btn--inline btn" href="coach-session.html">Замінити на аналог</a>
-              <a class="btn--text ci-lnk cl-rm" href="coach-session.html">Пропустити товар</a>
+              <a class="btn--text ci-lnk" href="coach-session.html">Пропустити товар</a>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span></div></div>
@@ -121,19 +111,19 @@
 
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
             <div class="cl-var">Смак: Подвійний шоколад · США</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
         </div>
 
-        <div class="cline-sub"><span>Підсумок по клієнту Андрій <span style="font-weight:600;color:var(--text-secondary);font-size:12px">(без недоступного)</span></span><b>1 090 ₴</b></div>
+        <div class="cline-sub"><span>Підсумок по клієнту Андрій <span class="qual">(без недоступного)</span></span><b>1 090 ₴</b></div>
       </div>
     </section>
 
@@ -166,7 +156,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'oos'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'oos'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

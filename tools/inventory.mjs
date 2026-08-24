@@ -81,6 +81,8 @@
 
    Exit is non-zero on any finding, so it composes with the rest of the gate. */
 import { readdirSync, readFileSync, writeFileSync, existsSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { join } from 'node:path';
 import { ROOT, serve, chrome, pages, topRules } from './lib.mjs';
 import { Conn, newSession, visit } from './cdp.mjs';
@@ -142,7 +144,10 @@ SECTIONS.forEach((s, i) => {
        `null` here, and every reader of the column decides what to do with it. */
     const cell = cells[cells.length - 3] || '';
     const sc = cell.match(/^\d+/);
+    /* THE ANCHORS CELL, counted from the right like the rest: the table is
+       | Component | css | Anchors | Рух | Width | Screens | Lines |. */
     rows.push({ file, level: s.level, lines: Number(cells[cells.length - 2]),
+      anchors: [...(cells[cells.length - 6] || '').matchAll(/`\.([\w-]+)`/g)].map(m => m[1]),
       width: cells[cells.length - 4] || '',
       screens: sc ? Number(sc[0]) : (/^–/.test(cell) ? null : 0), raw: line });
   }
@@ -258,8 +263,17 @@ const widthOf = file => {
   if (!cssPath) return null;
   const css = stripCss(readFileSync(cssPath, 'utf8'));
   const pts = [];
-  for (const m of css.matchAll(/@media[^{]*?(\d+)px/g)) {
-    const p = ({ 619: 620, 859: 860 })[Number(m[1])] ?? Number(m[1]);
+  /* 12.4: IT ONLY EVER ASKED ABOUT px, AND THE PROJECT STOPPED WRITING px IN A
+     QUERY AT STAGE 10. The registry keeps its boundaries in rem with the token
+     named in the comment beside them - 38.75rem is --bp-grid-2col, 53.75rem is
+     --bp-shell-wide - so this reader has been blind to every query written since.
+     order-placed.css carries a 53.75rem boundary and read as «no boundary at all»,
+     which would have forced the table to record a dash where the file has a point.
+     A reader that cannot see the notation in use reports the absence of what it
+     cannot read as the absence of the thing. */
+  for (const m of css.matchAll(/@media[^{]*?(\d+(?:\.\d+)?)(px|rem)/g)) {
+    const raw = Math.round(Number(m[1]) * (m[2] === 'rem' ? 16 : 1));
+    const p = ({ 619: 620, 859: 860 })[raw] ?? raw;
     if (!pts.includes(p)) pts.push(p);
   }
   const out = pts.sort((a, b) => a - b).map(String);
@@ -305,6 +319,57 @@ const owners = {};
 for (const f of files) for (const c of classesOf(f)) (owners[c] ||= []).push(f);
 /* an ANCHOR is a class exactly one component file declares */
 const anchorsOf = f => [...classesOf(f)].filter(c => owners[c].length === 1);
+
+/* THE ANCHORS COLUMN HAD NEVER BEEN ASKED ANYTHING - stage 12, batch 2, and it
+   was a subagent reading the table who noticed. `inventory.md` said the anchors
+   of `goal-tile.css` were `.gcard`, `.gtile`, `.goaltiles`; **`.gcard` is not
+   declared in that file, in any other stylesheet, or anywhere in the repository
+   outside that one cell.** Every run had passed clean, because this file COMPUTES
+   anchors from the css for its own Screens walk and never compares the computed
+   set with the written one. A column nobody asks is a column that drifts in
+   silence, and CLAUDE.md says a declared list that covers nothing must fail as
+   loudly as an undeclared case.
+   The question asked here is the exact one: is every name written in the cell
+   declared by the css file on that row. Not «is it an anchor» - a name shared
+   with another component is a naming finding the Screens walk already reports -
+   but «does it exist at all», which is falsifiable and has exactly one answer. */
+/* AND THE FIRST WRITING OF THIS CHECK REPORTED FORTY, which is half the table and
+   therefore a statement about the CHECK. The column holds two legitimate forms and
+   the first version knew only one: some cells name a class (`.gtile`), some name a
+   FAMILY PREFIX (`.co` for `.co-line`, `.btn` for `.btn--accent`, `.mega` for
+   `.mega-cat`) - and a prefix that really covers declarations is a true sentence
+   about ownership, not a typo. Comparing a prefix against a set of full class names
+   made every prefix a defect: two sides differing in more than the thing measured.
+   So a cell passes if the file declares that exact class OR declares anything under
+   it as `name-` or `name--`. What is left cannot be read two ways: the name covers
+   nothing in the file it is written against. */
+const EXTRA_SHEETS = ['base.css', 'tokens.css', 'index.css']
+  .map(n => [n, (() => { try { return readFileSync(join(CDIR, '..', n), 'utf8'); } catch { return ''; } })()])
+  .concat((() => { try { return readdirSync(join(CDIR, '..', 'patterns'))
+    .filter(f => f.endsWith('.css'))
+    .map(f => ['patterns/' + f, readFileSync(join(CDIR, '..', 'patterns', f), 'utf8')]); }
+    catch { return []; } })());
+
+const phantom = [];
+for (const r of rows) {
+  if (!files.includes(r.file)) continue;
+  const declared = [...classesOf(r.file)];
+  for (const c of r.anchors)
+    if (!declared.some(d => d === c || d.startsWith(c + '-'))) phantom.push([r.file, c]);
+}
+/* AND IT SAYS WHERE THE NAME ACTUALLY LIVES. Without that half the report is 22
+   judgement calls; with it, it is 22 lookups. Most of these are not typos - they
+   are names that MOVED (`.ptab` went into chip.css when the tab became a chip
+   shape) or names that DIED, and the two need opposite repairs. */
+const livesIn = c => {
+  const inComp = files.filter(f => [...classesOf(f)].some(d => d === c || d.startsWith(c + '-')));
+  if (inComp.length) return inComp.join(', ');
+  for (const [where, txt] of EXTRA_SHEETS)
+    if ([...(txt.match(/\.[_a-zA-Z][\w-]*/g) || [])].some(d => d.slice(1) === c)) return where;
+  return 'НІДЕ';
+};
+say('ІМ\'Я В КОЛОНЦІ Anchors, ЯКОГО ЦЕЙ ФАЙЛ НЕ ОГОЛОШУЄ', phantom,
+  ([f, c]) => f.padEnd(24) + ('.' + c).padEnd(14) + '-> ' + livesIn(c));
 
 let wrongScreens = [], noAnchor = [];
 if (SCREENS) {
@@ -643,6 +708,29 @@ if (APPLY) {
     if (n) { writeFileSync(INV, text); console.log('підсумків рівня переписано: ' + n); }
   }
 
+  /* THE Anchors COLUMN, repaired the same way and LAST, because everything above
+     writes the same file and a rewrite computed before their write would land on
+     top of stale text. The repair is subtraction, not replacement: a curated cell
+     names two or three representative anchors and rewriting it wholesale would
+     throw the curation away. So a name the file does not cover is DROPPED, and
+     only a row left with nothing gets fresh names - the file's own shortest
+     anchors, which is the same rule a person would have used by hand. */
+  if (phantom.length) {
+    let text = readFileSync(INV, 'utf8'); let n = 0;
+    const byFile = {};
+    for (const [f, c] of phantom) (byFile[f] ||= []).push(c);
+    for (const f of Object.keys(byFile)) {
+      const row = rows.find(r => r.file === f); if (!row) continue;
+      const keep = row.anchors.filter(c => !byFile[f].includes(c));
+      const fresh = keep.length ? keep
+        : anchorsOf(f).sort((a, b) => a.length - b.length || a.localeCompare(b)).slice(0, 3);
+      const cell = fresh.map(c => '\`.' + c + '\`').join(', ') || '–';
+      const re = new RegExp('^(\\|[^\\n]*\`' + f.replace('.', '\\.') + '\`\\s*\\|)([^|]*)(\\|)', 'm');
+      if (re.test(text)) { text = text.replace(re, '$1 ' + cell + ' $3'); n++; }
+    }
+    if (n) { writeFileSync(INV, text); console.log('колонку Anchors переписано в рядках: ' + n); }
+  }
+
   /* THE SECOND VISIBLE PLACE OF THE SAME CLAIM, repaired rather than only
      reported. `kit.html` is the frozen stage-07 smoke page, and the rule for a
      frozen page is not «leave it wrong» but «carry a visible updated-after-
@@ -711,9 +799,36 @@ console.log('\n' + files.length + ' файлів компонентів · ря�
   ' (' + counts.join('/') + ')' +
   ' · без рядка: ' + noRow.length + ' · рядок без файла: ' + noFile.length +
   ' · Lines розійшлось: ' + wrongLines.length + ' · рівень розійшовся: ' + wrongLevel.length +
-  ' · без рівня у файлі: ' + noLevelDeclared.length);
+  ' · без рівня у файлі: ' + noLevelDeclared.length +
+  ' · імен-привидів у колонці Anchors: ' + phantom.length);
 console.log(SCREENS ? 'колонка Screens зміряна в браузері' :
   'колонка Screens НЕ перевірена - потрібен прапорець --screens (обхід корпусу браузером)');
 
+/* THE COUNTERS ABOVE DESCRIBE THE STATE THIS RUN FOUND, NOT THE STATE IT LEFT,
+   and under `--apply` those are two different things. Every number here is
+   computed before the writes, so a run that repaired one drifted `Lines` cell
+   printed «Lines розійшлось: 1» and exited 1 - having just closed it. Three
+   times in stage 12 that was read as «the repair needs two passes to converge»,
+   and it never did: the DATA converged in one pass and the REPORT did not.
+
+   The honest close is the repository's own rule rather than arithmetic: a repair
+   is re-checked by the instrument that found the defect. Subtracting the writes
+   from the counters would be trusting the write; re-asking cannot. So `--apply`
+   ends by running this same file WITHOUT `--apply` and hands over its verdict and
+   its exit code. No recursion is possible - the child carries no flag to repeat
+   the repair. */
+if (APPLY) {
+  console.log('\n=== ПЕРЕПИТУЄМО ТИМ САМИМ ПРИЛАДОМ, уже після правок ===');
+  /* `fileURLToPath`, not `new URL(...).pathname`: this repository lives under a
+     path with a space in it, and `pathname` hands back the percent-encoded form,
+     so the child died with MODULE_NOT_FOUND on its first run. Found by breaking
+     a `Lines` cell on purpose - a repair path nobody has watched fail is a
+     repair path nobody has watched. */
+  const again = spawnSync(process.execPath, [fileURLToPath(import.meta.url), ...(SCREENS ? ['--screens'] : [])],
+    { stdio: 'inherit' });
+  process.exit(again.status ?? 1);
+}
+
 process.exit(noRow.length || noFile.length || wrongLines.length || wrongWidth.length || wrongLevel.length ||
-  noLevelDeclared.length || totalsBad || sumsBad.length || kitBad || wrongScreens.length || noAnchor.length ? 1 : 0);
+  noLevelDeclared.length || totalsBad || sumsBad.length || kitBad || wrongScreens.length || noAnchor.length ||
+  phantom.length ? 1 : 0);

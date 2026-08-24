@@ -11,22 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 6 rules, step 8.40.
-   Every name here was prefixed `cv-`, which is that file's own; the four state
-   screens carried it and the base did not. What each copy cost is written in
-   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
-   `.btn{ display: block }` turned the main action's `btn--full` back into a
-   block, and the lead had no measure on any of them.
-   AND THE LAST ONE WENT AT 8.48: `.cv-card{ max-width: 560px; margin: 0 auto }`
-   is now `.coach .cv-card` in that file. It was the deferred rule - «whether 560
-   becomes the panel's width is stage 09's decision» - and what closed it was the
-   measurement the deferral did not have: THREE screens carry `.cv-card`, two
-   declared this rule byte for byte and the third shipped 828px instead. A/B'd in
-   the live page: this screen is byte-identical at 1280, 900 and 390 with the rule
-   moved. The decision and its cost are written beside the rule.
-   This block is a record of what left and where. It declares nothing. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -60,13 +44,13 @@
     <p class="cv-sub">Це не заважає покупкам: ви можете й далі користуватись магазином як звичайний покупець - з роздрібними цінами, бонусами та швидким повторним замовленням.</p>
 
     <div class="cv-actions">
-      <a class="btn--accent btn--l btn--full cv-cta" href="index.html">Перейти до магазину</a>
+      <a class="btn--accent btn--l btn--full" href="index.html">Перейти до магазину</a>
       <a class="btn--outline btn--s btn" href="account.html">Мій кабінет покупця</a>
     </div>
 
     <div class="cv-alt">
       З'явилось відповідне посилання? <a href="coach-verify.html">Подати заявку знову</a><br>
-      або <a href="../wireframes/content-contacts.html">напишіть у підтримку</a>, якщо це помилка.
+      або <a href="content-contacts.html">напишіть у підтримку</a>, якщо це помилка.
     </div>
   </div>
 </main>
@@ -80,7 +64,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'deadend');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'deadend');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

@@ -1,0 +1,92 @@
+/* contacts-block.css - the contacts body of node 8.3 (level 3)
+   Added at stage 12, batch 3, by the parent, on a subagent's order.
+
+   WHY IT IS ITS OWN FILE AND NOT MORE OF info-page.css. The IA node names it as
+   a DECLARED VARIANT of the service template - «Info page (A) + contacts block» -
+   rather than as a one-off block on one page, and it is the only page of the six
+   that has no `.info-body` at all: the prose column is replaced by a two-column
+   answer sheet. Eight parts of its own (the sheet, a block, a row, the messenger
+   line, the map, the form and the form's footnote) is a component, not a section
+   of another one.
+
+   WHY THE STAGE-07 INVENTORY DID NOT SEE IT. The same construction as the rest
+   of this family: `wireframes/_wf.css` has no rule for `cnt-*`. The whole block
+   lives in that screen's own `<style>`, which is legal in the grey layer and
+   invisible to an inventory derived from the shared stylesheet.
+
+   THE ONE PLACE THAT DOES NOT TAKE THE READING MEASURE. Every other body in this
+   family is capped at `--container-text`, because it is prose. This is a pair of
+   columns of short answers, and capping it would leave the second column
+   hanging. Said out loud because it is the exception to the family's own rule. */
+
+/* ---------- the sheet ---------- */
+.cnt-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16);
+  align-items: start; margin: var(--space-16) 0; }
+@media (min-width: 53.75rem){        /* --bp-shell-wide */
+  .cnt-grid{ grid-template-columns: 1fr 1.1fr; }
+}
+
+/* ---------- a block of rows: the label, the value, the note under it --------
+   The row leads with a glyph and the glyph STAYS a glyph: `uivChrome()` does not
+   enter body copy, and `UIV_EMOJI` has a row for only 8 of the 21 marks these six
+   pages carry. Eight line icons beside thirteen colour emoji in one list reads
+   worse than either whole. */
+.cnt-block{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  background: var(--bg-page); padding: var(--space-4) var(--space-16); }
+.cnt-row{ display: flex; align-items: flex-start; gap: var(--space-12);
+  padding: var(--space-12) 0; border-bottom: 1px solid var(--line-hair); }
+.cnt-row:last-child{ border-bottom: none; }
+.cnt-row .g{ flex: none; width: var(--size-20); text-align: center; }
+.cnt-row .cap{ display: block; font-size: var(--fs-12); font-weight: var(--fw-bold);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+.cnt-row .val{ display: block; font-size: var(--fs-16); font-weight: var(--fw-bold);
+  color: var(--text-primary); overflow-wrap: anywhere; }
+.cnt-row .sub{ display: block; font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-2); line-height: var(--lh-airy); }
+
+/* ---------- the messengers, and they are NOT chips --------------------------
+   `design/kit/chip.html` declares a chip a filter or a segment - something you
+   press to narrow a list. A messenger's name is neither, and in the markup it is
+   a `<span>` rather than a control. A shape that looks alike and answers to
+   nothing would be the first chip in the product that does not do a chip's job. */
+.cnt-msgrs{ display: flex; flex-wrap: wrap; gap: var(--space-8);
+  margin-top: var(--space-4); }
+.cnt-msg{ font-size: var(--fs-12); color: var(--text-secondary);
+  border: 1px solid var(--line-hair); border-radius: var(--radius-4);
+  padding: 0 var(--space-8); }
+
+/* ---------- the map placeholder ----------
+   THE SAME MISTAKE A THIRD TIME IN ONE DAY, and this one no agent caught - the
+   theme census did, which is the point of running it. The word on this panel was
+   `--mark-faint`, a role written for the page: on `--bg-media` it measures 8.88
+   in light and 3.17 in DARK. Two of these were repaired in cert-thumb.css an hour
+   earlier on an agent's measurement, and I wrote the third while repairing them.
+   A ground that is not the page needs the roles `tokens.css` names beside it -
+   `--text-onmedia`, `--line-media`, both marked «both themes» - and reaching for
+   the page's roles by habit is what rule 8 of design/system/CLAUDE.md is about. */
+.cnt-map{ height: 220px; border: 1px solid var(--line-media);
+  border-radius: var(--radius-12); background: var(--bg-media);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-onmedia); font-size: var(--fs-12); }
+
+/* ---------- the form: the card it stands in is already decided --------------
+   The shell is `.info-card` from `info-page.css` - the same hairline, radius and
+   padding, measured before it was reached for - and the fields are the system's
+   `.fld` / `.field`. What had no home is the footnote under the form, which is
+   quieter than `.info-card p` and belongs to the form rather than to the card. */
+.cnt-form .fs{ font-size: var(--fs-12); color: var(--text-secondary);
+  line-height: var(--lh-airy); margin-top: var(--space-8); }
+
+
+/* ---------- the right column, and MY OWN STAND PAGE HAD ALREADY PATCHED IT ---
+   The agent building 8.3 stopped on this and proved it was not taste: the map
+   and the form are two bordered cards, `base.css` applies `*{ margin: 0 }`, and
+   nothing in this file put anything between them - so the two hairlines would
+   meet as one 2px line. The proof it offered is the part worth keeping: the
+   component's OWN showcase, written the same hour, had already worked around it
+   with `style="margin-top:16px"` on the form. An inline attribute on a demo of a
+   component is what `design/system/CLAUDE.md` rule 1 calls a defect, and here it
+   was the file quietly admitting a hole in itself.
+   The composition belongs to the column, not to a trailing margin on whichever
+   member happens to be first - so the column gets a name. */
+.cnt-side{ display: grid; gap: var(--space-16); align-content: start; }

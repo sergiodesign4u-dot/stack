@@ -20,6 +20,37 @@
 var DESIGN_NAV = [
   'listing.html', 'listing-empty.html', 'listing-error.html', 'listing-loading.html',
   'listing-filtered.html', 'listing-list.html', 'listing-sheet.html',
+  /* stage 12, batch 2 - the f3 family grows. REGISTERED AT THE GATE, NOT AFTER IT:
+     finding H of batch 1 says a screen that is built but not in this list is one
+     that uivFixLinks() cannot route to, so the next agent building a neighbour
+     watches its own href rewritten back to ../wireframes/. The rail, the coverage
+     map and the link repair all read this line. */
+  'brands.html', 'brands-empty.html', 'brands-loading.html', 'brands-error.html',
+  'home-catalog.html',
+  'catalog-page.html', 'catalog-page-loading.html', 'catalog-page-error.html',
+  'search.html', 'search-suggest.html', 'search-empty.html', 'search-loading.html',
+  /* stage 12, batch 3 - the service template of f4a */
+  'content-about.html', 'content-delivery.html',
+  'content-returns.html', 'content-legal.html', 'content-guarantee.html',
+  'content-contacts.html',
+  /* stage 12, batch 4 - the rest of f4b. REGISTERED THE MOMENT THE FILES LANDED,
+     and this batch is why the sentence above is not bookkeeping. An agent opened
+     its own finished screen in a browser AFTER uivFixLinks() had run and counted
+     13 links on `content-blog` and 4 on `content-article` rewritten to
+     ../wireframes/ - while `links.mjs` printed «0 stale», because it was asking
+     whether a coloured twin EXISTS and the page asks whether the name is in THIS
+     LIST. Two different questions with one state between them, which is exactly
+     the state a screen sits in from the moment it is written until this row is
+     added. The instrument now asks the page's question and found 43 places. */
+  'content-loyalty.html', 'content-loyalty-buyer.html',
+  'content-faq.html', 'content-blog.html', 'content-article.html',
+  'content-promo.html', 'content-reviews.html', 'content-newsletter.html',
+  /* stage 12, batch 5 - f5, the pages the header does not reach. The four
+     mega-menu states differ from each other by a title and one argument to
+     wfMega(); the body is the faux home the overlay stands on. */
+  'megamenu.html', 'megamenu-protein.html', 'megamenu-health.html', 'megamenu-vitamins.html',
+  'system.html',
+  '404.html', '500.html', 'maintenance.html',
   /* stage 09 step 5 - node 2.2, the goal collection, assembled from the finished
      system. THE ROW MATTERS FOR THREE THINGS AT ONCE, which is why missing it was
      invisible: the stand rail paints an unregistered screen's chip `grey`, so the
@@ -53,6 +84,28 @@ var DESIGN_NAV = [
      order from three. A coach in the coloured prototype stepped out of colour
      mid-task, by an ordinary tap, three times over. */
   'coach-wishlist.html', 'coach-tariff.html', 'coach-order.html',
+  /* stage 12, batch 1 - and the row is what makes the state rail keep its
+     colour. `uivFixLinks()` rewrites a link to a screen that is not listed here
+     into `../wireframes/`, and `wfBar()` draws exactly those sibling-state links
+     on every account screen. Without these thirteen rows a person pressing
+     «Змінити номер» in the coloured profile walks out of colour - the same
+     defect step 8.7 fixed by name for «Обране», «Тариф» and «Деталі».
+     THIS ALSO REVERSES THE NOTE AT 8.14 ABOVE, and the reversal is measured
+     rather than preferred. That step counted 13 states that «auto-open a DIALOG
+     the coloured screen already reaches through its own function, so cloning
+     those would be a second edition of a state that exists». Two things were not
+     known when it was written: the state rail above is one of them, and the
+     other is that `listing-sheet` and `auth-code` - dialog states both - had
+     already been cloned at stage 07. The coloured layer's own precedent
+     contradicted the note before the note was written. */
+  'account-addresses-add.html', 'account-addresses-viddilennia.html',
+  'account-addresses-postomat.html', 'account-addresses-courier.html',
+  'account-addresses-edit.html', 'account-addresses-delete.html',
+  'account-profile-phone.html', 'account-profile-email.html',
+  'account-profile-lang.html', 'account-profile-delete.html',
+  'coach-client-new.html', 'coach-client-edit.html', 'coach-client-edit-confirm.html',
+  /* node 6.2, built after `order-placed.css` was ordered by the agent that stopped */
+  'order-placed.html', 'order-placed-account-end.html',
   /* step 8.13, and these two came from a census rather than from a design step.
      architecture.md section C says its 24 rows «name a state that no screen
      draws», and for these two that is not true: `wireframes/account-orders-empty`
@@ -103,9 +156,21 @@ var DESIGN_NAV = [
   'coach-verify-tier.html'
 ];
 
+/* 12.9: A COLOURED PAGE THAT IS NOT A SCREEN, and until now there was no way to
+   say so. `uivFixLinks()` asks one question - «is this name in DESIGN_NAV?» - and
+   `DESIGN_NAV` is the SCREEN registry: the stand rail is derived from it, so
+   putting the hub in there would list `overview` among the product's screens.
+   Left out, the hub is treated as grey: an agent measured node S's breadcrumb
+   resolving to `../wireframes/overview.html` on a finished page. The defect had
+   nowhere to show before, because until batch 5 no coloured screen linked to the
+   hub at all. One declared list, and `tools/links.mjs` reads this same name
+   rather than keeping a second copy of it. */
+var DESIGN_EXTRA = ['overview.html'];
+
 function uivFixLinks(){
   var inSet = {};
   DESIGN_NAV.forEach(function(f){ inSet[f] = 1; });
+  DESIGN_EXTRA.forEach(function(f){ inSet[f] = 1; });
   document.querySelectorAll('a[href]').forEach(function(a){
     var raw = a.getAttribute('href');
     if(!raw) return;
@@ -565,7 +630,15 @@ function uivChrome(){
      walks CONTROLS, and this is a span inside a div; the three starify calls
      above and below name ratings, and a bonus is not a rating. It is the same
      glyph either way, so it takes the same drawing. */
-  document.querySelectorAll('.co-accrual .star').forEach(function(el){
+  /* 12.3: AND THE SAME MARK HAS A SECOND CARRIER. The selector above named
+     `.co-accrual .star` - the checkout's bonus line - and node 6.2 carries the
+     identical bonus note in `.op-bonus`, so the last font-drawn star in the
+     product survived exactly as long as the second carrier stayed grey. The
+     paragraph above says «it is the same glyph either way, so it takes the same
+     drawing»; what it could not say is how many places draw it. Asked of the
+     text rather than of a class list now: any element holding the glyph inside
+     either bonus note. */
+  document.querySelectorAll('.co-accrual .star, .op-bonus').forEach(function(el){
     if(/[★☆]/.test(el.textContent)) uivStarify(el, 1);
   });
   /* mega-menu "Вибір місяця" card → a real product photo. ui-visual only:
@@ -693,6 +766,26 @@ function uivChrome(){
      already has one. Called by presence like the pass above it - the menu is in
      the header of every logged-in screen and in none of the guest ones, and the
      header is what answers, not a list of file names. */
+  /* 12.4: THE OTHER THREE FAMILY HOOKS WERE STILL TYPED PER SCREEN, and one of
+     them had already drifted. uivAccount, uivAuth and uivPdp are called here by
+     PRESENCE - the subject answers, not a list of file names - while uivCart,
+     uivCheckout and uivHome were a line in each screen file. cart-coach-empty.html
+     is missing that line: five screens carry a cart drawer and four call the pass,
+     so its empty state kept the raw trolley glyph where cart-drawer.css expects the
+     mascot, and nothing said so until the glyph census of 12.4 asked. Each of the
+     three already guards on its own subject and its own idempotence flag, so calling
+     them here costs nothing on a screen that does not have one and makes the typed
+     line optional rather than load-bearing. The lines already in the screens stay:
+     they are harmless, and removing fourteen of them is a sweep, not this repair. */
+  uivCart(); uivCheckout(); uivHome();
+  /* 12.4: A NEW REGION, FOUND BY ITS CLASS. uivIcons() walks six chrome ids -
+     header, drawer, footer, tab bar, rail, sheet - and nothing else, so the
+     twelve category marks of nav-tile.css came out as raw emoji on catalog-page:
+     every one of them has a row in UIV_EMOJI and no pass went there. The agent
+     that built the screen declined to type the call into its own file, and was
+     right to: a per-screen line is the defect this session has now repaired
+     twice. The grid answers instead. */
+  document.querySelectorAll('.ntiles').forEach(uivIcons);
   uivChromePaint();
 }
 
@@ -1185,9 +1278,35 @@ function uivStickyHeader(){
     if(!on && y > down) h.classList.add('uiv-scrolled');
     else if(on && y < up) h.classList.remove('uiv-scrolled');
   };
-  window.addEventListener('scroll', tick, { passive: true });
-  window.addEventListener('resize', tick);
-  tick();
+  /* 12.10 - THE HEADER NOW PUBLISHES ITS HEIGHT, and the file that needed it
+     asked for exactly this in its own words. `chip.css` ends its note on
+     `.chips--sticky` with «it stays a literal until the header publishes its
+     height - which is a debt, not a decision», and the debt was live: measured
+     on `content-legal` scrolled to 1600, the condensed header runs 0..77 at 1280
+     and the pinned pills 69..109, so 8px of every pill sat behind an opaque
+     header at z 30 against the row's 20. The pill's rounded top photographed
+     sliced flat. At 360 in the stand the whole row disappears under it.
+
+     THE REFERENCE THAT JUSTIFIED 57 WAS NEVER PROVEN. The note borrows the
+     number from `.mtoolbar`, «the one rule in this system proven to stick under
+     this header» - and `.mtoolbar` is `display:none` above 860, so it has never
+     met the desktop header at all. A comparison whose two sides differ in more
+     than the thing measured is not a proof.
+
+     Published the way `--uiv-side-h` already is: measured, not declared, because
+     the height is 73 at 360 and 77 at 1280 and a third number in `bp.mjs` would
+     be a third breakpoint nobody decided on. `offsetHeight` is read after the
+     class settles, so the value is the CONDENSED height - the only one a pinned
+     row ever meets. */
+  var publish = function(){
+    var top = h.getBoundingClientRect().top;
+    document.documentElement.style.setProperty('--shell-header-h', h.offsetHeight + 'px');
+    document.documentElement.style.setProperty('--shell-top-live', Math.max(0, top) + 'px');
+  };
+  var both = function(){ tick(); publish(); };
+  window.addEventListener('scroll', both, { passive: true });
+  window.addEventListener('resize', both);
+  both();
 }
 
 /* in-page anchor links (e.g. «Читати більше» → #seo) smooth-scroll with an offset that
@@ -1678,13 +1797,28 @@ function uivCheckout(){
    and the cart-shelf glyph. Goal icons are read from WF_GOAL_MENU, so the tiles can
    never disagree with the mega-menu about which icon a goal has.
    ============================================================ */
+/* 12.4: THIS FUNCTION ICED THE RAIL FOR THE WRONG REASON AND FOUND IT BY THE
+   WRONG NAME, and a subagent building `home-catalog` walked into both halves at
+   once. The gate was `.goaltiles` - an unrelated block further down the home -
+   so the one screen in the corpus that carries the rail WITHOUT the goal tiles
+   returned on line three and 19 marks (13 in the rail, 6 in the flyout) stayed
+   raw emoji. And even past the gate it looked the rail up as the literal ids
+   `home-rail` / `home-fly`, while that screen's are `hc-rail` / `hc-fly`:
+   renaming the ids alone would not have fixed it, and keying an icing pass to a
+   per-screen id is the same defect as a hand-typed list of openers in
+   states.mjs. The rail is now iced BECAUSE A RAIL IS THERE, found by the class
+   `filter-rail.css` gives it. The rest of the body below degrades to nothing on
+   a screen that has no goal tiles, no reviews banner and no cart shelf, so it
+   needs no second gate. This also un-contradicts the rollout contract, which
+   tells every agent that `uivChrome()` turns every emoji into a set icon. */
 function uivHome(){
   var page = document.querySelector('.wf-page');
-  if(!page || !page.querySelector('.goaltiles') || page.dataset.uivHome) return;
+  if(!page || page.dataset.uivHome) return;
+  if(!page.querySelector('.goaltiles') && !page.querySelector('.hrail')) return;
   page.dataset.uivHome = '1';
 
   /* category rail + its flyout (built by wfHomeRail before this runs) */
-  ['home-rail', 'home-fly'].forEach(function(id){ uivIcons(document.getElementById(id)); });
+  page.querySelectorAll('.hrail, .hrail-fly').forEach(function(el){ uivIcons(el); });
 
   /* goal tiles: the empty .gph square becomes the goal's own icon */
   var goals = (typeof WF_GOAL_MENU !== 'undefined') ? WF_GOAL_MENU : [];
@@ -1987,7 +2121,15 @@ function uivTiers(root){
    coach's client picker uses. The list, the roles and the keyboard live in
    design/system/menu.js; this function only says what the options are and what
    happens when one is chosen. */
-var UIV_SORTS = ['Популярні', 'Спочатку дешевші', 'Спочатку дорожчі', 'Новинки', 'За рейтингом', 'Зі знижкою'];
+/* 12.4: «Релевантні» was missing, and the list is read back against the trigger
+   to decide which row is current - so on search.html and search-loading.html the
+   menu opened with six options and NONE of them marked. The default sort of the
+   search is relevance and three sources say so (the grey screen, microcopy.md and
+   the IA node 2.5), which is exactly why it never appeared here: this list was
+   written from the catalogue toolbar, where relevance is not offered. A list of
+   options that cannot contain the current one is the same defect as an opener
+   list typed from memory - it fails quietly on the one screen it does not know. */
+var UIV_SORTS = ['Релевантні', 'Популярні', 'Спочатку дешевші', 'Спочатку дорожчі', 'Новинки', 'За рейтингом', 'Зі знижкою'];
 function uivSort(){
   if(typeof uivMenu !== 'function') return;
   var trigs = [].slice.call(document.querySelectorAll('.ltool .ctrl, .mtoolbar .mc'))
@@ -2032,8 +2174,20 @@ function uivFindScreen(cur){
       var sc = scr[si];
       if(sc.file === cur) return { flow: fl, screen: sc, state: null };
       var sts = sc.states || [];
+      /* 12.10 - `stateFile` IS THE STEM, AND THIS COPY OF THE LOOKUP DROPPED IT.
+         One screen in the whole product declares one: node 0.0 is `index.html`
+         and its states are `home-buyer/coach/cart`, because `index` is the entry
+         point of the folder and nothing else. The grey registry's own renderer
+         writes `wfStateFile(s.stateFile || s.file, st)`; this transcription of it
+         wrote `sc.file`, so it built `index-buyer.html` - a name that exists in
+         NEITHER tree - and then failed to recognise the three real state pages as
+         belonging to any screen at all. Found by `tools/coverage.mjs` on its first
+         walk: the rail on the product's home page drew all three of its own states
+         as grey escapes. Invisible to `links.mjs`, because the rail is injected at
+         runtime and a source-reading link checker never sees it. */
+      var stem = sc.stateFile || sc.file;
       for(var ti = 0; ti < sts.length; ti++){
-        if(wfStateFile(sc.file, sts[ti]) === cur) return { flow: fl, screen: sc, state: sts[ti] };
+        if(wfStateFile(stem, sts[ti]) === cur) return { flow: fl, screen: sc, state: sts[ti] };
       }
     }
   }
@@ -2088,11 +2242,12 @@ function uivBar(){
   if(f && !seen[f.screen.file]) screens.push(f);   /* a not-yet-registered page still shows itself */
 
   function uivStatesHTML(scr, activeState){
+    var stem = scr.stateFile || scr.file;   /* 12.10: see uivFindScreen - node 0.0 only */
     var list = [{ st: 'base', file: scr.file, on: true, cur: (activeState === null) }];
     (scr.states || []).forEach(function(st){
       list.push({
         st: st,
-        file: wfStateFile(scr.file, st),
+        file: wfStateFile(stem, st),
         on: (scr.builtStates || []).indexOf(st) >= 0,
         cur: (activeState === st)
       });
@@ -2298,7 +2453,7 @@ function wfClientSplit() {
         '<div><h2 class="ch-name" id="clName" tabindex="-1">Андрій</h2>' +
         '<span class="ch-goal" id="clGoal">Ціль: Набір маси</span></div>' +
       '</div>' +
-      '<a class="ch-edit" href="../wireframes/coach-client-edit.html" ' +
+      '<a class="ch-edit" href="coach-client-edit.html" ' +
         'onclick="openClientEdit();return false">Редагувати клієнта</a></div>' +
       /* THE COACH'S OWN NOTE IS OUT OF THE TABLE. «Алергія на лактозу» is the most
          reputation-relevant string on this screen and it rendered as grey row four of
@@ -2483,3 +2638,54 @@ function wfClientSplit() {
   sync();
 }
 
+/* ============================================================================
+   uivInert() - THE PAGE BEHIND AN OPEN DIALOG IS NOT REACHABLE BY KEYBOARD.
+   Stage 12, batch 1, on the owner's decision, and the number is why.
+
+   THE DEFECT, MEASURED OVER THE WHOLE COLOURED CORPUS. Twenty-six screens open
+   a dialog at load - the cart drawer, the auth steps, the address dialog, the
+   profile dialogs, the client dialogs, the tariff confirm. On EVERY ONE of the
+   twenty-six the page behind stays in the tab order: 91 to 118 focusable
+   controls each, and Tab walks the whole header, the whole footer and the whole
+   list under the modal. `tools/modal-trap.mjs` is the instrument; its zero
+   before this rule was 0 of 26 correct.
+
+   `tab-walk.mjs` COULD NOT SEE THIS, and that is the useful half. Its question
+   is «is focus landing on something INVISIBLE», and here everything focus lands
+   on is perfectly visible - it is just behind a modal that says it is modal.
+   Two instruments, two zeros, one of them meaningless for this class.
+
+   AND THE HALF-MEASURE WAS WORSE THAN NOTHING. Two screens carried
+   `aria-hidden="true"` on the backdrop, covering nine controls. That removes
+   them from the accessibility tree while leaving them fully tabbable, so a
+   screen-reader user tabs into elements their reader cannot name. `inert` is the
+   attribute that does both halves, and it appeared in this product ZERO times.
+
+   WHY IT LIVES HERE AND NOT IN THE SCREEN. The dialogs are drawn by
+   `wireframes/_nav.js` at runtime, and that file has been frozen since stage 05,
+   so the defect cannot be repaired where it was born - it is named out loud and
+   repaired in the coloured copy, which is the rule for anything found in grey.
+   Writing it into fifty screen files instead would be fifty copies of one
+   decision, and the screen may not carry behaviour anyway.
+
+   THE SUBJECT IS `.wf-canvas` AND NOTHING ELSE. Not «every sibling of the
+   dialog»: the stand's own panel is injected beside it, and inerting the panel
+   would make the prototype unnavigable while proving nothing about the product.
+   The product's background is exactly `.wf-canvas`, which 88 of 99 screens
+   carry; the eleven without it are the checkout and auth families, whose modals
+   ARE the page. Those are handled by the same rule doing nothing, which is
+   correct - there is no product background behind them to reach. */
+function uivInert(){
+  var open = [].slice.call(document.querySelectorAll('[role="dialog"],[aria-modal="true"]'))
+    .filter(function(d){
+      var st = getComputedStyle(d);
+      return st.display !== 'none' && st.visibility !== 'hidden' && d.getClientRects().length;
+    });
+  var canvas = document.querySelector('.wf-canvas');
+  if(!canvas) return;
+  /* a dialog INSIDE the canvas is a page section pretending to be a dialog, and
+     inerting its own ancestor would switch the dialog off with it */
+  var outside = open.filter(function(d){ return !canvas.contains(d); });
+  if(outside.length) canvas.setAttribute('inert', '');
+  else canvas.removeAttribute('inert');
+}

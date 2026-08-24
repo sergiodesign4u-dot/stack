@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Тулбар</h1>
 <p class="kp-lead">Смуга над каталогом: скільки знайдено, як сортувати, як показувати. <b>Їх два, і вони ніколи не бачать одне одного</b> - до 860 працює мобільна, від 860 десктопна, і на жодній ширині немає обох.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toolbar.css</span><span class="kp-tag">63 рядки</span><span class="kp-tag">11 селекторів</span><span class="kp-tag">39 оголошень</span><span class="kp-tag">7 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/toolbar.css</span><span class="kp-tag">97 рядків</span><span class="kp-tag">13 селекторів</span><span class="kp-tag">47 оголошень</span><span class="kp-tag">7 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія</div>
 <p class="kp-p">Обидві смуги показані поруч навмисно: у продукті так не буває, а на стенді інакше видно тільки одну.</p>
@@ -103,8 +103,8 @@
 <b>Від якого порогу:</b> <code>--bp-shell-wide</code>, і це <b>три запити, складені в один</b>. Файл казав <code>min-width: 860</code> тричі, кожен під своїм правилом, і читалось це як три окремі думки про число. Думка одна: на точці оболонки лістинг відрощує ліву колонку фільтрів, з'являється її тулбар, а липка смуга, яка заміняла його на телефоні, зникає. <b>І одне сказано вголос, а не полагоджено:</b> <code>.listing{ grid-template-columns: 240px 1fr }</code> це рамка ЕКРАНА лістингу, а не тулбара, і належить оболонці кроку 3. Переносити її тихо всередині раунду молекул означало б це сховати.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>toolbar.css</code>: <b>6</b> семантичних ролей і <b>11</b> примітивів.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (11)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-onaction-ink</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--size-40</code> <code>--space-2</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr></tbody></table></div>
+<p class="kp-p">Прочитані з <code>toolbar.css</code>: <b>6</b> семантичних ролей і <b>13</b> примітивів.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (6)</th><th>Примітиви (13)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-page</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-onaction-ink</code></td><td><code>--fs-12</code> <code>--fs-14</code> <code>--fw-black</code> <code>--fw-semibold</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--shell-header-h</code> <code>--shell-top-live</code> <code>--size-40</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p">Повз шкалу три числа: <code>1px</code> лінії, <code>240px</code> рейки й <code>57px</code> липкої відстані. <b>57 - це висота шапки</b>, тобто число з іншого компонента, переписане сюди рукою: змінити висоту хедера означає зламати липкість цієї смуги, і жоден із двох файлів про це не знає. Кандидат на токен каркаса, етап 09.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">A/B</div>

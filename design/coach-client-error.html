@@ -11,25 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-
-
-
-
-
-
-
-
-
-/* THE ERROR BOX IS GONE - 6 rules, step 8.39. `.err` was a private edition of
-   `.errbox`, and the one thing it could not retype is the thing that matters:
-   `empty-state.css` gives an error box `--bg-danger-soft`, `--line-danger-soft`
-   and a `--text-danger` glyph, and this copy was flat grey with the glyph on
-   `--mark-disabled` - the ink for something switched OFF. `.err-btns .btn{
-   padding: 13px 24px }` went with nothing taking it: a size written on top of
-   `btn--s`, and the atom owns the ladder - same deletion as `.cs-empty .btn` at
-   8.30. */
-</style>
 </head>
 <body class="coach">
 <!-- WIREFRAME · node 5.4 Профіль клієнта (ERROR). History failed. Retry → base. Never a dead end. -->
@@ -53,7 +34,7 @@
         <span class="ch-goal">🎯 Ціль: Набір маси</span>
       </div>
     </div>
-    <a class="ch-edit" href="../wireframes/coach-client-edit.html">Редагувати клієнта</a>
+    <a class="ch-edit" href="coach-client-edit.html">Редагувати клієнта</a>
   </div>
 
   <h2 class="oh-h">Історія замовлень клієнта</h2>
@@ -78,7 +59,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'error');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'error');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

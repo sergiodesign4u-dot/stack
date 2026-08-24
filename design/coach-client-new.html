@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Новий клієнт - Кабінет тренера - Stack (wireframe 5.3)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.3a Новий клієнт (діалог). Private → noindex.
+  THE SCREEN IS A DIALOG OVER A LIST, AND ONLY THE LIST IS IN THIS FILE.
+  The «Новий клієнт» modal is not markup here and never was: `wfClientEdit()`
+  in `wireframes/_nav.js` is its single edition - the same one `coach-client.html`
+  and `coach-client-edit.html` open - and `openClientNew()` opens it at load.
+  A copy of that box in this file would be a second edition of a dialog three
+  screens share, and the third one drifts first.
+  «Додати клієнта» → close + toast · «Скасувати» / «✕» → close.
+
+  THE UNDERLAY IS `coach-clients.html` (5.3), TAKEN FROM THE COLOURED BASE AND
+  NOT FROM THE GREY STATE, per the contract's rule 2a. Two places where the grey
+  state is older than its own base, and the base wins in both:
+    · the grey state carries a SECOND filled primary «＋ Нова сесія» beside
+      «＋ Додати клієнта»; the base deleted it, because `wfCoachNav()` already
+      emits that button full-width directly above (U8, and principle 2).
+    · the grey state's cards carry no `data-client` record, so a card is a
+      picture; the base's cards carry the client record the coach flow reads.
+  Both deltas are handed to the parent by line, not fixed silently.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <span class="cur">Клієнти</span>
+  </nav>
+
+  <div class="acc">
+
+    <!-- ============ COACH SECTION NAV (shared wfCoachNav) ============ -->
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <!-- ============ CONTENT = CLIENTS LIST ============ -->
+    <div class="acc-main">
+      <div class="cl-top">
+        <div>
+          <h1 class="cl-h1">Клієнти</h1>
+          <p class="cl-sub">Збережені клієнти з їхніми цілями та історією замовлень.</p>
+        </div>
+        <!-- ONE ACCENT ON THE SCREEN, AND IT IS THE LIST'S OWN ADD ACTION - the
+             decision made on the base and inherited here unchanged.
+             THE HREF IS THE ONE THING THAT CHANGES: the base points this link at
+             `coach-client-new.html`, because the coloured version of
+             this screen did not exist when the base was written. It exists now, so
+             the link is internal and `uivFixLinks()` keeps it that way. On THIS
+             screen it is also self-referential on purpose: the dialog is already
+             open, and pressing the launcher again re-opens it rather than leaving
+             the page. -->
+        <div class="cl-acts actions">
+          <a class="btn--accent btn--s btn" href="coach-client-new.html" onclick="openClientNew();return false">＋ Додати клієнта</a>
+        </div>
+      </div>
+
+      <!-- search / filter row -->
+      <div class="cl-tools">
+        <label class="cl-search">
+          <span aria-hidden="true">🔎</span>
+          <input type="search" placeholder="Пошук клієнта за іменем…" aria-label="Пошук клієнта">
+        </label>
+      </div>
+
+      <!-- CLIENT CARDS, the base's own three. The width row for this screen in
+           `responsive.md` reads «THE SAME · container», so the list keeps the
+           behaviour it has below the split point and this screen calls no
+           `wfClientSplit()`: it is the DIALOG that is the subject here, and a
+           second pane opening behind a modal is a view nobody asked for. The
+           `data-` record stays on the cards, because it is the base's markup and
+           the panel reads it the moment the parent decides otherwise. -->
+      <div class="clist">
+
+        <article class="ccard" data-client="andriy" data-orders="8" data-last="12 черв. 2026" data-name="Андрій" data-goal="Набір маси"
+                 data-phone="+380 67 123 45 67" data-mail="andriy.koval@email.com" data-note="Алергія на лактозу; тренування вранці">
+          <div class="ccard-hd">
+            <div class="ccard-av">А</div>
+            <div>
+              <div class="ccard-nm">Андрій</div>
+              <span class="ccard-goal">🎯 Набір маси</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>8 замовлень</b><span class="dot">·</span>останнє 12 черв. 2026</div>
+          <div class="ccard-acts actions actions--even">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--outline btn--s btn" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+        <article class="ccard" data-client="maria" data-orders="5" data-last="3 черв. 2026" data-name="Марія" data-goal="Схуднення"
+                 data-phone="+380 63 984 21 08" data-mail="maria.levchenko@email.com" data-note="Вегетаріанка; тренування ввечері">
+          <div class="ccard-hd">
+            <div class="ccard-av">М</div>
+            <div>
+              <div class="ccard-nm">Марія</div>
+              <span class="ccard-goal">🎯 Схуднення</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>5 замовлень</b><span class="dot">·</span>останнє 3 черв. 2026</div>
+          <div class="ccard-acts actions actions--even">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--outline btn--s btn" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+        <article class="ccard" data-client="ihor" data-orders="2" data-last="28 трав. 2026" data-name="Ігор" data-goal="Витривалість"
+                 data-phone="+380 50 447 63 90" data-mail="ihor.bondar@email.com" data-note="Готується до півмарафону; біг чотири рази на тиждень">
+          <div class="ccard-hd">
+            <div class="ccard-av">І</div>
+            <div>
+              <div class="ccard-nm">Ігор</div>
+              <span class="ccard-goal">🎯 Витривалість</span>
+            </div>
+          </div>
+          <div class="ccard-meta"><b>2 замовлення</b><span class="dot">·</span>останнє 28 трав. 2026</div>
+          <div class="ccard-acts actions actions--even">
+            <a class="btn--outline btn--s btn" href="coach-client.html">Профіль</a>
+            <a class="btn--outline btn--s btn" href="coach-session.html">Нова сесія</a>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('coach'); wfCoachNav('clients'); wfFooter(); wfClientEdit(); wfToasts(); openClientNew(); wfBar('coach-client-new.html');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

@@ -11,26 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE CARD WAS `.acard`, TYPED OUT BY HAND - 6 rules, step 8.41, and it is the
-   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
-   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
-   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
-   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
-   `.ah a` are all declared there too, and all three had drifted: gap 10 against
-   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
-   link at 12.5 against `--fs-14`.
-   TWO MORE WENT WITH IT. `.cli .cgo-btn` declared three things and the system
-   already declares all three: `margin-left: auto` at coach-cabinet.css:477,
-   `white-space: nowrap` at button.css:116, and the padding is the atom's ladder -
-   the fourth action-row padding of the four `coach-clients.css` names in its own
-   note. And `.cord .co-status` was status-pill.css's own class overridden at
-   (0,2,0): an 11px/800 pill on `--line-strong` where the atom draws `--fs-12` on
-   `--space-4/--space-12`, and the override also cut the pill off from its `.ok`
-   state. The word on this screen is «Доставлено», so the markup takes `ok` -
-   status-pill.css:7.96 says that half is the markup's and no stylesheet can
-   write it */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -60,16 +40,16 @@
       <p class="acc-sub">Кабінет тренера: замовлення для клієнтів, гуртові ціни та історія в одному місці.</p>
 
       <!-- coach status: FREE tier - better-than-retail, but capped clients + upsell to Pro -->
-      <div class="cstat" style="background:var(--bg-sunken)">
-        <span class="tierchip" style="border-color:var(--line-strong)">Free</span>
-        <span class="cnote"><b>Ціни краще за роздрібні</b> · <b>до 3 клієнтів</b> у сесії <span style="color:var(--text-muted)">[?]</span></span>
+      <div class="cstat cstat--free">
+        <span class="tierchip">Free</span>
+        <span class="cnote"><b>Ціни краще за роздрібні</b> · <b>до 3 клієнтів</b> у сесії <span class="qmark">[?]</span></span>
         <a class="cmanage" href="coach-tariff.html">Керувати тарифом</a>
       </div>
 
       <!-- upsell to Pro (Free limitation) -->
-      <div class="cstat" style="border-color:var(--line-inverse);background:var(--bg-page);margin-top:10px">
-        <span style="font-size:13px;color:var(--text-primary)"><b>Оновіть до Pro</b> - максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span style="color:var(--text-muted)">[?]</span>.</span>
-        <a class="btn--accent btn--s btn" href="coach-tariff.html" style="margin-left:auto">Оформити Pro</a>
+      <div class="cstat cstat--up">
+        <span class="cs-copy"><b>Оновіть до Pro</b> - максимальна гуртова ціна на всі товари та безлімітні клієнти в сесії. ~99 ₴/міс <span class="qmark">[?]</span>.</span>
+        <a class="btn--accent btn--s btn" href="coach-tariff.html">Оформити Pro</a>
       </div>
 
       <!-- `.cnew` DELETED HERE - step 8.20, and it is step 7.98's decision arriving
@@ -128,7 +108,7 @@
         </div>
 
         <!-- Recent coach orders (multi-client) → order/checkout -->
-        <div class="acard span2 cords">
+        <div class="acard span2">
           <div class="ah"><h3>Останні замовлення</h3><a href="coach-orders.html">Усі замовлення →</a></div>
           <div class="cord">
             <div class="co-info">
@@ -182,7 +162,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfCoachNav('overview', {tier:'Free'}); wfFooter(); wfBar('coach-home.html','free');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfCoachNav('overview', {tier:'Free'}); wfFooter(); wfBar('coach-home.html','free');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

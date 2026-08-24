@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Відгуки про магазин - Stack (wireframe 8.11)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.11 Відгуки про магазин. Про СЕРВІС (доставка / пакування /
+  підтримка), окремо від відгуків на товар (3.1). AggregateRating(Organization).
+
+  NODE 8.11 NEEDED NO NEW CSS AT ALL, and that is the point of the screen: the
+  card is `.rvitem` from review-item.css - the same one that stands on three
+  product screens - the summary is `.rvbig` + `.rvbars`, the head that holds them
+  is `.rvhead` from section-head.css, and the pager is `.pgnav` + `.pages` from
+  pagination.css. The three names the grey block invented are all in the system
+  under other names: `.rev-lead` is `.lintro` (seo-text.css), `.rev-tags` is
+  `.chips` + `.chip` + `.chip.on` (chip.css), `.rev-cta` is `.actions` +
+  `.actions--stack` (patterns/action-row.css). `.rev-google` is a button and gets
+  a rank, not a component.
+
+  «＋ Залишити відгук» LEADS NOWHERE, AND THAT IS THE GREY'S STATE, NOT A CHOICE
+  MADE HERE. The IA node says «діалог як 3.1a»; the grey button carries no
+  `onclick` and no such dialog is built for this node. `product-reviews.html`
+  calls `openReview()`, which is drawn by `wfPdpModals()` and belongs to the
+  PRODUCT page. The button is placed as the grey places it; the behaviour is an
+  open question for the parent.
+
+  The three inline margins of the grey (`margin-top:20px`, `margin-top:10px` and
+  the column of the CTA) are not values - they are styling, so they are gone and
+  their job is done by `.rvhead`, `.rvitem`'s own hairline and `.actions--stack`.
+  The five `width:NN%` on the distribution bars stay: a percentage is a VALUE and
+  a static prototype has no server to compute it. That is the contract's one
+  declared exception.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Відгуки про магазин</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Відгуки про магазин</h1>
+    <p class="lintro">Що кажуть покупці про сервіс Stack - швидкість доставки, пакування,
+      оригінальність товару та роботу підтримки. Це відгуки про <b>магазин</b>, а не про окремий
+      товар (їх шукайте на картці товару).</p>
+  </section>
+
+  <!-- AggregateRating summary + breakdown + CTAs -->
+  <section aria-label="Загальна оцінка">
+    <div class="rvhead">
+      <div class="rvbig"><div class="n">4.8</div><div class="s">★★★★★<br>342 відгуки про магазин</div></div>
+      <div class="rvbars">
+        <div class="rvbar"><span>5</span><div class="track"><div class="fill" style="width:84%"></div></div><span>287</span></div>
+        <div class="rvbar"><span>4</span><div class="track"><div class="fill" style="width:11%"></div></div><span>38</span></div>
+        <div class="rvbar"><span>3</span><div class="track"><div class="fill" style="width:3%"></div></div><span>11</span></div>
+        <div class="rvbar"><span>2</span><div class="track"><div class="fill" style="width:1%"></div></div><span>4</span></div>
+        <div class="rvbar"><span>1</span><div class="track"><div class="fill" style="width:1%"></div></div><span>2</span></div>
+      </div>
+      <div class="actions actions--stack">
+        <button class="btn--accent btn--s" type="button">＋ Залишити відгук</button>
+        <a class="btn--outline btn--s" href="content-reviews.html">🔗 Оцінити в Google</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- filter chips by theme -->
+  <div class="chips" aria-label="Фільтр відгуків">
+    <a class="chip on" href="content-reviews.html">Усі</a>
+    <a class="chip" href="content-reviews.html">Доставка</a>
+    <a class="chip" href="content-reviews.html">Пакування</a>
+    <a class="chip" href="content-reviews.html">Підтримка</a>
+    <a class="chip" href="content-reviews.html">Оригінальність</a>
+  </div>
+
+  <!-- review list (same card as product-reviews.html, but about the SHOP) -->
+  <section aria-label="Відгуки про магазин">
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Олена В.</div><div class="rdate">27 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> швидка відправка, надійне пакування</div>
+        <div class="rtext">Замовлення відправили того ж дня, прийшло на Нову Пошту за два дні.
+          Банки прийшли цілі, все запаковано з плівкою. Замовляю для клієнтів регулярно.</div>
+        <div class="rvreply"><div class="rchip"><span class="lg">Stack</span> Магазин</div>
+          Дякуємо, Олено. Раді, що доставка й пакування не підвели.
+        </div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Андрій С.</div><div class="rdate">21 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> оригінал, є сертифікати</div>
+        <div class="rtext">Порівнював склад із сайтом виробника - усе збігається. Сертифікат показали
+          без питань. Довіряю магазину.</div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Марія К.</div><div class="rdate">14 червня 2026</div><div class="rstars">★ 4.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> уважна підтримка</div>
+        <div class="prc"><b>Недоліки:</b> трохи чекала відповідь у вихідний</div>
+        <div class="rtext">Переплутала адресу відділення - підтримка допомогла перенаправити посилку.
+          Загалом сервісом задоволена.</div>
+        <div class="rvreply"><div class="rchip"><span class="lg">Stack</span> Магазин</div>
+          Дякуємо за відгук. У вихідні відповідаємо трохи довше - врахуємо.
+        </div>
+      </div>
+    </div>
+
+    <div class="rvitem">
+      <div class="rvmeta"><div class="rname">Ігор П.</div><div class="rdate">8 червня 2026</div><div class="rstars">★ 5.0</div><div class="rbadge">✓ Покупець</div></div>
+      <div class="rvbody">
+        <div class="prc"><b>Переваги:</b> зручне оформлення, бонуси</div>
+        <div class="rtext">Оформив за телефоном без реєстрації, прийшли бонуси на рахунок. Наступного
+          разу частину оплатив ними. Дрібниця, а приємно.</div>
+      </div>
+    </div>
+
+    <div class="pgnav">
+      <button class="btn--outline loadmore" type="button">Показати ще відгуки (з 342)</button>
+      <div class="pages"><button class="btn--outline btn--icon btn--s on" type="button" aria-current="page">1</button><button class="btn--outline btn--icon btn--s" type="button">2</button><button class="btn--outline btn--icon btn--s" type="button">3</button><button class="btn--outline btn--icon btn--s" type="button" aria-label="Наступна сторінка">›</button></div>
+    </div>
+  </section>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис">
+    <div class="h">Відгуки про магазин спортивного харчування Stack</div>
+    <p>На цій сторінці зібрані відгуки покупців про сервіс Stack: швидкість і надійність доставки
+      Новою Поштою, якість пакування, роботу підтримки, зручність оформлення й оригінальність
+      товару з сертифікатами. Це оцінки магазину загалом, окремо від відгуків на конкретні товари.</p>
+    <p>Хочете поділитися досвідом? Залиште відгук про замовлення або оцініть нас у Google - це
+      допомагає іншим покупцям обирати впевнено.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-reviews.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

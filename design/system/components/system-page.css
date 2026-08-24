@@ -11,8 +11,29 @@
 .sys-h{ font-size: var(--fs-24); font-weight: var(--fw-black); color: var(--text-primary); margin: var(--space-16) 0 var(--space-8); }
 .sys-s{ font-size: var(--fs-14); color: var(--text-secondary); max-width: 28.75rem; margin: 0 auto var(--space-24); line-height: var(--lh-airy); }
 .sys-acts{ display: flex; gap: var(--space-12); flex-wrap: wrap; justify-content: center; }
-.sys-search{ display: flex; max-width: 28.75rem; margin: 0 auto var(--space-16); width: 100%; border: 1px solid var(--line-strong); border-radius: var(--radius-8); overflow: hidden; }
-.sys-search input{ flex: 1; border: none; padding: var(--space-12) var(--space-16); font-size: var(--fs-14); }
+/* 12.9: `.sys-search` STOPPED BEING A SHELL AND BECAME A SIZE, and the reason is
+   a rule this system had already written down and never had a chance to apply.
+
+   The stage-08 split promised «selectors are unchanged» and this one did not
+   survive it: the grey sheet draws `.sys-search .go` - the welded submit - and
+   the coloured layer drew nothing at all, so the word «Знайти» hung inside the
+   box with no ground, no padding and no weight. Measured in the kit's own frame:
+   `background rgba(0,0,0,0)`, `padding 0px`, `16px/400`, no border.
+
+   TWO REPAIRS WERE POSSIBLE AND ONLY ONE OF THEM SHRINKS THE DEBT. Restoring
+   `.sys-search .go` would have made this the FIFTH hand-written edition of «a
+   search field with a welded button»; `field.css` lists the four (`.cl-search`,
+   `.sys-search`, `.city-search`, `.wfh-search`), calls merging them «Крок 6»,
+   and closes that very paragraph with «`brands.html` is the first screen to
+   reach for it from the system instead of writing a fifth». Node S is the
+   second. The shell now comes from `.field-grp`, exactly as the header already
+   does at runtime (`wireframes/_nav.js:1884`), and `.field-grp > .btn--accent`
+   already welds the button. Four editions become three.
+
+   WHAT IS LEFT HERE IS WHAT ONLY THIS SURFACE KNOWS: how wide the field is on
+   an error page and that it stands in the middle. Zero coloured screens wore the
+   old rule, so nothing had to be rebuilt to say this. */
+.sys-search{ max-width: 28.75rem; margin-inline: auto; margin-bottom: var(--space-16); width: 100%; }
 .sys-links{ display: flex; gap: var(--space-8) var(--space-16); flex-wrap: wrap; justify-content: center; font-size: var(--fs-14); margin-top: var(--space-8); }
 .sys-links a{ color: var(--text-primary); font-weight: var(--fw-bold); text-decoration: underline; }
 .sysgrid{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); margin: var(--space-16) 0; }
@@ -33,9 +54,73 @@
 .sysdemo p{ font-size: var(--fs-14); color: var(--text-secondary); margin-bottom: var(--space-12); line-height: var(--lh-airy); }
 .sysdemo .demo-btns{ display: flex; gap: var(--space-8); flex-wrap: wrap; }
 
-/* The mobile field-size rule that used to sit here lives in base.css, where it
-   covers every input on the page instead of this file's own. Step 7.3 removed
-   the empty @media block it left behind, and this comment with it. */
-@media (max-width: 859px){
-  .sys-search input{ font-size: var(--fs-16); }
-}
+/* 12.9: AND THE OTHER HALF OF THAT RULE IS GONE TOO, PROVED RATHER THAN
+   ARGUED. The kit had carried it as the fifth item of «what is missing», with
+   the honest reason «noticing this on a screen is impossible: there is no
+   screen». There is a screen now. Measured on the built `404.html`: the field is
+   16px at 360 and 390 and 14px at 1280 with this block deleted, because
+   `base.css` reaches it first - `html input[type="search"]` is (0,1,2) against
+   this file's (0,1,1) and sets the same value. A rule that changes nothing is
+   removed, not kept as insurance: `CLAUDE.md` says a number nobody maintains is
+   removed, not corrected, and this is that number's twin. */
+
+/* ---------- 12.9: THE ERROR THAT KEEPS ITS CHROME, node S ------------------
+   Until now this file drew ONE page shape: `.sys-min`, a bare centred column at
+   78vh with no header and no footer. That is right for 500 and for maintenance,
+   where the store itself is what failed and a navigation bar would be offering
+   doors that do not open.
+
+   404 IS THE OPPOSITE CASE AND THE GREY SAYS SO IN ITS OWN COMMENT: «never a
+   dead end». The store works; one address does not. So the page keeps the
+   header, the footer and the search, and the error is a SECTION inside a normal
+   page rather than the page itself. Design principle 2 decides it - one clear
+   next step - and on 500 the next step is «try again», while on 404 it is any
+   of a dozen doors that all still work.
+
+   `.sys-min` cannot be re-used with the chrome switched on: it is `min-height:
+   78vh` plus `justify-content: center`, which on a page that also carries a
+   header and a footer pushes the whole thing off the fold. Two shapes, one
+   file, and the difference is which of the two the visitor's problem is. */
+.e404{ text-align: center; padding: var(--space-40) 0 var(--space-16); }
+.e404 .sys-code{ margin-bottom: var(--space-4); }
+
+/* THE CODE AS A GLYPH, and it closes an inline style the grey could not avoid.
+   `maintenance.html` writes `style="font-size:44px"` on `.sys-code` because a
+   wrench at 60 is not a number at 60 - the digit form carries its weight in the
+   stroke, the pictograph in its box. 44 is not invented here: it is the TOP of
+   `--fs-display`, the ramp this system already climbs to, so the glyph lands on
+   a rung instead of on a number somebody typed once. */
+/* AND THE SIZE IS FIXED, NOT FLUID - the first writing got this wrong and an
+   agent measured it. `--fs-display` is a `clamp(30px, ..., 44px)`, so the wrench
+   rendered 30 on a phone against the grey's 44: a third smaller, on the device
+   this product is built for first, while the digit «500» on the twin screen sits
+   at 60 on every width. **Two twin pages, one slot, one mark fixed and one
+   fluid** is not a decision anybody took. 44 is not a rung this system has -
+   `tokens.css` refused to mint `--fs-36` and `--fs-50` for one use each and this
+   would be a third - so the glyph takes the rung below the digit and behaves the
+   way its twin behaves. */
+.sys-code--mark{ font-size: var(--fs-34); }
+
+/* ---------- the quiet line under the actions, node S ------------------------
+   Both error pages end with a line that is not the message and not an action:
+   a phone number and two messengers on 500, the same plus an HTTP note on
+   maintenance. The grey writes them as `.sys-s` with `style="margin-top:18px;
+   font-size:12.5px"`, and measured without the inline that is FOUR pixels of air
+   instead of eighteen - `.sys-min` has `gap: var(--space-4)` and `.sys-s` has no
+   top margin at all. So the inline was not decoration, it was a lost rule.
+
+   `newsletter.css`'s `.nl-foot` is the same shape declaration for declaration,
+   and it may not be borrowed: «the newsletter's footer» on a fault page is
+   another file's name on another file's screen. The precedent is 12.2, where
+   eight inline colours became `.qmark` and sixteen inline geometries became
+   `.skline--*` - a named variant in the file that owns the surface.
+
+   AND 11.5 AGAINST 12.5 IS GREY DRIFT ON A LADDER WITH ONE RUNG. `--fs-12` is
+   that rung. The real difference between the two lines is COLOUR: the help line
+   is secondary, the protocol note is muted. */
+.sys-foot{ font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-16); line-height: var(--lh-airy); }
+.sys-foot a{ color: inherit; text-decoration: underline; text-underline-offset: 2px;
+  transition: color var(--dur-fast) var(--ease-standard); }
+.sys-foot a:hover{ color: var(--text-action); }
+.sys-foot--fine{ color: var(--text-muted); margin-top: var(--space-8); }

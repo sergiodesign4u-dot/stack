@@ -11,16 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE CARD WAS `.acard`, TYPED OUT BY HAND - 3 rules, step 8.41, and it is the
-   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
-   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
-   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
-   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
-   `.ah a` are all declared there too, and all three had drifted: gap 10 against
-   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
-   link at 12.5 against `--fs-14`. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -99,7 +89,7 @@
           <div class="ei">♡</div>
           <div class="et">В обраному поки порожньо</div>
           <div class="es">Тисніть ♡ на товарах - зберігайте те, що часто замовляєте клієнтам, з гуртовою ціною Pro.</div>
-          <div class="eact"><a class="btn--outline btn--s btn" href="../wireframes/catalog-page.html">До каталогу</a></div>
+          <div class="eact"><a class="btn--outline btn--s btn" href="catalog-page.html">До каталогу</a></div>
         </div>
       </section>
 
@@ -116,7 +106,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfCoachNav('overview', {counts:{clients:0,orders:0,wishlist:0}}); wfFooter(); wfBar('coach-home.html','empty');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfCoachNav('overview', {counts:{clients:0,orders:0,wishlist:0}}); wfFooter(); wfBar('coach-home.html','empty');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

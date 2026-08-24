@@ -9921,3 +9921,433 @@ deleted; two kept, both of which draw something no component reaches.
   else.
 - `design/overview.html` gained a ninth section; `DESIGN_NAV` gained eight names, without which a
   link between two coloured coach screens is rewritten back into the grey prototype.
+
+---
+
+# The thirty empty blocks, and where their records went - stage 12, step 2
+
+Every one of the 30 `<style>` tags left on the coloured screens held no rule. Each held a
+COMMENT: the record of what had left that screen at steps 8.30-8.42, and where it went. The tags
+are removed here and the records are kept verbatim below, because the tag itself is one of the
+nine marks stage 12 forbids in a screen file, and a ban with thirty declared exceptions in the
+very template fifty subagents copy from is not a ban.
+
+Nothing is edited. What follows is what each screen said about itself.
+
+## `design/cart-coach-empty.html`
+
+```
+NOTHING PRIVATE LEFT HERE, AND THE SHELL OUTLIVED THE CONTENTS - step 8.42.
+   Four rules went at step 8.30 and the block stayed behind as six blank lines,
+   which is the same defect as a comment nobody can find a rule for: the page
+   said «I paint something of my own» and painted nothing.
+   What left: `.cart-drawer{ max-width: 440px }`, `.cd-body{ padding: 0 18px }`,
+   `.cd-empty{ padding: 40px 12px }` and `.cd-empty .es{ line-height: 1.5 }`.
+   cart-drawer.css declares all four names, so the drawer's own numbers now
+   stand on this screen as they do on the buyer's: 420 rather than 440, 8/16
+   rather than 0/18, 40/8 rather than 40/12, and `--lh-airy` rather than 1.5.
+```
+
+## `design/coach-client-empty.html`
+
+```
+NOTHING PRIVATE LEFT HERE - step 8.42, and this page's record is in the
+   MARKUP rather than in this block: see the note above `.empty` below, which
+   is where the five rules that used to sit here were answered at step 8.25.
+   `.ic` / `<h3>` / `<p>` became `.ei` / `.et` / `.es` / `.eact`, the four
+   names empty-state.css draws, and the private copy of the box went with them.
+   The shell stayed behind as blank lines and is removed with this note.
+```
+
+## `design/coach-client-error.html`
+
+```
+THE ERROR BOX IS GONE - 6 rules, step 8.39. `.err` was a private edition of
+   `.errbox`, and the one thing it could not retype is the thing that matters:
+   `empty-state.css` gives an error box `--bg-danger-soft`, `--line-danger-soft`
+   and a `--text-danger` glyph, and this copy was flat grey with the glyph on
+   `--mark-disabled` - the ink for something switched OFF. `.err-btns .btn{
+   padding: 13px 24px }` went with nothing taking it: a size written on top of
+   `btn--s`, and the atom owns the ladder - same deletion as `.cs-empty .btn` at
+   8.30.
+```
+
+## `design/coach-client-loading.html`
+
+```
+THE LAST RULE ON THIS SCREEN IS GONE - step 8.41, and it is the rule the
+   system had already deleted BY NAME: `coach-clients.css:411` reads
+   «`.cc-cta .btn{ padding: 13px 22px }` DELETED - button.css owns the padding»,
+   with the note that three action rows on these two screens gave the button
+   three different paddings. The base screen took the deletion at 7.96; its
+   loading state kept the copy.
+```
+
+## `design/coach-clients-cap.html`
+
+```
+TWO RULES GONE - step 8.41. `.ccard-acts .btn` was three declarations and
+   `coach-clients.css:332` had already deleted two of them by name - «KEPT ONLY
+   ITS `flex: 1`. `text-align: center` and the padding ...» - so this screen was
+   carrying the exact rule the component had settled. `.cl-sech` moved into
+   `coach-clients.css`.
+```
+
+## `design/coach-clients-empty.html`
+
+```
+ONE RULE GONE - step 8.39. `p.lead` was `.es` under another name, and its
+   twin on `coach-clients-error` wrote the same declaration with a 42ch measure
+   against this screen's 46ch. `.empty .es` is the answer both were retyping.
+```
+
+## `design/coach-clients-error.html`
+
+```
+TWO RULES GONE - step 8.39, and the box was the wrong box. This screen said
+   «Не вдалося завантажити список клієнтів» inside `.empty`, which is the
+   catalogue's illustrated NOTHING-HERE-YET plate; three of its six wearers hold
+   a mascot photograph and the colour block is written for them. An error is
+   `.errbox`, with `--bg-danger-soft` and a `--text-danger` glyph. The private
+   `p.lead` was `.es` under another name, and it carried a 42ch measure here
+   against 46ch on `coach-clients-empty` - the same line, two measures, on two
+   screens that were cloned from each other.
+```
+
+## `design/coach-clients-loading.html`
+
+```
+THE SKELETON BLOCK IS GONE - 6 rules and the last private media block
+   on this screen, step 8.38. `.skclist` was a fourth name for `.clist` (same grid, same
+   640 flip, same gap 12); `.skhd` `.skav` `.skacts` were `.ccard-hd`
+   `.ccard-av` `.ccard-acts` retyped. 8.24 took this screen off its own skeleton
+   card and onto `.skcard`; the same reading one step further says it is not a
+   skeleton card at all, it is the client card standing empty.
+```
+
+## `design/coach-home-empty.html`
+
+```
+THE CARD WAS `.acard`, TYPED OUT BY HAND - 3 rules, step 8.41, and it is the
+   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
+   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
+   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
+   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
+   `.ah a` are all declared there too, and all three had drifted: gap 10 against
+   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
+   link at 12.5 against `--fs-14`.
+```
+
+## `design/coach-home-error.html`
+
+```
+THE ERROR BOX IS GONE - 5 rules, step 8.39. `.cerr` was the SECOND private
+   edition of `.errbox` in this flow and disagreed with the first on every value:
+   1.5px dashed against 1px solid, radius 16 against 14, the glyph in a 60px
+   ring on `--text-secondary` against a bare 32px on `--mark-disabled`. Neither
+   carried the danger role the component states. The box takes the page's full
+   width now, which is what its own sibling `coach-home-empty` has always done
+   with `.emptybox` on this same bare `wf-page`.
+```
+
+## `design/coach-home-free.html`
+
+```
+THE CARD WAS `.acard`, TYPED OUT BY HAND - 6 rules, step 8.41, and it is the
+   same finding `plan-card.css` recorded at 8.29 in the same flow. account-shell.css
+   declares `.acard` (1px `--line-hair`, `--space-16`) and its colour block adds
+   `--radius-12`, `--bg-page` and `--elevation-1`; the copy wrote radius **14** and
+   neither the plate nor the shadow, and it wins on load order. `.ah`, `.ah h3` and
+   `.ah a` are all declared there too, and all three had drifted: gap 10 against
+   `--space-12`, the caps label on `--text-secondary` against `--text-muted`, the
+   link at 12.5 against `--fs-14`.
+   TWO MORE WENT WITH IT. `.cli .cgo-btn` declared three things and the system
+   already declares all three: `margin-left: auto` at coach-cabinet.css:477,
+   `white-space: nowrap` at button.css:116, and the padding is the atom's ladder -
+   the fourth action-row padding of the four `coach-clients.css` names in its own
+   note. And `.cord .co-status` was status-pill.css's own class overridden at
+   (0,2,0): an 11px/800 pill on `--line-strong` where the atom draws `--fs-12` on
+   `--space-4/--space-12`, and the override also cut the pill off from its `.ok`
+   state. The word on this screen is «Доставлено», so the markup takes `ok` -
+   status-pill.css:7.96 says that half is the markup's and no stylesheet can
+   write it
+```
+
+## `design/coach-home-loading.html`
+
+```
+FIFTEEN RULES LEFT THIS BLOCK AT STEP 8.30 AND NOTHING REPLACED THEM: every
+   one was a second name for something `skeleton.css`, `account-shell.css` or
+   `empty-state.css` already declares, and the buyer's twin of this screen -
+   `account-loading.html`, the same shell, the same job - carries no private rule
+   at all. The mapping, and each pair was read on both running pages:
+
+     .sk / .sk.line       -> .skline        the bar. `.sk` also carried a 1px
+                                            hairline the system's bar does not
+                                            have, and `height: 12px` is the
+                                            single instance skeleton.css names in
+                                            its own comment: «24 and 10, not 24
+                                            and 12, because 12 was one instance
+                                            disagreeing with 78». This was that one.
+     .sk-prof / .av / .who -> .acc-prof and its two children
+     .sk-links / .row      -> .acc-links / .acc-link
+     .sk-h1 / .sk-sub      -> .acc-h1sk / .acc-subsk
+     .sk-card / .sk-strip  -> .skcardbox
+     .sk-load              -> .loadnote
+     .sk-spin              -> DELETED WITH NOTHING TAKING IT. Its own comment
+                              said «this was the third edition» of the spinner and
+                              named the two that settled it - and skeleton.css
+                              answers the question that comment did not ask:
+                              «It says "still going", not "broken": one slow
+                              breath, NEVER A SPINNER.» A skeleton screen that
+                              also spins is two loading languages at once.
+
+   `.skpulse` came WITH the classes rather than being added: it is a modifier on
+   the container, and taking `.acc-nav`, `.acc-grid` and the two bars means the
+   page breathes the way every other loading screen in the product does. And the
+   rail's phone shape came with them too - below 960 `.acc-links` is a scrollable
+   chip strip, which is what four cabinet screens got back at step 8.22 for
+   exactly the same reason.
+```
+
+## `design/coach-order-error.html`
+
+```
+THE BOX IS GONE - 4 rules, step 8.39. `.ord-err` and `.ord-empty` were ONE
+   private rule doing two opposite jobs: the same flat grey plate for «nothing
+   here yet» and for «it broke». `empty-state.css` keeps them apart on purpose -
+   `.emptybox` is a hairline on the surface, `.errbox` is `--bg-danger-soft` with
+   a `--text-danger` glyph - and this copy said neither. It is the third private
+   edition of the error box in the coach flow, and the only one that also stood
+   in for the empty one.
+```
+
+## `design/coach-order-loading.html`
+
+```
+THE SKELETON BLOCK IS GONE - 2 rules, step 8.38. `.skgrp` was a fourth name
+   for the card (`.skcard`, `.skccard`, `.skcardbox` were the other three) and
+   `.od-grp` is the box this screen actually loads; `.skln` was the bar written
+   for the seventh time, and on `--bg-rule` - which is `--warm-200`, the
+   hairline colour - where every other skeleton in the product is `--warm-100`.
+```
+
+## `design/coach-orders-empty.html`
+
+```
+THE BOX IS GONE - 5 rules, step 8.39. `.ord-err` and `.ord-empty` were ONE
+   private rule doing two opposite jobs: the same flat grey plate for «nothing
+   here yet» and for «it broke». `empty-state.css` keeps them apart on purpose -
+   `.emptybox` is a hairline on the surface, `.errbox` is `--bg-danger-soft` with
+   a `--text-danger` glyph - and this copy said neither. It is the third private
+   edition of the error box in the coach flow, and the only one that also stood
+   in for the empty one.
+```
+
+## `design/coach-orders-error.html`
+
+```
+THE BOX IS GONE - 4 rules, step 8.39. `.ord-err` and `.ord-empty` were ONE
+   private rule doing two opposite jobs: the same flat grey plate for «nothing
+   here yet» and for «it broke». `empty-state.css` keeps them apart on purpose -
+   `.emptybox` is a hairline on the surface, `.errbox` is `--bg-danger-soft` with
+   a `--text-danger` glyph - and this copy said neither. It is the third private
+   edition of the error box in the coach flow, and the only one that also stood
+   in for the empty one.
+```
+
+## `design/coach-orders-loading.html`
+
+```
+THE SKELETON BLOCK IS GONE - 1 rule, step 8.38. `.skln` was the bar written a
+   seventh time, 12px on `--bg-rule` against the system's 10 on `--bg-sunken`.
+   `.skel` came off the markup with it: nothing declares it, in this layer or in
+   the grey one.
+```
+
+## `design/coach-session-addclient.html`
+
+```
+NOTHING PRIVATE LEFT HERE - step 8.42. The add-client modal was 74 rules and
+   left at step 8.31b; the shell stayed behind as blank lines.
+   Where it went: `.acov` / `.acmodal` / `.ac-top` / `.ac-x` / `.acact` are the
+   system's dialog under its own names - `.ceov` from overlay.css, and
+   `.cemodal` / `.ce-top` / `.ce-x` / `.ceact` from client-dialog.css, which also
+   declares `.ac-list` and `.ac-new`. The picker row `.ac-cli` joined radio.css's
+   row rung and `.ac-cli .ac-info` joined `.cli .cinfo` in coach-cabinet.css.
+   ONE OF THOSE RULES SHOULD NOT HAVE MOVED, AND THE MEASUREMENT IS AT 8.42:
+   `#wf-bar{ position: relative; z-index: 80 }` went into _stand.css so the stand
+   bar would stay above the scrim, and `.wf-bar` reads `display: none` on every
+   coloured screen, hidden by that same file since 2026-08-06. The rule was
+   extracted for an element that does not render. See _stand.css.
+```
+
+## `design/coach-session-addempty.html`
+
+```
+NOTHING PRIVATE LEFT HERE - step 8.42, and the same block as its sibling:
+   coach-session-addclient carries the full note, this screen is the empty state
+   of the same modal and its 74 rules left the same way at step 8.31b.
+   Written out rather than referred to only by name: `.acov` / `.acmodal` /
+   `.ac-top` / `.ac-x` / `.acact` are now `.ceov` (overlay.css) and `.cemodal` /
+   `.ce-top` / `.ce-x` / `.ceact` (client-dialog.css), which also declares
+   `.ac-new`. This state has no `.ac-list`, because there is no one to list.
+```
+
+## `design/coach-session-empty.html`
+
+```
+THE LAST RULE ON THIS SCREEN IS GONE - step 8.41. `.cs-summ-empty` is the
+   line the summary shows when nothing is in the session, and it moved into
+   `coach-session.css` beside `.cs-summ` itself. The block above it went at 8.30:
+   `.cs-empty` was the sixth private edition of `.emptybox`, and its sibling
+   `coach-session-newclient` carried the seventh until today.
+```
+
+## `design/coach-session-loading.html`
+
+```
+THE SKELETON BLOCK IS GONE - 3 rules, step 8.38. `.qa-skel` was
+   `coach-session.css`'s own `.qa-row` retyped (44 / 1fr, gap 11, padding 9/0,
+   hairline top) and `.qa-skel .sk-ph` was `.qa-ph`; the bar was the ninth
+   edition, 12px on `--bg-rule` against the system's 10 on `--bg-sunken`. The
+   markup wears the row it is promising, so the stack it grew at 7.97 for 360
+   now covers the waiting state too. «motion deferred» is answered as well -
+   `.skpulse` is in the system with its own reduced-motion rule.
+```
+
+## `design/coach-session-newclient.html`
+
+```
+THE SEVENTH PRIVATE EDITION OF `.emptybox` IS GONE - 4 rules, step 8.41, and
+   8.30 had already removed the SIXTH from `coach-session-empty.html` - the
+   sibling of this screen, in the same flow, with the same block. A rename map
+   executed on one screen and not on the next, which is the mechanism this whole
+   item keeps finding. Written in element names (`.ico`, `h3`, `p`) exactly as
+   `coach-client-empty` was before 8.30; the markup takes `.emptybox` with
+   `.ei`, `.et`, `.es`, and every value comes with it - 1.5px dashed -> 1px
+   (7.62: Chrome resolves 1.5 to 1 before layout, so it never drew), radius 12
+   -> `--radius-12`, padding 26/18 -> 46/24, title 15/800 -> the display face at
+   `--fs-18`, body 12.5 -> `--fs-14` with the box's own 440 measure.
+```
+
+## `design/coach-session-oos.html`
+
+```
+THREE RULES GONE - step 8.41. `.cs-banner` moved into `coach-session.css`.
+   `.cl-oostag` was `.ci-oostag` under another name - status-pill.css draws the
+   out-of-stock tag in mono at `--fs-10` on `--bg-sunken`, with the reason
+   written there («Principle 4 - calm and confident, written as a weight ...
+   nothing here is green, amber or red»), and this copy was 11px/800 Inter on
+   nothing. `.cl-fix` was a text button typed as a link: `btn--text btn--inline`
+   is the atom, and it brings the hover, the focus ring and the underline offset
+   the copy had none of.
+```
+
+## `design/coach-session-priceblock.html`
+
+```
+FIVE RULES GONE - step 8.41. `.cs-warn` and its three parts, plus
+   `.cs-blocknote`, moved into `coach-session.css`: they are the sticky bar's
+   blocked state, which is this flow's anatomy and not a screen's.
+```
+
+## `design/coach-tariff-cancel.html`
+
+```
+NOTHING PRIVATE LEFT HERE - step 8.42. The tariff screen's own paint left in
+   two passes and the shell stayed behind as forty blank lines.
+   Where it went: every `.tf-*` name is coach-tariff.css's, born at step 8.7;
+   `.tf-col` also wears `.acard` since 8.29, because the Free/Pro column had
+   typed out that atom's face by hand and plan-card.css now says it once.
+   `.tfdlg` and its parts are in coach-tariff.css. `.tfov` is the one name that
+   was DELETED rather than moved - overlay.css already owned the scrim as
+   `.ceov`, and coach-tariff.css:82 carries the reason.
+```
+
+## `design/coach-tariff-free.html`
+
+```
+THE LAST TWO RULES OF THIS BLOCK WENT TO coach-tariff.css AT STEP 8.30.
+   `.tf-incl li.off` is the line a Free plan does NOT include, and this was the
+   only screen in the product that needed it - which is why the component had no
+   answer for it and this screen grew one. `\2715` against `\2713` is one pair,
+   and plan-card.css took the same mark from here rather than keeping the en dash
+   it had written a step earlier. This block is empty now.
+```
+
+## `design/coach-verify-deadend.html`
+
+```
+THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 6 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   AND THE LAST ONE WENT AT 8.48: `.cv-card{ max-width: 560px; margin: 0 auto }`
+   is now `.coach .cv-card` in that file. It was the deferred rule - «whether 560
+   becomes the panel's width is stage 09's decision» - and what closed it was the
+   measurement the deferral did not have: THREE screens carry `.cv-card`, two
+   declared this rule byte for byte and the third shipped 828px instead. A/B'd in
+   the live page: this screen is byte-identical at 1280, 900 and 390 with the rule
+   moved. The decision and its cost are written beside the rule.
+   This block is a record of what left and where. It declares nothing.
+```
+
+## `design/coach-verify-error.html`
+
+```
+THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 9 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   AND THE LAST ONE WENT AT 8.48: `.cv-card{ max-width: 560px; margin: 0 auto }`
+   is now `.coach .cv-card` in that file. It was the deferred rule - «whether 560
+   becomes the panel's width is stage 09's decision» - and what closed it was the
+   measurement the deferral did not have: THREE screens carry `.cv-card`, two
+   declared this rule byte for byte and the third shipped 828px instead. A/B'd in
+   the live page: this screen is byte-identical at 1280, 900 and 390 with the rule
+   moved. The decision and its cost are written beside the rule.
+   This block is a record of what left and where. It declares nothing.
+```
+
+## `design/coach-verify-loading.html`
+
+```
+THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 9 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   THE LAST RULE WENT AT 8.42, AND IT HAD NEVER DRAWN. This block ended
+   yesterday with `.cv-card{ padding: 40px 24px }` and the sentence «40 is a rung,
+   so the waiting screen's padding is a choice rather than a drift, and unmaking
+   a choice is stage 09's call». The choice had already been unmade by the
+   cascade: the system writes `.coach .cv-card` at (0,2,0) and this copy is
+   `.cv-card` at (0,1,0), so the system outranks it and the screen has been
+   rendering `--space-32` - 32px, not 40 - since the file took the anatomy over
+   at 8.40. `inert.mjs` said so from a load: 1 of 1 removable, whole block, pixels
+   identical.
+   Deferring it to stage 09 was deferring nothing. If 40 is wanted on the waiting
+   screen it is still stage 09's to decide, and it now gets decided knowing the
+   product ships 32. Same family as the `.qa-row` finding in backlog.md: a
+   private rule believed to be winning, losing on specificity, with the belief
+   written down where the browser was never asked.
+```
+
+## `design/coach-verify-tier.html`
+
+```
+THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 8 rules, step 8.40.
+   Every name here was prefixed `cv-`, which is that file's own; the four state
+   screens carried it and the base did not. What each copy cost is written in
+   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
+   `.btn{ display: block }` turned the main action's `btn--full` back into a
+   block, and the lead had no measure on any of them.
+   This screen already wrote `cv-lead` and never needed a rule for it - it is the
+   control that says the other three had simply mistyped the name.
+```

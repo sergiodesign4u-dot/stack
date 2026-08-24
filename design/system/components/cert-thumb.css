@@ -115,3 +115,58 @@ a.certthumb:hover{ border-color:var(--line-action); transform:translateY(-2px); 
    about the LINE and the instrument was measuring the BOX - wrong version 9,
    fixed before any of these rules was written, and `.qans` is 98.8 in truth. */
 .certbox > div{ max-width: var(--container-text); }   /* measured peak 82.4ch */
+
+/* ---------- the gallery this thumb POINTS AT - stage 12, batch 3 -------------
+   The agent building `content-guarantee` established the relation rather than
+   assuming it: all three coloured instances of `.certbox` in the product are
+   `<a href="content-guarantee.html">`, so the thumb is a pointer and the gallery
+   is its destination. Both are certificates, so both live here rather than in a
+   second file that would own half of one idea.
+   They are NOT the same object: the thumb is a 104x138 sheet standing beside a
+   paragraph; a gallery card is a portrait document with a kind label, a title, a
+   caption and a way to open it. `backlog.md` has been carrying `cert` and `moz`
+   among its «22 controls are tirage... they close when their screens are
+   coloured» since stage 08. This is that screen.
+
+   AND THE NAME `cb` IS REFUSED. The grey card's body is `class="cb"`, while
+   `checkbox.css` declares an UNSCOPED `.cb` at 18x18 - a verbatim port would
+   have drawn eight checkboxes where eight documents belong. `content-guarantee`
+   is the only file in either corpus where `cb` means a card body, which is
+   exactly why the collision survived: it fires once. (It also explains a stale
+   line in `motion.md` J, which reads that screen as carrying a checkbox.)
+   The grid is fluid for the reason the whole batch is: 620 and 960 in the grey
+   block are not both in the registry, and this screen's audit row already says
+   fluid. */
+.cert-grid{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-fluid), 100%), 1fr));
+  gap: var(--grid-gap-fluid); margin: var(--space-16) 0; }
+.cert{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  overflow: hidden; background: var(--bg-page); min-width: 0; }
+.cert .doc{ aspect-ratio: 3 / 4; background: var(--bg-media); position: relative;
+  display: flex; align-items: center; justify-content: center; }
+/* BOTH MARKS ON THIS PANEL WERE WRITTEN AGAINST THE PAGE, AND THE PANEL IS NOT
+   THE PAGE. The agent that built the screen measured both halves of the same
+   mistake, one in each theme, which is what makes it one finding rather than two:
+   `.view` was `--bg-inverse` on `--bg-media`, and in the LIGHT theme both
+   resolve to the same charcoal - contrast 1.00, a white word floating with no
+   pill under it. `.pdf` was `--bg-page` on `--bg-media`, and in DARK those two
+   meet at 1.16 - the ink still reads, the box does not.
+   `tokens.css` names the right roles on the two lines beside `--bg-media` and
+   marks them «both themes»: `--text-onmedia` and `--line-media`. This is rule 8
+   of `design/system/CLAUDE.md` exactly - a pair of roles assumed to be mirrors of
+   each other, which they are only on the ground they were written for. */
+.cert .pdf{ position: absolute; top: var(--space-8); inset-inline-start: var(--space-8);
+  border: 1px solid var(--line-media); border-radius: var(--radius-4);
+  padding: 0 var(--space-4); font-size: var(--fs-10); font-weight: var(--fw-bold);
+  color: var(--text-onmedia); }
+.cert .view{ position: absolute; inset-block-end: var(--space-8);
+  inset-inline-end: var(--space-8); border-radius: var(--radius-pill);
+  background: var(--bg-page); color: var(--text-body);
+  border: 1px solid var(--line-strong);
+  padding: var(--space-4) var(--space-12); font-size: var(--fs-12);
+  font-weight: var(--fw-bold); }
+.cert-body{ padding: var(--space-12); }
+.cert-body .cn{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); overflow-wrap: anywhere; }
+.cert-body .ct{ display: block; font-size: var(--fs-12); color: var(--text-secondary);
+  margin-top: var(--space-2); }

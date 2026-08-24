@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Замовлення №1024 прийнято (з акаунтом) - Stack (wireframe 6.2)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 6.2 «Замовлення оформлено» / Order placed (state).
+  ACCOUNT end (flows.md Job 2 → b6b → b8 → oka): success + account created,
+  history & bonuses saved. Sibling state: base (guest end).
+
+  ROLLOUT 12 · same body as the base, four deltas: the hero's last sentence,
+  the loyalty row in the money block, the receiver's name, and the right panel
+  (.op-saved instead of .op-offer). Header renders as the buyer role.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <div class="op-wrap">
+
+    <!-- Success hero -->
+    <section class="op-hero" aria-label="Підтвердження замовлення">
+      <div class="op-check" aria-hidden="true">✓</div>
+      <h1>Замовлення №1024 прийнято</h1>
+      <p class="op-sub">Ми надіслали <b>SMS із підтвердженням</b> на номер +380 ** *** 45 67. Трек-номер надішлемо у SMS, а замовлення вже у вашому кабінеті.</p>
+    </section>
+
+    <div class="op-grid">
+
+      <!-- LEFT: order summary -->
+      <div>
+        <section class="op-card" aria-label="Склад замовлення">
+          <h2>Ваше замовлення</h2>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">Optimum Nutrition · США</div>
+              <div class="op-nm">Gold Standard 100% Whey 2270 г</div>
+              <div class="op-vmeta">Подвійний шоколад · 2270 г</div>
+            </div>
+            <div class="op-price">1 290 ₴<span class="qx">× 1</span></div>
+          </div>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">BioTechUSA · Угорщина</div>
+              <div class="op-nm">Iso Whey Zero 908 г</div>
+              <div class="op-vmeta">Ваніль · 908 г</div>
+            </div>
+            <div class="op-price">2 100 ₴<span class="qx">× 2</span></div>
+          </div>
+
+          <div class="op-item">
+            <div class="op-thumb">фото</div>
+            <div class="op-in">
+              <div class="op-brand">OstroVit · Польща</div>
+              <div class="op-nm">Creatine Monohydrate 500 г</div>
+              <div class="op-vmeta">Без смаку · 500 г</div>
+            </div>
+            <div class="op-price">549 ₴<span class="qx">× 1</span></div>
+          </div>
+
+          <!-- «Товари (3)»: POSITIONS, three lines above (cart.md locked 10).
+               −197 ₴ is 5% of 3 939 - the buyer's silver rate, same figure the
+               coloured 6.1 (checkout-loggedin) computes. -->
+          <div class="op-sum">
+            <div class="op-row"><span>Товари (3)</span><b>3 939 ₴</b></div>
+            <div class="op-row"><span>Знижка лояльності 🥈 Срібло</span><b>−197 ₴</b></div>
+            <div class="op-row"><span>Доставка (Нова Пошта)</span><b>60 ₴</b></div>
+            <div class="op-total"><span class="l">Разом</span><span class="v">3 802 ₴</span></div>
+          </div>
+        </section>
+
+        <section class="op-card" aria-label="Доставка та оплата">
+          <h2>Доставка та оплата</h2>
+          <div class="op-facts">
+            <div class="op-fact">
+              <div class="fk">Спосіб доставки</div>
+              <div class="fv">Нова Пошта - відділення №12<span>вул. Катерининська, 27, Одеса</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Отримувач</div>
+              <div class="fv">Вікторія Коваль<span>+380 ** *** 45 67</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Оплата</div>
+              <div class="fv"><span class="op-paid">Сплачено карткою онлайн</span></div>
+            </div>
+            <div class="op-fact">
+              <div class="fk">Орієнтовна доставка</div>
+              <div class="fv">1–2 робочі дні<span>відстеження прийде в SMS</span></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- «Знижки та бонуси» is the name the account rail carries; the grey
+             says it and microcopy.md still says «Лояльність і бонуси», which is
+             the pre-voice inventory. The grey wins. -->
+        <div class="op-bonus">
+          <b>★ Нараховано +38 ₴ бонусів</b> за це замовлення (~1% від суми). Бонуси вже закріплені за вашим акаунтом, з'являться після отримання й діють 3 місяці - дивіться в розділі «Знижки та бонуси».
+        </div>
+      </div>
+
+      <!-- RIGHT: next steps + account-saved confirmation -->
+      <aside class="op-aside" aria-label="Що далі">
+
+        <section class="op-card" aria-label="Наступні кроки">
+          <h2>Що далі?</h2>
+          <div class="actions actions--stack">
+            <button class="btn--outline btn" type="button">Відстежити замовлення</button>
+            <a class="btn--outline btn" href="account.html">Мої замовлення</a>
+            <a class="btn--outline btn" href="index.html">Продовжити покупки</a>
+          </div>
+        </section>
+
+        <!-- ACCOUNT end: history & bonuses saved. The one accent of the screen. -->
+        <section class="op-saved" aria-label="Акаунт створено">
+          <h2>Історію та бонуси збережено</h2>
+          <p>Ми створили ваш акаунт за номером телефону. Історія замовлень, нараховані бонуси й адреси доставки тепер у кабінеті - наступного разу замовлятимете в один дотик.</p>
+          <a class="btn--accent btn--l btn--full btn" href="account.html">Перейти в кабінет</a>
+        </section>
+
+      </aside>
+    </div>
+
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader('buyer'); wfFooter(); wfBar('order-placed.html', 'account-end');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

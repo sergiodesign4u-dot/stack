@@ -345,7 +345,15 @@
    glyph', at a different value (#D9D9D9); the value decides here, so that the
    move draws the same pixel it drew before. Which of the two roles a separator
    belongs to is a stage 09 question - two roles cannot both own separators. */
-.coach .ccard-meta .dot{ color: var(--mark-disabled); }
+/* 12.10 - THE STAGE-09 QUESTION ABOVE IS ANSWERED, AND NOT HERE FIRST. The note
+   asks which of two roles owns a separator and says «two roles cannot both own
+   separators». `--mark-disabled` is `#CCC` and its own line calls it «a control
+   that is OFF» - the minus at quantity 1 - so a live separator wearing it says
+   «disabled» at 1.61:1 in light, which a browser agent photographed on fifteen
+   instances. `article.css` met the identical case earlier in this stage and took
+   `--text-muted` (5.38 light / 5.51 dark). Same job, same role, and the answer
+   moves rather than being re-derived. */
+.coach .ccard-meta .dot{ color: var(--text-muted); }
 .coach .ccard-acts{ gap: 9px; margin-top: auto; }   /* [?] 9px has no rung; see the note on .cl-acts */
 /* `flex-wrap: nowrap` and `.ccard-acts .btn{ flex: 1 }` BOTH DELETED at 9.1 - they are
    `.actions--even`, and the markup says so now. This is the modifier's only user in the
@@ -860,3 +868,24 @@
    heading looks like a heading. The state now IS `.emptybox mini` and the private
    rule is deleted rather than corrected: a component the system already owns does
    not get a second edition inside another component's file. */
+
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* the qualifier inside the Free cap sentence. 11.5 -> `--fs-12`. */
+.up .cl-sub{ font-size: var(--fs-12); }

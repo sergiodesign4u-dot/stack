@@ -275,8 +275,18 @@ window.KIT_NAV = [
     "done": true
    },
    {
+    "label": "Плитка розділу",
+    "page": "nav-tile.html",
+    "done": true
+   },
+   {
     "label": "Картка блогу",
     "page": "blog-card.html",
+    "done": true
+   },
+   {
+    "label": "Картка акції",
+    "page": "promo-card.html",
     "done": true
    },
    {
@@ -407,6 +417,41 @@ window.KIT_NAV = [
    {
     "label": "Системна сторінка",
     "page": "system-page.html",
+    "done": true
+   },
+   {
+    "label": "Сторінка інформації",
+    "page": "info-page.html",
+    "done": true
+   },
+   {
+    "label": "Блок контактів",
+    "page": "contacts-block.html",
+    "done": true
+   },
+   {
+    "label": "Замовлення оформлено",
+    "page": "order-placed.html",
+    "done": true
+   },
+   {
+    "label": "Панель підказок пошуку",
+    "page": "search-overlay.html",
+    "done": true
+   },
+   {
+    "label": "Стаття",
+    "page": "article.html",
+    "done": true
+   },
+   {
+    "label": "FAQ магазину",
+    "page": "faq-page.html",
+    "done": true
+   },
+   {
+    "label": "Підписку підтверджено",
+    "page": "newsletter.html",
     "done": true
    },
    {

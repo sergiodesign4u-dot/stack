@@ -11,28 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* THE STATE SCREEN'S ANATOMY IS coach-verify.css NOW - 9 rules, step 8.40.
-   Every name here was prefixed `cv-`, which is that file's own; the four state
-   screens carried it and the base did not. What each copy cost is written in
-   section 1b there - `.lead` was `.cv-lead` with one word missing, a bare
-   `.btn{ display: block }` turned the main action's `btn--full` back into a
-   block, and the lead had no measure on any of them.
-   THE LAST RULE WENT AT 8.42, AND IT HAD NEVER DRAWN. This block ended
-   yesterday with `.cv-card{ padding: 40px 24px }` and the sentence «40 is a rung,
-   so the waiting screen's padding is a choice rather than a drift, and unmaking
-   a choice is stage 09's call». The choice had already been unmade by the
-   cascade: the system writes `.coach .cv-card` at (0,2,0) and this copy is
-   `.cv-card` at (0,1,0), so the system outranks it and the screen has been
-   rendering `--space-32` - 32px, not 40 - since the file took the anatomy over
-   at 8.40. `inert.mjs` said so from a load: 1 of 1 removable, whole block, pixels
-   identical.
-   Deferring it to stage 09 was deferring nothing. If 40 is wanted on the waiting
-   screen it is still stage 09's to decide, and it now gets decided knowing the
-   product ships 32. Same family as the `.qa-row` finding in backlog.md: a
-   private rule believed to be winning, losing on specificity, with the belief
-   written down where the browser was never asked. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -71,7 +49,7 @@
 
     <p class="cv-note">Результат прийде сюди та у сповіщення. Поки триває перевірка, ви користуєтесь магазином як звичайний покупець.</p>
 
-    <div class="cv-btnrow actions actions--center">
+    <div class="actions actions--center">
       <a class="btn--outline btn--s btn" href="coach-verify.html">Скасувати й повернутись</a>
       <a class="btn--accent btn--s btn" href="coach-verify-tier.html">Далі (демо: перевірку пройдено)</a>
       <a class="btn--outline btn--s btn" href="coach-verify-error.html">Демо: не пройдено</a>
@@ -88,7 +66,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'loading');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('buyer'); wfFooter(); wfBar('coach-verify.html', 'loading');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

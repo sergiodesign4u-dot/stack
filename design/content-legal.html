@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Правова інформація - Stack (wireframe 8.6, Info page A, legal variant)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.6 Правова інформація - Info page (A), legal variant.
+  3 anchored sections + in-page anchor nav, prose + date, NO TOC.
+  Legal texts = [?] (lawyer).
+  The anchor nav is `chips chips--sticky` (chip.css) - the pills already existed,
+  what batch 3 added is the carrier; `pdp-tabs` is the product page's furniture
+  and was deliberately not borrowed. The grey's own `.legal-note` is `.info-card
+  --note` and `.sdate` is `.info-updated`: two names for objects the system
+  already owns.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Правова інформація</span>
+  </nav>
+
+  <!-- H1 + dateline + lead -->
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Правова інформація</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Публічна оферта, політика конфіденційності та умови використання магазину Stack.
+      Тексти готуються юристом - тут наведено структуру.</p>
+  </section>
+
+  <!-- in-page anchor nav (not a TOC) - sticky under the header -->
+  <nav class="chips chips--sticky" aria-label="Розділи">
+    <a href="#offer" class="chip">Публічна оферта</a>
+    <a href="#privacy" class="chip">Політика конфіденційності</a>
+    <a href="#terms" class="chip">Умови використання</a>
+  </nav>
+
+  <div class="info-body">
+
+    <!-- 1) Публічна оферта -->
+    <section class="legal-sec" id="offer">
+      <h2>Публічна оферта</h2>
+      <div class="info-updated">Редакція від 1 липня 2026</div>
+      <p>Цей документ є офіційною пропозицією (публічною офертою) магазину Stack укласти договір
+        купівлі-продажу товарів дистанційним способом на умовах, викладених нижче. Оформлення
+        замовлення є повним і беззастережним прийняттям умов цієї оферти.</p>
+      <h4>1. Предмет договору</h4>
+      <p>Продавець зобов'язується передати покупцеві товар спортивного харчування, а покупець -
+        прийняти й оплатити його відповідно до умов замовлення.</p>
+      <h4>2. Ціна та оплата</h4>
+      <ul>
+        <li>Ціни вказані в гривнях і можуть змінюватися до моменту оформлення замовлення</li>
+        <li>Способи оплати наведені на сторінці «Доставка й оплата»</li>
+      </ul>
+      <h4>3. Доставка та повернення</h4>
+      <p>Умови доставки, обміну й повернення регулюються відповідними сторінками магазину та
+        чинним законодавством України.</p>
+      <div class="info-card info-card--note"><span class="qmark">[?]</span> Повний юридичний текст оферти готується - розділ є заглушкою структури.</div>
+    </section>
+
+    <!-- 2) Політика конфіденційності -->
+    <section class="legal-sec" id="privacy">
+      <h2>Політика конфіденційності</h2>
+      <div class="info-updated">Редакція від 1 липня 2026</div>
+      <p>Ми поважаємо вашу приватність і обробляємо персональні дані відповідно до Закону України
+        «Про захист персональних даних».</p>
+      <h4>1. Які дані ми збираємо</h4>
+      <ul>
+        <li>Контактні дані: ім'я, телефон, e-mail, адреса доставки</li>
+        <li>Дані замовлень та історія покупок</li>
+        <li>Технічні дані: cookie, аналітика (за вашою згодою)</li>
+      </ul>
+      <h4>2. Як ми використовуємо дані</h4>
+      <p>Для оброблення замовлень, доставки, зв'язку з вами, нарахування бонусів і покращення сервісу.
+        Ми не передаємо ваші дані третім особам, крім потреб виконання замовлення (перевізник, платіжний
+        сервіс).</p>
+      <h4>3. Ваші права</h4>
+      <ul>
+        <li>Доступ до своїх даних, їх виправлення чи видалення</li>
+        <li>Відкликання згоди на обробку та маркетингові розсилки</li>
+      </ul>
+      <div class="info-card info-card--note">Керувати згодою на cookie можна через посилання «Змінити згоду» у футері.</div>
+    </section>
+
+    <!-- 3) Умови використання -->
+    <section class="legal-sec" id="terms">
+      <h2>Умови використання</h2>
+      <div class="info-updated">Редакція від 1 липня 2026</div>
+      <p>Використовуючи сайт Stack, ви погоджуєтеся з правилами, наведеними в цьому розділі.</p>
+      <h4>1. Реєстрація та акаунт</h4>
+      <p>Ви відповідаєте за достовірність наданих даних та за дії у своєму акаунті.
+        Авторизація відбувається за кодом (без пароля).</p>
+      <h4>2. Контент і права</h4>
+      <p>Тексти, зображення й дизайн сайту належать Stack. Копіювання без дозволу заборонено.</p>
+      <h4>3. Відповідальність</h4>
+      <ul>
+        <li>Інформація про товар має довідковий характер; перед прийомом консультуйтеся з фахівцем</li>
+        <li>Ми докладаємо зусиль для актуальності цін і наявності, але залишаємо право їх коригувати</li>
+      </ul>
+      <div class="info-card info-card--note"><span class="qmark">[?]</span> Повні тексти всіх трьох документів - на етапі юридичного опрацювання.</div>
+    </section>
+
+  </div>
+
+  <!-- Related internal links -->
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-returns.html">Обмін і повернення</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-legal.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

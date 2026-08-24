@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Видалити клієнта? - Кабінет тренера (wireframe 5.4a · confirm)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body class="coach">
+<!-- ============================================================
+  WIREFRAME · node 5.4a - CONFIRM (delete dialog) REFERENCE render. Renders the
+  SHARED wfClientEdit() component in its confirm state, pinned over the profile.
+  «Скасувати» → back to edit; «Видалити» → coach-clients (client gone).
+
+  THE BACKDROP IS THE REAL PROFILE, NOT THE GREY PLACEHOLDER - contract rule 2a.
+  The grey original draws the context with `.ce-behind` / `.ce-ph` (an avatar and
+  two grey bars) declared in its own <style> block; neither class has a coloured
+  edition in design/system/, and a screen may not declare one. So the context is
+  the body of design/coach-client.html, which is already accepted in colour, in
+  its own `.wf-page.cc-wrap`. Same decision cart.html took from the other end -
+  there the placeholder was promoted into cart-drawer.css as `.cart-behind`.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<!-- the profile context behind the dialog -->
+<main class="wf-page cc-wrap" aria-hidden="true">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep">/</span>
+    <a href="coach-home.html">Кабінет тренера</a><span class="sep">/</span>
+    <a href="coach-clients.html">Клієнти</a><span class="sep">/</span>
+    <span class="cur">Андрій</span>
+  </nav>
+
+  <!-- CLIENT HEADER: name + goal chip (goal drives selection) + edit -->
+  <div class="ch">
+    <div class="ch-id">
+      <div class="ch-av">А</div>
+      <div>
+        <h1 class="ch-name">Андрій</h1>
+        <span class="ch-goal">🎯 Ціль: Набір маси</span>
+      </div>
+    </div>
+    <a class="ch-edit" href="coach-client-edit.html" onclick="openClientEdit();return false">Редагувати клієнта</a>
+  </div>
+
+  <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення -
+    швидке додавання показує релевантні гейнери, протеїн і креатин за цією ціллю.</p>
+
+  <!-- CLIENT DATA (mirrors the edit modal - name/goal/phone/email/notes) -->
+  <section class="cdetails" aria-label="Дані клієнта">
+    <div class="cd-h">Дані клієнта</div>
+    <dl class="cd-list">
+      <div class="cd-row"><dt>Ціль</dt><dd>Набір маси</dd></div>
+      <div class="cd-row"><dt>Телефон</dt><dd>+380 67 123 45 67</dd></div>
+      <div class="cd-row"><dt>E-mail</dt><dd>andriy.koval@email.com</dd></div>
+      <div class="cd-row"><dt>Нотатки тренера</dt><dd>Алергія на лактозу; тренування вранці</dd></div>
+    </dl>
+  </section>
+
+  <div class="cc-cta actions">
+    <a class="btn--accent btn" href="coach-session.html">＋ Нова сесія</a>
+  </div>
+
+  <!-- PER-CLIENT ORDER HISTORY (coach-tier priced) → one-tap repeat (Job 4) -->
+  <h2 class="oh-h">Історія замовлень клієнта</h2>
+  <div class="ohist">
+
+    <article class="ocard">
+      <div class="oc-top">
+        <div>
+          <div class="oc-no">Замовлення № К-204</div>
+          <div class="oc-meta">12 черв. 2026 · 2 товари</div>
+        </div>
+        <span class="oc-status ok">Доставлено</span>
+      </div>
+      <div class="oc-items">
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="oc-qty">Смак: Подвійний шоколад · ×1</div></div>
+          <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">BioTechUSA Hyper Mass 4000 г</div><div class="oc-qty">Смак: Ваніль · ×1</div></div>
+          <div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+      </div>
+      <div class="oc-sum"><span>Разом (гуртові ціни)</span><b>2 320 ₴</b></div>
+      <div class="oc-actions actions">
+        <a class="btn--accent btn--s btn" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+      </div>
+    </article>
+
+    <article class="ocard">
+      <div class="oc-top">
+        <div>
+          <div class="oc-no">Замовлення № К-176</div>
+          <div class="oc-meta">28 трав. 2026 · 2 товари</div>
+        </div>
+        <span class="oc-status ok">Доставлено</span>
+      </div>
+      <div class="oc-items">
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div><div class="oc-qty">Смак: Полуниця · ×1</div></div>
+          <div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+        <div class="oc-item">
+          <div class="oc-ph">фото</div>
+          <div><div class="oc-nm">OstroVit Creatine Monohydrate 500 г</div><div class="oc-qty">Без смаку · ×1</div></div>
+          <div class="cprice">460 ₴<span class="old">549 ₴</span><span class="wtag">гурт</span></div>
+        </div>
+      </div>
+      <div class="oc-sum"><span>Разом (гуртові ціни)</span><b>1 550 ₴</b></div>
+      <div class="oc-actions actions">
+        <a class="btn--accent btn--s btn" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--outline btn--s btn" href="coach-order.html">Деталі</a>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-client-edit"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<!-- `openClientDelete()` only TOGGLES classes - it is the one opener of this
+     component that does not build it first (`openClientEdit()` and
+     `openClientNew()` both call `wfClientEdit()` on their way in). Run as the
+     grey original runs it, `#wf-client-edit` stays empty and this state draws
+     NO dialog at all: measured, `.ceov` count 0 at 390 and at 1280. The base
+     screen design/coach-client.html builds the component in its own init line,
+     and coach-client-new.html writes `wfClientEdit(); ... openClientNew();` for
+     the same reason - so the state agrees with its base (contract rule 2a) and
+     the builder is named before the opener. Reported as a delta. -->
+<script>wfHeader('coach'); wfFooter(); wfClientEdit(); wfToasts(); openClientDelete(); wfBar('coach-client-edit.html', 'confirm');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Технічні роботи - Stack (wireframe S)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · Технічні роботи. МІНІМАЛЬНИЙ ШАБЛОН, НЕЗАЛЕЖНИЙ ВІД
+  БЕКЕНДУ, і це ЗАПЛАНОВАНИЙ стан, а не збій. Продакшн: HTTP 503 + Retry-After,
+  щоб пошукові системи трактували це як тимчасове, а не як зникнення сайту.
+  Спокійно, без зворотного таймера (Принцип 4).
+
+  Розмітка - рівно та сама, що в 500: .sys-min · .sys-logo · .sys-code ·
+  .sys-h · .sys-s · .sys-foot, ряд дій патерном .actions .actions--center.
+  Різниця тільки в тексті і в знаку.
+
+  ЗНАК ЗАМІСТЬ ЦИФРИ, і це закриває інлайн, якого сірий не міг уникнути:
+  maintenance пише кегль прямо на .sys-code, бо ключ на щаблі цифри - це не
+  цифра: цифра несе вагу штрихом, піктограма - своєю коробкою. Тепер це
+  .sys-code--mark, щабель під цифрою, і він ФІКСОВАНИЙ, а не плинний - інакше
+  на телефоні ключ виходив би на третину меншим за сірий, тоді як «500» на
+  сусідньому екрані однаковий на всіх ширинах.
+
+  Другий тихий рядок - .sys-foot--fine: той самий рядок, але приглушений і з
+  меншим відступом. Сірий розводив ці два рядки кеглем; на драбині системи це
+  один щабель, і справжня різниця між ними - колір.
+
+  Емодзі 🛠️ лишається емодзі: uivChrome() не заходить у <main>.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+
+<main class="sys-min" aria-label="Технічні роботи">
+  <a class="sys-logo" href="index.html">Stack</a>
+  <div class="sys-code sys-code--mark">🛠️</div>
+  <h1 class="sys-h">Ненадовго на технічних роботах</h1>
+  <p class="sys-s">Оновлюємо магазин, щоб він працював краще. Зазвичай це швидко -
+    завітайте трохи згодом. Замовлення й бонуси в безпеці.</p>
+  <div class="actions actions--center">
+    <a class="btn--outline btn" href="content-contacts.html">Зв'язатися з нами</a>
+  </div>
+  <p class="sys-foot">Підтримка: 0 800 000 000 · Telegram · Viber ·
+    <a href="content-promo.html">наші акції</a></p>
+  <p class="sys-foot sys-foot--fine">HTTP 503 · Retry-After - стан тимчасовий, для пошукових систем.</p>
+</main>
+
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfBar('maintenance.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

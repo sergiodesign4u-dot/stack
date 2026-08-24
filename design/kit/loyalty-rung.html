@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 2</div>
 <h1 class="kp-h1">Щабель лояльності</h1>
 <p class="kp-lead">Два незалежні механізми на одному екрані: драбина персональної знижки за суму покупок за весь час і журнал руху бонусів. Плюс значок рівня, який ходить по всьому кабінету. Найдорожча помилка етапу знайшлась саме тут: колонку залишку бонусів на телефоні неможливо було побачити.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/loyalty-rung.css</span><span class="kp-tag">134 рядки</span><span class="kp-tag">67 селекторів</span><span class="kp-tag">61 правило</span><span class="kp-tag">3 екрани + значок на 14</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 2</span><span class="kp-tag">design/system/components/loyalty-rung.css</span><span class="kp-tag">260 рядків</span><span class="kp-tag">90 селекторів</span><span class="kp-tag">84 правила</span><span class="kp-tag">3 екрани + значок на 14</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Анатомія: драбина</div>
 <p class="kp-p">Розмітка звідси - та сама, що на <code>account-loyalty.html</code>, скопійована рядок у рядок. Значок рівня ставить <code>uivTiers()</code> з <code>design/_nav.js</code>, як і на екрані.</p>
@@ -162,6 +162,40 @@
 <p class="kp-p">Значок ставить не розмітка: <code>uivTiers()</code> обходить текст сторінки і міняє емодзі металу на знак системи - так само, як <code>uivCurrency()</code> робить з гривнею. Тому значок стоїть на <b>14 екранах</b> кабінету, а не тільки на трьох екранах лояльності.</p>
 <div class="kp-dont"><h4>Помилка, яку знайшло приймання</h4>Обхід питав <code>if(UIV_TIER_EMOJI[part])</code>, а базовий рівень у таблиці має номер <b>0</b>, який у JavaScript хибний. Три метали з чотирьох ставали знаком системи, а четвертий лишався сирим кольоровим емодзі - на <code>account-empty.html</code>, екрані, який бачить покупець <b>до першого замовлення</b>. Заміряно до правки: <b>3</b> сирі емодзі на сторінці, <b>0</b> значків <code>.uiv-tier.t0</code>. Питання виправлено на те, яке код мав ставити: <code>if(part in UIV_TIER_EMOJI)</code> - чи є цей емодзі в таблиці, а не чи ненульовий його рівень. Після: <b>0</b> сирих, <b>3</b> значки.</div></section>
 
+<section class="kp-sec"><div class="kp-sh">Вузол 8.7: публічна сторінка лояльності <b>-&gt; 12.8</b></div>
+<p class="kp-p"><b>Це відкрило рішення власника:</b> «журнал бонусів належить і 7.4, і 8.7». Ця відповідь варта більше за два екрани, які вона розсудила, бо вона вирішує форму всього додатку. <code>table.led</code>, <code>.led-wrap</code>, <code>.led-head</code> і <code>.led-note</code> тут ПЕРЕВИКОРИСТАНІ байт у байт - публічна сторінка показує той самий журнал, що й кабінет - а цей блок додає лише те, чого в кабінеті справді немає.</p>
+<p class="kp-p"><b>Що зміряно, перш ніж написано правило, і це більша частина екрана.</b> Сірий блок вузла 8.7 оголошує <code>.loy-mechs</code>, <code>.loy-card</code>, <code>.loy-tbl</code>, <code>.loy-faq</code>, <code>.loy-q</code>, <code>.loy-h2</code>, <code>.loy-qmark</code> і десять імен <code>me-*</code>. Прочитані проти кольорового вузла 7.4, усі вони вже існують під іншими іменами: <code>.loy-two</code> - це сітка двох механізмів, <code>.acard</code> + <code>.ah</code> + <code>.mech-kicker</code> - картка механізму, <code>.loy-tbl</code> - це <code>table.led</code>, <code>.loy-q</code> - це <code>.qaitem</code>, <code>.loy-h2</code> - це <code>section-head</code>, <code>.loy-qmark</code> - це <code>.qmark</code> з <code>base.css</code>, а вся родина <code>me-*</code> - це <code>.lt</code> + <code>.lbar</code> + <code>.ls</code> поруч із <code>.big</code> + <code>.u</code> + <code>.warn</code>. Опублікувати їх означало б записати ті самі десять рішень удруге під новими іменами.</p>
+<p class="kp-p">Тому додано <b>три речі й більше нічого</b>: герой лендинга (кабінет нікому не представляється), драбина РЯДКАМИ і персональна смуга, яка є КОРОБКОЮ навколо вже наявних частин.</p>
+<div class="kp-demo">
+<div class="loy-hero">
+  <h1 class="lh1">Знижка, яка не згорає, і бонуси, які повертаються</h1>
+  <p>Два незалежні механізми: персональна знижка за суму покупок за весь час і бонусний рахунок з нарахуванням близько <span class="qmark">[?]</span>1% з кожного замовлення.</p>
+  <div class="actions actions--center"><a class="btn btn--accent" href="#">Створити акаунт</a><a class="btn btn--outline" href="#">Увійти</a></div>
+</div>
+<div class="kp-note">Персональна смуга, якою вона замінюється для того, хто вже увійшов:</div>
+<div class="loy loy-me">
+  <div>
+    <div class="lt">🥈 Срібло · персональна знижка -5%</div>
+    <div class="lbar"><i style="width:62%"></i></div>
+    <div class="ls">Куплено на <b>8 400 ₴</b> за весь час · до 🥇 Золота ще <b>6 600 ₴</b></div>
+  </div>
+  <div class="me-r">
+    <div class="abonus"><div class="big">124 ₴</div><div class="u">бонусів на рахунку · 1 бонус = 1 ₴</div></div>
+  </div>
+</div>
+<div class="kp-note">Драбина рядками - пояснювач, а не смуга стану:</div>
+<div class="loy">
+<div class="ladder ladder--rows">
+  <div class="lrung done"><span class="md">🥉</span><span><span class="nm">Бронза</span><span class="cond">від 5 000 ₴ за весь час</span></span><span class="pct">-3%</span></div>
+  <div class="lrung now"><span class="md">🥈</span><span><span class="nm">Срібло</span><span class="cond">від 15 000 ₴ за весь час</span></span><span class="youchip">ви тут</span><span class="pct">-5%</span></div>
+  <div class="lrung next"><span class="md">🥇</span><span><span class="nm">Золото</span><span class="cond">від 30 000 ₴ за весь час</span></span><span class="pct">-8%</span></div>
+</div>
+</div>
+</div>
+<p class="kp-p">Персональна смуга несе <code>class="loy loy-me"</code> навмисне: усе всередині неї - це власні <code>.lt</code>, <code>.lbar</code> і <code>.ls</code> обсягу <code>.loy</code>, а коробка додає край і другу колонку. Розділ на <b>620</b>, не на 760 чи 800 із сірих блоків: жодне з тих чисел не стоїть у реєстрі точок, а <code>bp.mjs</code> валить прогін на третій.</p>
+<p class="kp-p"><b>Пороги в демо - <span class="qmark">[?]</span>.</b> 5 000 / 15 000 / 30 000 і три відсотки не мають джерела в даних; рішення 3 в <code>CLAUDE.md</code> тримає їх відкритими, і мітка каже це вголос замість того, щоб число тихо стало правдою.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Коли вживати</div>
 <p class="kp-p">Драбина - в кабінеті: на огляді й на сторінці лояльності. Журнал - тільки там, де є бонуси, тобто на сторінці лояльності. Значок рівня - будь-де, де названо метал, і ставить його обхід, а не автор сторінки.</p>
 <p class="kp-p"><b>Два механізми не змішуються.</b> Знижка за суму покупок за весь час не згорає ніколи; бонуси згорають через 3 місяці. Це різні речі з різними правилами, тому в них дві картки, а не одна з двома числами.</p></section>
@@ -172,7 +206,7 @@
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
 <p class="kp-p">Сторінка звіряє себе з файлом: <b>19</b> власних класів і <b>9</b> станів оголошено в <code>loyalty-rung.css</code>. Нижче - ті, яких на цій сторінці немає ні в демо, ні в розмітці.</p>
 <div id="idle"></div>
-<script>var KIT_CLS=["loy","lt","lbar","ls","ladder","lrung","rn","rs","loy-two","led-wrap","led-head","led","led-note","led-empty","num","dt","amt","bal","uiv-tier"], KIT_STS=[".done", ".now", ".next", ".locked", ".maxed", ".pos", ".neg", ".burn", ":hover"];</script></section>
+<script>var KIT_CLS=["loy","lt","lbar","ls","ladder","lrung","rn","rs","loy-two","led-wrap","led-head","led","led-note","led-empty","num","dt","amt","bal","uiv-tier","loy-hero","loy-me","ladder--rows","md","nm","cond","pct","youchip","me-r","burn","maxed","neg","pos","next","t0","t1","t2","t3"], KIT_STS=[".done", ".now", ".next", ".locked", ".maxed", ".pos", ".neg", ".burn", ":hover"];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> жодного - <b>запит зник</b>. Було <code>@media (min-width: 760px)</code>, числа немає в реєстрі. <b>Що саме міняється:</b> пара карток лояльності стає поруч, коли для кожної є <code>--grid-col-min-panel</code> (19rem), через <code>auto-fit</code>. Карток дві, тож <code>auto-fit</code> тут точний, а не приблизний: третьої розкладки він вигадати не може. <b>Підлога спершу була 22rem і це було зміряно неправильно</b> - вона сходилась із запитом на 360 і на 1280 і розходилась між ними, бо кабінет бере собі колонку навігації на 960 і лишає сітці 628px.</div>
@@ -183,8 +217,7 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>loyalty-rung.css</code>, не переписані руками: <b>20</b> семантичних ролей і <b>22</b> примітиви.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (20)</th><th>Примітиви (23)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-bonus-soft</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-tier-bronze</code> <code>--mark-tier-silver</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-pill</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-32</code> <code>--grid-col-min-panel</code></td></tr><tr><td><span class="kp-none">–</span></td><td><code>--dur-fast</code> <code>--ease-standard</code></td></tr>
-</tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (20)</th><th>Примітиви (29)</th></tr></thead><tbody><tr><td><code>--bg-action</code> <code>--bg-bonus-soft</code> <code>--bg-inverse</code> <code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-strong</code> <code>--mark-tier-bronze</code> <code>--mark-tier-silver</code> <code>--text-action</code> <code>--text-body</code> <code>--text-bonus</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code> <code>--text-success</code> <code>--text-warning</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--font-body</code> <code>--font-display</code> <code>--font-mono</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fs-20</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--grid-col-min-panel</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-16</code> <code>--radius-8</code> <code>--radius-pill</code> <code>--size-26</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-32</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p"><b>Два метали лояльності стали ролями.</b> До кроку 7 етапу 08 файл читав примітиви <code>--brown-600</code> і <code>--slate-400</code> напряму, і це було єдине таке місце в компоненті: дві з чотирьох міток рангу не йшли за темою, поки дві сусідні (t0 на <code>--text-muted</code>, t3 на <code>--text-action</code>) йшли. Тепер там <code>--mark-tier-bronze</code> і <code>--mark-tier-silver</code>, а значення лишилися ті самі: мітка це гліф, а не текст, її межа 3:1, і обидві її проходять в обох темах - бронза 4.66 у світлій і 3.87 у темній, срібло 3.86 і 4.67. Метал упізнають за власною світлістю, тож підганяти темну редакцію під світлу означало б перестати бути сріблом.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>

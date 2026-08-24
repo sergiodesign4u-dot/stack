@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Компонент · рівень 3</div>
 <h1 class="kp-h1">Клієнти тренера</h1>
 <p class="kp-lead">Вузол 5.3 - збережений список людей, і вузол 5.4 - картка однієї з них. Це серце locked-рішення «тренер як покупець»: без цього списку тренерський канал не існує. Два екрани в одному файлі, бо три з чотирьох частин у них однакові й лише різного розміру.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">863 рядки</span><span class="kp-tag">80 селекторів</span><span class="kp-tag">262 оголошення</span><span class="kp-tag">10 екранів</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/coach-clients.css</span><span class="kp-tag">892 рядки</span><span class="kp-tag">81 селектор</span><span class="kp-tag">263 оголошення</span><span class="kp-tag">10 екранів</span></div>
 
 <section class="kp-sec"><div class="kp-sh">Список і картка - одна людина двічі</div>
 <p class="kp-p">Файл тримає дві половини, і вони не випадкові сусіди. <code>.ccard</code> - це <b>підсумок людини</b> в списку, <code>.ch-*</code> - <b>та сама людина, відкрита</b>. Аватар, ім'я і чип цілі є в обох, просто різного розміру:</p>
@@ -139,17 +139,7 @@
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
 <p class="kp-p">Прочитані з <code>coach-clients.css</code>, не переписані руками. <b>Жодної помаранчевої ЗАЛИВКИ в усьому файлі</b> - ні <code>--bg-action</code>, ні <code>--text-action</code>: помаранчевий на цих екранах приносять кнопки й панель Pro, а сам список клієнтів увесь у нейтральних ролях. Для екрана, який тренер відкриває щодня, це правильно. <b>Дві помаранчеві ЛІНІЇ файл усе-таки має, і їх додала критика кроку 5:</b> <code>--line-action</code> на наведеній картці й <code>--ring-focus-control</code> на двох нових контролах - імені клієнта в картці та в панелі. Обидва це лінія, а не заливка, і обидва не малюють нічого в спокої: до критики ці контроли падали у власне синє кільце Chrome, яке не знає теми.</p>
-<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (13)</th><th>Примітиви (27)</th></tr></thead><tbody>
-<tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--ring-focus</code></td><td><code>--container-text</code> <code>--font-display</code></td></tr>
-<tr><td><code>--elevation-1</code></td><td><code>--fs-8</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-30</code></td></tr>
-<tr><td><code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code></td><td><code>--fw-semibold</code> <code>--fw-bold</code> <code>--fw-black</code></td></tr>
-<tr><td><code>--line-strong</code></td><td><code>--lh-snug</code> <code>--lh-airy</code></td></tr>
-<tr><td><code>--mark-disabled</code></td><td><code>--ls-caps</code> <code>--ls-lead</code></td></tr>
-<tr><td><code>--ring-focus-control</code> <code>--text-muted</code></td><td><code>--radius-4</code> <code>--radius-8</code> <code>--radius-12</code> <code>--radius-circle</code> <code>--radius-pill</code></td></tr>
-<tr><td><code>--text-primary</code></td><td><code>--size-40</code> <code>--size-44</code></td></tr>
-<tr><td><code>--text-secondary</code></td><td><code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code> <code>--space-12</code> <code>--space-16</code></td></tr>
-<tr><td><span class="kp-none">–</span></td><td><code>--dur-base</code> <code>--dur-fast</code> <code>--ease-enter</code> <code>--ease-standard</code> <code>--move-md</code></td></tr>
-</tbody></table></div>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (12)</th><th>Примітиви (32)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--elevation-1</code> <code>--line-action</code> <code>--line-hair</code> <code>--line-inverse</code> <code>--line-strong</code> <code>--ring-focus</code> <code>--ring-focus-control</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-base</code> <code>--dur-fast</code> <code>--ease-enter</code> <code>--ease-standard</code> <code>--font-display</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-30</code> <code>--fs-8</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--fw-semibold</code> <code>--lh-airy</code> <code>--lh-snug</code> <code>--ls-caps</code> <code>--ls-lead</code> <code>--move-md</code> <code>--radius-12</code> <code>--radius-4</code> <code>--radius-8</code> <code>--radius-circle</code> <code>--radius-pill</code> <code>--size-40</code> <code>--size-44</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-24</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div>
 <p class="kp-p"><code>--fs-8</code> тут єдине вживання в потоці тренера: це <b>крапка-роздільник</b> <code>.ccard-meta .dot</code>, намальована, а не набрана. <code>--mark-disabled</code> - її колір, і роль обрано за <b>роботою</b>: це мітка, а не текст.</p></section>
 
 <section class="kp-sec"><div class="kp-sh">Розмітка</div>

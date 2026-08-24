@@ -189,4 +189,139 @@ if (missing.length) {
   console.log('\nNO SUCH FILE ANYWHERE (' + missing.length + '):');
   for (const m of [...new Set(missing)]) console.log('  ' + m);
 }
-process.exit(dead ? 1 : 0);
+/* ===========================================================================
+   THE LINK THAT IS ALIVE AND STILL WRONG - added at stage 12, batch 1.
+
+   `uivFixLinks()` in `design/_nav.js` re-points a link to a screen that has no
+   coloured copy so it lands in the grey layer - «no dead ends». It deliberately
+   SKIPS anything already written as `../`, because that is how a screen names
+   the grey original on purpose. Both halves are right, and together they leave a
+   hole: a link somebody hard-coded as `../wireframes/x.html` while `x` was grey
+   keeps pointing at grey forever, even after `x` is coloured and registered.
+   Nothing is dead, so this walk was silent about it.
+
+   It is not hypothetical and it is not rare: batch 1 coloured three coach
+   screens and instantly stranded EIGHT such links on seven already-accepted
+   screens plus the split-view renderer inside `design/_nav.js`. A coach in the
+   coloured prototype stepped out of colour by an ordinary tap - which is exactly
+   the defect step 8.7 fixed by hand for «Обране», «Тариф» and «Деталі», coming
+   back because nothing was asking the question.
+
+   Every batch of stage 12 creates a fresh crop of these, so it is a rule rather
+   than a repair. THE HUB IS EXCLUDED BY NAME: `design/overview.html` links to
+   `../wireframes/overview.html` on purpose - it is the map of the grey layer,
+   not a screen of the product, and it is the same line CLAUDE.md already draws.
+   =========================================================================== */
+const HUB = 'overview.html';
+/* WRONG VERSION, AND IT PRINTED A CLEAN ZERO. The first writing called
+   `walk('design')` and then skipped any name containing a slash - a guard
+   copied from `pages()`, which returns bare stems. `walk()` returns PATHS, so
+   every single file carried a slash and every single file was skipped. The
+   check reported nothing on a corpus where eight were waiting, and it kept
+   reporting nothing with a defect deliberately injected. `HTML` is already the
+   relative list this file builds at the top, so it is used instead of a second
+   walk with a second set of assumptions. */
+/* 12.4: AND NOW IT CAN CLOSE WHAT IT FINDS. The pass reported 36 of these and
+   had no repair, so the only way to act on it was by hand, one file at a time -
+   which is how the 36 got there. A rewrite is safe in a way the report is not:
+   the target is only touched when design/<name>.html EXISTS, so the worst case
+   is a link that already resolved resolving to the same page in colour. The hub
+   stays excluded, and so does anything inside a comment, because the body is
+   stripped of comments before it is read. */
+const stale = [], rewrote = [];
+for (const rel of HTML) {
+  if (!/^design\/[^/]+\.html$/.test(rel)) continue;
+  const raw = readFileSync(join(ROOT, rel), 'utf8');
+  const body = raw.replace(/<!--[\s\S]*?-->/g, ' ');
+  const hits = new Set();
+  for (const m of body.matchAll(/href="\.\.\/wireframes\/([^"#?]+\.html)/g)) {
+    if (m[1] === HUB) continue;
+    if (existsSync(join(ROOT, 'design', m[1]))) { stale.push(`${rel}  ->  ${m[1]}`); hits.add(m[1]); }
+  }
+  if (APPLY && hits.size) {
+    let out = raw, n = 0;
+    for (const name of hits) {
+      const re = new RegExp('href="\\.\\./wireframes/' + name.replace('.', '\\.') + '(?=["#?])', 'g');
+      out = out.replace(re, () => { n++; return 'href="' + name; });
+    }
+    if (n) { writeFileSync(join(ROOT, rel), out); rewrote.push(rel + '  ' + n); }
+  }
+}
+/* ---------- THE CLASS THIS FILE COULD NOT SEE, AND IT REPORTED A CLEAN ZERO
+   OVER SEVENTEEN BROKEN LINKS ---------------------------------------------
+   Found at 12.8 by a subagent that opened its own screens in a browser after
+   `uivFixLinks()` had run, which is a thing no reader of the source can do.
+
+   THE TWO HALVES ASK DIFFERENT QUESTIONS. `uivFixLinks()` in `design/_nav.js`
+   decides by MEMBERSHIP: a link is kept internal when its file name is in
+   `DESIGN_NAV`, and sent to `../wireframes/` when it is not. The pass above
+   decides by EXISTENCE: it only looks at hrefs already written `../wireframes/`
+   and asks whether a coloured twin sits on disk. Between those two questions
+   lies the exact state every screen passes through - the file EXISTS and is NOT
+   yet registered - and in that state the source says `content-blog.html`, the
+   pass never examines it because it carries no `../` prefix, and the browser
+   quietly rewrites it to grey. Thirteen links on one screen, four on another,
+   and this file printed «0 stale».
+
+   A registry row is not bookkeeping here; it is what makes a link work. So the
+   question is asked the way the PAGE asks it, out of `DESIGN_NAV` itself rather
+   than re-derived, for the same reason `width-sweep.mjs` takes the carrier
+   question from `tab-walk.mjs` verbatim: a second definition is a second answer
+   waiting to disagree with the first. */
+const NAVSRC = readFileSync(join(ROOT, 'design/_nav.js'), 'utf8');
+const navArr = (() => {
+  const i = NAVSRC.indexOf('DESIGN_NAV');
+  if (i < 0) return null;
+  const j = NAVSRC.indexOf('[', i), k = NAVSRC.indexOf('];', j);
+  if (j < 0 || k < 0) return null;
+  try { return eval(NAVSRC.slice(j, k + 1)); } catch { return null; }
+})();
+const unreg = [];
+if (!navArr) {
+  console.log('\nХОЛОСТИЙ КОНТРОЛЬ: DESIGN_NAV не прочитано з design/_nav.js - перевірка «веде в сіре через реєстр» НЕ ставилась');
+} else {
+  /* the hub is coloured and is not a screen: `design/_nav.js` declares it in
+     `DESIGN_EXTRA` and `uivFixLinks()` reads both lists, so this check reads
+     both too rather than keeping a second copy of the same exception. */
+  const extra = (() => {
+    const i = NAVSRC.indexOf('DESIGN_EXTRA');
+    if (i < 0) return [];
+    const j = NAVSRC.indexOf('[', i), k = NAVSRC.indexOf('];', j);
+    try { return eval(NAVSRC.slice(j, k + 1)); } catch { return []; }
+  })();
+  const inNav = new Set([...navArr, ...extra]);
+  for (const rel of HTML) {
+    if (!/^design\/[^/]+\.html$/.test(rel)) continue;
+    const body = readFileSync(join(ROOT, rel), 'utf8').replace(/<!--[\s\S]*?-->/g, ' ');
+    const seen = new Map();
+    /* WRONG VERSION 1 OF THIS CHECK, AND IT STOLE ITS NEIGHBOUR'S FINDINGS.
+       The first pattern barred `/` only from the FIRST character, so
+       `../wireframes/content-faq.html` matched and 36 of its 43 findings were
+       the pass below's, reported a second time under a different name. This
+       class is about a BARE name - the only form `uivFixLinks()` rewrites - so
+       no slash may appear anywhere in it. A check that overlaps the one beside
+       it does not add a question; it doubles an answer. */
+    for (const m of body.matchAll(/href="([^":#/?][^":#/?]*\.html)(?=["#?])/g)) {
+      const name = m[1];
+      if (inNav.has(name)) continue;
+      if (!existsSync(join(ROOT, 'design', name))) continue;   // genuinely grey-only: the rewrite is correct
+      seen.set(name, (seen.get(name) || 0) + 1);
+    }
+    for (const [name, n] of seen) unreg.push(rel + '  ->  ' + name + '   ' + n + '×');
+  }
+  if (unreg.length) {
+    console.log('\nКОЛІР Є, АЛЕ РЕЄСТР ПРО НЬОГО НЕ ЗНАЄ (' + unreg.length + ') - uivFixLinks відправить ці посилання в сіре В БРАУЗЕРІ, хоча в джерелі вони внутрішні:');
+    for (const x of unreg) console.log('  ' + x);
+  } else {
+    console.log('через реєстр у сіре не веде жодне посилання: DESIGN_NAV знає всі ' + navArr.length + ' кольорових імен, на які посилаються екрани');
+  }
+}
+
+if (!HTML.some(r => /^design\/[^/]+\.html$/.test(r)))
+  console.log('ХОЛОСТИЙ КОНТРОЛЬ: обхід не відкрив жодного екрана в design/ - список файлів змінився');
+if (stale.length) {
+  console.log('\nЖИВЕ, АЛЕ ВЕДЕ В СІРЕ, ХОЧА КОЛІР УЖЕ Є (' + stale.length + ') - uivFixLinks це не полагодить, бо `../` пропускається навмисно:');
+  for (const x of [...new Set(stale)]) console.log('  ' + x);
+}
+
+process.exit(dead || unreg.length || (stale.length && !rewrote.length) ? 1 : 0);

@@ -89,3 +89,55 @@
 .sech h2{ font-family:var(--font-display); font-weight:var(--fw-semibold); font-size:var(--fs-24); letter-spacing:var(--ls-lead); color:var(--text-body); }
 .sech .all{ transition:color var(--dur-fast) var(--ease-standard); }
 .sech .all:hover{ color:var(--text-action); }
+
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* A LEAD PARAGRAPH DIRECTLY UNDER A SECTION HEAD READS DOWN INTO THE BLOCK, not
+   up at the heading. `.lintro` carries `margin: --space-8 0 0` because its first
+   habitat is the line under a listing H1; four home screens were turning that
+   into a bottom margin inline, one screen at a time. The head is already the
+   thing above it, so the rule reads the anatomy. 14 -> `--space-16`. */
+.sech + .lintro{ margin: 0 0 var(--space-16); }
+
+/* ---------- the head of a group INSIDE a section - stage 12, batch 2 --------
+   `.sech` is the head of a SECTION and carries the display face at `--fs-24`;
+   `brands.html` needs one rung below it, thirteen times: «A», «B», ... and
+   «Українські бренди (А-Я)», each opening a letter group inside the «Усі бренди»
+   section that `.sech` already opened. A second `.sech` there would claim
+   thirteen sections where there is one.
+
+   THE HAIRLINE IS THE GREY'S OWN and it is doing work: the groups are separated
+   by nothing else, and without the line thirteen headings in one column read as
+   thirteen sections. It is the only place in this file where a heading carries a
+   rule, and that is why it is a modifier rather than a change to `.sech`. */
+.sech--rule{ margin: var(--space-24) 0 var(--space-12);
+  padding-bottom: var(--space-8); border-bottom: 1px solid var(--line-hair); }
+/* h2 OR h3, and the reason is that this rung is about DEPTH. Thirteen letter
+   groups stand inside a section that another heading already opened, so in the
+   document they are one level below it - h3. The first writing named only h2,
+   which would have forced brands.html to publish fifteen sibling h2s and no h3
+   at all: a style rule quietly flattening an outline. The face is the same
+   either way; which tag is right belongs to the document, not to this file. */
+/* 12.9: the `h2` half is gone. All thirteen `.sech--rule` in the corpus carry
+   `h3` - the A-Z letters of node 2.4 - and `dead-sel.mjs` measured the `h2` half
+   matching nothing. The comment above still stands: which tag is right belongs
+   to the document. When a document brings an `h2` here, the rule comes back with
+   that document and not before it. */
+.sech--rule h3{ font-family: inherit; font-size: var(--fs-16);
+  font-weight: var(--fw-bold); letter-spacing: normal; margin: 0; }

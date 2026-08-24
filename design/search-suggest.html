@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Пошук - підказки (wireframe 2.5, автодоповнення)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук - STATE = suggestions overlay open (typed query = «креа»).
+  The panel is search-overlay.css (level 3): a full-screen sheet on a phone, a dropdown
+  under the header field from 620. The page behind wears `.behind` from overlay.css -
+  faded, drained of colour, out of reach. No filter rail on this state.
+  Sections: доповнення · категорії/бренди · товари · нещодавні · популярні · «показати всі».
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<!-- page behind the overlay -->
+<main class="wf-page behind" aria-hidden="true">
+  <nav class="crumb"><a>Головна</a><span class="sep"></span><span class="cur">Каталог</span></nav>
+  <h1 class="lh1">Каталог</h1>
+  <p class="lintro">Усе спортивне харчування Stack - оберіть ціль або категорію.</p>
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- ===== overlay layer ===== -->
+<div class="ov-dim"></div>
+<div class="ov-panel" role="listbox" aria-label="Підказки пошуку">
+
+  <!-- faux field echoing the typed query -->
+  <div class="ov-field">
+    <span class="mag">🔍</span>
+    <span class="q">креа<span class="car"></span></span>
+    <button class="btn--text btn--s">Очистити</button>
+  </div>
+
+  <!-- query completions (typed ≥2 chars) - with result counts -->
+  <div class="ov-sec">
+    <div class="ov-sh"><span class="relh">Можливо, ви шукаєте</span></div>
+    <a class="ov-row on" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин</span><span class="cn">12 товарів</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин моногідрат</span><span class="cn">5 товарів</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🔍</span><span class="tx"><mark>креа</mark>тин hcl</span><span class="cn">3 товари</span></a>
+  </div>
+
+  <!-- categories / brands -->
+  <div class="ov-sec">
+    <div class="ov-sh"><span class="relh">Категорії та бренди</span></div>
+    <div class="ov-cbs">
+      <a class="ov-cb" href="listing.html"><span class="k">Категорія</span> Креатин</a>
+      <a class="ov-cb" href="listing.html"><span class="k">Категорія</span> Амінокислоти</a>
+      <a class="ov-cb" href="brands.html"><span class="k">Бренд</span> OstroVit</a>
+    </div>
+  </div>
+
+  <!-- product previews (3-4) -->
+  <div class="ov-sec">
+    <div class="ov-sh"><span class="relh">Товари</span></div>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">OstroVit <mark>Creatine</mark> Monohydrate 500 г</span><span class="pp">549 ₴</span></a>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">Optimum Micronised <mark>Creatine</mark> 634 г</span><span class="pp">960 ₴</span></a>
+    <a class="ov-prod" href="product.html"><span class="th">фото</span><span class="pn">BioTechUSA 100% <mark>Creatine</mark> 500 г</span><span class="pp">590 ₴</span></a>
+  </div>
+
+  <!-- recent searches -->
+  <div class="ov-sec">
+    <div class="ov-sh"><span class="relh">Нещодавні</span><a class="more" href="search-suggest.html">Очистити</a></div>
+    <a class="ov-row" href="search.html"><span class="ic">🕘</span><span class="tx">протеїн</span></a>
+    <a class="ov-row" href="search.html"><span class="ic">🕘</span><span class="tx">bcaa</span></a>
+  </div>
+
+  <!-- popular queries (footer SEO block) -->
+  <div class="ov-sec">
+    <div class="ov-sh"><span class="relh">Популярні запити</span></div>
+    <div class="chips">
+      <a class="chip" href="search.html">Протеїн</a>
+      <a class="chip" href="search.html">Креатин</a>
+      <a class="chip" href="search.html">Гейнер</a>
+      <a class="chip" href="search.html">Омега-3</a>
+      <a class="chip" href="search.html">Вітамін D3</a>
+      <a class="chip" href="search.html">L-карнітин</a>
+    </div>
+  </div>
+
+  <!-- show all -->
+  <a class="ov-all" href="search.html">Показати всі результати за «креа» →</a>
+</div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('search.html', 'suggest'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

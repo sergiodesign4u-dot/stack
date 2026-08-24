@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Кабінет - Профіль · Змінити номер - Stack (wireframe 7.1)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 7.1 Профіль (buyer account, private → noindex).
+  PASSWORDLESS per auth 1.x - NO password field, no «forgot password».
+  Name · phone (verified, change via SMS code) · e-mail (code) · language ·
+  newsletter consent · delete account. Reuses the shared account shell.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="account.html">Кабінет</a><span class="sep"></span>
+    <span class="cur">Профіль</span>
+  </nav>
+
+  <div class="acc">
+    <aside class="acc-nav" id="acc-nav"></aside>
+
+    <div class="acc-main">
+      <h1 class="acc-h1">Профіль</h1>
+      <p class="acc-sub">Особисті дані та сповіщення. Вхід - за кодом, без пароля.</p>
+
+      <div class="pfcard">
+
+        <!-- name -->
+        <div class="pfield">
+          <div class="pf-lbl">Ім'я</div>
+          <input class="field pf-input" type="text" value="Вікторія Коваль" aria-label="Ім'я">
+        </div>
+
+        <!-- phone (primary, verified) -->
+        <div class="pfield">
+          <div class="pf-lbl">Телефон</div>
+          <div class="pf-row">
+            <div class="pf-val">+380 ** *** 45 67 <span class="ok">✓ підтверджено</span></div>
+            <button type="button" class="btn--text pf-act" onclick="openProfPhone()">Змінити - код у SMS</button>
+          </div>
+          <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
+        </div>
+
+        <!-- email (optional) -->
+        <div class="pfield">
+          <div class="pf-lbl">E-mail</div>
+          <div class="pf-row">
+            <div class="pf-val pf-val--empty">не додано</div>
+            <button type="button" class="btn--text pf-act" onclick="openProfEmail('add')">Додати - код на пошту</button>
+          </div>
+          <div class="pf-hint">Необов'язково. Підтвердження - кодом на пошту (без пароля).</div>
+        </div>
+
+        <!-- language -->
+        <div class="pfield">
+          <div class="pf-lbl">Мова інтерфейсу</div>
+          <div class="pf-row">
+            <div class="pf-val">Українська</div>
+            <button type="button" class="btn--text pf-act" onclick="openProfLang()">Змінити</button>
+          </div>
+        </div>
+
+        <!-- newsletter consent toggle -->
+        <div class="pfield">
+          <div class="pf-lbl">Розсилка та нагадування</div>
+          <div class="pf-row">
+            <div>
+              <div class="pf-val pf-val--label">Отримувати листи й нагадування про поповнення</div>
+              <div class="pf-hint">Нагадування про закінчення запасів - за оцінкою циклу споживання.</div>
+            </div>
+            <span class="sw" id="nl-toggle" role="switch" aria-checked="true" aria-label="Згода на розсилку"><i></i></span>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="button" class="btn--accent btn--s btn pf-save" onclick="profSave()">Зберегти</button>
+
+      <div class="pf-note"><b>Без пароля.</b> Ваш акаунт захищено входом за одноразовим кодом (SMS або e-mail) - немає пароля й немає «забули пароль».</div>
+
+      <div class="pf-danger"><button type="button" class="btn--text btn--danger pf-dangerbtn" onclick="openProfDelete()">Видалити акаунт</button></div>
+
+    </div>
+  </div>
+</main>
+
+<footer id="wf-footer"></footer>
+</div>
+<div id="wf-profile"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>
+  var isCoach = /(?:^|[?&])r=coach(?:&|$)/.test(location.search);
+  wfHeader(isCoach ? 'coach' : 'buyer');
+  wfAccountNav('profile', isCoach);
+  wfFooter(); wfToasts(); wfProfileDialogs(); openProfPhone(); wfBar('account-profile.html', 'phone');
+  // demo: toggle newsletter switch
+  var sw = document.getElementById('nl-toggle');
+  if (sw) sw.addEventListener('click', function () {
+    var on = !sw.classList.toggle('off');
+    sw.setAttribute('aria-checked', on ? 'true' : 'false');
+  });
+  // language radio: move .on highlight
+  document.addEventListener('click', function (e) {
+    var lab = e.target.closest('.pf-lang'); if (!lab) return;
+    document.querySelectorAll('#pf-lang .pf-lang').forEach(function (l) { l.classList.toggle('on', l === lab); });
+  });
+  // prefill name for coach variant to match shell persona
+  if (isCoach) { var ni = document.querySelector('.pf-input'); if (ni) ni.value = 'Олена Кравець'; }
+
+  uivFixLinks(); uivBar(); uivChrome(); uivInert(); uivAccount();
+</script>
+</body>
+</html>

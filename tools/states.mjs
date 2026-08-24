@@ -48,8 +48,8 @@ const W = /^\d+$/.test(args[0] || '') ? Number(args.shift()) : 390;
 const PAGES = subject(args);
 
 const srv = await serve();
-const l = await chrome('states');
-const conn = await Conn.open(l.wsUrl);
+let l = await chrome('states');
+let conn = await Conn.open(l.wsUrl);
 
 /* A HAND-WRITTEN LIST OF TWO IS STILL A HAND-WRITTEN LIST - step 8.19, and the
    defect is the one point 1 above says this file exists to have fixed. The
@@ -99,7 +99,30 @@ const RERUN = `(() => {
 })()`;
 
 const found = [];
-for (const p of PAGES) {
+const stalled = [];
+
+/* 4. IT DOES NOT GIVE UP ON A WALK EITHER - and this one was found by the walk
+      dying, not by reading it. On 2026-08-22 the full run printed 177 dots and
+      then «CDP мовчить 60с: Runtime.evaluate» on kit/demo/coach-landing-cta. That
+      page walks in two seconds on its own: nothing is wrong with it, the BROWSER
+      is what wore out, somewhere past a hundred and fifty targets. The verdict
+      line never printed, so a walk that had already opened 177 pages and found
+      nothing reported neither the nothing nor the 123 pages it never opened.
+      A crash at page 178 and a clean page 178 look identical from the exit code.
+      So: a page that stops answering is caught, the browser is thrown away and
+      relaunched, and the page is tried once more. Survives the retry - one 'r' in
+      the dots and the walk goes on. Stalls twice - the page goes on a NAMED list,
+      the walk still finishes the rest, and the run exits non-zero. The list is
+      declared, so it is printed even when it is empty: «0 pages went silent» is
+      the only form in which a person can tell a complete walk from a lucky one. */
+async function recycle() {
+  try { conn.close(); } catch {}
+  try { l.stop(); } catch {}
+  l = await chrome('states');
+  conn = await Conn.open(l.wsUrl);
+}
+
+async function walkPage(p) {
   const s = await newSession(conn);
   const url = `${srv.base}/design/${p}.html`;
   await visit(conn, s.sessionId, url, W, 900, '1', s.inflight);
@@ -123,7 +146,13 @@ for (const p of PAGES) {
     if (d.moved) found.push({ page: p, label, moved: d.moved, gone: d.gone });
   }
   await conn.send('Target.closeTarget', { targetId: s.targetId });
-  process.stdout.write('.');
+}
+
+for (const p of PAGES) {
+  try { await walkPage(p); process.stdout.write('.'); continue; } catch {}
+  await recycle();
+  try { await walkPage(p); process.stdout.write('r'); }
+  catch (e) { stalled.push(p + '   ' + e.message); process.stdout.write('!'); }
 }
 console.log('\n\n===== A STATE NO PASS REACHED (re-running the passes changed it) =====');
 if (!found.length) console.log('none - every state this walk can open is already marked');
@@ -137,5 +166,9 @@ for (const f of found) {
 for (const k of Object.keys(byLabel).sort((a, b) => byLabel[b].moved - byLabel[a].moved))
   console.log(k.padEnd(18) + '+' + String(byLabel[k].moved).padStart(4) + ' marks   ' +
     [...byLabel[k].gone].slice(0, 8).join(' ') + '   [' + [...byLabel[k].pages].slice(0, 4).join(', ') + ']');
+console.log('\n===== СТОРІНКИ, ЯКІ ЗАМОВКЛИ (двічі поспіль, з перезапуском браузера між спробами) =====');
+if (!stalled.length) console.log('   0 з ' + PAGES.length + ' - обхід дійшов до кінця, вердикт вище стосується всіх');
+else { console.log('   ' + stalled.length + ' з ' + PAGES.length + ' - їхніх станів ЦЕЙ ПРОГІН НЕ БАЧИВ:');
+       stalled.forEach(x => console.log('     ' + x)); }
 l.stop(); srv.stop();
-process.exit(found.length ? 1 : 0);
+process.exit(found.length || stalled.length ? 1 : 0);

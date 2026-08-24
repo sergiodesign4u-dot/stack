@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>FAQ магазину | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">FAQ магазину</h1>
+<p class="kp-lead">Згортні питання, згруповані за темами, зі смугою переходу зверху і смугою «не знайшли відповіді» знизу. Вузол 8.9, шістнадцять питань у шести групах.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/faq-page.css</span><span class="kp-tag">90 рядків</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<p class="kp-p"><code>.faq-grp</code> - група з заголовком, у якому гліф стоїть у плитці <code>.ic</code>, щоб шість заголовків поспіль вишикувались по одній лінії. Усередині - <code>&lt;details class="qa"&gt;</code>: <code>&lt;summary&gt;</code> з <code>.chev</code>, який обертається на <code>[open]</code>, і <code>.a</code> з відповіддю.</p>
+<p class="kp-p"><b>Механіка взята з <code>trust-strip.css</code> дослівно</b>, а не виведена наново: <code>list-style: none</code> плюс вебкітовий маркер, обертання шеврона на <code>[open]</code>. Другий вивід тих самих трьох рядків - це друга відповідь, яка чекає нагоди розійтися з першою.</p>
+<div class="kp-demo">
+<div class="chips"><a class="chip" href="#">Замовлення</a><a class="chip" href="#">Доставка</a><a class="chip" href="#">Оплата</a><a class="chip" href="#">Товар</a></div>
+<div class="faq-grp">
+  <h2><span class="ic">📦</span>Доставка</h2>
+  <details class="qa" open><summary>Скільки їде замовлення? <span class="chev">▾</span></summary>
+    <div class="a">Нова Пошта - 1-3 дні по Україні. Кур'єр по Одесі - наступного дня, якщо замовлення оформлене до 14:00. Самовивіз - у день замовлення після підтвердження.</div></details>
+  <details class="qa"><summary>Скільки коштує доставка? <span class="chev">▾</span></summary>
+    <div class="a">Вартість залежить від служби й тарифу перевізника. Точні тарифи показуємо на етапі оформлення після вибору способу доставки. <span class="qmark">[тарифи - операційне питання]</span></div></details>
+  <details class="qa"><summary>Чи можна змінити адресу після оформлення? <span class="chev">▾</span></summary>
+    <div class="a">Так, поки замовлення не передане перевізнику. Напишіть нам у <a href="#">контактах</a>, і ми поміняємо відділення.</div></details>
+</div>
+<div class="faq-help">
+  <div><div class="t">Не знайшли відповіді?</div><div class="s">Напишіть нам - відповідаємо в робочі години того ж дня.</div></div>
+  <div class="sp"></div>
+  <a class="btn btn--outline" href="#">Написати</a>
+</div>
+</div>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<p class="kp-p">Тільки на <b>вузлі 8.9</b> - FAQ рівня магазину: доставка, оплата, повернення, акаунт. Питання про КОНКРЕТНИЙ товар живуть на картці товару (вузол 3.2) і мають свій компонент - <code>qa-item.css</code>.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<p class="kp-p"><b>Питання стоїть ЗАКРИТИМ, і це не смак.</b> Саме тут проходить межа з <code>.trustsec</code>, яка теж є згорткою: блок довіри на картці товару стоїть ВІДКРИТИМ, бо принцип 1 каже «склад, дозування, походження і сертифікація - це лід, а не деталь під згином». Блок довіри, який відкривався б кліком, ламав би принцип 1; FAQ, який стояв би відкритим, перестав би бути списком, який можна перебігти очима.</p>
+<p class="kp-p"><b>Цей файл не малює трьох речей, які здається, що малює.</b> Смуга переходу - це <code>.chips</code> + <code>.chip</code> з <code>chip.css</code>. Заголовки груп - <code>section-head</code>. Абзац-ліда під H1 - <code>.lintro</code> з <code>seo-text.css</code>, який описує себе як «ліду просто під H1» і вже стоїть на одинадцяти сторінках; чотири екрани цієї партії оголосили її вчетверте під власними іменами, і це одне рішення, записане п'ять разів.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<p class="kp-p">Два, і обидва - робота <b>ВІДПОВІДЬ</b>. <code>summary:hover</code> бере <code>--bg-sunken</code> і фарбує шеврон у дію за <code>--dur-fast</code>. <code>[open]</code> обертає шеврон на 180° і кладе волосину під заголовком. Розкриття самого <code>&lt;details&gt;</code> браузер робить сам і в цьому продукті не анімується: <code>motion.md</code> не має моменту на міждокументну чи нативну згортку.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Чого інвентар етапу 07 не побачив</div>
+<p class="kp-p">У <code>wireframes/_wf.css</code> немає правила для <code>faq-*</code>; сірий екран несе власний блок <code>&lt;style&gt;</code>. Той самий рядок, що в <code>info-page.css</code>, <code>nav-tile.css</code> і <code>article.css</code> - і разом вони і є висновок: <b>інвентар, зібраний зі спільної таблиці стилів, сліпий до кожного екрана, який застилював себе сам</b>, а вся група f4 зробила саме це.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів і <b>2</b> стани, обидва показані наживо вище.</p><div id="idle"></div><script>var KIT_CLS=["faq-grp","qa","faq-help","ic","chev","a","t","s","sp"], KIT_STS=["hover","open"];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>faq-page.css</code>: <b>10</b> семантичних ролей і <b>17</b> примітивів. Список виводить <code>node tools/roles.mjs faq-page</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (10)</th><th>Примітиви (17)</th></tr></thead><tbody><tr><td><code>--bg-page</code> <code>--bg-sunken</code> <code>--bg-surface</code> <code>--line-hair</code> <code>--line-strong</code> <code>--text-action</code> <code>--text-body</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--container-text</code> <code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-18</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--radius-12</code> <code>--radius-8</code> <code>--size-30</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-32</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -61,7 +61,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
       <div class="cs-client">
         <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
-        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -75,7 +75,7 @@
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
         <!-- the field a coach types into thirty times a session: the atom's own
              classes, so the box is field.css's and not the browser's -->
-        <div class="qadd-field field-grp field-grp--s">
+        <div class="field-grp field-grp--s">
           <input class="field field--s" type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
@@ -103,16 +103,16 @@
 
       <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
       <div class="cs-lines-h">Товари для клієнта Андрій</div>
-      <div class="cs-lines">
+      <div>
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
             <div class="cl-var">Смак: Ваніль · Угорщина</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
@@ -120,13 +120,13 @@
 
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
             <div class="cl-var">Смак: Подвійний шоколад · США</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
@@ -166,6 +166,6 @@
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
 <script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html'); wfSessionTabs();
-        uivFixLinks(); uivBar(); uivChrome();</script>
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
 </body>
 </html>

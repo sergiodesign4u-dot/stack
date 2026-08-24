@@ -11,92 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-/* THE SKELETON BLOCK IS GONE - 3 rules, step 8.38. `.qa-skel` was
-   `coach-session.css`'s own `.qa-row` retyped (44 / 1fr, gap 11, padding 9/0,
-   hairline top) and `.qa-skel .sk-ph` was `.qa-ph`; the bar was the ninth
-   edition, 12px on `--bg-rule` against the system's 10 on `--bg-sunken`. The
-   markup wears the row it is promising, so the stack it grew at 7.97 for 360
-   now covers the waiting state too. «motion deferred» is answered as well -
-   `.skpulse` is in the system with its own reduced-motion rule. */
-</style>
 </head>
 <body class="coach">
 <!-- ============================================================
@@ -140,7 +54,7 @@
     <section class="cs-panel" role="tabpanel" aria-label="Замовлення для клієнта Андрій">
       <div class="cs-client">
         <div class="cc-name">Андрій <span class="cc-goal">· ціль: Набір маси</span></div>
-        <a class="btn--text ci-lnk cc-repeat" href="cart-coach.html">Повторити замовлення</a>
+        <a class="btn--text ci-lnk" href="cart-coach.html">Повторити замовлення</a>
       </div>
       <!-- goal drives selection -->
       <div class="cc-goals" aria-label="Цілі клієнта">
@@ -152,35 +66,40 @@
       <!-- IN-SESSION QUICK-ADD (not the global search) -->
       <div class="qadd">
         <div class="qadd-h">Швидке додавання <span>- підбір за ціллю «Набір маси», не загальний пошук</span></div>
-        <div class="qadd-field field-grp field-grp--s">
+        <div class="field-grp field-grp--s">
           <input class="field field--s" type="text" placeholder="Назва або артикул - протеїн, гейнер, креатин…" aria-label="Швидке додавання товару">
           <a class="btn--accent btn--s btn" href="coach-session-loading.html">Знайти</a>
         </div>
         <div class="qadd-res" aria-busy="true">
-          <div class="qadd-h" style="font-weight:700;color:var(--text-secondary);margin:2px 0 6px">Шукаємо товари й гуртові ціни…</div>
+          <div class="qadd-h">Шукаємо товари й гуртові ціни…</div>
           <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
           <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
           <div class="qa-row skpulse"><span class="qa-ph"></span><span class="skline m"></span><span class="skline"></span></div>
-          <!-- prototype: loading resolves forward (flows.md slqa → q4) -->
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
-            <a class="btn--accent btn--l btn" href="coach-session.html" style="font-size:12.5px">Товари завантажено - до сесії →</a>
-            <a class="btn--outline btn--s btn" href="coach-session-oos.html" style="font-size:12.5px">Демо: товару немає в наявності</a>
+          <!-- prototype: loading resolves forward (flows.md slqa → q4).
+               12.10: the forward link was `btn--l` and its label crossed the card's own border by
+               25px at 360-400 - `split.mjs` failed on five widths, all above the floor. The grey
+               draws BOTH of these at `font-size:12.5px`, because they are prototype routes and not
+               product actions; the rollout kept the rank (the grey's `btn dark` is the forward one)
+               and raised the SIZE. Rank kept, size returned to the small rung the grey named. -->
+          <div class="actions">
+            <a class="btn--accent btn--s btn" href="coach-session.html">Товари завантажено - до сесії →</a>
+            <a class="btn--outline btn--s btn" href="coach-session-oos.html">Демо: товару немає в наявності</a>
           </div>
         </div>
       </div>
 
       <!-- ORDER LINES for the active client (coach-tier priced + tagged) -->
       <div class="cs-lines-h">Товари для клієнта Андрій</div>
-      <div class="cs-lines">
+      <div>
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">BioTechUSA Hyper Mass 4000 г</div>
             <div class="cl-var">Смак: Ваніль · Угорщина</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 230 ₴<span class="old">1 450 ₴</span><span class="wtag">гурт</span></div></div>
@@ -188,13 +107,13 @@
 
         <div class="cline">
           <div class="cl-ph">фото</div>
-          <div class="cl-bd">
+          <div>
             <div class="cl-nm">Optimum Nutrition Gold Standard 100% Whey 2270 г</div>
             <div class="cl-var">Смак: Подвійний шоколад · США</div>
             <div class="cl-ctrls">
               <span class="cq"><button type="button" aria-label="Менше">−</button><span class="qn">1</span><button type="button" aria-label="Більше">+</button></span>
               <span class="cl-tag">👤 Андрій</span>
-              <button class="btn--text ci-lnk cl-rm" type="button">Видалити</button>
+              <button class="btn--text ci-lnk" type="button">Видалити</button>
             </div>
           </div>
           <div class="cl-right"><div class="cprice">1 090 ₴<span class="old">1 290 ₴</span><span class="wtag">гурт</span></div></div>
@@ -233,7 +152,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'loading'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-session.html', 'loading'); wfSessionTabs();  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

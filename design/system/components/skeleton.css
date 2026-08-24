@@ -292,3 +292,63 @@
      stays, the breathing stops - added at 7.28, and it was missing. */
   .skpulse{ animation: none; opacity: .78; }
 }
+
+/* ---------- 12.2 · THE MARKS THAT WERE SIZED ON THE SCREEN -----------------
+   This file states its own doctrine twice - «a skeleton is a promise about the
+   box that replaces it» (7.68) and «the skeleton wears the component it
+   promises» (8.38) - and it says, in the 8.30 note above, exactly why an inline
+   figure defeats both: «an inline style beats any rule written here». Sixteen of
+   them were still standing when stage 12 swept the floor before the fan-out, on
+   three loading screens, and every one was a bar whose SIZE said what it stood
+   for while its NAME did not.
+
+   So they are named. A modifier per job, not per screen - which is how the two
+   screens that turned out to be drawing the SAME mark stopped being two numbers:
+   the buy box's availability line (30 x 40%) and the account card's leading
+   figure (28 x 40%) are one thing, and `.skline--fig` is now it.
+
+   FIGURES OFF THE SCALE SNAP TO THE NEAREST RUNG, and a tie goes up, which is
+   this file's own rule for spacing read across to size. Where no rung is within
+   reach the literal stays and carries `[?]`, exactly as `.oc-top > .skline`
+   does above it. */
+.skline--kicker { margin-bottom: var(--space-12); }                       /* 10 -> 12 (tie, up) */
+.skline--h1     { height: var(--size-24); }                               /* 22 -> 24; the same rung `.acc-h1sk` takes */
+.skline--price  { height: var(--size-64); margin: var(--space-16) 0; }    /* 60 -> 64, 14 -> 16 */
+.skline--fig    { height: var(--size-30); width: 40%; margin: var(--space-16) 0; }  /* 28 and 30 -> 30, 14 -> 16 */
+.skline--variant{ height: var(--size-46); margin: var(--space-16) 0; }    /* both already rungs */
+.skline--cta    { height: var(--size-52); }                               /* 50 -> 52 */
+.skline--trust  { height: 120px; margin-top: var(--space-16); }           /* [?] 120 has no rung - it stands for the whole trust block */
+/* the bar between a dashboard card's head and its body, on seven boxes over two
+   screens. It is the only one of the sixteen that was already the same figure
+   everywhere, which is what made it a rule rather than a decision. */
+.skline--sep    { margin: var(--space-16) 0; }                            /* 14 -> 16 */
+
+/* the containers those boxes stand in. 26 -> `--space-24`; 16 was already a rung
+   and is written here only because it was written on the screen. */
+.acc-cardgrid + .skgrid { margin-top: var(--space-24); }
+.acc-subsk + .skcardbox { margin-top: var(--space-16); }
+/* the client card's head holds an avatar and a two-bar column, and the column has
+   to take the rest of the row. Same sentence as `.acc-prof .who:has(.skline)`
+   above, same instrument, and it was `style="flex:1"` on four cards. */
+.ccard-hd > div:has(.skline){ flex: 1; }
+
+/* ---------- a wide, low box, and the gap between two grids - 12, batch 2 ----
+   `.skimg` is `aspect-ratio: 1`, because every photograph in this product is
+   square. A brand's logo box is neither square nor a photograph - it is wide and
+   low - so `brands-loading` promised the wrong box with the right component.
+   This file states its own rule twice («a skeleton is a promise about the box
+   that replaces it», 7.68; «the skeleton wears the component it promises»,
+   8.38), so the mark takes the height the box actually has.
+
+   And the second half: `catalog-page-loading` sets the distance between its two
+   skeleton grids with `style="margin-top:20px"` and `14px` - a forbidden mark in
+   a screen file, and the exact shape this file already closed at 12.2 for
+   `.acc-cardgrid + .skgrid`. 20 and 14 are not rungs; they go up, as this file's
+   own note says. */
+.sklogo{ height: var(--size-52); border-radius: var(--radius-8); background: var(--bg-sunken); }
+/* 12.9: `.skgrid + .skgrid` REMOVED. Written at 12.4 to replace two inline
+   `margin-top` attributes, and `dead-sel.mjs` measured that no two skeleton
+   grids are siblings anywhere in the corpus - the pair it was written for does
+   not exist in the coloured layer. A rule that matches nothing is removed, not
+   kept as insurance. `.sech + .skgrid`, written in the same breath, is alive. */
+.sech + .skgrid{ margin-top: var(--space-16); }

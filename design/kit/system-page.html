@@ -23,7 +23,7 @@
 <div class="kp-eyebrow">Організм · рівень 3</div>
 <h1 class="kp-h1">Системна сторінка</h1>
 <p class="kp-lead">Файл є, класи є, і <b>кольору в ньому немає жодного рядка</b>: шапка обіцяє колірний блок нижче, а колірного блоку у файлі нема - тільки структурний. Усі 16 класів зустрічаються рівно на чотирьох сірих екранах - <code>wireframes/404.html</code>, <code>wireframes/500.html</code>, <code>wireframes/maintenance.html</code> і <code>wireframes/system.html</code>, - і в жодного з них немає кольорового двійника: <code>design/404.html</code>, <code>design/500.html</code>, <code>design/maintenance.html</code> і <code>design/system.html</code> не існують. Файл виділили при розколі на кроці 3 етапу 08, він поїхав у кольорову систему разом з рештою, і <b>колір цього організму не намальовано ніде</b>.</p>
-<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/system-page.css</span><span class="kp-tag">42 рядки</span><span class="kp-tag">22 селектори</span><span class="kp-tag">93 оголошення</span><span class="kp-tag">жодного екрана</span></div>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/system-page.css</span><span class="kp-tag">127 рядків</span><span class="kp-tag">27 селекторів</span><span class="kp-tag">100 оголошень</span><span class="kp-tag">жодного екрана</span></div>
 
 <section class="kp-sec"><div class="kp-sh">З чого складається</div>
 <p class="kp-p">Складу немає з чого міряти: корінь <code>.sys-min</code> шукали на всіх сорока кольорових екранах і не знайшли, тож речення нижче означає не «організм простий», а «організму в кольорі не існує».</p>
@@ -71,14 +71,53 @@
 <p class="kp-p">Правила вживання, які називають саме цей компонент: <b>U9</b>. Автор правил один, і це <a class="kp-a" href="architecture.html#rules">architecture.html, розділ I</a>; тут - витяг.</p>
 <p class="kp-p">Ряд дій службової сторінки <b>ще не переведений</b>: кольорових входжень нуль, тож доводити пікселями нема чого.</p></section>
 
+<section class="kp-sec"><div class="kp-sh">Дві форми сторінки, і різницю вирішує не вигляд <b>-&gt; 12.9</b></div>
+<p class="kp-p"><code>.sys-min</code> - гола центрована колонка на 78vh, без шапки і без підвалу. Це правильно для <b>500</b> і для <b>технічних робіт</b>: зламався сам магазин, і смуга навігації пропонувала б двері, які не відчиняються.</p>
+<p class="kp-p"><b>404 - протилежний випадок, і сірий каже це у власному коментарі: «ніколи не глухий кут».</b> Магазин працює, не працює одна адреса. Тому сторінка лишає шапку, підвал і пошук, а помилка стає СЕКЦІЄЮ всередині звичайної сторінки. Вирішує принцип 2 - один ясний наступний крок: на 500 це «спробувати ще раз», на 404 це будь-які з дюжини дверей, які всі досі відчиняються.</p>
+<p class="kp-p"><code>.sys-min</code> не можна перевикористати з увімкненою хромованістю: це <code>min-height: 78vh</code> плюс <code>justify-content: center</code>, і на сторінці, яка ще несе шапку й підвал, воно виштовхує все за згин.</p>
+<div class="kp-demo">
+<section class="e404">
+  <div class="sys-code">404</div>
+  <h2 class="sys-h">Такої сторінки немає</h2>
+  <p class="sys-s">Можливо, товар зняли з продажу або в посиланні є помилка. Спробуйте пошук або оберіть ціль.</p>
+  <div class="chips chips--center"><a class="chip" href="#">Протеїн</a><a class="chip" href="#">Креатин</a><a class="chip" href="#">Вітаміни</a><a class="chip" href="#">Набір маси</a></div>
+</section>
+</div>
+<p class="kp-p"><b>Код як гліф, і це закриває inline-стиль, якого сірий не міг уникнути.</b> <code>maintenance.html</code> пише <code>style="font-size:44px"</code> на <code>.sys-code</code>, бо ключ на 60 - це не цифра на 60: цифра несе вагу штрихом, піктограма - своєю коробкою. 44 тут не вигадане: це ВЕРХ <code>--fs-display</code>, драбини, на яку система вже вилазить, тож гліф стає на щабель замість числа, яке хтось набрав один раз.</p>
+<div class="kp-demo">
+<main class="sys-min">
+  <div class="sys-code sys-code--mark">🛠️</div>
+  <h2 class="sys-h">Ненадовго на технічних роботах</h2>
+  <p class="sys-s">Оновлюємо магазин. Зазвичай це займає менше години.</p>
+  <div class="actions actions--center"><a class="btn btn--accent" href="#">Оновити сторінку</a></div>
+  <p class="sys-foot">Потрібна допомога? 0 800 000 000 · <a href="#">Telegram</a> · <a href="#">Viber</a></p>
+  <p class="sys-foot sys-foot--fine">HTTP 503 · Retry-After <span class="qmark">[?]</span></p>
+</main>
+</div>
+<p class="kp-p"><b>І розмір знака ФІКСОВАНИЙ, а не плинний</b> - перше написання дало <code>.sys-code--mark</code> значення <code>--fs-display</code>, тобто <code>clamp</code>, і агент це зміряв: ключ виходив 30px на телефоні проти 44 у сірому, на третину менший, на пристрої, під який продукт будують першим - тоді як цифра «500» на сусідньому екрані 60 на всіх ширинах. <b>Дві сторінки-близнюки, один слот, один знак фіксований і один плинний</b> - це не рішення, яке хтось ухвалив. 44 не є щаблем цієї системи (<code>tokens.css</code> відмовився карбувати <code>--fs-36</code> і <code>--fs-50</code> заради одного вжитку), тож гліф бере щабель під цифрою і поводиться так, як поводиться його близнюк.</p>
+<p class="kp-p"><b><code>.sys-foot</code> і <code>.sys-foot--fine</code></b> - тихий рядок під рядом дій. Сірий пише його як <code>.sys-s</code> з <code>style="margin-top:18px;font-size:12.5px"</code>, і без цього інлайну виходить <b>чотири пікселі повітря замість вісімнадцяти</b>: <code>.sys-min</code> має <code>gap: --space-4</code>, а <code>.sys-s</code> не має верхнього відступу взагалі. Тобто інлайн був не оздобленням, а загубленим правилом. 11.5 проти 12.5 - це дрейф сірого на драбині, де щабель один; справжня різниця між двома рядками - колір.</p>
+</section>
+
+<section class="kp-sec"><div class="kp-sh">Поле пошуку перестало бути оболонкою <b>-&gt; 12.9</b></div>
+<p class="kp-p">Розкол етапу 08 обіцяв «selectors are unchanged», і саме це правило його не пережило: сірий малює <code>.sys-search .go</code> - приварений сабміт - а кольоровий шар не малював нічого, тож слово «Знайти» висіло в коробці без ґрунту, без падінга і без ваги. Заміряно у власній рамці кіта: <code>background rgba(0,0,0,0)</code>, <code>padding 0px</code>, <code>16px/400</code>, без бордера.</p>
+<p class="kp-p"><b>Два ремонти були можливі, і лише один зменшує борг.</b> Повернути <code>.sys-search .go</code> означало б зробити це <b>п'ятою</b> рукописною редакцією «поля пошуку з привареною кнопкою»; <code>field.css</code> перелічує чотири, зве їх злиття «Крок 6» і закриває той самий абзац словами «<code>brands.html</code> - перший екран, що тягнеться по неї до системи замість писати п'яту». Вузол S - другий. Оболонка тепер приходить із <code>.field-grp</code>, рівно як шапка вже робить у рантаймі. <b>Чотири редакції стали трьома.</b></p>
+<div class="kp-demo">
+<form class="sys-search field-grp field-grp--s" role="search">
+  <input class="field field--s" type="search" placeholder="Що шукали?" aria-label="Пошук по магазину">
+  <button class="btn btn--accent btn--s go" type="submit">Знайти</button>
+</form>
+</div>
+<p class="kp-p">Тут лишилось те, що знає лише ця поверхня: якою завширшки поле на сторінці помилки і що воно стоїть посередині. Жоден кольоровий екран не носив старого правила, тож нічого не довелось перебирати, щоб це сказати.</p>
+</section>
+
 <section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
-<p class="kp-p">Сторінка звіряє себе з файлом: <b>16</b> власних класів і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["demo-btns", "sc-code", "sc-d", "sc-open", "sc-t", "sys-acts", "sys-code", "sys-h", "sys-links", "sys-logo", "sys-min", "sys-s", "sys-search", "syscard", "sysdemo", "sysgrid"], KIT_STS=[];</script></section>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>21</b> власний клас і <b>0</b> станів.</p><div id="idle"></div><script>var KIT_CLS=["demo-btns", "sc-code", "sc-d", "sc-open", "sc-t", "sys-acts", "sys-code", "sys-h", "sys-links", "sys-logo", "sys-min", "sys-s", "sys-search", "syscard", "sysdemo", "sysgrid", "e404", "sys-code--mark", "sys-foot", "sys-foot--fine", "go"], KIT_STS=[];</script></section>
 
 <div class="kp-gap"><h4>ПОВЕДІНКА НА ШИРИНІ - етап 10, крок 4</h4>
 <b>Від якого порогу:</b> <code>--bp-grid-2col</code>. <b>Що саме міняється:</b> три системні плитки стають рядом. <b>Було 720</b>, поза реєстром. <b>І окремо про нуль:</b> єдиний екран цього файлу - <code>wireframes/system.html</code>, у якого немає кольорового двійника, тож обхід кольорового корпусу не бачить його взагалі. Це говорить корпус приладу, а не мертвий файл.</div>
 
 <section class="kp-sec"><div class="kp-sh">Токени</div>
-<p class="kp-p">Прочитані з <code>system-page.css</code>: <b>5</b> семантичних ролей і <b>16</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (16)</th></tr></thead><tbody><tr><td><code>--line-hair</code> <code>--line-strong</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-display</code> <code>--radius-12</code> <code>--radius-8</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+<p class="kp-p">Прочитані з <code>system-page.css</code>: <b>5</b> семантичних ролей і <b>19</b> примітивів.</p><div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (5)</th><th>Примітиви (19)</th></tr></thead><tbody><tr><td><code>--line-hair</code> <code>--text-action</code> <code>--text-muted</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--dur-fast</code> <code>--ease-standard</code> <code>--fs-12</code> <code>--fs-14</code> <code>--fs-16</code> <code>--fs-24</code> <code>--fs-34</code> <code>--fw-black</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--lh-flat</code> <code>--ls-display</code> <code>--radius-12</code> <code>--space-12</code> <code>--space-16</code> <code>--space-24</code> <code>--space-4</code> <code>--space-40</code> <code>--space-8</code></td></tr></tbody></table></div></section>
 
 <section class="kp-sec"><div class="kp-sh">Що знайшов вирішувач</div>
 <p class="kp-p"><b>Жодного оголошення, яке збігається й програє - бо жодне не збігається взагалі.</b> Вирішувач пройшов усі сорок кольорових екранів у дві ширини і поклав <b>усі 210 розгорнутих оголошень цього файлу</b> в один список: «не збігається з жодним елементом». Це не вирок правилам - їх просто ніхто не міг перевірити. Файл при цьому підключений: <code>design/system/index.css</code> імпортує його рядком 90, тож він вантажиться на кожному кольоровому екрані й не малює нічого.</p><p class="kp-p">Порівняйте з <code>cookie-banner.css</code>, чиї класи теж не малюються в кольорі: банер хоча б існує в рантаймі, його ставить скрипт. Тут не так - <b>жоден із 16 класів не будується жодним JavaScript</b>, у всьому репозиторії ці імена не зустрічаються в жодному <code>.js</code>. Отже це не стан, який чекає на подію, і не розмітка, яку хтось створить: розмітки немає ніде, крім чотирьох сірих екранів. Рішення - малювати ті чотири екрани в кольорі або тримати файл поза системою, доки їх немає - належить власникові, і цей стенд його не приймає.</p></section>

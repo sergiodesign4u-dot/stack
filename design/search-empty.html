@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Пошук «креатинн» - нічого не знайдено (wireframe 2.5)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.5 Пошук - STATE = no results (query = «креатинн»).
+  Never a dead end (principle 2, and search.md «No results»): correction → goal
+  tiles (2.2) → popular queries → catalog. Header/footer injected; no filter rail
+  and no filter sheet on the empty state, exactly as the grey original.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Пошук</span>
+  </nav>
+
+  <!-- H1 + spelling correction. The correction line IS `.lintro`: 14, secondary
+       ink, with `.lintro .more` as its bold link - the rung the grey drew by hand. -->
+  <section aria-label="Результати пошуку">
+    <h1 class="lh1">За запитом «креатинн» нічого не знайшли</h1>
+    <p class="lintro">Можливо, ви шукали: <a class="more" href="search.html">креатин</a>?</p>
+  </section>
+
+  <!-- Empty block with the primary next step -->
+  <div class="empty">
+    <div class="ei ei--wide"><img src="visuals/mascot-face-reassure.png" alt="" loading="lazy" decoding="async" width="1024" height="1024"></div>
+    <div class="et">Нічого не знайшли за запитом «креатинн»</div>
+    <div class="es">Перевірте правопис або скористайтесь підказками нижче.</div>
+    <div class="eact">
+      <a class="btn--accent btn" href="search.html">Шукати «креатин»</a>
+      <a class="btn--outline btn" href="catalog-page.html">До каталогу</a>
+    </div>
+  </div>
+
+  <!-- Goal tiles → goal collection 2.2. Row variant: the mark sits beside the word
+       and a second line explains it. `.gph` stays EMPTY - uivHome() fills it from
+       WF_GOAL_MENU by the tile's own label, so the tiles can never disagree with
+       the mega-menu about which mark a goal has. -->
+  <div class="sech"><h2>Оберіть ціль - підберемо безпечний набір</h2></div>
+  <div class="goaltiles">
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Набір маси</span><span class="hint">Протеїн · Гейнери · Креатин</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Схуднення</span><span class="hint">Ізолят · Жироспалювачі · L-карнітин</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Відновлення</span><span class="hint">BCAA · Глютамін · Магній</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Енергія</span><span class="hint">Передтреники · B-вітаміни</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Імунітет</span><span class="hint">Вітаміни C, D3 · Омега</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Витривалість</span><span class="hint">Ізотоніки · Гелі · Електроліти</span></span></a>
+  </div>
+
+  <!-- Popular queries -->
+  <div class="sech"><h2>Популярні запити</h2></div>
+  <div class="chips">
+    <a class="chip" href="search.html">Протеїн</a>
+    <a class="chip" href="search.html">Креатин</a>
+    <a class="chip" href="search.html">Гейнер</a>
+    <a class="chip" href="search.html">Омега-3</a>
+    <a class="chip" href="search.html">Вітамін D3</a>
+    <a class="chip" href="search.html">L-карнітин</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('search.html', 'empty'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

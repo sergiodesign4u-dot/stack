@@ -206,6 +206,14 @@
   /* 10.6b: the same affordance the account rail got, for the same reason - the
      scrollbar is suppressed on purpose and nothing said there was more. Measured
      at 360: clientWidth 328, scrollWidth 347 - 19px hidden, too little to read as a carousel and enough to cut the last tab. The mask fades whichever edge still has content behind it. */
+  /* 12.10, raised by Codex at step 7 as «a literal colour in a component» and
+     WITHDRAWN on verification, with the reason written here so the next run does
+     not raise it a second time. In a mask, a colour is not ink - it is the ALPHA
+     channel. `#000` here means «fully opaque», `transparent` means «fully
+     cut», and neither end has a semantic role to read: `--text-primary` in that
+     position would mask by the LIGHTNESS of the ink colour and change what is
+     hidden every time the theme changes. The rule is «a component reads colour
+     through a role»; this is not colour. */
   -webkit-mask-image: linear-gradient(to right, #000 calc(100% - var(--space-24)), transparent 100%);
   mask-image: linear-gradient(to right, #000 calc(100% - var(--space-24)), transparent 100%);
  display: flex; gap: var(--space-8); overflow-x: auto; scrollbar-width: none;
@@ -905,3 +913,38 @@
 .coach .cs-banner{ max-width: var(--container-text); }   /* measured peak 105.0ch */
 .coach .cs-note{ max-width: var(--container-text); }   /* measured peak 103.7ch */
 .coach .cs-warn .ws{ max-width: var(--container-text); }   /* measured peak 100.5ch */
+
+
+/* ---------- 12.2 · WHAT THE SCREEN STOPPED DECLARING FOR ITSELF -------------
+   Stage 12 cleans the floor BEFORE the fan-out, on the owner's decision. The
+   coloured corpus carried 102 `style="..."` attributes over 38 of its 91
+   screens; 20 of them are a VALUE (a bar percentage, which a static prototype
+   has no server to compute) and the rest are a screen answering a question its
+   component had never been asked. Fifty subagents copying a template that
+   carries the habit would have multiplied it, which is the one thing this stage
+   is built not to do.
+
+   Written as ONE block rather than split between this file's structure and
+   colour halves: these declarations came off the markup together, and reading
+   them apart would hide what they were.
+
+   THE RULE FOR A FIGURE OFF THE RAMP: it snaps to the nearest rung and the
+   change is named beside it. 13.5 and 12.5 exist on no scale in this system;
+   keeping them would be keeping the defect and calling it a value. */
+
+/* THE QUALIFIER INSIDE A SUBTOTAL - «(без недоступного)», «(1 товар очікує
+   ціну)», «без 1 товару». Three instances on two screens, written with three
+   figures - 12, 12 and 11 - for one job. One rung. */
+.coach .cline-sub .qual,
+.coach .cs-tot .qual{ font-weight: var(--fw-semibold);
+  color: var(--text-secondary); font-size: var(--fs-12); }
+
+/* the quick-add result heading while the search is still running. It is the same
+   `.qadd-h` as above wearing a louder weight, so only what differs is written.
+   6 -> `--space-8`: a tie in SPACING goes up, which is this file's own rule. */
+.coach .qadd-res > .qadd-h{ font-weight: var(--fw-bold); color: var(--text-secondary);
+  margin: var(--space-2) 0 var(--space-8); }
+/* the demo pair under it now wears the action-row pattern instead of repeating
+   its three declarations inline. Only the distance to the block above is left,
+   and that belongs to the block, not to the pattern. */
+.coach .qadd-res .actions{ margin-top: var(--space-12); }

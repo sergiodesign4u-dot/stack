@@ -190,8 +190,27 @@ function outsideParens(sel, fn) {
    stops being able to find the defect it was built for. */
 const ACT_ONLY_HAS = new RegExp(':has\\(\\s*(?::(?:' + STATE_PC.join('|') + ')\\s*)+\\)', 'g');
 
+/* 12.9: AN ACT CAN BE AN ATTRIBUTE, AND THE LIST ABOVE ONLY KNEW PSEUDO-CLASSES.
+   The last survivor of the whole corpus was
+   `.coach .cldetail #clDetailBody:not([hidden])`, reported dead - and the host
+   exists: `design/_nav.js` builds it at line 2411 WITH `hidden`, and `select()`
+   removes the attribute. The css file says so in its own comment two lines above
+   the rule. `[hidden]` was stripped OUTSIDE parentheses already; inside `:not()`
+   it survived, `:not` is not a state pseudo-class, and the host query asked the
+   browser for a panel that is only open during an act.
+
+   Enumerated, never pattern-matched, exactly like `STATE_PC` - and each name
+   must be VERIFIED as toggled by the scripts, so a declaration that stops
+   covering anything shows up instead of quietly widening the strip. */
+const STATE_ATTR = ['hidden'];
+const attrToggled = a => new RegExp("(?:setAttribute|removeAttribute|toggleAttribute)\\(\\s*['\"]" + esc(a) + "['\"]|\\.\\b" + esc(a) + "\\s*=[^=]").test(JS);
+const ACT_ATTR_LIVE = STATE_ATTR.filter(attrToggled);
+const ACT_ATTR = ACT_ATTR_LIVE.length
+  ? new RegExp(':not\\(\\s*\\[(?:' + ACT_ATTR_LIVE.join('|') + ')\\]\\s*\\)', 'g') : null;
+
 function hostOf(sel) {
   sel = sel.replace(ACT_ONLY_HAS, '');
+  if (ACT_ATTR) sel = sel.replace(ACT_ATTR, '');
   const cut = seg => seg
     .replace(/::[a-z-]+/g, '')                                   /* pseudo-elements */
     .replace(/:([a-z-]+)/g, (m, name) => STATE_PC.includes(name) ? '' : m)

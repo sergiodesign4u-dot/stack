@@ -11,14 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-/* NOTHING PRIVATE LEFT HERE - step 8.42, and this page's record is in the
-   MARKUP rather than in this block: see the note above `.empty` below, which
-   is where the five rules that used to sit here were answered at step 8.25.
-   `.ic` / `<h3>` / `<p>` became `.ei` / `.et` / `.es` / `.eact`, the four
-   names empty-state.css draws, and the private copy of the box went with them.
-   The shell stayed behind as blank lines and is removed with this note. */
-</style>
 </head>
 <body class="coach">
 <!-- WIREFRAME · node 5.4 Профіль клієнта (EMPTY). Client exists, no orders yet.
@@ -43,7 +35,7 @@
         <span class="ch-goal">🎯 Ціль: Набір маси</span>
       </div>
     </div>
-    <a class="ch-edit" href="../wireframes/coach-client-edit.html">Редагувати клієнта</a>
+    <a class="ch-edit" href="coach-client-edit.html">Редагувати клієнта</a>
   </div>
 
   <p class="cc-note">Ціль клієнта <b>«Набір маси»</b> формує підбір товарів у сесії замовлення.</p>
@@ -75,7 +67,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'empty');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-client.html', 'empty');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

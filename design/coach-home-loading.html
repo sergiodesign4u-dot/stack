@@ -11,43 +11,6 @@
 <link rel="stylesheet" href="system/index.css">
 <!-- stand chrome only, never part of the system: see design/_stand.css -->
 <link rel="stylesheet" href="_stand.css">
-<style>
-
-
-
-/* FIFTEEN RULES LEFT THIS BLOCK AT STEP 8.30 AND NOTHING REPLACED THEM: every
-   one was a second name for something `skeleton.css`, `account-shell.css` or
-   `empty-state.css` already declares, and the buyer's twin of this screen -
-   `account-loading.html`, the same shell, the same job - carries no private rule
-   at all. The mapping, and each pair was read on both running pages:
-
-     .sk / .sk.line       -> .skline        the bar. `.sk` also carried a 1px
-                                            hairline the system's bar does not
-                                            have, and `height: 12px` is the
-                                            single instance skeleton.css names in
-                                            its own comment: «24 and 10, not 24
-                                            and 12, because 12 was one instance
-                                            disagreeing with 78». This was that one.
-     .sk-prof / .av / .who -> .acc-prof and its two children
-     .sk-links / .row      -> .acc-links / .acc-link
-     .sk-h1 / .sk-sub      -> .acc-h1sk / .acc-subsk
-     .sk-card / .sk-strip  -> .skcardbox
-     .sk-load              -> .loadnote
-     .sk-spin              -> DELETED WITH NOTHING TAKING IT. Its own comment
-                              said «this was the third edition» of the spinner and
-                              named the two that settled it - and skeleton.css
-                              answers the question that comment did not ask:
-                              «It says "still going", not "broken": one slow
-                              breath, NEVER A SPINNER.» A skeleton screen that
-                              also spins is two loading languages at once.
-
-   `.skpulse` came WITH the classes rather than being added: it is a modifier on
-   the container, and taking `.acc-nav`, `.acc-grid` and the two bars means the
-   page breathes the way every other loading screen in the product does. And the
-   rail's phone shape came with them too - below 960 `.acc-links` is a scrollable
-   chip strip, which is what four cabinet screens got back at step 8.22 for
-   exactly the same reason. */
-</style>
 </head>
 <body class="coach">
 <!-- WIREFRAME · node 5.2 Кабінет тренера - LOADING. Static skeleton of the dashboard. -->
@@ -96,15 +59,15 @@
       <div class="acc-subsk skpulse"></div>
 
       <!-- `.cstat`, the tier chip + wholesale note + «керувати тарифом» -->
-      <div class="skcardbox skpulse" style="margin-top:16px">
+      <div class="skcardbox skpulse">
         <div class="skline s"></div><div class="skline l"></div>
       </div>
 
       <!-- three full-width cards, which is what coach-home.html actually draws -->
       <div class="acc-grid skpulse">
-        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div><div class="skline m"></div></div>
-        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div><div class="skline m"></div></div>
-        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m" style="margin:14px 0"></div><div class="skline l"></div></div>
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m skline--sep"></div><div class="skline l"></div><div class="skline m"></div></div>
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m skline--sep"></div><div class="skline l"></div><div class="skline m"></div></div>
+        <div class="skcardbox span2"><div class="skline s"></div><div class="skline m skline--sep"></div><div class="skline l"></div></div>
       </div>
       <p class="loadnote">Завантажуємо кабінет…</p>
     </div>
@@ -120,7 +83,7 @@
 <script src="system/marks.js"></script>
 <script src="system/fields.js"></script>
 <script src="_nav.js"></script>
-<script>wfHeader('coach'); wfFooter(); wfBar('coach-home.html','loading');  uivFixLinks(); uivBar(); uivChrome();
+<script>wfHeader('coach'); wfFooter(); wfBar('coach-home.html','loading');  uivFixLinks(); uivBar(); uivChrome(); uivInert();
 </script>
 </body>
 </html>

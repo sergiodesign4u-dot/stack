@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Про нас - Stack (wireframe 8.2, Info page A)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 8.2 Про нас - Info page (A), base variant.
+  Breadcrumb → H1 + updated-date → prose → related. Inherited header/footer
+  from ../wireframes/_nav.js. Body drawn by info-page.css:
+  .info-updated · .info-body · .info-grid + .info-fact · .info-grid + .info-card.
+  The 21 emoji of the 8.x family stay emoji - uivChrome() does not enter <main>.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Про нас</span>
+  </nav>
+
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Про Stack</h1>
+    <p class="info-updated">Оновлено: 1 липня 2026</p>
+    <p class="lintro">Ми - український магазин спортивного харчування. Наша задача проста:
+      провести людину від «хочу досягти результату» до безпечного, зрозумілого набору продуктів -
+      без плутанини й без страху купити не те.</p>
+  </section>
+
+  <div class="info-body">
+
+    <div class="info-grid">
+      <div class="info-fact"><span class="n">1000+</span><span class="l">товарів у каталозі</span></div>
+      <div class="info-fact"><span class="n">24</span><span class="l">перевірені бренди</span></div>
+      <div class="info-fact"><span class="n">100%</span><span class="l">оригінал і сертифікати</span></div>
+      <div class="info-fact"><span class="n">1–2 дні</span><span class="l">доставка по Україні</span></div>
+    </div>
+
+    <h3 id="story">Хто ми</h3>
+    <p>Stack - це команда, яка любить спорт і розбирається в харчуванні. Ми почали з простого
+      спостереження: більшість магазинів спортпіту зроблені як склад із сотнями банок, де новачок
+      губиться, а досвідчений витрачає час на пошук того, що й так купує щомісяця.</p>
+    <p>Ми будуємо магазин інакше - навколо цілі людини й довіри до продукту. Кожна картка товару
+      показує склад, дозування, походження й сертифікацію відкрито, а не ховає їх у дрібному шрифті.</p>
+
+    <h3 id="values">Наші принципи</h3>
+    <div class="info-grid">
+      <div class="info-card"><div class="ic-h">🛡️ Спочатку довіра</div><p>Склад, дозування, походження й
+        сертифікат - це не другорядні деталі, а головне. Спершу знімаємо сумнів, потім пропонуємо купити.</p></div>
+      <div class="info-card"><div class="ic-h">🎯 Один зрозумілий крок</div><p>Від цілі до товару, від
+        товару до кошика - завжди є одна очевидна наступна дія. Жодних глухих кутів.</p></div>
+      <div class="info-card"><div class="ic-h">💬 Проста мова</div><p>Прості слова в навігації, глибока
+        інформація - на сторінці товару. Спершу проста відповідь.</p></div>
+      <div class="info-card"><div class="ic-h">🤝 Тренер - це канал</div><p>Ми зручні для тренерів і залів,
+        які замовляють для своїх атлетів, а не тільки для соло-покупця.</p></div>
+    </div>
+
+    <h3 id="quality">Якість і безпека</h3>
+    <p>Ми працюємо лише з перевіреними постачальниками й брендами. Уся продукція оригінальна,
+      має сертифікати відповідності та декларацію МОЗ, зберігається за правильних умов.</p>
+    <ul>
+      <li>Тільки офіційні поставки - жодних «сірих» партій</li>
+      <li>Сертифікати відкриті для перегляду на сторінці товару та на сторінці гарантій</li>
+      <li>14 днів на повернення, гарантія виробника</li>
+    </ul>
+  </div>
+
+  <p class="relh">Далі</p>
+  <div class="relrow">
+    <a class="relbox" href="content-guarantee.html">Гарантія та сертифікати</a>
+    <a class="relbox" href="content-delivery.html">Доставка й оплата</a>
+    <a class="relbox" href="content-contacts.html">Контакти</a>
+    <a class="relbox" href="catalog-page.html">Каталог</a>
+  </div>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('content-about.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

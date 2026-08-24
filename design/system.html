@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Системні сторінки та глобальні компоненти - Stack (wireframe S)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node S · Системні сторінки та глобальні компоненти. Хаб-вітрина:
+  три картки станів (404 / 500 / 503) + ЖИВІ демо двох глобалів - cookie-банер
+  з діалогом налаштувань і тости ok / error / info. Звичайна сторінка з
+  крихтами, шапкою і підвалом: сам магазин працює, це не сторінка збою.
+
+  Body drawn by system-page.css: .sysgrid + .syscard (.sc-code · .sc-t · .sc-d ·
+  .sc-open) · .sysdemo + .demo-btns. Лід - .lintro (seo-text.css), операційна
+  примітка - .seotext, заголовки розділів - .sech (section-head.css).
+
+  ГЛОБАЛИ ТУТ СПРАВЖНІ, А НЕ КАРТИНКИ. #wf-cookie і #wf-toast наповнює
+  ../wireframes/_nav.js у рантаймі (wfCookie() / wfToasts()), тож кнопки нижче
+  відкривають той самий банер, той самий діалог і ті самі тости, що й у продукті.
+  Це ПЕРШИЙ кольоровий екран, на якому cookie-банер узагалі існує: wfCookie()
+  кличе рівно один файл у дереві, і досі це був сірий system.html. Тому
+  cookie-banner.css уперше малюється тут, а не тільки на стенді.
+
+  П'ять кнопок демо носили в сірому голий btn без рангу і рендерились
+  текстом - це рівно ті «22 контроли тиражу», про які пише kit/system-page.html.
+  Ранг тут і закривається: btn dark -> btn--accent, решта -> btn--outline.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="overview.html">Усі екрани</a><span class="sep"></span>
+    <span class="cur">Системні та глобальні</span>
+  </nav>
+
+  <h1 class="lh1">Системні сторінки та глобальні компоненти</h1>
+  <p class="lintro">Крос-функційні елементи, потрібні на всьому сайті: сторінки помилок і
+    глобальні компоненти. Тон - спокійний (Принцип 4, без таймерів) і завжди <b>один зрозумілий
+    наступний крок</b> (жодних глухих кутів).</p>
+
+  <!-- Error pages -->
+  <div class="sech"><h2>Сторінки станів</h2></div>
+  <div class="sysgrid">
+    <div class="syscard">
+      <div class="sc-code">HTTP 404 · noindex</div>
+      <div class="sc-t">Сторінку не знайдено</div>
+      <div class="sc-d">Повноцінна сторінка з хедером/футером: пошук + швидкі посилання + рекомендовані
+        товари. Ніколи не soft-404 (200). Не глухий кут.</div>
+      <a class="sc-open" href="404.html">Відкрити 404 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 500 · noindex</div>
+      <div class="sc-t">Помилка сервера</div>
+      <div class="sc-d">Мінімальний шаблон, незалежний від бекенду (він сам може лежати): лого + «Оновити»
+        / «На головну» / «Підтримка».</div>
+      <a class="sc-open" href="500.html">Відкрити 500 →</a>
+    </div>
+    <div class="syscard">
+      <div class="sc-code">HTTP 503 · Retry-After</div>
+      <div class="sc-t">Технічні роботи</div>
+      <div class="sc-d">Запланований стан, не збій. 503 + Retry-After - щоб пошук трактував як тимчасове,
+        а не зникнення сайту. Без зворотного таймера.</div>
+      <a class="sc-open" href="maintenance.html">Відкрити тех. роботи →</a>
+    </div>
+  </div>
+
+  <!-- Cookie banner demo -->
+  <div class="sysdemo">
+    <h3>Cookie-банер (Закон України «Про захист персональних даних»)</h3>
+    <p>Cookie ставимо <b>лише після згоди</b> (бездіяльність ≠ згода). Три рівнозначні дії -
+      «Прийняти всі» / «Тільки необхідні» / «Налаштувати»; відмова така ж проста, як згода.
+      Категорії Аналітика/Маркетинг <b>вимкнені за замовчуванням</b> (opt-in), Необхідні -
+      завжди активні. Банер живий унизу сторінки; «Змінити згоду» також є у футері.</p>
+    <div class="demo-btns">
+      <button class="btn--outline btn" onclick="showCookieBar()">Показати банер знову</button>
+      <button class="btn--outline btn" onclick="openCookieSettings()">Відкрити «Налаштувати»</button>
+    </div>
+  </div>
+
+  <!-- Toasts demo -->
+  <div class="sysdemo">
+    <h3>Тости / сповіщення (глобальний компонент)</h3>
+    <p>Легкий зворотний зв'язок для дій: додано в кошик, збережено адресу, підписка, відгук.
+      Три типи - <b>ok / error / info</b>, авто-зникнення (~4 c) + закриття, <code>aria-live="polite"</code>.
+      Критичні рішення - діалог, не тост. Без спаму.</p>
+    <div class="demo-btns">
+      <button class="btn--accent btn" onclick="wfToast('ok','Товар додано в кошик')">Показати ok</button>
+      <button class="btn--outline btn" onclick="wfToast('error','Не вдалося застосувати промокод')">Показати error</button>
+      <button class="btn--outline btn" onclick="wfToast('info','Ми надішлемо, щойно товар буде в наявності')">Показати info</button>
+    </div>
+  </div>
+
+  <!-- Operational note -->
+  <section class="seotext" aria-label="Примітка">
+    <div class="h">Видалений товар - 301 чи 410 <span class="qmark">[?]</span></div>
+    <p>Коли товар прибрали назавжди: <b>301</b> на категорію, до якої він належав (краще за 404),
+      або <b>410 Gone</b>, якщо його не буде взагалі. Це операційне правило - фіналізується з реальними
+      даними каталогу. Локалізація системних сторінок (uk/ru) - за загальним i18n.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<!-- global component placeholders (injected by ../wireframes/_nav.js) -->
+<div id="wf-cookie"></div>
+<div id="wf-toast"></div>
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfCookie(); wfToasts(); wfBar('system.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

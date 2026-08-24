@@ -50,7 +50,7 @@
           <div class="pf-lbl">Телефон</div>
           <div class="pf-row">
             <div class="pf-val">+380 ** *** 45 67 <span class="ok">✓ підтверджено</span></div>
-            <button type="button" class="btn--text pf-act pf-actbtn" onclick="openProfPhone()">Змінити - код у SMS</button>
+            <button type="button" class="btn--text pf-act" onclick="openProfPhone()">Змінити - код у SMS</button>
           </div>
           <div class="pf-hint">Основний спосіб входу. Зміна підтверджується кодом зі SMS.</div>
         </div>
@@ -59,8 +59,8 @@
         <div class="pfield">
           <div class="pf-lbl">E-mail</div>
           <div class="pf-row">
-            <div class="pf-val" style="color:var(--text-secondary);font-weight:600">не додано</div>
-            <button type="button" class="btn--text pf-act pf-actbtn" onclick="openProfEmail('add')">Додати - код на пошту</button>
+            <div class="pf-val pf-val--empty">не додано</div>
+            <button type="button" class="btn--text pf-act" onclick="openProfEmail('add')">Додати - код на пошту</button>
           </div>
           <div class="pf-hint">Необов'язково. Підтвердження - кодом на пошту (без пароля).</div>
         </div>
@@ -70,7 +70,7 @@
           <div class="pf-lbl">Мова інтерфейсу</div>
           <div class="pf-row">
             <div class="pf-val">Українська</div>
-            <button type="button" class="btn--text pf-act pf-actbtn" onclick="openProfLang()">Змінити</button>
+            <button type="button" class="btn--text pf-act" onclick="openProfLang()">Змінити</button>
           </div>
         </div>
 
@@ -79,7 +79,7 @@
           <div class="pf-lbl">Розсилка та нагадування</div>
           <div class="pf-row">
             <div>
-              <div class="pf-val" style="font-size:14px">Отримувати листи й нагадування про поповнення</div>
+              <div class="pf-val pf-val--label">Отримувати листи й нагадування про поповнення</div>
               <div class="pf-hint">Нагадування про закінчення запасів - за оцінкою циклу споживання.</div>
             </div>
             <span class="sw" id="nl-toggle" role="switch" aria-checked="true" aria-label="Згода на розсилку"><i></i></span>
@@ -128,7 +128,7 @@
   // prefill name for coach variant to match shell persona
   if (isCoach) { var ni = document.querySelector('.pf-input'); if (ni) ni.value = 'Олена Кравець'; }
 
-  uivFixLinks(); uivBar(); uivChrome(); uivAccount();
+  uivFixLinks(); uivBar(); uivChrome(); uivInert(); uivAccount();
 </script>
 </body>
 </html>

@@ -1,0 +1,128 @@
+/* search-overlay.css - the suggestions panel of the search (level 3)
+   Added at stage 12, batch 2, by the parent, on the search agent's order.
+
+   WHY IT IS ITS OWN COMPONENT AND NOT ONE OF THE THREE THAT LOOK LIKE IT. The
+   agent checked all three and each declines the job in its own words:
+   `menu.css` carries the anti-rule «do not make a menu out of something that
+   LEADS», and every row here leads (a query, a product, a category);
+   `overlay.css` `.wf-ov` is a scrim with no children at z 60, so a panel at 41
+   would sit under it; `cat-overlay.css` exists only below 860. What is left is a
+   surface the system has never had: a dropdown that is a full-screen sheet on a
+   phone and holds five kinds of row.
+
+   WHY THE STAGE-07 INVENTORY DID NOT SEE IT. Same reason as `info-page.css` and
+   `nav-tile.css`: `wireframes/_wf.css` has no rule for `ov-*`. The whole panel
+   lives in that screen's own `<style>` block, and an inventory derived from the
+   shared stylesheet cannot meet it.
+
+   `backlog.md` has been parking `ov-row · ov-cb · ov-prod · ov-chip · ov-all`
+   as «tirage, not gaps... they close when their screens are coloured» since
+   stage 08. This is that screen. */
+
+/* ---------- the layer ------------------------------------------------------
+   Two elements, and the order matters: the scrim catches the click, the panel
+   stands on it. Both sit above the header (which stays visible behind) and
+   below the stand's own chrome, which is why they take the rungs `.ceov`
+   already uses rather than a pair of their own. */
+.ov-dim{ position: fixed; inset: 0; background: var(--scrim-overlay); z-index: 55; }
+.ov-panel{ position: fixed; z-index: 56; overflow: auto;
+  background: var(--bg-page); }
+
+/* PHONE FIRST, AND THE PANEL IS A SHEET. The grey block draws the dropdown and
+   then undoes it under 560; written the other way round the sheet is the plain
+   case and the dropdown is the enhancement, which is also the only way the
+   boundary can be a registered one. 560 is not in the registry - 620 is - and
+   this is the same fold `product-grid.css` and `goal-tile.css` already took. */
+.ov-panel{ inset: 0; width: 100%; height: 100%; max-height: 100%; }
+@media (min-width: 38.75rem){        /* --bp-grid-2col */
+  .ov-panel{ inset: auto; left: 50%; transform: translateX(-50%);
+    /* the relation, not the number: the panel hangs under the header, and the
+       header's height is what `--dr-top` has named since the drawer needed it.
+       The grey's 96 was that height plus a gap, measured on a grey header. */
+    top: calc(var(--shell-top, 0px) + var(--dr-top, 56px) + var(--space-8));
+    width: min(42.5rem, 94vw); height: auto;
+    max-height: calc(100vh - var(--shell-top, 0px) - var(--dr-top, 56px) - var(--space-40));
+    border: 1px solid var(--line-strong); border-radius: var(--radius-12);
+    box-shadow: var(--elevation-4); }
+}
+
+/* ---------- the field at the head of the panel -----------------------------
+   It echoes the query already typed in the header, so it is not an input: the
+   caret is drawn, because a static prototype has no focus to put there. */
+.ov-field{ position: sticky; top: 0; z-index: 1; display: flex; align-items: center;
+  gap: var(--space-8); padding: var(--space-12) var(--space-16);
+  background: var(--bg-page); border-bottom: 1px solid var(--line-hair); }
+.ov-field .mag{ color: var(--text-secondary); }
+.ov-field .q{ flex: 1; font-size: var(--fs-16); font-weight: var(--fw-bold);
+  color: var(--text-primary); }
+.ov-field .q .car{ display: inline-block; width: 1px; height: var(--fs-16);
+  background: var(--text-primary); margin-left: 1px; vertical-align: -2px; }
+
+/* ---------- sections and their brows ---------------------------------------
+   `.ov-sh` is the same brow as `.relh` in `section-head.css` - 12, black, caps,
+   muted - and reads that face rather than restating it. What it adds is the
+   trailing action, and it is a flex row rather than the grey's `float`. */
+.ov-sec{ padding: var(--space-12) var(--space-16);
+  border-bottom: 1px solid var(--line-hair); }
+.ov-sec:last-of-type{ border-bottom: none; }
+.ov-sh{ display: flex; align-items: baseline; justify-content: space-between;
+  gap: var(--space-12); margin-bottom: var(--space-8); }
+/* `.relh` carries `margin: var(--space-24) 0 0` from section-head.css, which is
+   its placement when it opens a block on a page. Inside this flex row it is 24px
+   of nothing on top of the section padding - placement, not face, so it is the
+   one thing a borrowed rung has to drop. */
+.ov-sh .relh{ margin: 0; }
+.ov-sh .more{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  text-transform: none; letter-spacing: normal; color: var(--text-secondary); }
+.ov-sh .more:hover{ color: var(--text-action); }
+
+/* ---------- the rows: a completion, and a product --------------------------
+   `.ov-row.on` is the keyboard's position in the list, not a hover: the two look
+   the same on purpose, because they mean the same thing to the person reading. */
+.ov-row, .ov-prod{ display: flex; align-items: center; gap: var(--space-12);
+  padding: var(--space-8); border-radius: var(--radius-8);
+  transition: background var(--dur-fast) var(--ease-standard); }
+.ov-row:hover, .ov-row.on, .ov-prod:hover{ background: var(--bg-sunken); }
+.ov-row .ic{ flex: none; width: var(--size-20); text-align: center;
+  color: var(--text-muted); }
+.ov-row .tx{ flex: 1; font-size: var(--fs-14); color: var(--text-body); }
+.ov-row .cn{ font-size: var(--fs-12); color: var(--text-muted); }
+/* THE SECOND JOB OF `<mark>`, and the reason the first one lives in base.css.
+   In a product's NAME the match wears a plate, because the name is long and the
+   match is a fragment of it. In a COMPLETION the whole row is the query being
+   finished, so a plate over half of it would read as two words; the weight alone
+   says which part you typed. Two jobs, one element, and the surface that has the
+   second one owns it. */
+.ov-row .tx mark{ background: none; padding: 0; color: var(--text-primary);
+  font-weight: var(--fw-bold); }
+.ov-prod .th{ width: var(--size-46); height: var(--size-46); flex: none;
+  border: 1px solid var(--line-hair); border-radius: var(--radius-8);
+  background: var(--bg-sunken); display: flex; align-items: center;
+  justify-content: center; font-size: var(--fs-10); color: var(--mark-faint); }
+.ov-prod .pn{ flex: 1; font-size: var(--fs-14); font-weight: var(--fw-semibold);
+  color: var(--text-primary); line-height: var(--lh-snug); }
+.ov-prod .pp{ font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); white-space: nowrap; }
+
+/* ---------- the pill that names its kind -----------------------------------
+   A category and a brand can share a word, so the row says which it is. This is
+   not `.chip`: a chip is a noun you press to filter, this is a labelled link. */
+.ov-cbs{ display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.ov-cb{ display: inline-flex; align-items: center; gap: var(--space-8);
+  border: 1px solid var(--line-strong); border-radius: var(--radius-8);
+  padding: var(--space-8) var(--space-12); font-size: var(--fs-14);
+  color: var(--text-body);
+  transition: background var(--dur-fast) var(--ease-standard),
+              border-color var(--dur-fast) var(--ease-standard); }
+.ov-cb:hover{ background: var(--bg-sunken); border-color: var(--line-action); }
+.ov-cb .k{ font-size: var(--fs-10); font-weight: var(--fw-black);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted); }
+
+/* ---------- the way out at the foot ----------------------------------------
+   The single next step of the panel (principle 2), so it takes the full width
+   and the filled ground rather than becoming a fourth kind of row. */
+.ov-all{ display: block; text-align: center; padding: var(--space-12);
+  font-size: var(--fs-14); font-weight: var(--fw-bold); color: var(--text-primary);
+  background: var(--bg-sunken);
+  transition: background var(--dur-fast) var(--ease-standard); }
+.ov-all:hover{ background: var(--bg-surface); }

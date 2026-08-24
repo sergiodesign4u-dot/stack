@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Блок контактів | Stack - система</title>
+<link rel="icon" type="image/svg+xml" href="../concept/assets/logo-s.svg">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<!-- The stand loads the SAME entry point as the product. A showcase on its own
+     stylesheet would prove nothing about the system it claims to show. -->
+<link rel="stylesheet" href="../system/index.css">
+<link rel="stylesheet" href="_page.css">
+<script src="../system/theme.js"></script>
+<script src="../system/icons.js"></script>
+<script src="../system/marks.js"></script>
+<script src="../system/fields.js" defer></script>
+</head>
+<body class="kp">
+<nav id="kitnav"></nav>
+<main class="kp-main">
+
+<div class="kp-eyebrow">Компонент · рівень 3</div>
+<h1 class="kp-h1">Блок контактів</h1>
+<p class="kp-lead">Тіло вузла 8.3. Єдина сторінка родини, у якої немає колонки прози взагалі: замість неї аркуш із двох колонок коротких відповідей і форма.</p>
+<div class="kp-meta"><span class="kp-tag">рівень 3</span><span class="kp-tag">design/system/components/contacts-block.css</span><span class="kp-tag">92 рядки</span><span class="kp-tag">14 селекторів</span><span class="kp-tag">1 сірий екран</span><span class="kp-tag">0 кольорових поки що</span></div>
+
+<section class="kp-sec"><div class="kp-sh">Анатомія</div>
+<div class="kp-demo">
+<div class="cnt-grid">
+  <div class="cnt-block">
+    <div class="cnt-row"><span class="g">📞</span><span><span class="cap">Телефон</span><span class="val">+380 ** *** 45 67</span><span class="sub">Пн-Пт 9:00-18:00</span></span></div>
+    <div class="cnt-row"><span class="g">✉️</span><span><span class="cap">Пошта</span><span class="val">hello@stack.ua</span><span class="sub">Відповідаємо протягом дня</span></span></div>
+    <div class="cnt-row"><span class="g">💬</span><div><span class="cap">Месенджери</span><span class="val">Той самий номер</span><div class="cnt-msgrs"><span class="cnt-msg">Telegram</span><span class="cnt-msg">Viber</span><span class="cnt-msg">WhatsApp</span></div></div></div>
+  </div>
+  <div class="cnt-side">
+    <div class="cnt-map">карта</div>
+    <form class="info-card cnt-form">
+      <div class="ic-h">Написати нам</div>
+      <p class="fs">Залиште повідомлення - ми зв'яжемося з вами.</p>
+      <div class="fld"><label for="cf-n">Ім'я</label><input class="field" id="cf-n" type="text"></div>
+      <button class="btn--accent btn--full">Надіслати</button>
+    </form>
+  </div>
+</div>
+</div></section>
+
+<section class="kp-sec"><div class="kp-sh">Коли вживати</div>
+<ul class="kp-ul">
+<li><b>Тільки на вузлі 8.3.</b> Це оголошений варіант шаблону A, а не блок, який можна поставити будь-де</li>
+<li><b>Оболонка форми - це <code>.info-card</code></b> з <code>info-page.css</code>: та сама волосина, радіус і паддинг, зміряні до того, як по них потяглись</li>
+<li><b>Поля - системні</b> <code>.fld</code> + <code>.field</code></li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Обмеження</div>
+<ul class="kp-ul">
+<li><b>Єдине місце родини, що НЕ бере міру читання.</b> Решта тіл обмежені <code>--container-text</code>, бо це проза; тут дві колонки коротких відповідей, і обмеження лишило б другу колонку висіти</li>
+<li><b><code>.cnt-msg</code> - не чип.</b> <code>design/kit/chip.html</code> оголошує чип фільтром або сегментом: це те, що натискають, щоб звузити список. Назва месенджера ні те, ні інше, і в розмітці це <code>span</code>, а не контрол</li>
+<li><b>Гліф лишається гліфом.</b> <code>uivChrome()</code> навмисно не заходить у прозу <code>&lt;main&gt;</code>, а <code>UIV_EMOJI</code> має рядок лише для 8 із 21 знака цих шести сторінок - вісім лінійних іконок поруч із тринадцятьма кольоровими емодзі в одному списку читаються гірше за будь-який чистий варіант</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Стани</div>
+<ul class="kp-ul">
+<li><b>Власних станів немає.</b> Усе, що відповідає курсору й клавіатурі, належить полю, кнопці й посиланню</li>
+<li><b>РУХ:</b> свого немає - див. вище</li>
+</ul></section>
+
+<section class="kp-sec"><div class="kp-sh">Холостий контроль</div>
+<p class="kp-p">Сторінка звіряє себе з файлом: <b>9</b> власних класів.</p><div id="idle"></div><script>var KIT_CLS=["cnt-grid","cnt-side","cnt-block","cnt-row","cnt-msgrs","cnt-msg","cnt-map","cnt-form","fs"], KIT_STS=[];</script></section>
+
+<section class="kp-sec"><div class="kp-sh">Токени</div>
+<p class="kp-p">Прочитані з <code>contacts-block.css</code>: <b>8</b> семантичних ролей і <b>13</b> примітивів. Список виводить <code>node tools/roles.mjs contacts-block</code> з самого файла, тож він не може розійтися з ним.</p>
+<div class="kp-scroll"><table class="kp-tbl"><thead><tr><th>Семантичні ролі (8)</th><th>Примітиви (13)</th></tr></thead><tbody><tr><td><code>--bg-media</code> <code>--bg-page</code> <code>--line-hair</code> <code>--line-media</code> <code>--text-muted</code> <code>--text-onmedia</code> <code>--text-primary</code> <code>--text-secondary</code></td><td><code>--fs-12</code> <code>--fs-16</code> <code>--fw-bold</code> <code>--lh-airy</code> <code>--ls-caps</code> <code>--radius-12</code> <code>--radius-4</code> <code>--size-20</code> <code>--space-12</code> <code>--space-16</code> <code>--space-2</code> <code>--space-4</code> <code>--space-8</code></td></tr></tbody></table></div></section>
+</main>
+<script src="../_nav.js"></script>
+<script>uivChrome(); uivCurrency();</script>
+<script src="_idle.js"></script>
+<script src="_nav.js"></script>
+</body>
+</html>

@@ -403,19 +403,44 @@ const noSwitch = []; /* the page has no theme to switch: nothing was measured ei
 const onSystem = new Set();    /* ...and whether it was ever supposed to have one */
 let seenLight = null;
 
-for (const p of SUBJ) {
+/* 12.10 - THE VERDICT WAS A CLAIM ABOUT ONE WIDTH, and it said so nowhere.
+   This walk hard-coded 1280 in all three of its `visit()` calls, so «0 зламала
+   тема» meant «0 at 1280». Found at step 7 by a browser agent that opened the
+   coach cabinet at 390 and photographed a pill with a charcoal word, a white
+   icon and a white number on one orange ground: `account-shell.css` puts two of
+   the three marks on `--text-body`, a PAGE ink role, inside a block that exists
+   only below 859. Two stages of green over a rule this instrument could not
+   reach.
+
+   Both widths now, and the width is printed beside every finding - a colour
+   defect that lives in a media query is invisible to a single-width walk by
+   construction, and the product has two declared points.
+
+   THE COST IS REAL AND IT IS NAMED HERE RATHER THAN DISCOVERED. This was already
+   the longest walk in the folder - 566 passes and about 9000 opener calls - and
+   it is now twice that. On the machine this was written on, a full corpus run
+   goes from roughly twelve minutes to over an hour. The cheaper design exists
+   and is deliberately not taken yet: only pages whose stylesheets carry a colour
+   declaration inside a media query need the second width, and deriving that list
+   would mean this instrument keeping its own model of the cascade. A list it
+   derives can be wrong in exactly the direction that hid this defect for two
+   stages. Correctness first, and the narrowing is a decision with a reason, not
+   an optimisation to slip in. */
+const WIDTHS = [1280, 360];
+
+for (const p of SUBJ) for (const W of WIDTHS) {
   const s = await newSession(conn);
   const url = `${srv.base}/design/${p}.html`;
   const out = {};
   for (const theme of ['light', 'dark']) {
-    await visit(conn, s.sessionId, url, 1280, 900, '1', s.inflight);
+    await visit(conn, s.sessionId, url, W, 900, '1', s.inflight);
     await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
     if (!CLOSED) {
       if (!safeFor.has(p)) {
         const nm = await conn.send('Runtime.evaluate', { expression: NAMES, returnByValue: true }, s.sessionId);
         const calls = JSON.parse(nm.result.value).map(n => n + '()').concat(ARG_OPENERS);
         safeFor.set(p, await safeOpeners({ conn, newSession, visit }, url, calls));
-        await visit(conn, s.sessionId, url, 1280, 900, '1', s.inflight);
+        await visit(conn, s.sessionId, url, W, 900, '1', s.inflight);
         await conn.send('Runtime.evaluate', { expression: `uivTheme('${theme}')`, returnByValue: true }, s.sessionId);
       }
       const sw = await conn.send('Runtime.evaluate', { expression: sweepOf(safeFor.get(p)), returnByValue: true }, s.sessionId);
@@ -489,7 +514,7 @@ for (const p of SUBJ) {
     const need = large ? 3 : 4.5;
     const got = cr(e.ink, e.bg);
     const litGot = lit && lit.sel === e.sel ? cr(lit.ink, lit.bg) : null;
-    if (got < need) (e.img ? unread : fails).push({ page: p, ...e, got, need, litGot });
+    if (got < need) (e.img ? unread : fails).push({ page: p + '@' + W, ...e, got, need, litGot });
   }
   process.stdout.write('.');
 }

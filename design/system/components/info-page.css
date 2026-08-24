@@ -1,0 +1,280 @@
+/* info-page.css - THE SERVICE PAGE'S BODY (level 3). Stage 12, step 2.
+
+   THE FIRST COMPONENT THIS PROJECT ORDERED BEFORE A SCREEN ASKED FOR IT, and
+   the owner's decision is why: stage 12 fans 50 screens out to subagents, and a
+   thing six of them need is a thing six of them would invent separately.
+
+   WHAT IT IS. `content-about`, `content-contacts`, `content-delivery`,
+   `content-guarantee`, `content-legal` and `content-returns` are one template
+   under six subjects: a dateline under the H1, a column of prose at the reading
+   measure, and cards for the parts that are not sentences.
+
+   WHY THE INVENTORY OF STAGE 07 DID NOT SEE IT, and this is the more useful
+   half. `inventory.md` v2 is derived FROM the two stylesheets, rule by rule -
+   that is the correction it is proud of, and it is the correction that made
+   this invisible. **`wireframes/_wf.css` has ZERO rules for `info-*`.** The
+   grey layer draws these six pages with bare structure and no styling at all,
+   so a list built by mapping every RULE onto a component had nothing to map. A
+   class with no rule is not in a stylesheet-derived inventory by construction.
+
+   WHAT IS IN HERE IS WHAT CROSSES THREE SCREENS, AND NOT ONE CLASS MORE.
+   Measured over the six grey originals:
+
+     info-updated   6 screens        -> here
+     info-body      4 screens        -> here
+     info-card      3 screens        -> here
+     info-toc       2 screens        -> not yet
+     info-stats / info-stat   1      -> not yet
+     info-vals      1               -> not yet
+     info-steps     1               -> not yet
+
+   The ladder's own rule is that a composition needs three screens; below that it
+   is that screen's own block, and it gets ordered when its screen is built - by
+   which time we will know whether it is a new thing or `link-row` under a local
+   name. Building all eight now would be inventing five of them.
+
+   NO THEME PAIR, AND THAT IS THE RULE RATHER THAN AN OMISSION. Every colour
+   here is a semantic token, and a semantic token already carries its own light
+   and dark values. A `[data-theme="dark"]` block would be a second edition of a
+   decision `tokens.css` has already made.
+
+   THE ONE STATE IS THE LINK. A card is not clickable on any of the six screens
+   and a dateline is not a control; the prose column holds links, and those
+   answer on hover the way `.pf-act` does. */
+
+/* ---------- the dateline ----------------------------------------------------
+   A service page says when it was last true. It is the quietest line on the
+   page on purpose: it is provenance, not content. */
+.info-updated{ font-size: var(--fs-12); color: var(--text-muted); margin-top: var(--space-4); }
+
+/* ---------- the reading column ---------------------------------------------
+   `--container-text` is the measure, and this is the fifth reader of it. The
+   rhythm is a heading that opens far from what came before and close to what it
+   introduces - 32 above, 8 below - which is the same asymmetry `section-head`
+   uses and the reason a run of h3/p reads as blocks rather than as a wall. */
+.info-body{ max-width: var(--container-text); margin-top: var(--space-24);
+  line-height: var(--lh-airy); color: var(--text-body); }
+.info-body h3{ font-size: var(--fs-18); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: var(--space-32) 0 var(--space-8); }
+.info-body h3:first-child{ margin-top: 0; }
+.info-body p{ font-size: var(--fs-16); margin-bottom: var(--space-12); }
+/* the link inside prose. Underlined rather than coloured, because the accent is
+   the buy action in this product and a legal page is not selling anything -
+   `.sys-links a` made the same call on the system pages. */
+.info-body a{ color: var(--text-primary); font-weight: var(--fw-bold);
+  text-decoration: underline; text-underline-offset: 2px;
+  transition: color var(--dur-fast) var(--ease-standard); }
+.info-body a:hover{ color: var(--text-action); }
+
+/* ---------- the card -------------------------------------------------------
+   For the parts of a service page that are not sentences: a principle, a
+   delivery option, a step of a return. Same box as `.syscard` - hairline, 12
+   radius, 16 inside - because it is the same object on a neighbouring page, and
+   a second set of numbers for it would be the drift this stage exists to stop. */
+.info-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  padding: var(--space-16); }
+.info-card .ic-h{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin-bottom: var(--space-8); }
+.info-card p{ font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); margin: 0; }
+
+/* ============================================================================
+   STAGE 12, BATCH 3. TWO AGENTS STOPPED ON THESE, INDEPENDENTLY, AND THE OVERLAP
+   IS THE FINDING. This file was ordered AHEAD of its screens at 12.2, on the
+   owner's decision, and half of that bet paid: `.info-updated`, `.info-body` and
+   `.info-card` carried the body of all six service pages with no question asked.
+   The other half is the lesson: six pages are not «one template under six
+   subjects». Under the template lie a table of contents, a numbered process, a
+   certificate gallery, a sticky legal nav and a grid of fact cards - and none of
+   those could be ordered ahead, because nothing had measured them yet.
+   ========================================================================== */
+
+/* ---------- the list in prose, and it was a BROKEN RENDER, not a polish ------
+   Both agents found this and one of them said why it matters: this file draws
+   `h3`, `p` and `a` and has no rule for `ul` or `li`, while `base.css` applies
+   `*{ padding: 0 }` without resetting `list-style`. A bare list on a coloured
+   page therefore loses its indent AND keeps its default discs - which then hang
+   outside the box, and under `html{ overflow-x: hidden }` simply disappear.
+   Five of the six pages carry a list. Measured across the whole system first:
+   there is no general `ul`/`li` rule anywhere, and the only lists that exist are
+   scoped under `.coach` and marked with a tick.
+   The mark is a DASH, which is the grey's own and is also the one this project
+   uses in prose. */
+.info-body ul{ margin: 0 0 var(--space-16); padding: 0; list-style: none; }
+.info-body li{ font-size: var(--fs-14); line-height: var(--lh-airy);
+  padding-inline-start: var(--space-24); position: relative; }
+/* SCOPED TO `ul`, and the agent measured why: `.info-steps` is an `ol` inside
+   `.info-body`, the two selectors have the same specificity, and the steps rule
+   only re-declares padding - so the four steps came out 0 / 4 / 4 / 4. */
+.info-body ul li + li{ margin-top: var(--space-4); }
+.info-body li::before{ content: '-'; position: absolute; inset-inline-start: 0;
+  color: var(--text-muted); }
+
+/* ---------- ONE grid for what the grey layer called FOUR things --------------
+   `.g-trust` on guarantee, `.info-stats` and `.info-vals` on about, `.pay-grid`
+   on delivery: four names, three screens, two agents who did not know of each
+   other, one composition. This is the `nav-tile.css` case of batch 2 exactly,
+   and it is the reason a component is placed centrally: four private names would
+   have been four editions of one decision, and no instrument in `tools/` can see
+   that two files are the same idea.
+   FLUID, AND NO NEW BREAKPOINT. The grey blocks step at 720 and at 960; the
+   registry holds two boundaries (620, 860) and `tools/bp.mjs` fails a run on a
+   third. This is not a fold by taste - `responsive.md` already assigns these
+   screens fluid grids, `product-grid.css` deleted its own 1040 at stage 10 after
+   measuring that it never drew four equal tracks, and `nav-tile.css` shipped
+   `auto-fill` with no query at all one batch ago. */
+.info-grid{ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-fluid), 100%), 1fr));
+  gap: var(--grid-gap-fluid); margin: var(--space-16) 0; }
+
+/* 12.10 - ONE GRID, TWO PAYLOADS, AND ONLY ONE OF THEM FITS THE FLOOR. Found by
+   a browser agent at 360: `.info-grid` resolved to two columns of 158px on
+   about, delivery and guarantee, and inside them `.info-card` ran a heading plus
+   running prose at 21ch - «Склад, / дозування, / походження й / сертифікат - це»,
+   and a three-word heading over three lines.
+
+   `--grid-col-fluid` is the PHOTO card's floor: it bottoms out at the narrow rung
+   because a card row on a phone is two cards wide, which is right for
+   `.info-fact` (a mark, a label and a line) and wrong for a card holding a
+   paragraph. The system already names the other floor and says so in the token
+   itself: `--grid-col-min-panel` is «the floor of a PANEL card - one that holds a
+   form-sized body rather than a photo and a price», with two readers before this.
+
+   ASKED OF THE CONTENT, NOT OF THE SCREEN. `:has()` means no screen file changes
+   and no third class to remember: a grid that holds a prose card takes the prose
+   card's floor wherever it stands. `.info-fact` grids are untouched, and a grid
+   holding both takes the wider floor, which is the safe direction. */
+.info-grid:has(> .info-card){
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--grid-col-min-panel), 100%), 1fr)); }
+
+/* the cell: a figure OR a mark, a label, and a line under it. The guarantee row
+   and the about numbers are the same anatomy with a different lead - one leads
+   with 24 hours, the other with a glyph - so they are one cell with two leads
+   rather than two cells. */
+.info-fact{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  background: var(--bg-surface); padding: var(--space-16) var(--space-12);
+  min-width: 0; }
+.info-fact .n{ display: block; font-size: var(--fs-24); font-weight: var(--fw-bold);
+  color: var(--text-primary); letter-spacing: var(--ls-lead); }
+.info-fact .g{ display: block; font-size: var(--fs-20); margin-bottom: var(--space-4); }
+.info-fact .th{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); overflow-wrap: anywhere; }
+.info-fact .l, .info-fact .ts{ display: block; font-size: var(--fs-12);
+  color: var(--text-secondary); margin-top: var(--space-4); line-height: var(--lh-airy); }
+
+/* THE LEAD FACT stands alone rather than in the grid - the 14-day plate that
+   opens the returns page. Same anatomy, one rung up and a strong edge, because
+   it is the single promise of that screen rather than one of four. Two sizes of
+   one idea, said out loud: this is a rung, not a second component. */
+.info-fact--lead{ border: 1px solid var(--line-strong); border-radius: var(--radius-16);
+  background: var(--bg-page); display: flex; align-items: center; gap: var(--space-16);
+  max-width: var(--container-text); padding: var(--space-16); }
+.info-fact--lead .n{ font-size: var(--fs-34); line-height: var(--lh-flat); }
+
+/* ---------- the note: the same card with nothing to announce ----------------
+   The grey layer carries TWO editions under one name - on `about` the card has a
+   head and the page ground, on `delivery` and `returns` it has no head and a
+   sunken ground. This file took neither at 12.2. The second is a NOTE: an aside
+   in the middle of prose, and it earns the sunken ground for the same reason
+   every other aside in this system has one. */
+.info-card--note{ background: var(--bg-sunken); font-size: var(--fs-14);
+  color: var(--text-secondary); }
+
+/* ---------- the table of contents - two screens, both built in one round -----
+   The stand page of this component parked it with «the rung rule says a
+   composition needs THREE screens», and the agents were right to push back: that
+   threshold belongs to a PATTERN (`architecture.md`), and a class inside an
+   existing component file has no such gate. Read the other way, `.info-stats`
+   (one screen) could never enter the system and its screen could never be built.
+   And `link-row` is not it: `.linkrow` is a horizontal wrapping row of loud
+   links with a 44 floor; this is a vertical numbered index inside a sunken box. */
+.info-toc{ border: 1px solid var(--line-hair); border-radius: var(--radius-12);
+  background: var(--bg-surface); padding: var(--space-16);
+  max-width: var(--container-text); margin: var(--space-16) 0; }
+.info-toc .tt{ font-size: var(--fs-12); font-weight: var(--fw-black);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-muted);
+  margin-bottom: var(--space-8); }
+.info-toc ol{ list-style: none; margin: 0; padding: 0;
+  display: flex; flex-direction: column; gap: var(--space-8); }
+.info-toc a{ font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+.info-toc .num{ display: inline-block; min-width: var(--size-20);
+  color: var(--text-muted); font-weight: var(--fw-bold); }
+
+/* ---------- the numbered process - one screen, and not the coach's steps -----
+   `.coach .cv-steps2` is the nearest thing in the system and cannot be borrowed
+   twice over: it is scoped inside `.coach`, and its disc is an OUTLINE of 22
+   while this one is a FILLED counter of 28. Different object, and the scope
+   settles it before the drawing does. */
+.info-steps{ list-style: none; counter-reset: infostep; margin: var(--space-16) 0;
+  padding: 0; max-width: var(--container-text); }
+.info-steps li{ counter-increment: infostep; position: relative;
+  padding-inline-start: var(--space-40); padding-bottom: var(--space-16); }
+.info-steps li::before{ content: counter(infostep); position: absolute;
+  inset-inline-start: 0; top: 0; width: var(--size-32); height: var(--size-32);
+  border-radius: var(--radius-circle); background: var(--bg-inverse);
+  color: var(--text-oninverse); font-size: var(--fs-14); font-weight: var(--fw-bold);
+  display: flex; align-items: center; justify-content: center; }
+.info-steps .sh{ display: block; font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); }
+.info-steps .ss{ display: block; font-size: var(--fs-14); color: var(--text-secondary);
+  line-height: var(--lh-airy); margin-top: var(--space-2); }
+
+/* ---------- the legal document: a second heading rung inside prose -----------
+   `.info-body` offers exactly ONE heading level inside prose (`h3`). A legal
+   document has a section title AND a numbered sub-heading under it, so it needs
+   two. `.sech--rule` is not it - that rule puts the hairline UNDER the heading;
+   here the hairline closes the section. */
+.legal-sec{ padding: var(--space-24) 0; border-bottom: 1px solid var(--line-hair);
+  scroll-margin-top: 120px; }        /* [?] until the header height is published */
+.legal-sec:last-of-type{ border-bottom: none; }
+.legal-sec h2{ font-size: var(--fs-20); font-weight: var(--fw-bold);
+  color: var(--text-primary); margin: 0; }
+.legal-sec h4{ font-size: var(--fs-14); font-weight: var(--fw-bold);
+  color: var(--text-primary); margin: var(--space-16) 0 var(--space-8); }
+
+/* ---------- the delivery table, and why it is not spec-table -----------------
+   `.ctable` in `spec-table.css` matches this almost declaration for declaration,
+   and its own stand page says «Тільки на сторінці товару, у вкладці "Склад"» in
+   the block that exists to stop exactly this borrowing. The rule of use wins
+   over the resemblance: either the owner widens that sentence, or this file
+   carries its own table. It carries its own. */
+.info-tbl{ width: 100%; border-collapse: collapse; font-size: var(--fs-14);
+  margin: var(--space-16) 0; }
+.info-tbl th, .info-tbl td{ padding: var(--space-8) var(--space-12);
+  border-bottom: 1px solid var(--line-hair); text-align: start; }
+.info-tbl th{ font-size: var(--fs-12); font-weight: var(--fw-bold);
+  text-transform: uppercase; letter-spacing: var(--ls-caps); color: var(--text-secondary); }
+
+/* ---------- a heading that leads with a glyph -------------------------------
+   Twenty-one emoji stand in the bodies of these six pages and they STAY emoji:
+   `uivChrome()` deliberately does not enter `<main>` body copy, raw emoji in
+   `<main>` is what 88 of 119 coloured screens already do, and `UIV_EMOJI` maps
+   only 8 of the 21 - a run of 8 line icons beside 13 colour emoji in one list is
+   worse than either whole. What the heading does need is to stop the glyph
+   sitting on a different baseline from its own words. */
+.info-body h3{ display: flex; align-items: center; gap: var(--space-8); }
+
+/* ---------- the measure is only the measure on the font it was read against --
+   12.7. `width-sweep.mjs` walks 129 widths instead of the three stage 10 looked
+   at, and it failed this file on five rows between 637 and 677px: 77.7ch against
+   a ceiling of 68. The arithmetic names the cause on its own - 77.7 / 68 is
+   exactly 16 / 14. `--container-text` is `68ch`, a custom property is substituted
+   as a token and resolved on the element that USES it, and `ch` is a unit of the
+   font it lands on. The ceiling sits on `.info-body` at 16px; every line of
+   prose inside it is drawn at 14 or 12, so each one gets 68 characters of the
+   PARENT and 78 of its own - a cap that reads as honest in the source and is
+   nine characters wide in the browser.
+
+   This is rule 8 of the system in a second material: a pair assumed to be a
+   mirror is only a mirror on the ground it was written for. The repair is not a
+   bigger number, it is a nearer one - the ceiling goes on the element that
+   carries the characters, where `ch` finally means that element's ch. Four
+   readers, and every one of them was NAMED by the sweep rather than found by
+   reading: `.info-card--note` (delivery, returns), `.info-body li` (legal),
+   `.info-fact .ts` (returns) and `.info-steps .ss` (returns). The list has a
+   test, and the test is the sweep - a fifth reader appears there as a row, not
+   as a judgement call here. */
+.info-card--note{ max-width: var(--container-text); }   /* measured peak 77.7ch */
+.info-body li{ max-width: var(--container-text); }      /* measured peak 77.7ch */
+.info-fact .l, .info-fact .ts{ max-width: var(--container-text); }   /* peak 68.8ch */
+.info-steps .ss{ max-width: var(--container-text); }    /* measured peak 73.2ch */

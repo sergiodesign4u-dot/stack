@@ -1,0 +1,181 @@
+/* order-placed.css - THE CONFIRMATION PAGE, node 6.2 (level 3). Stage 12, batch 1.
+
+   ORDERED BY A SUBAGENT THAT STOPPED, WHICH IS THE MECHANISM WORKING. The agent
+   built nothing, left no draft, and handed back seven orders with the zone and
+   the grey source of each. `node tools/dry-run.mjs order-placed` had forecast it
+   at stage 08: «23 classes in the `op-*` family, no component» - the whole body
+   of the screen.
+
+   AND `architecture.md` A19 SAID THE OPPOSITE, WHICH IS THE FINDING UNDER THE
+   FINDING. A19 names `op-*` and parks it: «everything at one or two screens is
+   that screen's work and stages 09 to 12 will do it without touching the
+   system». A screen may not carry styles of its own - `design/system/CLAUDE.md`
+   rule 10 and the nine marks. The two sentences can only both be true if 6.2 is
+   assembled from components that exist, and the result plate never did.
+
+   NOTHING HERE IS A NEW LOOK. Every declaration is the grey original translated
+   by the map `tools/grey-vars.mjs` publishes, or copied from the sibling the
+   system already decided:
+
+     the success plate   `.cv-ok` (coach-verify.css) - soft success ground, hair
+                         edge, radius 12, and a disc that is page-white with a
+                         success line and success ink
+     the photo frame     `product-thumb.css` - square (the 7.68 shape rule),
+                         radius 8, sunken ground, hair edge
+     the strong callout  `.acc-tier` (account-shell.css:59) answered grey's
+                         `1.5px solid var(--dark)` with `--line-strong`
+     the breakpoint      860 is already in the registry: `--bp-shell-wide`
+
+   FIGURES OFF THE RAMP SNAP AND THE CHANGE IS NAMED. 13.5 and 11.5 exist on no
+   scale here; 10 and 6 are not radii in this system; 60 is not a size. The one
+   number that stays literal carries `[?]`.
+
+   THE COLOUR PAIR IS NOT WRITTEN, AND THAT IS THE RULE. Every colour below is a
+   semantic role, and a semantic role already carries its light and dark halves
+   in `tokens.css`. A `[data-theme="dark"]` block here would be a second edition
+   of a decision already made. */
+
+/* ---------- the column -------------------------------------------------------
+   The confirmation is a narrow page: nothing on it is a grid of products, and a
+   receipt read at 1200 is a receipt nobody finishes. 860 -> 53.75rem.
+   IT IS NOT `--bp-shell-wide`, THOUGH THE NUMBER IS THE SAME. That token is a
+   BREAKPOINT - the width at which the shell changes carrier - and 10.6b caught
+   `.pf-note` wearing `--bp-grid-2col` as a reading measure, which is the same
+   mistake by the same shape. A container that happens to equal a breakpoint is a
+   coincidence, not a relation. `[?]` - 860 has no rung as a container. */
+.op-wrap{ max-width: 53.75rem; margin-inline: auto; }   /* [?] */
+
+/* ---------- the success plate ------------------------------------------------
+   The largest good-news moment in the product, and it reads the success family
+   the way `.cv-ok` does: a soft ground rather than a filled one, because
+   principle 4 keeps the page calm and an order that arrived does not celebrate. */
+.op-hero{ text-align: center; border: 1px solid var(--line-success-soft);
+  background: var(--bg-success-soft); border-radius: var(--radius-12);
+  padding: var(--space-32) var(--space-24); margin: var(--space-24) 0; }
+/* 60 -> `--size-64`, the rung above; the disc is page-white with a success edge,
+   which is `.cv-ok .m` at 46 read one size up for the bigger moment. 2.5px -> 1px:
+   the system draws one hairline and `.cv-ok .m` proves the shape works at it. */
+.op-check{ width: var(--size-64); height: var(--size-64); margin: 0 auto var(--space-16);
+  border: 1px solid var(--line-success); border-radius: var(--radius-circle);
+  display: flex; align-items: center; justify-content: center;
+  font-size: var(--fs-30); font-weight: var(--fw-black); color: var(--text-success); }
+.op-hero h1{ font-size: var(--fs-24); font-weight: var(--fw-black);
+  color: var(--text-primary); letter-spacing: var(--ls-lead); margin: 0; }
+/* 10.6b's measure, and this component was born over it. Between `--bp-grid-2col`
+   and `--bp-shell-wide` the body is ONE column across the whole 53.75rem, and
+   `width-sweep.mjs` read the three running-text blocks at 91.8ch, 91.5ch and
+   87.7ch against `--container-text` 68. Each of the three is a box holding one
+   block of prose, so the cap is on the box - the distinction 10.7 drew is
+   between a box that HOLDS text and a box that merely contains one. */
+.op-hero .op-sub{ font-size: var(--fs-14); color: var(--text-secondary);
+  margin-top: var(--space-8); max-width: var(--container-text); margin-inline: auto; }
+.op-hero .op-sub b{ color: var(--text-primary); }
+
+/* ---------- the body, one column then two ------------------------------------
+   18 -> `--space-16`. The second column arrives at the registry's own shell
+   point and sticks below the header, which is where the recap belongs once the
+   list beside it is longer than the screen. */
+.op-grid{ display: grid; grid-template-columns: 1fr; gap: var(--space-16); }
+/* 12.3, FOUND BY THE AGENT THAT BUILT ON IT AND MEASURED: the grid's `gap` spaces
+   the COLUMNS, and below the shell point there is only one column - so nothing
+   spaced the cards INSIDE it. `tools/gap.mjs` at 390: card to card 0px, and the
+   right column's panels 0px against each other at 1280 as well, because the
+   flex-column that separates them was written inside the width query. The grey
+   original closed it with two `style="margin-top:18px"`, which is a forbidden
+   mark, so the defect arrived hidden inside the thing being removed.
+   The rhythm belongs to every child of the grid at every width; only the sticking
+   is a decision about width. */
+.op-grid > *{ display: flex; flex-direction: column; gap: var(--space-16); }
+@media (min-width: 53.75rem){        /* --bp-shell-wide, mirrored by hand: a media query cannot read a var() */
+  .op-grid{ grid-template-columns: 1.35fr 1fr; align-items: start; }
+  .op-facts{ grid-template-columns: 1fr 1fr; }
+  .op-aside{ position: sticky; top: 120px; }   /* [?] 120 is the sticky header's own height, measured, not a rung */
+}
+
+/* ---------- the section card ------------------------------------------------- */
+.op-card{ border: 1px solid var(--line-hair); border-radius: var(--radius-12); padding: var(--space-16); }
+.op-card h2{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: 0 0 var(--space-16); }
+
+/* ---------- a line of the order ----------------------------------------------
+   Not `.ob-line` and not `.ci`: the first has no slot for a brand or a variant
+   and carries «Залишити відгук», the second carries a stepper and «Видалити».
+   This line is a RECEIPT - nothing on it can be changed. */
+/* 12.9: `:last-of-type` IS ABOUT THE TAG, NOT THE CLASS, and `dead-sel.mjs`
+   caught it never matching. `.op-item` is a `div` among other `div` siblings, so
+   the last `.op-item` is not the last `div` and the rule that was meant to strip
+   the closing hairline never ran - the list has been drawing a line under its
+   final row since 12.3. The intent is «a hairline BETWEEN rows», which adjacency
+   states directly and no tag can confuse. */
+.op-item{ display: flex; gap: var(--space-12); padding: var(--space-12) 0; }
+.op-item + .op-item{ border-top: 1px solid var(--line-hair); }
+/* square, because a box that frames a product photograph is square - 7.68, and
+   the grey drew 52 x 58 before that rule existed */
+.op-thumb{ width: var(--size-52); height: var(--size-52); flex: none;
+  background: var(--bg-sunken); border: 1px solid var(--line-hair);
+  border-radius: var(--radius-8); display: flex; align-items: center;
+  justify-content: center; color: var(--text-muted); font-size: var(--fs-8); }
+.op-in{ flex: 1; min-width: 0; }
+.op-brand{ font-size: var(--fs-12); color: var(--text-muted); }          /* 11.5 -> 12 */
+.op-nm{ font-size: var(--fs-14); font-weight: var(--fw-bold);            /* 13.5 -> 14 */
+  color: var(--text-primary); line-height: var(--lh-snug); margin: var(--space-2) 0 var(--space-4); }
+.op-vmeta{ font-size: var(--fs-12); color: var(--text-secondary); }
+.op-price{ text-align: right; white-space: nowrap; font-size: var(--fs-14);
+  font-weight: var(--fw-bold); color: var(--text-primary); }
+.op-price .qx{ display: block; font-size: var(--fs-12);
+  font-weight: var(--fw-regular); color: var(--text-muted); }
+
+/* ---------- the money --------------------------------------------------------
+   The total is the one figure on this page somebody checks against their bank,
+   so it takes the display rung the live price takes on a product card. */
+.op-sum{ margin-top: var(--space-16); padding-top: var(--space-12);
+  border-top: 1px solid var(--line-hair); }
+.op-row{ display: flex; justify-content: space-between; align-items: baseline;
+  font-size: var(--fs-14); color: var(--text-secondary); padding: var(--space-4) 0; }
+.op-row b{ color: var(--text-primary); font-weight: var(--fw-bold); }
+.op-total{ display: flex; justify-content: space-between; align-items: baseline;
+  margin-top: var(--space-8); padding-top: var(--space-12);
+  border-top: 1px solid var(--line-strong); }   /* 1.5px -> the system draws one hairline weight */
+.op-total .l{ font-size: var(--fs-16); font-weight: var(--fw-black); color: var(--text-primary); }
+.op-total .v{ font-size: var(--fs-20); font-weight: var(--fw-black); color: var(--text-primary); }
+
+/* ---------- delivery and payment, as facts ----------------------------------- */
+.op-facts{ display: grid; grid-template-columns: 1fr; gap: var(--space-12); }
+.op-fact .fk{ font-size: var(--fs-12); color: var(--text-muted); text-transform: uppercase;
+  letter-spacing: var(--ls-caps); font-weight: var(--fw-bold); }
+.op-fact .fv{ font-size: var(--fs-14); color: var(--text-primary);
+  font-weight: var(--fw-semibold); margin-top: var(--space-4); }
+.op-fact .fv span{ display: block; font-weight: var(--fw-regular);
+  color: var(--text-secondary); font-size: var(--fs-12); }
+/* the mark is DRAWN, never typed - `accept.mjs` fails a component that draws a
+   glyph the markup also types, and the grey markup here types nothing */
+.op-paid{ display: inline-flex; align-items: center; gap: var(--space-4); }
+.op-paid::before{ content: "✓"; font-weight: var(--fw-black); color: var(--text-success); }
+
+/* ---------- the bonus note ---------------------------------------------------
+   Dashed, and it stays dashed: the accrual is a promise about a later day, and
+   the dash is what the product already uses for a value that is not final yet. */
+.op-bonus{ border: 1px dashed var(--line-strong); border-radius: var(--radius-12); max-width: var(--container-text);
+  background: var(--bg-surface); padding: var(--space-12) var(--space-16);
+  font-size: var(--fs-14); color: var(--text-secondary); margin-top: var(--space-4); }
+.op-bonus b{ color: var(--text-primary); }
+
+/* ---------- the panel that offers, and the panel that confirms ---------------
+   `.op-offer` is the guest end: create an account. `.op-saved` is the account
+   end: it is already kept. One is an invitation and one is a receipt, so only
+   the first takes the strong edge - grey wrote `1.5px solid var(--dark)` and
+   `account-shell.css:59` had already answered that with `--line-strong`. */
+.op-offer{ border: 1px solid var(--line-strong); border-radius: var(--radius-12); padding: var(--space-16); }
+.op-offer h2{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: 0 0 var(--space-8); }
+.op-offer p{ font-size: var(--fs-14); color: var(--text-secondary); max-width: var(--container-text);
+  margin: 0 0 var(--space-16); line-height: var(--lh-airy); }
+.op-saved{ border: 1px solid var(--line-hair); background: var(--bg-surface);
+  border-radius: var(--radius-12); padding: var(--space-16); }
+.op-saved h2{ font-size: var(--fs-16); font-weight: var(--fw-black);
+  color: var(--text-primary); margin: 0 0 var(--space-8); }
+/* the same `margin: 0` its twin does NOT have, and it cost 0px between the
+   sentence and the button under it. The stand demo could not show it: the
+   `.op-saved` specimen carries no button at all. */
+.op-saved p{ font-size: var(--fs-14); color: var(--text-secondary); max-width: var(--container-text);
+  margin: 0 0 var(--space-16); line-height: var(--lh-airy); }

@@ -24,7 +24,7 @@
 <main class="wf-page">
   <nav class="crumb" aria-label="Хлібні крихти">
     <a href="index.html">Головна</a><span class="sep"></span>
-    <a href="../wireframes/catalog-page.html">Каталог</a><span class="sep"></span>
+    <a href="catalog-page.html">Каталог</a><span class="sep"></span>
     <a href="listing.html">Протеїн</a><span class="sep"></span>
     <span class="cur">Завантажуємо…</span>
   </nav>
@@ -35,14 +35,14 @@
       <div class="gthumbs"><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div><div class="gthumb skpulse"></div></div>
     </div>
     <div class="bb skpulse">
-      <div class="skline s" style="margin-bottom:10px"></div>
-      <div class="skline l" style="height:22px"></div>
+      <div class="skline s skline--kicker"></div>
+      <div class="skline l skline--h1"></div>
       <div class="skline m"></div>
-      <div class="skline" style="height:60px;margin:14px 0"></div>
-      <div class="skline s" style="height:30px;width:40%"></div>
-      <div class="skline" style="height:46px;margin:16px 0"></div>
-      <div class="skline l" style="height:50px"></div>
-      <div class="skline" style="height:120px;margin-top:16px"></div>
+      <div class="skline skline--price"></div>
+      <div class="skline skline--fig"></div>
+      <div class="skline skline--variant"></div>
+      <div class="skline l skline--cta"></div>
+      <div class="skline skline--trust"></div>
     </div>
   </div>
   <p class="loadnote">Завантажуємо товар…</p>
@@ -60,6 +60,6 @@
 <!-- uivPdp() is deliberately NOT called: it would drop the real product photo into the
      skeleton frame, and a loading state that already shows the product is a lie. -->
 <script>wfHeader(); wfFooter(); wfBar('product.html', 'loading');
-        uivFixLinks(); uivBar(); uivChrome();</script>
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
 </body>
 </html>

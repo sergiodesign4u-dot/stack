@@ -1701,7 +1701,9 @@ four of the six are the same mistake: reading a value before it settled or witho
 the coach search input's height as a touch target (the target is the wrapping 44x328 label); the
 header search having no focus ring (the first read sampled mid-transition); 342 focusables including
 the closed mega menu (own-element `display`, ignoring ancestors - `checkVisibility` gives 111); and
-`design/content-loyalty.html`, which does not exist.
+`design/content-loyalty.html`, which did not exist that day. **Stage 12 built it at batch 4**, so the
+sixth withdrawal is now closed by the page arriving rather than by a re-measurement - and the entry
+excusing that path in `tools/paths.mjs` came off at 12.10 when its own idle control went red.
 
 ## What step 6 measured and did NOT take, with the numbers instead of the adjectives
 
@@ -1773,9 +1775,20 @@ and asks which blocks appear in two different files. It reports from four declar
 the run from six up - because `color; font-size; line-height; margin` is a sentence in the language,
 while six identical declarations are the same OBJECT written twice.
 
-**Today: 30 groups over 71 places in the idiom range, and six groups above the failing floor.** All
-six are declared with the reason CSS could not share them, and one of the six is genuinely finished
-(the `.vh` pair above). The other five are real work and they are NOT stage 10's:
+**The two counts this check prints - groups in the idiom range, and groups above the failing floor -
+are NOT repeated here.** They were, as «30 groups over 71 places», and by 12.10 the run says 39 over
+91 while the sentence still said 30: the corpus grew by 137 blocks and eight files between stage 10
+and the end of the rollout, and nothing compared the sentence with the run. Run it.
+
+**12.10: THE CAPS-LABEL PAIR BECAME A TRIO, and that is the entry earning its keep.** `.wff-col h4`
+(footer column) and `.wfh-mega .mgt` (mega-menu column) were declared as a pair when they were a
+pair. `info-page.css` arrived at batch 3 with `.info-toc .tt` - the label over the numbered index of
+a service page - byte-identical to both, and the group failed the run instead of staying green. Three
+identical blocks is where a caps-label atom stops being a preference. **A declared group is a set of
+claims under test, not a mute button**, and this is what that sentence buys.
+
+All groups above the floor are declared with the reason CSS could not share them, and one of them is
+genuinely finished (the `.vh` pair above). The rest are real work and they are NOT stage 10's:
 
 | the block | where | what it is |
 |---|---|---|
@@ -2004,3 +2017,84 @@ moment is the rebuild.
 **And it is not free even then.** The transition currently fires identically on `listing -> product`
 (a real move), on `listing -> ?page=2` (the same document), and on related links that point at the
 page they are already on. Scoping it to the pairs that mean something is the other half of the order.
+
+## The result plate stands in the product under SEVEN names - stage 12, batch 1
+
+Found by the subagent that stopped on node 6.2 rather than draw it, and measured before it was
+believed. The shape is the same every time: a bordered plate, centred, a disc with a glyph, a
+heading, a sentence under it.
+
+| the name | file | what it announces |
+|---|---|---|
+| `.cv-ok` | `coach-verify.css` | success - and it is scoped to `.coach`, so nothing else can wear it |
+| `.co-err-box` `.co-err-mark` `.co-err-h` `.co-err-s` | `checkout-form.css` | failure - payment declined |
+| `.co-proc-box` | `checkout-form.css` | waiting - payment in flight |
+| `.sys-code` `.sys-h` `.sys-s` | `system-page.css` | 404 / 500 / 503 |
+| `.emptybox` | `empty-state.css` | there is nothing here |
+| `.errbox` | `empty-state.css` | the data did not arrive |
+| `.auth-visual .vmid .vi` | `auth-dialog.css` | the disc alone, without the plate |
+| `.op-hero` `.op-check` | `order-placed.css` | success - added at 12.3 |
+
+**The rule for a pattern is three named screens. This is seven families.** `design/system/CLAUDE.md`
+rule 9 could not be more clearly met, and the reason it was never met before is that no two of the
+seven were ever built in the same step: each arrived with the flow that needed it, and each was
+correct about its own screen.
+
+**Why it is NOT taken at 12.3, and the owner said so out loud.** Extracting it means touching seven
+accepted files and the screens under them - `checkout-declined`, `checkout-loading`, `coach-verify`,
+`404`, `500`, `maintenance`, every empty state - and batch 2 of the rollout would wait for it. Node
+6.2 got its own level-3 file instead, which is the cheap branch and closes the screen today.
+
+What the number buys is that the question cannot quietly disappear: **seven families, one shape**,
+and the extraction is a stage-13 handoff row rather than a hypothesis somebody may raise again.
+
+**One thing to check first if it is ever taken:** the seven differ in a way that may be the whole
+point. `.cv-ok` and `.op-hero` are SOFT-ground plates, `.co-err-*` is a failure and reads danger,
+`.sys-*` has no plate at all (it is the page), and `.emptybox` explicitly refuses to be `.errbox`
+- the stand page for `empty-state` says «`.errbox` is when the data did not arrive, not when there
+is none». A pattern that flattens those distinctions would be worse than seven files.
+
+
+## Stage 12, step 7 - what the critique named and did NOT take
+
+Each of these is a DECISION, and a rollout decides nothing: it multiplies. An unresolved line arriving
+at a fan-out is invented afresh by every agent separately, so each of these carries its number and
+waits for the owner rather than being patched on one screen out of twenty.
+
+| What | Measured | Why it is the owner's |
+|---|---|---|
+| **The emoji map, exhaustively** | 20 pictographs on 12 product screens with no row in `UIV_EMOJI`, 30 occurrences, almost all on the 8.x family. **12 already have a drawing in `icons.js`** (🕘/⏱ `clock`, 💳 `card`, 💬 `chat`, ↩ `ret`, ✅ `check`, ✉ `mail`, 🚚 `truck`, 📄 `doc`, 🔄 `refresh`, 🔗 `link`, 🔒 `lock`); **8 need one** (🗓 🛠 🤝 📞 🗺 📱 💵 💰) | And the pass itself is the second half: `uivIcons()` is called on six chrome ids, the drawers, the overlays and the home rail, and **never on `.wf-page`**. Turning it on before the map is complete makes the rows LESS uniform, not more - eight raw emoji standing beside twelve icons |
+| **The illustration payload** | 11.3MB of PNG. Three mascots at 1024×1024 render at 118-126px - 8.7× oversample - and three product shots at 2048×2048 | Assets are the owner's, and the right answer (resize, or a second size, or a different format) is a decision about the source files, not about css |
+| **The touch rung** | `.chip--letter` 36×40 on the A-Z index of `brands`, and the 40 rung on `.btn--s` / `.field--s`, against `field.css`'s own sentence «44 is the touch minimum» | Raising the S rung moves every screen in the product. Either the rung changes or the sentence does |
+| **Heading rank and level** | One rank drawn four ways across the content family (18/700 Inter · 20/700 Inter · 24/600 Oswald); six screens skip a level (H1→H3, or H2 after H3) | A rank ladder is a stage-08 decision, and correcting it screen by screen would give a seventh spelling |
+| **The service-page mark** | Four materials for one job: a numeral (`404`, `500`), an emoji (`maintenance` 🛠), a text glyph (`catalog-page-error` ⚠, and `account-error` uses ⚠️ with the variation selector), an illustration (`brands-error`) | Which of the four is the product's answer is a visual-language call |
+| **The rank of a lone action** | `maintenance` has one action and draws it `btn--outline`; there is no accent anywhere on the screen, against principle 2. The grey never had a primary either, so the rollout's rank rule read it correctly | Named at batch 5, still open |
+| **Empty states that end** | `brands-empty` stops at its two buttons; `search-empty`, the same moment in the same flow, offers six goal tiles and a chip row underneath | Two answers to one question, and only the owner picks which |
+| **Skeletons that under-reserve** | `.skcard` is one shape doing duty for four different real cards. Measured at 360: `catalog-page-loading` 70px against a real 116-138 goal tile and 244 against a real 367 product card; `brands-loading` omits the A-Z index entirely, so everything below it shifts ~218px when data lands; `coach-home-loading` has no CTA skeleton at all and its `.acc-main` sits 96px too high | A skeleton per real card is a component decision with four new files behind it |
+| **Two labels, one action** | `coach-order` carries «Повторити замовлення» twice, ~700px apart: one repeats ONE client's part, one repeats the whole order. And across the coach flow the same job is «↻ Повторити» on one screen and «Повторити замовлення» on three | Interface strings belong to `microcopy.md`; both editions are already registered there as separate rows rather than resolved |
+| **The Pro plan, five editions** | `coach-tariff` prints it twice on one screen with different contents (4 items vs 3, every shared item reworded, one benefit silently dropped); `coach-verify-tier`, `coach-clients-cap` and `coach-landing` each carry a fourth and fifth | One canonical list, one owner |
+| **The accent decision reached one screen of four** | `coach-clients` documents it in its own head («ONE ACCENT ON THE SCREEN») and carries 2 accent grounds in `<main>`; `coach-orders` carries 5, `coach-home` 5, `coach-client` 3 | The decision exists and was applied once; extending it is a per-screen ranking call |
+| **Two notice components, one job** | `.cs-warn` (title + body + action + `role="alert"`) on `coach-session-priceblock` and `.cs-banner` (a plain box, no role, no title, no action) on `coach-session-oos`. One instance each in the whole tree, and neither is `banner.css` | The session needs one, and which one is a component decision |
+| **`meta description`** | 0 of 140 coloured heads, 0 of 141 grey. It stays absent by decision (every `design/` page is `noindex`, and SEO copy has one owner). **But `description` exists in only 6 of 18 `ia/docs/pages/*.md` and 4 of 22 `ia/*.html`** - twelve nodes have that string nowhere | A debt of stage 03. A rollout may not close it by inventing copy |
+| **The orders pair has no split** | `coach-orders` → `coach-order` is the same list-and-record shape as `coach-clients` → `coach-client`, which got a split at stage 10. At 1440 the orders list is one narrow column with ~500px of empty rail beside it, and `split.mjs` passes it **by construction** - the registry declares two frames, so a third is an undeclared case rather than a failing one | Whether the pair earns a frame is a stage-10 question re-opened by stage 12's corpus |
+
+
+## The one gate this stage leaves RED, named rather than hidden
+
+`node tools/idle.mjs` exits 1: **29 of 93 component pages, 67 declarations behind their file**. Every
+one of them is the same shape - a class exists in the component's css and the page's own `KIT_CLS`
+list does not name it, so the stand's idle control cannot ask whether that class is demonstrated.
+
+**It is not new to step 7 and it is not closed by step 7, and both halves matter.** Batches 3, 4 and
+5 wrote nine component files and extended eight more; every class they added arrived in the css and
+not in the page's declaration. Three of the 67 are this step's own repairs (`.info-grid:has()`,
+`.cmp-cell.pro .yes`, `.chips--sticky`'s new `top`).
+
+**Why it was not auto-filled the way `roles.mjs` was.** The token table is DERIVED - `var(--x)` in the
+css minus what the file declares for itself - so writing it is arithmetic. `KIT_CLS` is not: naming a
+class there is a promise that the page SHOWS it, and the run currently reports `винне демо: 0`.
+Filling 67 names mechanically would move 67 findings out of «declaration behind the file» and into
+«owes a demo», which is the same debt wearing a better number. **A green counter bought by moving the
+red is exactly what this stage spent itself proving against.**
+
+The work is 67 demo blocks on 29 pages, and it belongs to whoever owns the showcase.

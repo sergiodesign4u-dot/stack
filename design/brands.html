@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Бренди спортивного харчування - Stack (wireframe 2.4, індекс)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.4 Бренди (індекс / all-brands hub). Meta-bar «Бренди».
+  Parallel INDEX: A–Z card grid → brand listing (2.1, scope=brand) via listing.html.
+  Real 24-brand pool from category-matrix.md, 29 cards (five stand twice).
+  Product counts illustrative [?] - see ia/docs/pages/brands.md «Open questions».
+  Tiles = nav-tile.css (.ntiles/.ntile) + brand-logo.css (.brandbox--card);
+  toolbar = .toolbar--all, which does NOT split at 860; A–Z strip = chip.css.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <a href="catalog-page.html">Каталог</a><span class="sep"></span>
+    <span class="cur">Бренди</span>
+  </nav>
+
+  <!-- H1 + trust intro (Principle 1) -->
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Бренди спортивного харчування</h1>
+    <p class="lintro">Усі бренди, які представлені в Stack - світові та українські. Для кожного товару
+      показуємо <b>склад, походження і сертифікат</b> - щоб ви бачили, що берете. Оберіть бренд,
+      якому довіряєте.</p>
+  </section>
+
+  <!-- Toolbar: brand search + country + category. One row at every width. -->
+  <div class="toolbar--all">
+    <div class="field-grp"><span class="lead">🔍</span><input class="field" type="search" placeholder="Пошук бренду…" aria-label="Пошук бренду"></div>
+    <button class="btn--outline btn--s" type="button">Країна: всі ▾</button>
+    <button class="btn--outline btn--s" type="button">Категорія: всі ▾</button>
+  </div>
+
+  <!-- A–Z jump strip: 26 letters + the UA scope. Dim letter = no brands under it. -->
+  <nav class="chips" aria-label="Перехід за літерою">
+    <a class="chip chip--letter" href="#g-a">A</a><a class="chip chip--letter" href="#g-b">B</a><a class="chip chip--letter off">C</a><a class="chip chip--letter" href="#g-d">D</a>
+    <a class="chip chip--letter off">E</a><a class="chip chip--letter off">F</a><a class="chip chip--letter off">G</a><a class="chip chip--letter off">H</a>
+    <a class="chip chip--letter off">I</a><a class="chip chip--letter off">J</a><a class="chip chip--letter off">K</a><a class="chip chip--letter off">L</a>
+    <a class="chip chip--letter" href="#g-m">M</a><a class="chip chip--letter" href="#g-n">N</a><a class="chip chip--letter" href="#g-o">O</a><a class="chip chip--letter" href="#g-p">P</a>
+    <a class="chip chip--letter" href="#g-q">Q</a><a class="chip chip--letter off">R</a><a class="chip chip--letter" href="#g-s">S</a><a class="chip chip--letter" href="#g-t">T</a>
+    <a class="chip chip--letter" href="#g-u">U</a><a class="chip chip--letter off">V</a><a class="chip chip--letter" href="#g-w">W</a><a class="chip chip--letter off">X</a>
+    <a class="chip chip--letter off">Y</a><a class="chip chip--letter off">Z</a>
+    <a class="chip chip--fill" href="#g-ua">А–Я (UA)</a>
+  </nav>
+
+  <!-- Популярні бренди -->
+  <div class="sech"><h2>Популярні бренди</h2></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">ON</span><span class="nt-nm">Optimum Nutrition</span><span class="nt-ctry">США</span><span class="nt-cnt">64 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">BT</span><span class="nt-nm">BioTechUSA</span><span class="nt-ctry">Угорщина</span><span class="nt-cnt">58 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">SN</span><span class="nt-nm">Scitec Nutrition</span><span class="nt-ctry">Угорщина</span><span class="nt-cnt">47 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">OV</span><span class="nt-nm">OstroVit</span><span class="nt-ctry">Польща</span><span class="nt-cnt">72 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">PP</span><span class="nt-nm">Power Pro</span><span class="nt-ctry">Україна</span><span class="nt-cnt">39 товарів</span></a>
+  </div>
+
+  <!-- Усі бренди A–Z -->
+  <div class="sech"><h2>Усі бренди</h2></div>
+
+  <div class="sech sech--rule"><h3 id="g-a">A</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">AN</span><span class="nt-nm">Applied Nutrition</span><span class="nt-ctry">Велика Британія</span><span class="nt-cnt">18 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-b">B</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">BT</span><span class="nt-nm">BioTechUSA</span><span class="nt-ctry">Угорщина</span><span class="nt-cnt">58 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">BSN</span><span class="nt-nm">BSN</span><span class="nt-ctry">США</span><span class="nt-cnt">21 товар</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">BB</span><span class="nt-nm">BlenderBottle</span><span class="nt-ctry">США</span><span class="nt-cnt">14 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-d">D</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">DY</span><span class="nt-nm">Dymatize</span><span class="nt-ctry">США</span><span class="nt-cnt">26 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-m">M</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">MP</span><span class="nt-nm">Myprotein</span><span class="nt-ctry">Велика Британія</span><span class="nt-cnt">51 товар</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">MT</span><span class="nt-nm">MuscleTech</span><span class="nt-ctry">США</span><span class="nt-cnt">23 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">MX</span><span class="nt-nm">Maxler</span><span class="nt-ctry">Німеччина</span><span class="nt-cnt">30 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-n">N</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">NF</span><span class="nt-nm">NOW Foods</span><span class="nt-ctry">США</span><span class="nt-cnt">44 товари</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-o">O</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">ON</span><span class="nt-nm">Optimum Nutrition</span><span class="nt-ctry">США</span><span class="nt-cnt">64 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">OV</span><span class="nt-nm">OstroVit</span><span class="nt-ctry">Польща</span><span class="nt-cnt">72 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">OL</span><span class="nt-nm">Olimp Sport Nutrition</span><span class="nt-ctry">Польща</span><span class="nt-cnt">41 товар</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-p">P</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">PU</span><span class="nt-nm">Puritan's Pride</span><span class="nt-ctry">США</span><span class="nt-cnt">19 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-q">Q</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">QX</span><span class="nt-nm">Quamtrax</span><span class="nt-ctry">Іспанія</span><span class="nt-cnt">22 товари</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-s">S</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">SN</span><span class="nt-nm">Scitec Nutrition</span><span class="nt-ctry">Угорщина</span><span class="nt-cnt">47 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">SG</span><span class="nt-nm">Solgar</span><span class="nt-ctry">США</span><span class="nt-cnt">33 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">SS</span><span class="nt-nm">SmartShake</span><span class="nt-ctry">Швеція</span><span class="nt-cnt">11 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-t">T</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">TN</span><span class="nt-nm">Trec Nutrition</span><span class="nt-ctry">Польща</span><span class="nt-cnt">28 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-u">U</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">UN</span><span class="nt-nm">Universal Nutrition</span><span class="nt-ctry">США</span><span class="nt-cnt">17 товарів</span></a>
+  </div>
+
+  <div class="sech sech--rule"><h3 id="g-w">W</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">WD</span><span class="nt-nm">Weider</span><span class="nt-ctry">Німеччина</span><span class="nt-cnt">25 товарів</span></a>
+  </div>
+
+  <!-- Ukrainian-name brands - separate group -->
+  <div class="sech sech--rule"><h3 id="g-ua">Українські бренди (А–Я)</h3></div>
+  <div class="ntiles">
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">PP</span><span class="nt-nm">Power Pro</span><span class="nt-ctry">Україна</span><span class="nt-cnt">39 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">SP</span><span class="nt-nm">Sporter</span><span class="nt-ctry">Україна</span><span class="nt-cnt">34 товари</span></a>
+    <a class="ntile" href="listing.html"><span class="tag tag-new">Новинка</span><span class="brandbox brandbox--card">AB</span><span class="nt-nm">AB PRO</span><span class="nt-ctry">Україна</span><span class="nt-cnt">16 товарів</span></a>
+    <a class="ntile" href="listing.html"><span class="brandbox brandbox--card">PN</span><span class="nt-nm">Progress Nutrition</span><span class="nt-ctry">Україна</span><span class="nt-cnt">20 товарів</span></a>
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Про бренди">
+    <div class="h">Бренди спортивного харчування в Україні</div>
+    <p>У Stack зібрані перевірені світові й українські виробники спортивного харчування:
+      Optimum Nutrition, BioTechUSA, Scitec Nutrition, Myprotein, Dymatize, OstroVit, Olimp,
+      NOW Foods, Solgar та українські Power Pro, Sporter і Progress Nutrition. Для кожного товару
+      показуємо склад, походження і сертифікат - щоб ви бачили, що берете.</p>
+    <p>Оберіть бренд, якому довіряєте, - і перейдіть до всіх його товарів: протеїн, гейнери,
+      креатин, амінокислоти, вітаміни й аксесуари. Швидка доставка Новою Поштою по всій Україні,
+      оплата картою чи при отриманні, повернення протягом 14 днів.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="system/menu.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('brands.html'); uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Каталог спортивного харчування - Stack (wireframe 2.0, хаб)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="system/index.css">
+<!-- stand chrome only, never part of the system: see design/_stand.css -->
+<link rel="stylesheet" href="_stand.css">
+</head>
+<body>
+<!-- ============================================================
+  WIREFRAME · node 2.0 Каталог (хаб / лендинг). Mobile tab «Каталог».
+  Navigation hub: 6 goal tiles + 12 category tiles + popular + SEO. One tap →
+  category listing (2.1) or goal collection (2.2). No filters, no product grid.
+  The grey original drew its tiles in its own <style> block; in colour they are
+  goal-tile.css (.gtile--row) and nav-tile.css (.ntile), both added at 12, batch 2.
+============================================================ -->
+<div class="wf-bar" id="wf-bar"></div>
+<div class="wf-canvas">
+<header id="wf-header"></header>
+
+<main class="wf-page">
+
+  <!-- Breadcrumb -->
+  <nav class="crumb" aria-label="Хлібні крихти">
+    <a href="index.html">Головна</a><span class="sep"></span>
+    <span class="cur">Каталог</span>
+  </nav>
+
+  <!-- H1 + intro -->
+  <section aria-label="Заголовок">
+    <h1 class="lh1">Каталог</h1>
+    <p class="lintro">Усе спортивне харчування Stack - оберіть <b>ціль</b> або <b>категорію</b>.
+      Для кожного товару показуємо склад, походження і сертифікат, з доставкою по всій Україні.</p>
+  </section>
+
+  <!-- За ціллю - 6 goal tiles → goal collection 2.2. The .gph square stays EMPTY:
+       uivHome() puts the goal's own icon there, read from WF_GOAL_MENU. -->
+  <div class="sech"><h2>За ціллю</h2><a class="btn--text all" href="../wireframes/quiz.html">Не знаю з чого почати → Квіз</a></div>
+  <div class="goaltiles">
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Набір маси</span><span class="hint">Протеїн · Гейнери · Креатин</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Схуднення</span><span class="hint">Ізолят · Жироспалювачі · L-карнітин</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Відновлення</span><span class="hint">BCAA · Глютамін · Магній · Сон</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Енергія</span><span class="hint">Передтреники · B-вітаміни · Адаптогени</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Імунітет</span><span class="hint">Вітаміни C, D3 · Омега · Пробіотики</span></span></a>
+    <a class="gtile gtile--row" href="goal.html"><span class="gph"></span><span class="gtx"><span class="gt">Витривалість</span><span class="hint">Ізотоніки · Гелі · Електроліти</span></span></a>
+  </div>
+
+  <!-- Категорії - 12 top categories → listing 2.1 (Бренди → index 2.4).
+       TWO FORMS, and nav-tile.css says why: the grey tile is an <a> holding three
+       more <a>, which Chrome splits into an anchor, an empty duplicate and a loose
+       .nt-sub outside the grid - 24 children where the grid has 12. So the eleven
+       tiles that carry sub-links are a <div> whose NAME is the anchor, stretched
+       over the tile by ::after; the twelfth carries none and stays an anchor. -->
+  <div class="sech"><h2>Категорії</h2></div>
+  <div class="ntiles">
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🥛</span><a class="nt-nm" href="listing.html">Протеїн</a></div><div class="nt-sub"><a href="listing.html">Сироватковий</a> · <a href="listing.html">Ізолят</a> · <a href="listing.html">Казеїн</a> · <a href="listing.html">Рослинний</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🍚</span><a class="nt-nm" href="listing.html">Гейнери</a></div><div class="nt-sub"><a href="listing.html">Високовуглеводні</a> · <a href="listing.html">Збалансовані</a> · <a href="listing.html">Карбо</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">⚗️</span><a class="nt-nm" href="listing.html">Креатин</a></div><div class="nt-sub"><a href="listing.html">Моногідрат</a> · <a href="listing.html">Creapure®</a> · <a href="listing.html">HCl</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🧬</span><a class="nt-nm" href="listing.html">Амінокислоти</a></div><div class="nt-sub"><a href="listing.html">BCAA</a> · <a href="listing.html">EAA</a> · <a href="listing.html">Глютамін</a> · <a href="listing.html">Аргінін</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">⚡</span><a class="nt-nm" href="listing.html">Передтренувальні</a></div><div class="nt-sub"><a href="listing.html">З кофеїном</a> · <a href="listing.html">Stim-free</a> · <a href="listing.html">Пампінг</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🔥</span><a class="nt-nm" href="listing.html">Жироспалювачі</a></div><div class="nt-sub"><a href="listing.html">L-карнітин</a> · <a href="listing.html">Термогеніки</a> · <a href="listing.html">Ліпотропіки</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">💧</span><a class="nt-nm" href="listing.html">Ізотоніки та витривалість</a></div><div class="nt-sub"><a href="listing.html">Ізотоніки</a> · <a href="listing.html">Гелі</a> · <a href="listing.html">Електроліти</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🍫</span><a class="nt-nm" href="listing.html">Батончики та снеки</a></div><div class="nt-sub"><a href="listing.html">Батончики</a> · <a href="listing.html">Паста</a> · <a href="listing.html">Замінники їжі</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">💊</span><a class="nt-nm" href="listing.html">Вітаміни та мінерали</a></div><div class="nt-sub"><a href="listing.html">Комплекси</a> · <a href="listing.html">D3</a> · <a href="listing.html">Магній</a> · <a href="listing.html">Омега-3</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">❤️</span><a class="nt-nm" href="listing.html">Здоров'я</a></div><div class="nt-sub"><a href="listing.html">Суглоби</a> · <a href="listing.html">Імунітет</a> · <a href="listing.html">Сон</a> · <a href="listing.html">Травлення</a></div></div>
+    <div class="ntile"><div class="nt-top"><span class="nt-ic">🧴</span><a class="nt-nm" href="listing.html">Аксесуари</a></div><div class="nt-sub"><a href="listing.html">Шейкери</a> · <a href="listing.html">Дозатори</a> · <a href="listing.html">Атрибутика</a></div></div>
+    <a class="ntile" href="brands.html"><div class="nt-top"><span class="nt-ic">🏷️</span><span class="nt-nm">Бренди</span></div><div class="nt-sub">Усі бренди - індекс А–Я →</div></a>
+  </div>
+
+  <!-- Популярні товари - optional product row (canonical card) -->
+  <div class="sech"><h2>Популярні товари</h2><a class="btn--text all" href="listing.html">Усі товари →</a></div>
+  <div class="prow">
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Optimum Nutrition · США</div>
+        <a href="product.html" class="nm">Gold Standard 100% Whey 2270 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"><span class="pold">1 520 ₴</span><span class="pcut">−15%</span></div><span class="pnew">1 290 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.8</span> · 126 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>18 ₴</b> / порція</span><span class="bonus">+13 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">BioTechUSA · Угорщина</div>
+        <a href="product.html" class="nm">Iso Whey Zero 908 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 050 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.7</span> · 88 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>35 ₴</b> / порція</span><span class="bonus">+11 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото</a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">OstroVit · Польща</div>
+        <a href="product.html" class="nm">Creatine Monohydrate 500 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">549 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.9</span> · 210 відгуків</div>
+        <div class="pmeta2"><span class="perserv"><b>5 ₴</b> / порція</span><span class="bonus">+6 ₴ бонус</span></div>
+      </div>
+    </article>
+    <article class="pcard"><a href="product.html" class="ph">фото<span class="tag">Популярне</span></a><button class="btn--text btn--icon fav" aria-label="В обране">♡</button>
+      <div class="bd">
+        <div class="pbrand">Power Pro · Україна</div>
+        <a href="product.html" class="nm">Hyper Mass 4000 г</a>
+        <div class="pavail in">В наявності</div>
+        <div class="prow2"><div class="pcol"><div class="poldline"></div><span class="pnew">1 450 ₴</span></div><button class="btn--accent btn--icon cartbtn" aria-label="У кошик">🛒</button></div>
+        <div class="rate"><span class="st">★ 4.6</span> · 74 відгуки</div>
+        <div class="pmeta2"><span class="perserv"><b>29 ₴</b> / порція</span><span class="bonus">+14 ₴ бонус</span></div>
+      </div>
+    </article>
+  </div>
+
+  <!-- SEO text -->
+  <section class="seotext" id="seo" aria-label="Опис каталогу">
+    <div class="h">Каталог спортивного харчування Stack</div>
+    <p>Каталог Stack - це протеїн, гейнери, креатин, амінокислоти, передтренувальні комплекси,
+      жироспалювачі, вітаміни й мінерали, товари для здоров'я, батончики та аксесуари від перевірених
+      світових і українських брендів. Для кожного товару показуємо склад, походження і сертифікат - щоб ви бачили, що берете.</p>
+    <p>Не знаєте, з чого почати? Оберіть свою <b>ціль</b> - ми підберемо зрозумілий і безпечний набір
+      зі складом і дозуванням. Швидка доставка Новою Поштою, оплата картою чи при отриманні,
+      повернення протягом 14 днів.</p>
+  </section>
+
+</main>
+
+<footer id="wf-footer"></footer>
+</div><!-- /wf-canvas -->
+
+<script src="../wireframes/_nav.js"></script>
+<script src="system/theme.js"></script>
+<script src="system/icons.js"></script>
+<script src="system/marks.js"></script>
+<script src="system/fields.js"></script>
+<script src="_nav.js"></script>
+<script>wfHeader(); wfFooter(); wfBar('catalog-page.html');
+        uivFixLinks(); uivBar(); uivChrome(); uivInert();</script>
+</body>
+</html>
