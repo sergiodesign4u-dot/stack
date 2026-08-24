@@ -3,7 +3,12 @@
    and it is a rule so the next step does not retype fifteen tables. */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { readdirSync } from 'node:fs';
-const ROOT = '/Users/sergiyshevchenko/Claud Projects/Stack sportpit/';
+/* 13.6: THE PATH WAS THE AUTHOR'S HOME DIRECTORY, TYPED IN. Found by the clean-clone
+   test, which is the only instrument here that reads the repository from outside it:
+   every other one runs in the working tree, where an absolute path resolves and
+   nothing notices. This file worked on exactly one machine for four stages. */
+import { ROOT as REPO } from './lib.mjs';
+const ROOT = REPO;
 const decomment = css => css.replace(/\/\*[\s\S]*?\*\//g, '');
 const MOTION = /--(dur|ease|move)-[a-z]+/g;
 let touched = 0, added = 0;

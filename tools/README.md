@@ -53,6 +53,7 @@ node tools/steps.mjs [--census] [names]   the steps that stand BEHIND A CLICK, w
 node tools/handoff.mjs [--strings]       is the handoff a POINTER or a COPY, and does every spec row name a source
 node tools/map.mjs [--write] [--token --x]   screen -> zone -> component -> tokens, and the INVERSION in two knees
 node tools/headings.mjs [pages...]       one reachable h1 per screen, and a ladder with no missing rung
+node tools/clone-test.mjs [--keep]      clone HEAD to a temp dir and open it from file://, no server
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
@@ -2293,3 +2294,35 @@ is an `h4` standing directly after an `h2`. **0 empty headings.**
   light reading labelled dark. The file's own opening paragraph says the browser's blue ring is a
   defect precisely because it does not follow the theme - and for a whole stage the instrument only
   ever walked the light one. Both themes now: 33816 controls, 0 and 0.
+
+---
+
+## `clone-test.mjs` - does this repository work for somebody who is not me
+
+Stage 13, step 6. Every other instrument here runs inside the working tree, with the author's paths,
+the author's untracked files and the author's habits. Three failures are invisible from in there and
+fatal from outside: an **absolute path** to the machine it was written on, a file **eaten by
+`.gitignore`**, and a dependency on a **local server** - and half the instruments here raise one, so
+a page that only works when served looks fine to all of them.
+
+The test is the plain one: clone HEAD into a temporary directory and open the entry points from
+`file://` with no server and no explanation. `file://` is the point - it is the harshest reading of
+«works without a build», and anything that survives it survives being served.
+
+**Its first run found what it was written for.** `tools/motion-row.mjs` line 6 held
+`/Users/…/Stack sportpit/` typed in as a constant: **that tool had worked on exactly one machine for
+four stages**, and nothing could see it, because every check that opened it ran on that machine.
+
+### Three wrong versions, all in the first run
+
+- **An ignored file is not a missing file.** It reported 103 absent, and 100 were `.playwright-mcp/`
+  logs - `.gitignore` doing its job, not a package missing a part. The question now goes to
+  `git check-ignore` rather than to a guess, and both counts are printed so the filter cannot go
+  quiet.
+- **A slash-separated enumeration is not a path.** `footer/header/home/product/account` in a playbook
+  sentence contains «/home/product/». A path token starts where a word does not: at a line start, or
+  after a quote, a space, a bracket or an equals sign.
+- **Three kinds of page have three navigation carriers, and it asked all of them for `#sidebar`.** A
+  roadmap page carries the panel, the kit carries `#kitnav`, and a product screen carries the
+  product's own header and tab-bar and no panel at all. Two «no panel» findings, neither about the
+  product: a comparison whose two sides differ in more than the thing measured.
