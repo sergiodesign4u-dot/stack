@@ -2225,3 +2225,24 @@ one of them had an instrument.
 **E1 and E2 come from an instrument that did not exist before this step.** `tools/headings.mjs` was
 written because the roll-out's class 8 named two screens in prose and nothing could re-ask it. It
 finds 17 where prose found 2, and it found E2 - 97 screens, one cause - which nobody had named at all.
+
+---
+
+## `motion-row.mjs` writes by default, and every other repair in `tools/` is behind a flag
+
+**Stage 13, step 6, found by accident and worth keeping.** After the clean-clone test caught the
+author's home directory typed into line 6 of `tools/motion-row.mjs`, the fix was smoke-tested by
+running the tool - and the run **rewrote 21 stand pages** without being asked. It has no `--apply`
+guard: reading and repairing are the same invocation.
+
+Every other repair in this folder asks first. `inventory.mjs`, `rollout-table.mjs`, `scope.mjs`,
+`btn-rank.mjs`, `inert.mjs`, `grey-vars.mjs`, `links.mjs`, `screen-css.mjs`, `map.mjs` and
+`coverage.mjs` all read by default and write only behind `--apply` or `--write`. One tool out of
+eleven does the opposite, and the cost is exactly what happened: a person who wanted to know whether
+it still RUNS changed 21 files.
+
+The 21 writes were reverted; the path fix stands and is confirmed by the clone test's second run.
+**The cure is one line and it belongs to the owner of stage 11**, because a flag changes how the
+tool is called from every step that calls it: put the write behind `--apply`, and print what it
+WOULD do without one.
+

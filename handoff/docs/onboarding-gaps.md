@@ -153,22 +153,33 @@ they were written.
 
 ---
 
+## 8. What step 6 found from OUTSIDE the working tree - «хто знайшов» = крок 6
+
+| # | What | Evidence | Closed by | Closed with |
+|---|---|---|---|---|
+| C1 | **`motion-row.mjs` carried the author's home directory as a typed constant** | line 6, four stages old. The tool resolved on exactly one machine, and nothing could see it because every check that opened it ran on that machine | **ЗАКРИТО на 13.6** | it imports `ROOT` from `lib.mjs` like every other tool; confirmed by the clone test's second run |
+| C2 | **the same tool WRITES by default** - no `--apply` guard | smoke-testing the fix rewrote 21 stand pages. Ten other repairs in `tools/` read by default and write behind a flag; this one is the exception | `backlog.md` | **owner of stage 11:** a flag changes how every step that calls it must call it |
+| C3 | the clone test's own three wrong versions | an ignored file counted as missing (100 of 103 were `.playwright-mcp` logs), a slash-separated enumeration read as a path, and three kinds of page all asked for the roadmap panel | **ЗАКРИТО на 13.6** | all three written beside it in `tools/README.md` |
+| C4 | nothing in the repository needs a build, a server or an explanation - **measured rather than claimed** | HEAD cloned to a temporary directory and opened from `file://`: 0 missing without a reason, 0 absolute paths, 0 build files, 5 of 5 pages with their navigation drawn | **ЗАКРИТО на 13.6** | `node tools/clone-test.mjs` |
+
+---
+
 ## Idle control on this file
 
 Rows: **3** (list 1) + **12** (list 2) + **5** (rollout classes) + **10** (step 2) + **6** (step 3)
-+ **9** (step 4) + **5** (step 5) = **50**. Every
++ **9** (step 4) + **5** (step 5) + **4** (step 6) = **54**. Every
 one carries an executing step or a named addressee; **0 rows without one**. The column «чим закрито»
 is filled as the steps run - a row that reaches step 8 with it still empty is a row this stage did
 not do.
 
-**Closed so far: 26** - U1, U2, S1, S5-S10 by step 2; M2-M6 by step 3; K1-K4, K6, K9 by step 4;
-G2, G3, R1-R5 by step 5. **Open: 24.**
+**Closed so far: 29** - U1, U2, S1, S5-S10 by step 2; M2-M6 by step 3; K1-K4, K6, K9 by step 4;
+G2, G3, R1-R5 by step 5; C1, C3, C4 by step 6. **Open: 25.**
 
 **All three rows of list 1 are now closed**, and list 1 was the one the stage pack warned about in
 advance: without an addressee the first `[?]` stops the work. There is one now, and it is a role
 with a channel rather than a person.
 
-Of the open rows, **10 are addressed to the owner** and cannot be closed by any step of this stage:
-S2, S3, S4, S10, M1, K5, K7, K8, and the three classes of rollout that need a decision rather than a
-document. The eight accessibility debts are counted inside K5, K7 and K8 rather than as rows of their
+Of the open rows, **11 are addressed to the owner** and cannot be closed by any step of this stage:
+S2, S3, S4, S10, M1, K5, K7, K8, C2, and the three classes of rollout that need a decision rather
+than a document. The eight accessibility debts are counted inside K5, K7 and K8 rather than as rows of their
 own: their register is the table at the foot of `a11y.md`.

@@ -12024,3 +12024,43 @@ addressee is worse than an empty one: a decision sent to the wrong person looks 
 was taken.
 
 **And G3 was closed by the owner with a better answer than the question.** The pack asks for a NAME and a channel. The answer was a ROLE and a channel: the product owner, reachable through the repository's Issues, with no personal name on the page. It is the stronger form for the same reason a component is never named after the screen it first stood on - a role outlives whoever holds it, and a page carrying somebody's name goes stale the first day the role moves on. The question also goes to the place its own line lives in, so the decision stays beside it instead of in a chat that closes with the session.
+
+---
+
+## Stage 13, step 6 - the release, and the tool that had worked on one machine for four stages (2026-08-25)
+
+**No deploy.** GitHub Pages has served this repository since stage 01, so the step verifies rather
+than publishes: the tag, the three live links, and the clean-clone test. All four addresses answer
+200 today - the route, the product, the showcase and the repository.
+
+**`v1.0.0-handoff` marks the commit the handoff was measured on**, and the tag body names what is
+open at the handover rather than what is finished: 8 accessibility debts, 4 dead tokens, 6 behaviour
+questions with no source, and every number that needs real data still `[?]`.
+
+**The clean-clone test is the only instrument here that reads the repository from outside itself,
+and its first run found what it was written for.** `tools/motion-row.mjs` line 6 held the author's
+home directory typed in as a constant: **that tool had worked on exactly one machine for four
+stages**, and nothing could see it, because every check that opened it ran on that machine. Cloning
+HEAD to a temporary directory and opening the entry points from `file://` - no server, no
+explanation - is the harshest reading of «works without a build», and it is the only reading a person
+with a link actually performs.
+
+**Three of its own wrong versions are written beside it, and all three are the same family this
+stage keeps finding.** An ignored file counted as missing (103 absent, 100 of them `.playwright-mcp`
+logs, which is `.gitignore` doing its job); a slash-separated enumeration read as an absolute path
+(`footer/header/home/product/account` contains «/home/product/»); and three kinds of page all asked
+for the roadmap `#sidebar` when the kit carries `#kitnav` and a product screen carries no panel at
+all. The second run, after the repair and after the commit: **0 files missing without a reason, 0
+absolute paths, 0 build files, 5 of 5 pages opening from `file://` with their navigation drawn.**
+
+**And a repair tool repaired something while being smoke-tested.** Checking that `motion-row.mjs`
+still runs after the path fix rewrote 21 stand pages, because it has no `--apply` guard - reading and
+repairing are one invocation. Ten other repairs in `tools/` read by default and write behind a flag;
+this one does the opposite. The 21 writes were reverted and the finding went to `backlog.md` with
+the owner of stage 11 named, because a flag changes how every step that calls it must call it.
+
+**`CLAUDE.md` gains the Handoff section and stays at exactly 200 lines**, which is what the budget is
+for: the section did not enter alongside anything. The repair rule was **generalised** to cover what
+step 4 found - an ADDITION stales its neighbours exactly as a repair does - «Pointers» was absorbed
+into the new section, and eight paragraphs were tightened. Over budget is not «the file got big», it
+is the signal that two rules inside already say the same thing.
