@@ -72,10 +72,27 @@
    ABOVE every atom, so `.uiv-tc-ic svg` lost a same-specificity tie to
    `.uiv-ic svg` in icon.css and the footer trust icon shrank from 24px to
    1.05em. A class rule belongs to its component, never to base. */
+/* --size-40 / --size-32 -> the footer trust mark, 26.08.2026, owner's call.
+   «Хочу в футері блок довіри - велика іконка ліворуч, навпроти заголовок, під
+   ним опис». The block was already exactly that shape (`.uiv-tc-ic` spans both
+   rows of the card's two-column grid), so what was asked for is the SIZE: at 27
+   the mark read as a bullet in front of a line of text rather than as the card's
+   anchor. 40 is not a round number picked for looking big - it is the height of
+   the two-line text block standing beside it, measured, so the mark and the text
+   are one object and the card does not grow by a pixel on desktop.
+
+   And the pair now reads ONE scale. It used to be `27px` here and
+   `var(--size-24)` in the narrow rule below: the same declaration, in the same
+   file, two lines apart, answering to two different systems. The literal was not
+   a defect - the ban on raw values is on SCREEN files, and 87 of the component
+   files in this system legitimately carry numbers - but a rule whose two halves
+   disagree about where their value comes from cannot be changed in one move, and
+   this one just had to be. Narrow keeps the mark one step down at 32, because at
+   390 the card is a full-width row and 40 would outweigh a 12px sub-line. */
 .uiv-tc-ic{ grid-row:1 / span 2; align-self:center; color:var(--text-action); display:inline-flex; }
-.uiv-tc-ic svg{ width:27px; height:27px; }
+.uiv-tc-ic svg{ width:var(--size-40); height:var(--size-40); }
 @media (max-width:619px){
-  .uiv-tc-ic svg{ width:var(--size-24); height:var(--size-24); }
+  .uiv-tc-ic svg{ width:var(--size-32); height:var(--size-32); }
 }
 
 /* The mobile field-size rule that used to sit here lives in base.css, where it

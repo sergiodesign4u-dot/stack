@@ -12535,3 +12535,55 @@ in zsh passes the whole variable as ONE argument; nothing matched, the subject w
 report said «0 findings, exit 0». An empty subject now exits 2 and says so - that is the shape
 `CLAUDE.md` bans, arriving inside the very check written to enforce it. Eight wrong versions are kept
 in `tools/README.md`.
+
+
+## The footer trust mark: the block existed, the size did not - 26.08.2026
+
+**Owner: «хочу в футері блок траст - велика іконка ліворуч, навпроти заголовок, під ним текст
+опису».**
+
+**The block was already exactly that**, and reading came before building. `ia/docs/pages/footer.md`
+section A specifies it - «Icon (side) + heading + short text», four cards, one per info page - and
+`footer.css` implements it: `.uiv-tc-ic` spans both rows of the card's `auto 1fr` grid, so the mark
+stands to the left of a stacked heading and sub-line. Measured on `home-buyer` before touching
+anything: four cards, mark left of the text, `.th` and `.ts` in one column and stacked, at 1280 and
+at 390 alike.
+
+**So the request was about a VALUE, and the value was 27px.** At 27 the mark reads as a bullet in
+front of a line of text rather than as the card's anchor - which is the opposite of what a trust
+strip is for, and design principle #1 is the one it fails.
+
+**variable -> value -> why.** `.uiv-tc-ic svg` -> `--size-40`, and `--size-32` under 619. 40 is not
+a round number chosen for looking big: it is the height of the two-line text block beside it, so the
+mark and the text read as one object. 32 at narrow because there the card is a full-width row and 40
+would outweigh a 12px sub-line. Owner picked from three offered sizes with the cost of each stated.
+
+**Verified rather than asserted.** I told the owner the card would not grow, then measured both
+states: card **91 at 1280, 132 at 860, 72 at 620 - identical before and after**, and the strip 139 /
+180 / 222 identical too, because the text block is the taller of the two at every width. Cost that
+IS real and was not in the preview: the icon column takes 13px more, so three of the four sub-lines
+wrap one line further at 1280. The strip height does not move, because it was already set by the
+worst card.
+
+**And I was wrong out loud about the literal.** I told the owner `27px` was «a defect, a value past
+a token». It is not: the ban on raw values is on SCREEN files, and **87 of the component files in
+this system carry numbers legitimately** - the system is where values live. What was true is
+narrower and still worth fixing: this one declaration read `27px` on one line and `var(--size-24)`
+two lines below, the same rule answering to two different scales, which is why it could not be
+changed in one move. Both halves read the scale now.
+
+**Three numbers on the showcase page were a stage behind.** `design/kit/footer.html` anatomy said the
+trust grid goes four columns «від 720» and one «до 479», and `footer.css` has said 860 and 619 since
+step 10.4 - the step moved the points and never carried them to the page that publishes them. Item 3
+was the interesting one: its measurements, 172 in colour against 164 in grey, are **still exactly
+right** - re-measured, not re-typed - and only the width they were labelled with was stale. At 720
+there are no columns at all; the footer is one column of 688 there.
+
+**Observed while measuring, out of scope and named rather than filed:** the GREY layer overflows at
+720 (`scrollWidth 759 / clientWidth 720`). `wireframes/` is frozen and 720 is not one of the colour
+layer's points, so nothing is done about it here.
+
+**Still open, and it belongs to the owner:** `footer.md` says each of the four cards is «a crawlable
+`<a>` to the matching info page». They are `<div>`s. That is a behaviour and a11y change - tab order,
+landmark register, four new links on 129 screens - not a size, so it is not folded into a size
+request.

@@ -2495,3 +2495,19 @@ because no file can be reached by all three registries - the root pages do not l
 system, the product screens load nothing from the root. The bodies are identical to the character
 and `tools/nav.mjs` question F compares them, proven red on a one-character change. A drift will be
 caught rather than shipped, but one edition would still be better than a good check over three.
+
+
+## The footer trust cards are not links - open, owner's call
+
+`ia/docs/pages/footer.md` section A specifies four trust cards, each «a crawlable `<a>` to the
+matching info page»: Delivery 8.4, Guarantee 8.8, Payment 8.4, Returns 8.5. The grey runtime built
+them as `<div>` and the colour layer repaints on top, so on **129 screens** the strip is four
+statements that lead nowhere.
+
+**Not folded into the size change of 26.08.2026**, and deliberately: this is tab order, the landmark
+register and four new links per page, on a block that appears on nearly every screen. A size is a
+size.
+
+**Zero looks like:** four `<a class="wff-tc">` with the node's own destinations, `focus-visible` from
+the system, and `a11y.md` gaining the row. **Measured today:** `document.querySelectorAll('.wff-tc a')`
+returns 0 on every coloured screen.
