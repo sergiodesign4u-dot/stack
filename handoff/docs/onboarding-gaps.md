@@ -37,7 +37,7 @@ the agent was not given the answer key.
 
 | # | Question | Where it looked | Verdict | Closed by | Closed with |
 |---|---|---|---|---|---|
-| G1 | **How do I create a NEW screen now that `wireframes/` is frozen?** Every document answers «how an existing grey screen becomes coloured»; none answers «who writes the grey original after stage 05, and by what rule» | `CLAUDE.md` Repository shape -> `wireframes/CLAUDE.md` 1 and 6 -> `conventions.md` 8 and 10 (written for stage 04) -> `architecture.md` J, which has «new COMPONENT / RULE / COMPOSITION / VALUE / ADAPTATION / MOTION» and **no «new SCREEN»** -> `clone-to-colour.mjs`, which says outright that it never touches `wireframes/` -> both registries -> `coverage.mjs` | **СПРАВДІ НЕМАЄ.** Verified by re-reading `architecture.md` J: the six entries are there and the seventh is not | **крок 7** (`one-shot.md` is exactly this text) + **крок 5** (a route row) | – |
+| G1 | **How do I create a NEW screen now that `wireframes/` is frozen?** Every document answers «how an existing grey screen becomes coloured»; none answers «who writes the grey original after stage 05, and by what rule» | `CLAUDE.md` Repository shape -> `wireframes/CLAUDE.md` 1 and 6 -> `conventions.md` 8 and 10 (written for stage 04) -> `architecture.md` J, which has «new COMPONENT / RULE / COMPOSITION / VALUE / ADAPTATION / MOTION» and **no «new SCREEN»** -> `clone-to-colour.mjs`, which says outright that it never touches `wireframes/` -> both registries -> `coverage.mjs` | **СПРАВДІ НЕМАЄ.** Verified by re-reading `architecture.md` J: the six entries are there and the seventh is not | **крок 7** (`one-shot.md` is exactly this text) + **крок 5** (a route row) | **ЗАКРИТО на 13.7 by two examinations rather than by an argument** - see section 9. Eight screens built from the prompt alone, and the three things the prompt could not buy are now named limits |
 | G2 | **Has stage 13 started or not?** `README.md` row 13 says «Not started»; `/_nav.js` carries `wip: true` with a comment saying «the stage started». `CLAUDE.md` rules that status lives in these two files **and nowhere else**, so there is no third source to break the tie | `README.md` 28 -> `/_nav.js` last row -> `CLAUDE.md` -> `docs/decisions.md` (last entry is stage 12) -> `design/kit/why.html#now` | **СПРАВДІ НЕМАЄ, and step 1 of this stage created it.** The `wip` flag went in and the README row did not. The auditor found a live contradiction twenty minutes old | **крок 5** rewrites README; the status line is corrected there, not here | **ЗАКРИТО на 13.5.** README row 13 now reads «In progress - steps 1 to 5 done» and names what steps 6 to 8 still owe; `/_nav.js` carries `page: 'handoff/handoff.html', done: true, wip: true`. Two files, one state, and the README says out loud that it is the only status board in the repository |
 | G3 | **Who is «the owner», how do I reach them, and where is the ONE list of what is waiting on them?** Open items are scattered across at least four files, and no file names a person or a channel | `CLAUDE.md` How work runs -> `AGENTS.md` rule 1 -> `why.html#owner` -> `decisions.md` («on the owner's word», dozens of times) -> `sitemap.md` Open items -> `pages/coach.md` Open questions -> `architecture.md` D -> `backlog.md` | **СПРАВДІ НЕМАЄ.** This is the one the pack names in advance: without an addressee the first `[?]` row stops the work | **крок 5**, section «ХТО УХВАЛЮЄ РІШЕННЯ» on `handoff.html`. Step 3 added evidence: `backlog.md` is 29 sections long and its own page is a curated narrative about one stage-06 measurement, so the owner-facing rows in it have no visible place in a browser at all | **ЗАКРИТО на 13.5, by the owner, and the answer was better than the question.** The addressee is the **product owner** and the channel is the repository's Issues - so a question goes to the place its own line lives in, and the decision stays beside it rather than in a chat that closes with the session. **No personal name on the page, deliberately:** the addressee is a ROLE, and a role outlives whoever holds it, while a page carrying somebody's name goes stale the first day the role moves on |
 
@@ -164,16 +164,72 @@ they were written.
 
 ---
 
+## 9. The examination, twice - «хто знайшов» = крок 7
+
+**Two agents with clean contexts, two features, one prompt.** Neither had built anything here. Each
+was given `one-shot.md` and a feature named in numbers before the run - four files apiece - and each
+was told that the list of what it had to ask or guess at was worth more than the screens.
+
+| | Feature | Source | Rows it came back with |
+|---|---|---|---|
+| **Run A** | «Мої стейпли» | `sitemap.md` Open items + `cjm-to-be.md` P2 | **18** |
+| **Run B** | «Знову в наявності» | `flows.md` Backlog E10 + `cjm-to-be.md` P2 | **16** |
+
+**16 against 18 is the same length, and the pack says what that means: the handoff is not finished.**
+It is said here rather than rounded off. But the two lists are not the same list, and the difference
+is the measurement that matters:
+
+- **Four of run B's sixteen were run A's holes, and B met a documented answer instead of a guess.**
+  It found no microcopy cluster «as the prompt predicts»; it hit the frozen account rail and ordered
+  the row instead of hand-writing four links; it resolved the a11y contradiction with the sentence
+  step 7 had just added; and it read the coverage-map correction and repeated it rather than
+  re-deriving it. **That is the repair working, and it is why the run is done twice.**
+- **One repeated because it was deliberately not repaired.** Both runs found that `voice.md` demands a
+  non-breaking space before the currency sign and that **0 of 141 screens carry one**, with no
+  instrument asking. It belongs to the owner of `voice.md`, so it stayed open and came back - exactly
+  as a finding does when nobody closes it.
+- **Eleven were new territory**, because the second feature lives on a product page and the first
+  lived in the cabinet.
+
+### What the two runs found that no instrument had
+
+| # | What | Verdict | Closed by |
+|---|---|---|---|
+| E1 | **`one-shot.md` said the registry row puts the screen on the coverage map. It does not.** The map is derived from `WF_FLOWS` in the frozen grey runtime; `DESIGN_NAV` only decides whether a row the map already knows is drawn coloured. **A screen with no grey twin cannot appear at all - and `coverage.mjs --check` still exits 0 and still says «all 141».** Verified: four new screens on disk, registered, and the map named them zero times | **ЗРОЗУМІВ ПРАВИЛЬНО, і помилка була в промпті, написаному годиною раніше** - a green counter that cannot see its class, inside the document that teaches people not to build one | **ЗАКРИТО на 13.7**: the paragraph now states the limit and says the green means nothing about your work |
+| E2 | **a new SECTION of an account cannot enter the account rail** - `WF_ACC_LINKS` is one list inside the frozen `wireframes/_nav.js`. Run A refused to hand-write the link into four screen files because «the sidebar has one source» is the rule that would break | **ПРАВИЛЬНА ВІДПОВІДЬ, ЯКОЇ В ПРОМПТІ НЕ БУЛО** | **ЗАКРИТО на 13.7** in `one-shot.md`; the rail row itself is an order in `backlog.md` |
+| E3 | **the package said a feature was absent and the corpus says it is half-present.** `product-oos.html` has carried the back-in-stock request form since stage 08 - a contact field and a button. `behaviour.md` said «is NOT drawn here» and `handoff.html` said the dead end is truly dead | **ЗРОЗУМІВ ПРАВИЛЬНО.** Verified: the form dates to commit `25ca246` | **ЗАКРИТО на 13.7** in both files: what is post-launch is everything AFTER the form |
+| E4 | **`flows.md` and `concept-map.md` give entity E10 to two different features** - the stockout reminder and My Staples | **ЗРОЗУМІВ ПРАВИЛЬНО**, and it chose the entity register over the flow document | **behaviour.md** drift D-d; the fix is the owner's |
+| E5 | **`microcopy.md` has no cluster for a screen that did not exist at stage 05**, and silence reads as permission to invent | both runs; 17 strings written as declared PROPOSALS rather than canon | **ЗАКРИТО на 13.7** in `one-shot.md` |
+| E6 | **`a11y.md` asked for something impossible** - «a new screen must not add to the debts», while E2 is written by the frozen footer and is inherited the moment a screen exists | **ЗРОЗУМІВ ПРАВИЛЬНО** | **ЗАКРИТО на 13.7**: «add no new CAUSE», measured against the nearest neighbour |
+| E7 | **`accept.mjs` matches a subject by exact name and `screen-css.mjs` by substring** - one base name means «one screen» to one gate and «all four» to the other, so the first would report clean over a quarter of the work | **ЗРОЗУМІВ ПРАВИЛЬНО** | **ЗАКРИТО на 13.7** in `one-shot.md` |
+| E8 | **one feature, three names and two job numbers** - «Мої стейпли» / "My Staples" / «Мій набір», job 3 in one document and Job 4 in another. **`handoff.html` carried the third name AND filed the feature as CUT rather than post-launch** | **ЗРОЗУМІВ ПРАВИЛЬНО, і помилка була на моїй сторінці** | name and verdict **ЗАКРИТО на 13.7**; the job-number collision is an order in `backlog.md` |
+| E9 | **four defects found BY EYE after every gate was green** - a price breaking between the figure and the currency sign at the floor, a loading skeleton promising fewer rows than the loaded state, a product name running to six lines at the floor, and one action carrying two names | **the instruments are a floor, not a verdict** | named in `one-shot.md` as what to look for after the gates pass |
+
+**Both feature sets were deleted afterwards, on the owner's word.** They were probes: accepting them
+would have meant reopening three closed stages - repairing the coverage map's derivation (12), making
+17 proposed strings canon (05) and removing the post-launch marks (03) - for two features the owner
+had already filed as post-launch. **The seventeen orders they raised stay** in `design/kit/docs/backlog.md`
+as sections «Мої стейпли» and «Знову в наявності»; they cost nothing to keep and they are the part
+that was actually worth building.
+
+---
+
 ## Idle control on this file
 
 Rows: **3** (list 1) + **12** (list 2) + **5** (rollout classes) + **10** (step 2) + **6** (step 3)
-+ **9** (step 4) + **5** (step 5) + **4** (step 6) = **54**. Every
++ **9** (step 4) + **5** (step 5) + **4** (step 6) + **9** (step 7) = **63**. Every
 one carries an executing step or a named addressee; **0 rows without one**. The column «чим закрито»
 is filled as the steps run - a row that reaches step 8 with it still empty is a row this stage did
 not do.
 
-**Closed so far: 29** - U1, U2, S1, S5-S10 by step 2; M2-M6 by step 3; K1-K4, K6, K9 by step 4;
-G2, G3, R1-R5 by step 5; C1, C3, C4 by step 6. **Open: 25.**
+**Closed so far: 35** - U1, U2, S1, S5-S10 by step 2; M2-M6 by step 3; K1-K4, K6, K9 by step 4;
+G2, G3, R1-R5 by step 5; C1, C3, C4 by step 6; E1, E2, E3, E5, E6, E7 by step 7. **Open: 28.**
+
+**G1 is closed too, and by the exam rather than by an argument.** «How do I create a NEW screen now
+that `wireframes/` is frozen» was list 1's first row; two agents did it, from the prompt alone, and
+between them they produced eight screens that passed every gate. What they could NOT do - reach the
+coverage map, enter the account rail, open a door from a screen they may not edit - is now written
+down as three named limits rather than left as a gap.
 
 **All three rows of list 1 are now closed**, and list 1 was the one the stage pack warned about in
 advance: without an addressee the first `[?]` stops the work. There is one now, and it is a role

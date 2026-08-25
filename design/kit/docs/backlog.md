@@ -2246,3 +2246,75 @@ The 21 writes were reverted; the path fix stands and is confirmed by the clone t
 tool is called from every step that calls it: put the write behind `--apply`, and print what it
 WOULD do without one.
 
+
+---
+
+## «Мої стейпли» - eight orders from the first screen built after the handoff
+
+**Written by the agent that assembled `design/account-staples*.html` from `handoff/docs/one-shot.md`,
+with no context beyond the documents that prompt names.** The feature is post-launch by decision
+(`ia/docs/sitemap.md` Open items, `research/docs/cjm-to-be.md` Backlog P2), so none of the rows below
+is urgent - they are here because each one stopped the build for a moment and the next person will
+be stopped in the same place. Nothing on this list was drawn in the screen file instead.
+
+| # | What is missing | Where it bites | Whose call |
+|---|---|---|---|
+| S1 | **the account rail has no row for the section** | `WF_ACC_LINKS` in `wireframes/_nav.js` is the ONE source of the buyer rail, and that folder is frozen from stage 05. The four screens call `wfAccountNav('staples', false)` with a key the list does not hold, so the rail renders correctly and marks nothing as current. A person inside the cabinet has no way to reach the section, and a person on it is not told where they stand | the owner of the grey runtime. Adding a row by hand in four screen files would make a second edition of a rail whose whole rule is «one source» |
+| S2 | **a screen with no grey twin is invisible to the coverage map** | `tools/coverage.mjs` derives its rows from `WF_FLOWS` and uses `DESIGN_NAV` only to decide whether a row is coloured. `one-shot.md` section 2 says the registry row «is also what puts the screen on the map» and that `--check` «says whether it did» - measured, it does neither: after the four rows were added the check still prints «сторінок у реєстрі: 141 · на карті всі 141» and exits 0. The same derivation drives `uivBar()`, so the stand rail does not list the screen either, and `wfBar()` finds nothing to draw. **A green counter that cannot see the class**, which is the failure this repository has now met six times | the owner of `tools/`. The cure is one question asked the other way: a name in `DESIGN_NAV` that no flow knows is either on the map with its reason or it fails the run |
+| S3 | **`skeleton.css` has no promise for the restock-note row** | the file writes skeleton rules for `.oc-item`, `.qa-row` and `.od-grp`, and none for `.rk-item`. So the loading state falls back to a stack of bars in a `.skcardbox`: measured, 410 promised against 468 drawn at 1280 and 656 at 390, where a product name wraps to three lines. The 8.38 rule «the skeleton wears the component it promises» has no way to be obeyed here | the owner of stage 08 |
+| S4 | **`microcopy.md` has no cluster for this screen** | interface strings belong to `voice/docs/microcopy.md` and the inventory ends at the 25 `account*.html` files that existed at stage 05. Six strings were needed and none of them is in any owner document: the H1 «Мої стейпли» (taken from `ia/docs/sitemap.md`, which is the only place the product ever writes it), the subtitle, the list lead, and the empty and error titles and bodies. They are written strictly to `voice.md` - plain words, no urgency, a reason and an exit in every state - and they are **proposals awaiting the owner of `microcopy.md`**, not canon. Everything else on the four screens is quoted: «У кошик», «Спробувати ще раз», «До каталогу», «Мої замовлення», «Повідомити про надходження», «Повідомимо, коли з'явиться», «Додано в кошик», «В наявності / Залишилось мало / Під замовлення», and the two consumption sentences taken word for word from `design/account.html` | the owner of `microcopy.md` |
+| S5 | **the IA node has no number** | 7.0-7.7 are taken and `ia/docs/sitemap.md` names the feature under «Open items» without a node. The four titles carry `(wireframe 7.x)`, the same form `quiz.html` uses for node 4.x, and the breadcrumb has a parent it can point at. Assigning the number is stage 03b's | the owner of `ia/` |
+| S6 | **a staple row has no route to its product** | `restock-note` renders `.rk-nm` as a plain div and the row's only control is the cart button. On the dashboard nudge that is right - it is a nudge. On a page whose whole subject is those products, «open this one» is a missing exit, and it is a component change (a link finish for `.rk-nm`, with hover and focus in both themes), not a screen one | the owner of stage 08 |
+| S7 | **the consumption cycle is one of the numbers that has to stay `[?]`** | root `CLAUDE.md` names «consumption cycles» in the same breath as the coach tier and the loyalty thresholds. `design/account.html` nevertheless ships «Купували 34 дні тому · зазвичай вистачає на ~30 днів» as canonical sample data. The two rows that carry a cycle here are that exact string, quoted; the other three carry none, and the lead says out loud that the rhythm is computed from real orders `[?]`. **Which of the two readings is right is not this screen's to settle** | the owner, with real purchase data |
+| S8 | **one feature, three names, two job numbers** | `ia/docs/sitemap.md`, `ia/sitemap.html`, `ia/concept-map.html` and `research/cjm-to-be.html` say **«Мої стейпли»**; `research/docs/jtbd.md`, `strategy.md`, `research.md`, `personas.md`, `ux-patterns.md` and `aarrr.md` say **«My Staples»**; `handoff/handoff.html` section 10 says **«Мій набір»** and files it under «out of MVP scope from stage 01», which is a different verdict from «post-launch P2». And the job differs too: `research/docs/cjm-to-be.md` files it under **job 3** twice, while `jtbd.md` puts «My Staples» inside **Job 4, reorder without effort**, and job 3 there is «verify product safety before buying». The screens follow «Мої стейпли» and Job 4, because those are the two the render-text document and the job document say. Both disagreements are recorded, not patched | the owner |
+
+**S1 and S2 are the same shape and it is the shape this stage keeps finding: a declared list asked
+in one direction only.** The registry knows the screen, the map does not, and nothing fails. Every
+other class of defect in this file was caught by an instrument; these two were caught by adding a
+screen the corpus had never been asked to hold.
+
+## «Знову в наявності» - nine orders from the second feature built after the handoff
+
+**Post-handoff, built from `handoff/docs/one-shot.md` alone.** Four screens landed flat in `design/`
+and four rows in `design/_nav.js`: `product-oos-notify` (the request form on a sold-out product),
+`product-oos-notify-done` (the request accepted), `account-waitlist` (the products being waited for)
+and `account-waitlist-empty`. The feature is post-launch by decision - `ia/docs/flows.md` «Backlog»
+(the stockout reminder, Decision 4) and `research/docs/cjm-to-be.md` Backlog P2 - so nothing above
+`design/` carries it, and every row below is a thing the screens could NOT do for themselves.
+
+| # | Order | Why the feature could not close it | Whose |
+|---|---|---|---|
+| R1 | **A door into the request form from `design/product-oos.html`.** That screen already carries the compact `.notifyrow`; its accent button focuses the field and goes nowhere. One `href` would join it to the new form state | the screen belongs to another author and is read-only for a feature pass. A hand-edit there is exactly the class this backlog exists to stop | owner |
+| R2 | **A row in the buyer account rail.** `WF_ACC_LINKS` lives in the frozen `wireframes/_nav.js`, and «the sidebar has one source». Both new cabinet screens call `wfAccountNav('waitlist', …)` with a key the list does not hold: the rail draws correctly and marks **nothing** current - measured, `aria-current` count 0 on both. **Until the row exists the section is unreachable from inside the cabinet** and is entered only from the product page | unfreezing one line of the grey runtime is a product decision, not a visual one | owner |
+| R3 | **A confirmation plate a BUYER screen can use.** The system has exactly one «accepted» plate, `.coach .cv-ok` in `coach-verify.css`, and it is locked to the `.coach` scope; `.nl-card` / `.nl-check` are newsletter-scoped; every status pill name is page-scoped (`.oh-status`, `.aord-status`, `.ci-oostag`, `.rbadge`). A screen that has to say «прийнято» anywhere else has nothing to reach for, so `product-oos-notify-done` carries its confirmation as `.oosnote` with `role="status"` - true, calm, and thinner than the decision deserves | a new component (or an unscoping of `cv-ok`) is the system owner's call, and a screen may not draw one | stage 08 |
+| R4 | **`restock-note.css` holds two jobs under one name, and this feature made the second one the bigger.** Its own stand page prints the split: `.restock .rk-*` is «ваш запас» (the reorder nudge) and `.notifyrow .oosbtn .oosnote .oosback` is «наш склад» (out of stock, we will write). The second family was on ONE screen; it is now on three, and the `.rk-item` row is used by a list that is not a reorder nudge at all. Either the file splits, or section I gains the rule of use for the row: **«a `.rk-item` row names a rhythm OR a wait, one action per row, never a product's properties»** | naming and the level ladder | stage 08 / stage 09 |
+| R5 | **No cluster in `microcopy.md`, so eleven strings are PROPOSALS, not canon** (listed below the table). The inventory was taken from the 142 grey pages and this surface did not exist at stage 05 | a cluster is `voice/docs/microcopy.md`'s to open | voice, stage 05 |
+| R6 | **`ia/docs/flows.md` and `ia/docs/concept-map.md` disagree about this feature, in writing.** `flows.md` line 460 calls the back-in-stock notify «Decision 4, **entity E10**»; `concept-map.md` says E10 is **My Staples List** and that the stockout reminder is «**a notification rather than a screen**». Both cannot be true, and the second is now also stale, because the reminder HAS screens | an IA correction, and it decides whether this feature gets a node number at all - the four screens carry `7.x` and `3.0` because no node exists | stage 03 / owner |
+| R7 | **The notification CHANNEL is `[?]` and three files answer it differently.** `cjm-to-be.md` P2 says «back-in-stock **e-mail**»; `concept-map.md` E10 says «**Email** reminder preference»; `design/product-oos.html` has said «**E-mail або телефон**» since stage 08; `ia/docs/pages/account.md` Open questions keeps «channels (SMS/e-mail) … `[?]`». The screens follow the corpus (contact = e-mail or phone) because that is what the product already renders | a real-data decision, like every other `[?]` | owner, with real data |
+| R8 | **A request DATE has no canonical value.** `rollout.md` section C fixes names, prices, the order number and the promo deadlines, and nothing else. «Чекаєте з 12 серпня / 5 серпня / 29 липня» are sample content in the same class as «Купували 34 дні тому» on `account.html`, chosen to sit before the corpus's own clock (bonuses burn 20.09.2026). They are NOT `[?]`: `[?]` marks a number that needs real data to be correct, and a sample date needs a real ORDER, not a datum | a row in section C if the feature ships | stage 12 owner |
+| R9 | **`voice.md` asks for a non-breaking space and the product has none.** «₴ після суми з нерозривним пробілом: `1 740 ₴`» - measured across `design/*.html`: **0 files** carry `&nbsp;` or U+00A0, and no instrument in `tools/` asks. It shows: in `.rk-nm` at 360 the unit «г» drops to a line of its own, the same widow class the one-shot prompt warns about for the currency sign. Not repaired inside the feature, because a nbsp inside «Gold Standard 100% Whey 2270 г» would make a second edition of a string 70+ files already spell | typography, and it needs an instrument before it needs a fix |
+
+**The eleven proposed strings**, written to `voice.md`'s rules (plain words, one action one name, no
+urgency, no celebration, states name a fact and an exit) and **not canon until the cluster exists**:
+
+| Where | String | Note |
+|---|---|---|
+| section H1 · breadcrumb · rail label | **Знову в наявності** | the feature's own name; the dictionary's availability words are «В наявності / Залишилось мало / Під замовлення / Немає в наявності», and this is the section where the fourth turns back into the first |
+| section sub | Товари, про надходження яких ви просили повідомити. | |
+| card lead | Напишемо на {контакт} - один раз на товар, щойно він буде на складі. | |
+| row meta | {бренд} · чекаєте з **{дата}** | |
+| row action · PDP action | **Вимкнути** | ONE name in both places (voice §Повторювані дії). Full accessible name «Вимкнути сповіщення про надходження», which contains the visible label |
+| toast | Сповіщення вимкнено | same verb as the button |
+| field label | E-mail або телефон | |
+| field hint | +380 __ ___ __ __ або name@mail.com | the label says WHAT, the hint says HOW (voice §Поле форми) |
+| form note | Напишемо один раз - коли товар знову буде в наявності. Сповіщення можна вимкнути будь-коли. | |
+| confirmation | **Повідомимо, коли з'явиться.** Напишемо на {контакт} - один раз, щойно товар буде на складі. | the first sentence IS canon - `voice.md` §Наявність fixes it as the OOS confirmation. Only the second is a proposal |
+| empty state | Ви поки нічого не чекаєте · Коли товару немає на складі, натисніть «Повідомити про надходження» на його сторінці - і він з'явиться тут. | «Повідомити про надходження» quoted from canon |
+
+**What the four screens deliberately did NOT do.** No new component, no new token, no `@media`, no
+`transition`, no class the system does not declare - `node tools/screen-css.mjs` reads «чисто» on all
+four. The heading ladder was matched to the nearest neighbour rather than repaired: `product-oos-notify*`
+report «H4 після H2 - Розсилка» exactly like `product-oos`, and `account-waitlist*` report «H4 після H1»
+exactly like `account-wishlist` - the footer's newsletter `h4` is debt E2 and adding a screen inherits
+it without adding a cause. **And the coverage map does not show any of the four**, which is the open
+order already written above for `account-staples`, not a second one.

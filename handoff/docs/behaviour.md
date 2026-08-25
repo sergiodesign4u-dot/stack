@@ -164,7 +164,7 @@ history and loyalty - only exist afterwards.
 | 7 | `gce` | `design/goal-empty.html` | routes back to the goal selector to try another goal, never to a blank page | `design/goal-empty.html` + `flows.md · gce` |
 | 8 | `b3` open a product | `design/product.html` | | `design/product.html` + `flows.md · b3` + `pages/product.md` |
 | 9 | `qa` in stock? | - | | `flows.md · qa` |
-| 10 | `so` out of stock | `design/product-oos.html` | back to the collection. Back-in-stock notify is post-launch and is NOT drawn here | `design/product-oos.html` + `flows.md · so` |
+| 10 | `so` out of stock | `design/product-oos.html` | back to the collection. **The back-in-stock REQUEST is drawn - it has been since stage 08** (`.notifyrow`, a contact field and a button). What is post-launch is everything after it: no confirmation state, no list of what a buyer is waiting for, no reminder. This row said «is NOT drawn here» until the second handoff exam built the feature and found the form already standing | `design/product-oos.html` + `flows.md · so` |
 | 11 | `b4` add to cart | `design/cart.html` | | `design/cart.html` + `flows.md · b4` + `pages/cart.md` |
 | 12 | `qce2` empty? | - | | `flows.md · qce2` |
 | 13 | `ec2` | `design/cart-empty.html` | back to discovery, meaning the goal selector | `design/cart-empty.html` + `flows.md · ec2` |
@@ -215,7 +215,7 @@ origin and certification BEFORE deciding. Entry is from a goal collection or fro
 | 15 | `qrev` reassured? | - | | `flows.md · qrev` |
 | 16 | `leave` **dead end** | - | the buyer leaves with the doubt unresolved. **An accepted lost sale, written down rather than masked** - there is no third attempt to persuade | `flows.md · leave` |
 | 17 | `q2` in stock? | - | asked AFTER trust, never before: the order of these two questions is the trust principle in the flow | `flows.md · q2` |
-| 18 | `so` | `design/product-oos.html` | | `design/product-oos.html` + `flows.md · so` |
+| 18 | `so` | `design/product-oos.html` | the same screen, and the same half-present notify request - see F2 row 10 | `design/product-oos.html` + `flows.md · so` |
 | 19 | `qsub` back to the collection? | - | | `flows.md · qsub` |
 | 20 | `leave2` **dead end** | - | no in-stock option, the buyer leaves | `flows.md · leave2` |
 | 21 | `j4` | `design/cart.html` | | `design/cart.html` + `flows.md · j4` |
@@ -362,6 +362,7 @@ against the product asks it questions no reader of the prose ever asks.
 | D-a | the Main Job's prose lists **20 decision points** and its diagram holds **18** | «order line tagged to client» and «assign client or discard line» appear in the bullet list and in no node. The diagram's own edge out of `q7` reads «yes, auto-tagged to active client» - tagging is automatic and is not a question | the prose is a leftover of an older reading. `behaviour.md` follows the DIAGRAM, and F1 row 38 says tagging is automatic |
 | D-b | the Main Job's prose lists a state «empty - active client has no items yet» that the diagram does not carry | the state exists in the product as `design/coach-session-addempty.html` | the product and the prose agree; the DIAGRAM is the one missing it. Recorded, not patched |
 | D-c | three state nodes have no coloured screen | `cserr` (search failed), `lsl` and `lserr` (loyalty loading and failed). Every other state node of every flow resolves to a file | «НЕ ВИРІШЕНО» D1 |
+| D-d | `flows.md` and `concept-map.md` give the SAME entity number to two different features | `flows.md` calls the back-in-stock reminder «Decision 4, entity E10»; `concept-map.md` registers E10 three times as **My Staples List** and files the stockout reminder as «a notification rather than a screen» | the entity register owns entity numbers, so `concept-map.md` wins and `flows.md` carries the wrong attribution. Found by the second handoff exam; reported, not patched |
 
 None of the three is repaired here. `ia/docs/flows.md` belongs to stage 03 and `design/` is closed
 after stage 12; a stage that documents does not quietly edit what it documents. All three carry a

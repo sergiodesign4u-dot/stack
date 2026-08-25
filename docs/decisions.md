@@ -12064,3 +12064,59 @@ for: the section did not enter alongside anything. The repair rule was **general
 step 4 found - an ADDITION stales its neighbours exactly as a repair does - «Pointers» was absorbed
 into the new section, and eight paragraphs were tightened. Over budget is not «the file got big», it
 is the signal that two rules inside already say the same thing.
+
+---
+
+## Stage 13, step 7 - the prompt, and two examinations that found the prompt wrong (2026-08-25)
+
+**`one-shot.md` is a prompt and not a chapter**, because a chapter is read once and forgotten while
+this is pasted into a fresh session. It carries the growth bans VERBATIM from
+`design/system/CLAUDE.md` rather than paraphrased, and beside them the half without which the flat
+version is worse than no prompt at all: **the ban forbids inventing INSIDE A SCREEN FILE, not
+growth.** Two steps - nothing is invented in the screen file, and what is missing appears in the
+system first with its full set. A developer who reads only «create no new components» either stops
+for ever or does it in the screen file.
+
+**Two agents, two features, four files each, scope named in numbers before either was launched.**
+Run A built «Мої стейпли» and came back with **18** rows; run B built «Знову в наявності» and came
+back with **16**. Sixteen against eighteen is the same length, and the pack says what that means:
+**the handoff is not finished, and it is written down rather than rounded off.**
+
+**But the two lists are not the same list, and that is the measurement the second run exists for.**
+Four of B's sixteen were A's holes, and B met a documented answer where A had to guess: it expected
+to find no microcopy cluster, it hit the frozen account rail and ordered the row instead of
+hand-writing four links, it resolved the accessibility contradiction with the sentence step 7 had
+just added, and it repeated the coverage-map correction rather than re-deriving it. One repeated
+because it was deliberately not repaired - the non-breaking space before the currency sign, which
+belongs to the owner of `voice.md` - and eleven were new territory, because B's feature lives on a
+product page and A's lived in the cabinet.
+
+**The most expensive finding was in the prompt itself, forty minutes old.** It said the registry row
+puts the screen on the coverage map and that `coverage.mjs --check` confirms it. **It does not.** The
+map is derived from `WF_FLOWS` in the frozen grey runtime, and `DESIGN_NAV` only decides whether a
+row the map ALREADY knows is drawn coloured, so a screen with no grey twin cannot appear on it at
+all - while the check still exits 0 and still says «all 141». Verified: four new screens on disk,
+registered, and the map named them zero times. **A green counter that could not see its class, inside
+the document written to teach people not to build one.**
+
+**And the package said a feature was absent while the corpus says it is half-present.**
+`product-oos.html` has carried the back-in-stock request form since stage 08 - a contact field and a
+button, commit `25ca246`. `behaviour.md` said «is NOT drawn here» and `handoff.html` said the dead end
+was truly dead. Both are corrected: what is post-launch is everything AFTER the form.
+
+**Four defects were found BY EYE after every gate was green** - a price breaking between the figure
+and the currency sign at the narrow floor, a loading skeleton promising fewer rows than the loaded
+state delivers, a product name running to six lines, and one action carrying two names. The
+instruments are a floor, not a verdict, and `one-shot.md` now says so with these four as the example.
+
+**Both feature sets were deleted, on the owner's word.** They were probes. Accepting them would have
+meant reopening three closed stages - repairing the coverage map's derivation (12), making seventeen
+proposed strings canon (05), removing the post-launch marks (03) - for two features the owner had
+already filed as post-launch, and neither could reach the account rail or open a door from a screen
+the agent may not edit. **The seventeen orders they raised stay in `backlog.md`**: they cost nothing
+to keep and they are the part that was worth building.
+
+**G1 closed by doing rather than by arguing.** «How do I create a new screen now that `wireframes/` is
+frozen» was the first row of the step-1 auditor's list. Two agents did it from the prompt alone and
+produced eight screens that passed every gate; what they could not do - reach the map, enter the
+rail, open a door from a frozen neighbour - is now three named limits instead of a gap.
