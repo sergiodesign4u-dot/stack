@@ -7,7 +7,7 @@
    A PAGE OF THE STAND DECLARES NOTHING - not even its own name. It carries an
    empty `<aside id="kitnav">` and loads this file. Step 7.19 removed the 33
    `KIT_ACTIVE` lines that said out loud what the file name already said, after
-   one of them was copied wrong. See the derivation at the foot of the file.
+   one of them was copied wrong. See the derivation at the foot of the walk.
 
    A not-done row renders as a <span>, not an <a>. That is deliberate and it is
    the same convention the roadmap uses: a component that has a css file but no
@@ -728,6 +728,47 @@ window.KIT_NAV = [
     tb.setAttribute('aria-pressed', m === 'dark');
     tb.querySelector('.kn-theme-t').textContent = m === 'dark' ? 'Темна тема' : 'Світла тема';
   });
-  var cur = nav.querySelector('.kn-l.on');
-  if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'center' });
+  keepPlace(nav, 'stack:kitnav', ['.kn-l.on']);
 })();
+
+/* ЩО ТРИМАЄ МІСЦЕ - 25.08.2026, звіт власника: «панель оновлюється разом зі
+   сторінками і знову вгорі». Тут стояло `cur.scrollIntoView({block:'center'})`, і
+   воно робило дві різні хиби одночасно.
+
+   ПЕРША: воно пере-центрувало, а не зберігало. Рейка стенда це 4160px змісту в
+   боксі на 900 (заміряно на `overview`, file://), і центрування на поточному
+   пункті ВИКИДАЄ те місце, куди читач доїхав сам. Для перших десяти пунктів зі
+   ста центр і є нуль - тобто «знову вгорі» буквально: `overview` 0, `why` 0,
+   `motion` 0 при боксі 900.
+
+   ДРУГА: `scrollIntoView()` скролить кожного прокручуваного предка, а сторінки
+   стенда вантажать `design/system/base.css`, де на `html` стоїть
+   `scroll-behavior: smooth`. Продукт це вже вирішив одного разу і записав
+   (`design/_nav.js`, `uivRailCurrent`): «`scrollLeft` НА РЕЙЦІ, а не
+   `scrollIntoView()`». Правило було, під ним не було приладу, і сусідній файл
+   спокійно жив із забороненим викликом.
+
+   Та сама механіка, що в кореневій панелі `/_nav.js`, і тримається вона одним
+   приладом на обидві: `tools/nav.mjs`, питання D і E. Два файли, бо це два
+   окремі реєстри - `sectionsBlock()` і `observeSections()` уже існують у кожному
+   своєю редакцією, і ця пара йде тим самим швом. Ціна названа вголос: розійтись
+   вони можуть, і саме тому питання E питає ОБИДВІ панелі, а не ту, з якої
+   почалось. */
+function keepPlace(box, key, sel){
+  if(!box) return;
+  var saved = null;
+  try { saved = sessionStorage.getItem(key); } catch(e) {}
+  if(saved !== null) box.scrollTop = parseInt(saved, 10) || 0;
+  var cur = null;
+  for(var i = 0; i < sel.length && !cur; i++) cur = box.querySelector(sel[i]);
+  if(cur){
+    var b = box.getBoundingClientRect(), c = cur.getBoundingClientRect(), pad = 16;
+    if(saved === null) box.scrollTop += (c.top - b.top) - (b.height - c.height) / 2;
+    else if(c.bottom > b.bottom) box.scrollTop += (c.bottom - b.bottom) + pad;
+    else if(c.top < b.top) box.scrollTop -= (b.top - c.top) + pad;
+  }
+  box.addEventListener('scroll', function(){
+    if(box.scrollHeight <= box.clientHeight + 1) return;
+    try { sessionStorage.setItem(key, String(Math.round(box.scrollTop))); } catch(e) {}
+  });
+}

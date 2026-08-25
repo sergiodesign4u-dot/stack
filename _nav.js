@@ -87,7 +87,31 @@ window.NAV = [
   var base = window.NAV_BASE || './';
 
   function currentPath() {
-    var rootPath = new URL(base, location.href).pathname;
+    /* BOTH SIDES DECODED, AND ONLY ONE OF THEM WAS - 25.08.2026, owner's report
+       «панель не тримає, де ти зараз». `URL().pathname` keeps its percent
+       escapes and `location.pathname` was already being decoded, so on any path
+       whose folders contain a space the two never shared a prefix:
+
+         rootPath  /Users/.../Claud%20Projects/Stack%20sportpit/
+         here      /Users/.../Claud Projects/Stack sportpit/design/overview.html
+
+       `indexOf` then returned -1, `cur` became the whole absolute path, nothing
+       matched the registry, and the panel rendered with NO active stage and NONE
+       of the sections the page declares - measured on six of the seven pages that
+       carry it: `is-active 0`, «секцій оголошено 11, відмальовано 0».
+
+       IT IS INVISIBLE OVER HTTP, which is why it survived to here: the published
+       site is served from `/stack/`, a path with nothing to escape, and every
+       check that has ever run against a server saw a working panel. It is the
+       `file://` half that breaks, and `file://` is exactly what `handoff.html`
+       promises - «no build, no server, open it and it works». `clone-test.mjs`
+       opens those pages and passed, because it asks whether a page OPENS and not
+       whether the page knows where it is.
+
+       Not fixed by encoding `here` instead: a folder named «Мої проєкти» would
+       then have to round-trip through two encoders that disagree about which
+       characters are safe. Decoding is the direction with one answer. */
+    var rootPath = decodeURIComponent(new URL(base, location.href).pathname);
     var here = decodeURIComponent(location.pathname);
     var cur = here.indexOf(rootPath) === 0 ? here.slice(rootPath.length) : here.replace(/^\//, '');
     if (cur === '' || cur.charAt(cur.length - 1) === '/') cur += 'index.html';
@@ -160,6 +184,16 @@ window.NAV = [
   function render() {
     var html = '<a class="nav-brand" href="' + base + 'index.html">Stack<span>дизайн-процес</span></a>';
     html += '<nav class="nav-roadmap">';
+
+    /* THE ROOT PAGE IS NOT A STAGE, AND ITS SECTIONS HAD NOWHERE TO GO - the same
+       day as the decode fix above, and found by the same walk. `index.html`
+       declares two sections and `sectionsBlock()` is only ever called from inside
+       a stage row, so `activeIndex` is -1 there by design and the two rendered
+       nothing. A declared list that covers nothing fails as loudly as an
+       undeclared case, so it either goes or it lands: it lands, above the
+       roadmap, because the entry point is exactly where a reader most needs to
+       know which part of a long page they are looking at. */
+    if (activeIndex === -1 && !anchor) html += sectionsBlock();
 
     NAV.forEach(function (stage, i) {
       var isActive = i === activeIndex;
@@ -247,6 +281,64 @@ window.NAV = [
     }
 
     observeSections();
+    /* ЛИСТОК ПЕРШИЙ, ЕТАП ОСТАННІЙ, і порядок тут не косметичний. «Де ти зараз»
+       це конкретна сторінка - «JTBD», - а не етап, у якому вона лежить. Рядок
+       етапу стоїть ВИЩЕ за неї, і коли під поточною сторінкою розгорнуто
+       одинадцять секцій, підсунути в бокс рядок етапу означає лишити саму
+       сторінку за нижнім краєм. Список, а не список через кому: `querySelector`
+       з комами віддає перший у ПОРЯДКУ ДОКУМЕНТА, тобто якраз етап. */
+    keepPlace(document.querySelector('.nav-roadmap'), 'stack:nav-roadmap',
+      ['.nav-link.is-current', '.nav-top.is-current', '.nav-item.is-active > .nav-top']);
+  }
+
+  /* ЩО ТРИМАЄ МІСЦЕ - 25.08.2026, звіт власника: «панель оновлюється разом зі
+     сторінками і знову вгорі». Кожен екран це окремий документ, тож панель
+     збирається наново на кожен клік, а її скрол-бокс починає з нуля. Заміряно на
+     1280x680 через file://: чотири з семи сторінок реєстру не вміщаються
+     (`design/overview` 805 проти 596), тобто «вгорі» це місце, якого читач не
+     просив, а не нейтральний старт.
+
+     Зсув пам'ятається НА ВКЛАДКУ (`sessionStorage`), і він переживає перехід по
+     `file://` - заміряно, обидві половини мають один origin `file://`.
+     Відновлюється ДО першого малювання: `innerHTML` і `scrollTop` стоять в одній
+     задачі, тож проміжного кадру «вгорі» не існує.
+
+     `scrollTop` НА БОКСІ, А НЕ `scrollIntoView()`. Продукт уже вирішив це одного
+     разу (`design/_nav.js`, `uivRailCurrent`): другий скролить КОЖНОГО прокручу-
+     ваного предка, а `html` у `design/system/base.css` несе `scroll-behavior:
+     smooth`, тож він потягнув би за собою ще й документ - рівно те «і воно
+     скролить угору», з якого почалась ця робота. Тут рухається один бокс по
+     одній осі.
+
+     І поправка це ПІДСУВ, а не пере-центрування: запам'ятаний зсув, який ховає
+     поточний рядок, це той самий дефект з іншого кінця, тож рядок заводиться
+     трохи всередину з відступом, і більше не рухається ніщо. Коли не пам'ятається
+     нічого - нова вкладка - зберігати немає чого, і рядок центрується.
+
+     ЦЕЙ ТЕКСТ ІСНУЄ В ТРЬОХ ФАЙЛАХ ОДНАКОВИМ ДО СИМВОЛА - тут, у
+     `design/kit/_nav.js` і в `design/_nav.js`, бо панелей у репозиторії три, і
+     кожна це окремий реєстр зі своїм способом завантаження. Спільного файлу, до
+     якого дотягнулись би всі три, немає: кореневі сторінки не вантажать
+     дизайн-систему, а екрани продукту не вантажать нічого з кореня. Тому копії
+     не заборонені, а ЗВІРЯЮТЬСЯ: `tools/nav.mjs`, питання F, порівнює три тіла
+     нормалізованим текстом і падає на першій розбіжності. */
+  function keepPlace(box, key, sel){
+    if(!box) return;
+    var saved = null;
+    try { saved = sessionStorage.getItem(key); } catch(e) {}
+    if(saved !== null) box.scrollTop = parseInt(saved, 10) || 0;
+    var cur = null;
+    for(var i = 0; i < sel.length && !cur; i++) cur = box.querySelector(sel[i]);
+    if(cur){
+      var b = box.getBoundingClientRect(), c = cur.getBoundingClientRect(), pad = 16;
+      if(saved === null) box.scrollTop += (c.top - b.top) - (b.height - c.height) / 2;
+      else if(c.bottom > b.bottom) box.scrollTop += (c.bottom - b.bottom) + pad;
+      else if(c.top < b.top) box.scrollTop -= (b.top - c.top) + pad;
+    }
+    box.addEventListener('scroll', function(){
+      if(box.scrollHeight <= box.clientHeight + 1) return;
+      try { sessionStorage.setItem(key, String(Math.round(box.scrollTop))); } catch(e) {}
+    });
   }
 
   function observeSections() {

@@ -12168,3 +12168,370 @@ what the stage IS rather than which of its steps are done.
 **63 commissions, 38 closed, 25 open, and all three counted rather than typed.** Of the open, eleven
 are addressed to the product owner through the repository's Issues, and every one of the rest names
 the step or the file that carries it.
+
+## After the close - the owner rules on the contrast debt, and A10 stops waiting
+
+**Stage 13 was already shut when this came in, and that is the point.** Debt B2 of `a11y.md` was
+written with its cure spelled out as a question rather than a task: «an owner's ruling on the accent
+button first - white on Signal Orange is 3.13 against a 4.5 threshold - then the rest». The ruling
+arrived on 25.08.2026 and it is a refusal, which is a decision like any other and is written down the
+same way.
+
+**The decision, in the form this project requires.**
+
+| | |
+|---|---|
+| variable | `--text-onaction`, read by `.btn--accent` and the four other shapes on the action fill |
+| value | stays `var(--white)`. It does NOT move to `var(--charcoal)` |
+| why | the owner's, and it is about the brand rather than the ratio: charcoal ink on Signal Orange is rejected as a look. The button keeps its white label and keeps 3.13 |
+
+**This is not a new decision - it is the closing half of one that had been open since 12.08.2026.**
+A10 accepted the sub-AA orange on pale grounds for five named classes at stage 08, and every later
+report of a 3.13 reading pointed back at it, because the ratio is symmetric: orange ink on a pale
+ground and white ink on an orange fill are the same pair read from either end. What A10 never said in
+so many words was whether the FILL direction was included. Stage 08's own comment on the token says
+it in passing («3.13 on #FF5A00 ... decision»), and stage 10's debts pass says it outright («including
+the accent button, which fails at 3.13 in BOTH - that is A10»), but `a11y.md` still filed it as
+waiting. It was waiting on nothing. Now it is written where a reader will find it.
+
+**The shape-based split stays, and this ruling must not be read as an argument to collapse it.** Step
+7.47 already divided the ink on the action fill by what the shape IS:
+
+- `--text-onaction` = white, 5 readers, all of them BUTTONS: `.btn--accent`, `.hd-cta`, `.tbuy`,
+  `.pages .on`, `.cv-step.on .n`. 3.13.
+- `--text-onaction-ink` = charcoal, 7 readers, none of them a button: the `.chip.on` family,
+  `.tag-new`, `.hb`, `.tbadge`, `.cs-th .q`, `.mtoolbar .mc .b`, `.acc-link[aria-current]`. 5.45,
+  and for the 14px chip family it is the only edition that clears AA at all.
+
+The owner has ruled on the first list. The second list is not affected, is not a mistake, and is not
+now inconsistent: two inks on one ground, chosen by shape, is what the system decided and the ruling
+leaves it standing. A later reader who finds two roles pointing at the same fill and «tidies» them
+into one will break the chip family, which has no other edition that passes.
+
+**What it costs, said as a number rather than left implied.** The shapes that fail because of this
+pair will never reach zero, so the debt row may no longer carry them as a target - a target nobody
+intends to hit is how a register starts lying. B2 keeps only the shapes that are NOT this pair, and
+the ruled group is printed beside them with its own count so the cost stays visible. The split is
+taken by the instrument, not by reading the list: `node tools/theme.mjs` over the whole of `design/`.
+
+**And it closes commission K7, which is what the open list was for.** K7 read «it is a brand decision
+before it is a bug» and was addressed to the owner. It is answered. The residual shapes do not move
+back onto that list: `onboarding-gaps.md` counts COMMISSIONS and `a11y.md` counts DEBTS, and a debt
+with a number and a command is already in the right file.
+
+## After the close - the owner sends a screenshot of the quiz, and F1 turns out to be a blind zero
+
+**The report was four words and a picture: «а що на квізі роблять іконки емодзі».** Step 1 of the
+quiz was rendering six raw emoji where the rest of the product renders drawings from the one icon
+set. Reproduced immediately, and the diagnosis is not the one the picture suggests.
+
+**Five of the six already had a row in the map.** `💪 trending`, `🔥 flame`, `🌿 leaf`, `⚡ bolt`,
+`🛡️ shield`, `🏃 pulse` - all six, in fact - have been in `UIV_EMOJI` since the set was drawn. What
+was missing is the PASS. `uivChrome()` names the regions it walks one at a time - six chrome ids,
+then a short list of scoped selectors for content controls - and `.q-opt .ic` was never one of them.
+The file's own note at step 7.22 says this shape had arrived five times by then and that the answer
+is «not a sixth wrapper»; this is the sixth, and it is the same shape from the same reporter.
+
+**The decision on the marks, and it is the owner's.** Sixteen option rows carried a mark. The two
+ORDINAL ladders lose theirs: «Новачок / Є досвід / Досвідчений» and «1-2 / 3-4 / 5+ разів на
+тиждень» say everything in their order and their label, and `🏆` for «досвідчений» is a rank badge -
+loyalty gamification is explicitly OUT of the MVP scope, and a trophy for having trained longer is
+that, one step early. The two ladders that carry MEANING keep their marks: the six goals and the five
+restrictions. Result: **zero new drawings, the set stays at 63**, and two map rows are added -
+`🌱 leaf` and `✅ check`.
+
+**`🌱` takes the drawing `🌿` already has, and that is deliberate rather than overlooked.** «Веган»
+in step 4 and «Відновлення» in step 1 both read as a leaf. They are `.q-step` siblings of which
+exactly one carries `.on`, so no reader is ever looking at both, and the label carries the meaning
+either way. The alternative was a new drawing for a distinction nobody can see.
+
+**And then the instrument said something much worse than the quiz.** Re-run over all 343 pages:
+**seventeen marks that the map KNOWS are still drawn by the font, on eight product screens**, and
+**twenty-five pictographs with no row at all on twelve**. `a11y.md` F1 reads «5 marks left, every one
+of them on a stand page. On the 141 product screens: 0».
+
+**F1 was never true, and the run that proves it is step 4's own.** The saved output of 24.08 at 18:16
+- the run the accessibility register was written from - already prints ten product rows under
+question 1. Two earlier runs, both of 23.08, print «none» there, so the number in F1 looks inherited
+from one of those and never re-asked after the corpus grew. This is the register's own rule turned on
+itself: «a zero from an instrument that cannot see the class is not a zero» - except here the
+instrument saw the class perfectly and printed it, and the ROW recorded a different section of the
+same output. An instrument that is named, run, and then read in the wrong place fails more quietly
+than one that was never run at all.
+
+**The quiz is closed and the rest is not.** The pass now reaches `.q-opt .ic`; `glyphs.mjs` on `quiz`
+returns none on both questions, at 360 and 1280 and in both themes. The other eleven screens are
+written up in `backlog.md` with their marks named, because closing them means about twenty mapping
+calls - `💳 card`, `🕘 clock`, `✉ mail`, `🔗 link`, `📄 doc`, `🔄 refresh`, `↩ ret`, `🔒 lock` map onto
+drawings that already exist; `🤝`, `🛠`, `🗺`, `💵`, `📱`, `📞` do not, and each is a decision rather
+than a lookup.
+
+## The quiz's checkboxes never ticked, and the component had answered only half its own question
+
+**Owner, 25.08.2026, with a screenshot of quiz step 4: three rows lit orange and every square still
+empty.** Reproduced in the browser rather than read off the picture: the row carried `.on` and
+`aria-checked="true"`, and `span.cb` had no `.on`, no fill and no tick. The row said «chosen» and the
+control said «not chosen», on the same rung, at the same moment.
+
+**The screen was not the defect.** There are two legitimate idioms in this system and both are in
+use. The frozen runtime writes the state onto the SQUARE - `wireframes/_nav.js:1996` emits
+`class="cb on"` and every filter option has worked that way since stage 04. `.q-opt` writes the state
+onto the ROW, and `radio.css:178` grants exactly that for the OTHER control of the same component:
+`.q-opt.on .co-radio` is spelled out beside `.co-opt.on .co-radio` and `.pf-lang.on .rc`.
+
+**So the radio half of `.q-opt` was given the row idiom and the checkbox half was not.** One
+selector, never written, in a file that had reasoned at length about everything else the box does.
+`checkbox.css` gets `.q-opt.on .cb` beside `.cb.on`, the tick's `::after` twin, and the pressed pair
+moves its `.on` from the square to the row. **Both idioms stay**: measured after the change on
+`listing`, the three filter boxes the frozen runtime pre-checks are still painted with the accent.
+
+**Why the system and not the screen.** The one-line fix was available in `quiz.html`'s own script -
+toggle `.on` on `el.querySelector('.cb')` too - and it would have been wrong twice over. It puts a
+component's state contract inside a screen, which is the thing the contribution rule exists to
+prevent; and it leaves the next screen that carries a `.q-opt` checkbox to rediscover the same hole.
+A screen declares nothing of its own, and what it lacks is an order for the system.
+
+**What this says about the corpus.** `span.cb` appears five times in the whole hand-written product
+and all five are on the quiz, so `.q-opt.on .cb` had no reader anywhere until the quiz was built at
+12.11 - and the batch that built it could not have seen the gap either, because the row LOOKS
+selected. The state that was missing is the one nobody photographs: a control mid-interaction, which
+is not a state file and therefore not a screen anybody walks.
+
+## Two product states the voice stage had already written and nobody had built
+
+**Owner, 25.08.2026: «зробити стан товару, коли немає коментарів + немає сертифіката + інші, без
+інформації».** The first thing the search found is that the strings existed. `microcopy.md` declares
+**eleven empty zones**, six of them this page's - gallery, composition, description, questions,
+reviews, certificate - and the roll-out built a file for **none**. A string with no screen is the
+same defect as a screen with no string, and only one of the two had ever been asked.
+
+**The certificate was already decided, and decided the OTHER way.** The owner asked to hide the
+section. `voice.md:257` bans «сертифіковано» as a slogan without a file, and `microcopy.md` carries
+the replacement in full: «Документа на цю партію ще немає. Ми запитали його у постачальника - щойно
+отримаємо, він з'явиться тут», with the trust strip dropping «відповідності - переглянути» for «на
+цю партію - уточнюємо». Put to the owner with the conflict named; **the owner kept stage 05's
+answer**. On a store whose whole difference is proving rather than claiming, a certification section
+that disappears reads as concealment.
+
+**Two files, not six, and the reason is that five of the six arrive together.** A product just added
+has no photograph, no composition, no certificate, no question and no review on the same day.
+`product-nodata` is that product. `product-noreviews` is the one that stands alone: an established
+product nobody has written about, which is the common case and the one the owner named first.
+
+**One of the six strings has no home in either file, and it is named rather than forced.** «Опис ·
+порожньо» reads «Склад, дозування і характеристики нижче - вони вже перевірені», which cannot be
+true on a screen whose composition is also empty. The two empty states are mutually exclusive by
+construction. Description stays present on `product-nodata`; the description-empty pair still has no
+screen, and that is written down rather than solved by making the string lie.
+
+### Three defects the new screens exposed, none of them in the new screens
+
+**1. The gallery frame collapsed to 96px below 860.** `.gal` is a grid item, and `margin-inline:auto`
+on a grid item defeats the `stretch` it would otherwise get - so the gallery sized itself to its
+CONTENT. On every screen built so far the widest content is the thumbnail rail, so the frame looked
+full width by coincidence of the rail being there. `product-nodata` has no photographs and therefore
+no rail: 96px inside a 358px column. The fix is the declaration its own sibling rule already carries
+- `width:100%`, present in the `>=860` block and absent from the `<=859` one. **Measured both ways
+with only that line changed**: the three existing product screens read 328/358/430/430/248/452 before
+and after, identical to the pixel; the new screen went from 96 everywhere below 860 to the same
+sequence.
+
+**2. The runtime painted a photograph over a frame that says it has none.** `uivPdp()` does
+`main.textContent = ''` and appends the product shot unconditionally. `product-loading.html:60`
+already refuses the whole pass for this reason, but refusing it costs the tabs, the stars, the trust
+icons, the seal and the ₴, which a product with no photo still has - so the guard went on the gallery
+STEP. It asks the question `gallery.css` already asks: step 8.16 decided a frame with no photograph
+is declared by `.loadnote` being inside it - «NO NEW CLASS IN THE MARKUP, the state IS the note being
+there» - and `.gal .gmain:has(.loadnote)` paints its ground. Two readers, one declaration.
+
+**And the first writing of that markup was wrong in a way the system had predicted.** I put a bare
+text node in `.gmain`, which declares `font-size: 0` so the whitespace around an `<img>` cannot push
+it. The words were invisible before the photograph even landed - which is the exact finding step 8.16
+recorded («in the COLOURED layer the placeholder is not faint, it is INVISIBLE») and answered by
+choosing `.loadnote`, whose own `--fs-14` beats the inherited zero. The component had written down
+both the trap and the way out; the screen had to be built wrong once to read it.
+
+**3. `.empty` has no rule for a box with neither icon nor action.** `empty-state.css:85` records the
+measurement: `.emptybox .et:first-child` and `.emptybox .es:last-child` match, `.empty .et:first-child`
+matches nothing across 263 pages. Three of the four new boxes have no icon and no action, so on
+`.empty` they would have charged margin for both absent neighbours - the defect step 8.15 fixed for
+the sibling box. They take `.emptybox.mini`, which carries the rule. The reviews box keeps `.empty`:
+it has an illustration and a button, so neither margin is exposed.
+
+### And two numbers that will not follow
+
+**The coverage map still says 141 while the product now has 143 screens, and `coverage.mjs --check`
+is green.** That is the finding stage 13 already recorded - the map derives from `WF_FLOWS`, the
+frozen grey layer, so a screen with no grey twin can never appear on it - and these two are the first
+screens to make it concrete rather than theoretical. Nothing here fixes it: unfreezing `wireframes/`
+is a decision above this step.
+
+**`inventory.mjs --apply` needs running TWICE after a component file changes size.** It repairs the
+`Lines` column and writes the per-level summaries from the rows it read at the START of the run, so
+the summaries are rewritten from pre-repair numbers and stay wrong. The file's own comment says
+«`--apply` rewrites them from the tables, the same way it rewrites the `Lines` column» - it does, one
+pass late. Reproduced exactly: first `--apply` left «рівень 1: сказано 4763, у таблиці 4783», second
+closed it. A repair tool that converges in two passes looks in the first pass exactly like one that
+worked.
+
+## The panel did not know where it was standing, and only `file://` could tell
+
+**Owner, 25.08.2026: «нажимаєш по сторінці і воно скролить угору, а я хочу щоб фіксувало, де ти
+зараз».** Reproduced across every page that carries the roadmap panel: **no active stage marked, and
+none of the sections those pages declare drawn at all** - `design/overview.html` declared eleven and
+rendered zero, `handoff/handoff.html` the same, `voice/voice.html` five and zero.
+
+**One line, and both halves of a comparison had to be read to see it.**
+
+```
+rootPath  /Users/.../Claud%20Projects/Stack%20sportpit/     <- URL().pathname keeps its escapes
+here      /Users/.../Claud Projects/Stack sportpit/design/  <- location.pathname was decoded
+```
+
+`indexOf` returned -1, `cur` became the whole absolute path, nothing matched the registry.
+`decodeURIComponent` on both sides fixes it. Not the other direction: a folder named «Мої проєкти»
+would have to round-trip through two encoders that disagree about which characters are safe, and
+decoding is the direction with one answer.
+
+**Why it reached the owner rather than an instrument, and this is the part worth keeping.** The
+published site is served from `/stack/` - a path with nothing to escape - so **over http the panel is
+perfect**. Every browser instrument in `tools/` calls `serve()` and walks a local server, so every
+one of them was structurally unable to see this. And `clone-test.mjs` DOES open these pages from
+`file://` and passed, because it asks whether a page OPENS. **Two instruments standing on the right
+protocol, and neither asked whether the page knows where it is.**
+
+`file://` is not an edge case here: `handoff.html` promises «no build, no server - open it and it
+works», so the one protocol the package guarantees is the one nothing measured.
+
+**A second, smaller hole fell out of the same walk.** `index.html` declares two sections and they
+landed nowhere: `sectionsBlock()` is only called from inside a stage row, and the root is not a
+stage, so `activeIndex` is -1 there by design. A declared list that covers nothing fails as loudly as
+an undeclared case, so it either goes or it lands. It lands, above the roadmap - the entry point is
+exactly where a reader most needs to know which part of a long page they are on.
+
+**`tools/nav.mjs` is the check that was missing**, and it asks over `file://` on purpose. Three wrong
+versions are written beside it in `tools/README.md`, the sharpest being the first: it served the
+pages over http because every sibling does, and printed a clean sweep on broken code. Proven red
+before it was believed - against the pre-fix `_nav.js` it reports **33 findings on 37 pages** and
+exits 1; against the fixed one, 0.
+
+**What did NOT need fixing, measured rather than assumed.** The kit's own rail (`design/kit/_nav.js`)
+already centres the current component with `scrollIntoView({block:'center'})` and its section
+highlight follows the reader down the page - checked at 1280 and 390, `window.scrollY` untouched. The
+three other navigations take only the last path segment, so the encoding never reaches them. One
+defect, one file, one line.
+
+> **The paragraph above answered a narrower question than the owner had asked, and the next record
+> corrects it.** Everything measured in it is true: the rail does centre, and `window.scrollY` really
+> is untouched. But «does it centre» and «does it hold your place» are two questions, and the owner
+> had asked the second one. The rail centred by throwing away where the reader stood, and
+> `scrollIntoView` was itself the call this repository had already banned by name.
+
+## The panel that would not hold its place, and the ban that had no check under it
+
+**Owner, 25.08.2026, second report on the same panel: «боковая панель обновляется вместе со
+страницами и снова наверху».**
+
+Every screen here is its own document, so a panel is rebuilt from zero on each click and its scroll
+box starts at the top. **Two panels, one rule, and each was losing the place for its own reason.**
+
+**The roadmap panel (`/_nav.js`) had no memory at all.** Measured at 1280x680 over `file://`: four of
+the seven registry pages overflow their box - `design/overview` draws 805px of panel into 596 - so
+«the top» is a place the reader did not ask for rather than a neutral start.
+
+**The stand's rail (`design/kit/_nav.js`) had `scrollIntoView({block:'center'})`, and it was making
+two different mistakes at once.** It RE-CENTRED instead of preserving: the rail is 4160px of content
+in a 900px box, and centring on the new component discards wherever the reader had scrolled to. For
+the first ten items of a hundred the centre IS zero, so «знову вгорі» was literal - `overview` 0,
+`why` 0, `motion` 0. And `scrollIntoView()` scrolls every scrollable ancestor, while stand pages load
+`design/system/base.css`, where `html` carries `scroll-behavior: smooth`.
+
+**That second half is the part worth keeping.** The product had already ruled on exactly this and
+written it down - `design/_nav.js`, `uivRailCurrent`: «`scrollLeft` ON THE RAIL, NOT
+`scrollIntoView()`. The latter scrolls every scrollable ancestor». **The rule existed, it was
+correct, it was argued for in a comment - and it had no instrument under it, so the file next door
+kept the forbidden call and nobody was told.** A rule stated in prose has no check under it.
+
+**The mechanism, and it is one mechanism written in two registries.** The offset is remembered per
+TAB in `sessionStorage` and restored before the first paint (`innerHTML` and `scrollTop` land in one
+task, so no intermediate frame at the top exists). `sessionStorage` survives a `file://` navigation -
+measured, both sides report the same `file://` origin, and the store is wrapped in try/catch anyway.
+Then the correction is a NUDGE, not a re-centre: a remembered offset that hides the current row is
+the same defect from the other end, so the row is brought just inside with padding and nothing else
+moves. With nothing remembered - a new tab - there is nothing to preserve and the row is centred. A
+box that does not overflow never writes, so a page where the panel fits cannot wipe the offset the
+next page needs.
+
+**Two files carry it, and the cost is named rather than hidden.** `/_nav.js` and `design/kit/_nav.js`
+are two separate registries that already keep their own editions of `sectionsBlock()` and
+`observeSections()`; this pair follows that seam. They can drift, which is why the instrument asks
+BOTH panels rather than the one the report came from.
+
+**`tools/nav.mjs` grew questions D and E**, and E is the one that had to be built three times before
+it could tell the two states apart:
+
+- **D** the current row is inside the panel's own scroll box - asked on all **150** pages that
+  declare a panel, 37 roadmap plus 113 of the stand.
+- **E** the place survives a CLICK - asked as a **difference between a hot and a cold arrival at the
+  same page**, which is the only form that needs no tolerance. Comparing the landing offset with the
+  parked number does not work: the two pages do not draw the same panel (the current row carries its
+  own sections), so an offset that showed a row on A can honestly need a 211px nudge on B - right
+  beside the 300px defect it was meant to separate. A panel that keeps your place cannot land where
+  one that ignores it lands, whatever the number.
+
+**Proven red before it was believed.** Same instrument, same eight pages, same six pairs: **6
+findings on the pre-fix panels, 0 after.** Every red line reads like the report - «лишили на 1932, а
+прийшли туди ж, куди й з чистої вкладки: 1632».
+
+### And it was the THIRD panel all along
+
+**Owner, third report on the same thing: «та все равно боковое меню обновляется и прыгает наверх».**
+Two passes of this work fixed two panels, and neither was the one being looked at.
+
+**The panel is `.uiv-side .us-nav`** - the ui-visual navigator that stands on every coloured product
+screen, lists all **143** screens grouped by flow, and expands the current one into its states. It
+had **no memory and not even a centring**: every click put it back at the very top of the list.
+
+**Why two instrument passes walked straight past it.** `.uiv-side` is INJECTED by `uivBar()` at
+runtime; there is no `id=` for it anywhere in the markup. The subject of `nav.mjs` was built from
+`grep -rl 'id="sidebar"'` and `id="kitnav"`, so **a subject assembled from one kind of evidence was
+silently blind to a third of its own class**. The third panel is now discovered from the registry
+that declares it, `DESIGN_NAV`, because that is where it exists.
+
+**What the instrument printed once it could see it**, and this is the whole report in two lines:
+
+    ПОТОЧНИЙ РЯДОК ЗА КРАЄМ СВОГО БОКСА
+      design/coach-home.html    рядок 1779..1813 при боксі 717
+    МІСЦЕ, ЯКЕ НЕ ПЕРЕЖИЛО КЛІК
+      design/home-buyer.html -> design/product.html   лишили на 1222, прийшли туди ж, куди й з чистої вкладки: 0
+
+The row that says where you are stood **a thousand pixels below the fold** on every product screen.
+It never jumped anywhere - it never left the top.
+
+**Three panels, one mechanism, three files, and the copies are CHECKED rather than forbidden.** No
+file can be reached by all three registries: the root pages do not load the design system and the
+product screens load nothing from the root. So the function body is identical to the character in
+`/_nav.js`, `design/kit/_nav.js` and `design/_nav.js`, the arguments differ, and **question F
+compares the three normalised bodies**. Proven red by changing `/ 2` to `/ 3` in one of them: one
+finding, exit 1, and green again on restore.
+
+**Red before believed, on the panel that was actually reported:** 6 pages, **10 findings** (5 rows
+out of the box, 5 places lost), **0 after**.
+
+**The full sweep, and its coverage said out loud.** **293 pages** with a panel - 37 roadmap, 113
+stand, 143 product - **0 findings, exit 0**. **E played 30 of the 57 pairs it asked**, and the 27 it
+did not are printed with a reason on each rather than counted as passes: a target panel that FITS
+(it lands at zero however you arrive - there is no place to keep), a source panel that does not
+scroll, and a link that steps between two DIFFERENT panels, which keep two keys and have no offset to
+carry. The number that matters is that every skip has a reason and the reason is a sentence, not a
+silence.
+
+**That last skip was a wrong version of its own**: reading the roadmap's box on a page carrying the
+product's panel reported «панель немає» as though the panel had failed, and it took the full sweep to
+surface it - one finding out of 293 pages, and it was the instrument's.
+
+**And the instrument caught itself printing a green zero on broken code.** `node tools/nav.mjs $SUB`
+in zsh passes the whole variable as ONE argument; nothing matched, the subject was empty, and the
+report said «0 findings, exit 0». An empty subject now exits 2 and says so - that is the shape
+`CLAUDE.md` bans, arriving inside the very check written to enforce it. Eight wrong versions are kept
+in `tools/README.md`.

@@ -54,12 +54,15 @@ node tools/handoff.mjs [--strings]       is the handoff a POINTER or a COPY, and
 node tools/map.mjs [--write] [--token --x]   screen -> zone -> component -> tokens, and the INVERSION in two knees
 node tools/headings.mjs [pages...]       one reachable h1 per screen, and a ladder with no missing rung
 node tools/clone-test.mjs [--keep]      clone HEAD to a temp dir and open it from file://, no server
+node tools/nav.mjs [pages...]            do the THREE panels know where they are AND hold your place
 ```
 
 `accept`, `states`, `css-comments`, `vars`, `links`, `theme`, `roles`, `bp`,
-`inventory`, `dupe`, `typo`, `steps`, `handoff` and `focus` exit non-zero on a finding, so they
+`inventory`, `dupe`, `typo`, `steps`, `handoff`, `nav` and `focus` exit non-zero on a finding, so they
 compose. `handoff` exits **2** rather than 0 or 1 when its subject is not on disk yet:
 a question asked of a file that does not exist has no answer, and a zero would be one.
+`nav` exits **2** on the same reasoning from the other end - an empty SUBJECT, i.e. a walk that
+opened no page at all. It printed «0 findings, exit 0» that way once, on code broken on purpose.
 
 ---
 
@@ -2326,3 +2329,96 @@ four stages**, and nothing could see it, because every check that opened it ran 
   roadmap page carries the panel, the kit carries `#kitnav`, and a product screen carries the
   product's own header and tab-bar and no panel at all. Two «no panel» findings, neither about the
   product: a comparison whose two sides differ in more than the thing measured.
+
+## `nav.mjs` - do the panels know where they are, and do they hold your place
+
+    node tools/nav.mjs [page...]        default: every page with a panel - 37 <aside id="sidebar">,
+                                        113 <nav id="kitnav">, 143 from DESIGN_NAV (injected)
+    node tools/nav.mjs --full           E over every stand and product page, not a sample
+
+Owner, 25.08.2026: «нажимаєш по сторінці і воно скролить угору, а я хочу щоб фіксувало,
+де ти зараз». The panel was marking no active stage and drawing none of the sections its
+pages declare - **33 findings across 37 pages**, and nothing had ever asked.
+
+Three questions, and the third is the one that made the other two invisible:
+
+- **A** every page in `/_nav.js` that carries the panel marks its stage active
+- **B** a page that declares `NAV_SECTIONS` renders exactly that many links
+- **C** ...asked over `file://`, **the protocol the package promises**
+
+**C is the whole reason this survived.** The cause was one side of a prefix comparison keeping
+its percent escapes while the other was decoded, so a checkout folder with a SPACE in its name
+never matched. Served from `/stack/` there is nothing to escape and the panel is perfect, so
+every check that has ever run against a server was structurally unable to see it. `clone-test.mjs`
+does open these pages from `file://` and passed - it asks whether a page OPENS, not whether the
+page knows where it is. **Two instruments on the same protocol, and neither asked this question.**
+
+### D and E, and the second report that produced them
+
+Owner again, same day: «боковая панель обновляется вместе со страницами и снова наверху». A and B
+ask what the panel SAYS, and the panel was saying it correctly while throwing away where the reader
+stood. So the subject widens from `#sidebar` to **both** panels of the repository - A and B stay on
+the roadmap registry, D and E ask everything that has a panel.
+
+- **D** the current row is INSIDE the panel's own scroll box
+- **E** and the place survives a CLICK, asked over a real navigation
+- **F** the three copies of the mechanism have not drifted apart
+
+**And the subject took a third widening, which is the lesson of this instrument.** The panel the
+owner was actually reporting is `.uiv-side .us-nav`, the product's own screen navigator - 143 screens
+on every coloured screen. It is **injected by `uivBar()` at runtime**, so no `id=` for it exists in
+any html, and a subject built by grepping markup was structurally blind to it through two whole
+passes of fixing the wrong panels. It is discovered from `DESIGN_NAV` now, the registry that declares
+it. **A subject assembled from one kind of evidence cannot see what the product builds another way.**
+
+**F exists because the mechanism lives in three files and cannot live in one:** the root pages do not
+load the design system, the product screens load nothing from the root. So the bodies are identical
+to the character, the arguments differ, and F compares them normalised for whitespace (one of the
+three sits inside an IIFE). Proven red by changing `/ 2` to `/ 3` in one copy.
+
+**E is asked as a DIFFERENCE between a hot and a cold arrival at the same page**, and that is the
+only form that needs no tolerance. A panel that keeps your place cannot land where one that ignores
+it lands - whatever the number is.
+
+Eight wrong versions, kept:
+
+1. **It served the pages over http**, because every other browser instrument here does. Clean
+   sweep on broken code. A check whose transport differs from the promise is not a check of it.
+2. **It called any zero a failure**, which fails `index.html` legitimately - the root is not a
+   stage. The root is an explicit case with its own expectation now, not an exemption that
+   swallows a class.
+3. **It reported 37 findings having measured nothing**: `newSession` returns a session OBJECT and
+   `visit` returns a STRING, both learned by reading `accept.mjs` rather than guessed. A transport
+   error landing in the same list as a real finding is worse than a crash.
+4. **E parked the target row in the CENTRE of the box.** It passed on the broken rail, and it had
+   to: the code it was meant to catch was `scrollIntoView({block:'center'})`, which centres that
+   same row by itself. **A check whose expected value is what the defect already produces is not a
+   check.** The row is parked just inside the TOP edge now.
+5. **E parked the LAST row of the rail.** At the ceiling, «centred» and «parked» are within 56px of
+   each other, and a check that cannot tell 3205 from 3261 says nothing about a 300px defect. It
+   takes the row nearest the middle of the content.
+6. **E compared the landing offset with the number it had parked**, and called a legitimate
+   correction a lost place. The two pages do not draw the same panel - the current row carries its
+   own sections with it - so an offset that showed a row on A can hide it on B, and the honest
+   211px nudge that follows sits right beside the 300px defect. Hence hot-versus-cold.
+7. **It printed «0 findings, exit 0» having opened nothing.** `node tools/nav.mjs $SUB` in zsh
+   passes the whole variable as ONE argument, nothing matched, and an empty subject read as a clean
+   sweep. This is the shape `CLAUDE.md` bans by name, arriving inside the check written to enforce
+   it. An empty subject is louder than a finding now and exits 2.
+8. **It ran D over a corpus typed from memory.** Three of the ten names carried no roadmap panel at
+   all, and the 113 pages of the stand - where the owner was actually standing - were not in the
+   list. The subject is read off the markup of the whole tree, both ids, and both counts print.
+
+Proven red before it was believed, three times. A, B, C: against the pre-fix `_nav.js`, **33
+findings on 37 pages**, exit 1. D, E on the roadmap and the stand rail: same instrument, same eight
+pages, same six pairs, **6 findings and 0 after**. D, E on the product navigator: six screens, **10
+findings** - five current rows outside their box (`coach-home` at 1779..1813 in a box of 717) and
+five places lost to a click - **and 0 after**. F: one character changed in one of the three copies,
+one finding, exit 1.
+
+Three skips are reported rather than counted as passes, because passes they are not: a panel that
+FITS lands at zero however you arrive (there is no place to keep); a link that leaves the panel
+corpus entirely; and a link that steps between two DIFFERENT panels - «Розкотка» opens the product
+from the roadmap, and two panels keep two keys, so there is no offset to carry. That last one was
+itself a wrong version: reading the roadmap's box on a page that has the product's reported «панель
+немає» as though the panel had failed.

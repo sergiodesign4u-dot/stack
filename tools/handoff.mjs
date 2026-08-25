@@ -236,7 +236,7 @@ say('РЯДОК КАРТИ БЕЗ ЕКРАНА В РЕЄСТРІ', mapGhost, p =
 const GAPS = join(HO, 'docs/onboarding-gaps.md');
 const gapsMissing = !existsSync(GAPS);
 const gapsBad = [], gapsNoClose = [];
-let gapRows = 0, gapClosed = 0;
+let gapRows = 0, gapClosed = 0, gapOwner = 0;
 if (!gapsMissing) {
   const text = readFileSync(GAPS, 'utf8');
   let inFind = false;
@@ -263,6 +263,12 @@ if (!gapsMissing) {
     const tail = cells.slice(-2).join(' ');
     const last = cells[cells.length - 1];
     if (/ЗАКРИТО/.test(tail)) gapClosed++;
+    /* AND THE THIRD NUMBER THIS FILE TYPES ABOUT ITSELF: how many open rows are
+       addressed to a person rather than to a step. It stood as «11» while the
+       sentence enumerated twelve and thirteen rows actually named an owner - the
+       list had dropped E4 and the count then missed by one more. A number that
+       CAN be maintained gets an instrument instead of a correction. */
+    else if (/owner|власник/i.test(tail)) gapOwner++;
     /* an OPEN row is not a defect - the column fills as the steps run. What is a
        defect at step 8 is a row with neither a closure NOR an addressee, because
        that is a commission this stage neither did nor handed on. */
@@ -279,12 +285,15 @@ if (!gapsMissing) {
        «Open» half matched nothing, which reported «сказано null»: a check that
        cannot find a claim must say it cannot find it, not compare against null. */
     const both = text.match(/Closed so far:\s*\*{0,2}(\d+)\*{0,2}\s*·\s*Open:\s*\*{0,2}(\d+)/);
+    const owner = text.match(/\*\*(\d+) name an owner\*\*/);
     const pairs = [['рядків', Number(total), gapRows],
+      ['адресовано власн.', owner ? Number(owner[1]) : 'НЕ ЗНАЙДЕНО В ПРОЗІ', gapOwner],
       ['закрито', both ? Number(both[1]) : 'НЕ ЗНАЙДЕНО В ПРОЗІ', gapClosed],
       ['відкрито', both ? Number(both[2]) : 'НЕ ЗНАЙДЕНО В ПРОЗІ', gapRows - gapClosed]];
   for (const [what, s, real] of pairs) if (s !== real) gapsBad.push([what, s, real]);
   console.log('\nonboarding-gaps.md: рядків-замовлень ' + gapRows + ' · закрито ' + gapClosed +
-    ' · відкрито ' + (gapRows - gapClosed) + ' · без колонки «чим закрито» ' + gapsNoClose.length);
+    ' · відкрито ' + (gapRows - gapClosed) + ' · без колонки «чим закрито» ' + gapsNoClose.length +
+    ' · з них адресовано власнику ' + gapOwner);
 }
 say('ЧИСЛО В ПРОЗІ РОЗІЙШЛОСЬ ІЗ ТАБЛИЦЯМИ', gapsBad, ([w, s, r]) => w.padEnd(12) + 'сказано ' + s + ', насправді ' + r);
 say('ЗАМОВЛЕННЯ БЕЗ КОЛОНКИ «ЧИМ ЗАКРИТО»', gapsNoClose, x => x);

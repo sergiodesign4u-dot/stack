@@ -2209,9 +2209,9 @@ its number, so nothing has to be taken on trust and nothing has to be re-derived
 |---|---|---|---|---|
 | C5 | **text-only zoom at 200%** | **142 of 343 screens** overflow horizontally at 1280, **284 of 343** at 360 | `node tools/accept.mjs 1280 --text200` | no screen scrolls sideways with the root font size doubled |
 | E2 | the heading ladder skips a rung | **97 of 141**, and it is ONE cause: the footer's newsletter block is an `h4` directly after an `h2` | `node tools/headings.mjs` | one heading level changed in one component |
-| B2 | ink fails its own ground | **37 shapes**, of which **36 fail in BOTH themes** and 1 was broken by the dark theme | `node tools/theme.mjs` | an owner's ruling on the accent button first - white on Signal Orange is 3.13 against a 4.5 threshold - then the rest |
+| B2 | ink fails its own ground | **12 shapes**, after the ruling of 25.08.2026 carved out the 25 that are the Signal Orange pair. 8 of the 12 are stand pages, 4 are product screens, 2 of those 4 are the word «фото» in an image placeholder | `node tools/theme.mjs` | the two real shapes on `search-suggest` take ink that passes; the 25 ruled ones never reach zero and are no longer counted here |
 | E1 | no reachable `h1` | **35 of 141**: 17 dialog states, 16 loading and error states, 2 checkout states with no heading in the markup at all | `node tools/headings.mjs` | a heading inside each dialog, and two on the checkout states |
-| F1 | a drawn mark left as a letter | **5**, every one on a stand page; on the 141 product screens **0** | `node tools/glyphs.mjs` | 0 |
+| F1 | a mark still drawn by the font | **11 marks the map knows** (18 occurrences, 7 screens) + **19 with no map row** (29 occurrences, 11 screens); **11 product screens** in all. Corrected 25.08.2026 - this cell used to read «5, every one on a stand page; on the 141 product screens 0», and the run named beside it had already contradicted that on the day it was written | `node tools/glyphs.mjs` | every mark on a product screen comes from the set: about 20 map rows, 8 of which need a drawing that does not exist |
 | C6 | a line past the reading measure | **2**: `system` at 128.5ch and `content-reviews` at 88.4ch against a measure of 68 | `node tools/width-sweep.mjs` | both blocks take the text container |
 | B3 | a component reading a colour primitive | **1** - `quiz.css`, written up on its own above | `node tools/theme.mjs --source` | a semantic role for the light backdrop |
 | G2 | one entry in two navigation carriers at 360 | **2** - «Кошик» by decision, «Обране» not in the specification | `node tools/tab-walk.mjs index` | an IA decision at stage 03a, not a css one |
@@ -2318,3 +2318,180 @@ report «H4 після H2 - Розсилка» exactly like `product-oos`, and `
 exactly like `account-wishlist` - the footer's newsletter `h4` is debt E2 and adding a screen inherits
 it without adding a cause. **And the coverage map does not show any of the four**, which is the open
 order already written above for `account-staples`, not a second one.
+
+---
+
+## The contrast ruling of 25.08.2026, and what it does NOT cover
+
+**Debt B2 above shrank from 37 to 12 without a line of css changing**, which is the whole point of
+writing a debt as «the number that has to reach zero» rather than as «shapes that fail». 25 of the 37
+were one pair read from both ends - `#FF5A00` against white - and the owner ruled on 25.08.2026 that
+it stays: charcoal ink on Signal Orange is rejected as a look, so `--text-onaction` keeps
+`var(--white)` and `.btn--accent` keeps 3.13. A10 had already taken the same pair in the pale-ground
+direction on 12.08.2026; the two halves are now one closed decision, written up in `docs/decisions.md`.
+
+**The 25 are not deleted from the record, they are moved out of the target.** A target nobody intends
+to hit is how a register starts lying, and a debt that quietly drops its largest group is how the
+same register starts flattering itself. The count stays printed beside B2 so the cost stays visible.
+
+**What is left is smaller and much more specific than the old number suggested.** Of the 12: eight are
+stand pages - the word «фото» in a placeholder, `code` on `kit/why`, `u` on `kit/geometry`, `span.btn`
+on `kit/census`, `p.kp-p` on `kit/overlay`, `button.btn--text` on `kit/button`, `span.ar` on
+`kit/pixel-proof`, `a.ph` on `kit/product-card` - documentation rather than product. Four are on
+product screens, and two of those are `div.cl-ph` and `div.ms-ph`, the media placeholder, whose ink is
+the word «фото» behind a photograph that does not exist yet.
+
+**So the real residue is two shapes on one screen:** `a` («Головна») at 2.20 and `p.lintro` («Усе
+спортивне харчування Stack») at 2.53, both on `search-suggest`, both failing in the light theme too,
+so neither is the theme's doing. One screen, two lines of ink, and it belongs to the owner of stage 08
+like every other change under `design/system/**`.
+
+**And one shape is the theme's own, still:** `a.ph` on `kit/product-card` reads 8.88 in light and 3.17
+in dark. It is the only one of the 37 the dark theme broke, and it is on a stand page.
+
+---
+
+## The quiz's emoji, the sixth time this shape arrived, and the blind zero underneath it
+
+**Owner, 25.08.2026, with a screenshot of quiz step 1: «а що на квізі роблять іконки емодзі».** Six
+goal marks were being drawn by whatever face the machine happens to have, next to a product that
+draws every other mark from one 63-glyph set.
+
+**All six already had a map row.** `UIV_EMOJI` has carried `💪 trending`, `🔥 flame`, `🌿 leaf`,
+`⚡ bolt`, `🛡️ shield`, `🏃 pulse` since the set was drawn. What was missing is the PASS:
+`uivChrome()` names the regions it walks - six chrome ids, then a short list of scoped selectors -
+and `.q-opt .ic` was never one of them. This is the sixth time this exact shape has been reported,
+and the fifth was reported the same way, by the owner, with a screenshot.
+
+**Closed for the quiz by rule and not by hand:** one scoped call added to the pass, two map rows
+added (`🌱 leaf`, `✅ check`), six mark slots removed from the two ORDINAL ladders because a trophy
+for «досвідчений» is a rank badge and loyalty gamification is out of MVP scope. **Zero new drawings;
+the set stays at 63.** Verified with `glyphs.mjs` on `quiz` and `kit/quiz` - none on both questions -
+plus `accept.mjs` at 360 and 1280, both themes, and every mark now an `aria-hidden` svg rather than
+an emoji a screen reader reads aloud.
+
+**What the same run said about everything else is the expensive half.** `a11y.md` F1 read «5 marks
+left, every one on a stand page. On the 141 product screens: 0». The measurement after the quiz
+repair: **11 marks the map knows, still letters, 18 occurrences on 7 product screens**, and **19
+pictographs with no row at all, 29 occurrences on 11**.
+
+**And F1 was never true.** The saved output of the step-4 run - 24.08 at 18:16, the run the register
+was written from - already prints ten product rows under question 1. Two runs of 23.08 print «none»
+there. The number in F1 looks inherited from one of those and was never re-asked after the corpus
+grew. The register's own sentence is «a zero from an instrument that cannot see the class is not a
+zero»; this instrument saw the class, printed it, and the row recorded a different section of the
+same output. **A named instrument, run on time, read in the wrong place - that fails more quietly
+than one that was never run.**
+
+**The eleven screens, and what closing them costs.** `content-about`, `content-contacts`,
+`content-delivery`, `content-faq`, `content-guarantee`, `content-promo`, `content-returns`,
+`content-reviews`, `maintenance`, `search-suggest`, `system`. Eleven of the nineteen unmapped
+pictographs land on drawings that already exist - `💳 card`, `🕘 clock`, `⏱ clock`, `✉ mail`,
+`🔗 link`, `📄 doc`, `🔄 refresh`, `↩ ret`, `🔒 lock`, `🚚 truck`, `💰 coin`. Eight do not: `🤝`, `🛠`,
+`🗺`, `💵`, `📱`, `📞`, `🗓`, `💬` - each is a drawing decision rather than a lookup, and they belong
+to the owner of stage 08 with the rest of `design/system/**`.
+
+---
+
+## `.q-opt` checkboxes never ticked - closed 25.08.2026, and it was one missing selector
+
+**Owner, with a screenshot of quiz step 4.** Three rows orange, every square empty. The row carried
+`.on` and `aria-checked="true"`; `span.cb` carried neither fill nor tick.
+
+Two idioms, both legitimate, and this component had wired only one of them for `.q-opt`: the frozen
+runtime puts `.on` on the SQUARE (`wireframes/_nav.js:1996`, every filter option since stage 04),
+`.q-opt` puts it on the ROW - and `radio.css:178` already grants the row idiom to `.q-opt`'s OTHER
+control. `checkbox.css` now carries `.q-opt.on .cb` and its `::after` twin, and the pressed pair
+moves its `.on` from square to row. Verified both ways: the quiz ticks in both themes, and
+`listing`'s three pre-checked filter boxes are still painted.
+
+**Worth keeping for whoever writes the next state file.** All five hand-written `span.cb` in the
+product are on the quiz, so this selector had no reader until 12.11 - and the batch that built the
+screen could not have caught it, because a row with `.on` LOOKS chosen. The missing state is one
+nobody photographs: a control mid-interaction is not a state FILE, so no screen walk ever reaches it.
+
+---
+
+## What building two product empty-states found in the components under them - 25.08.2026
+
+Three defects, none of them in the new screens, and one of them was predicted in writing by the
+component that carries it.
+
+| # | Where | What | Fixed |
+|---|---|---|---|
+| 1 | `gallery.css` `<=859` block | `.gal` is a grid item and `margin-inline:auto` defeats `stretch`, so the frame sized to its CONTENT. Every screen so far had a thumbnail rail as its widest content, so it looked full width **by coincidence of the rail being there**. First product with no photographs: **96px inside a 358px column** at 390 | yes - `width:100%`, the declaration the `>=860` twin already carries. Measured both ways with only that line changed: three existing product screens identical to the pixel |
+| 2 | `_nav.js` `uivPdp()` | the pass does `main.textContent=''` and appends the product shot unconditionally, painting a photograph over a frame that says it has none | yes - the guard sits on the gallery STEP (refusing the whole pass, as `product-loading` does, would cost the tabs, stars, trust icons, seal and ₴) and asks the question `gallery.css` already asks: `.loadnote` inside the frame |
+| 3 | `empty-state.css` | `.empty` has no `:first-child` / `:last-child` pair, so a box with neither icon nor action charges margin for both absent neighbours - the defect 8.15 fixed for `.emptybox` and 8.39 measured as matching nothing on `.empty` | avoided, not fixed: the three exposed boxes take `.emptybox.mini`. **If a `.empty` box without an icon is ever built, this is the line it joins** |
+
+**Defect 2 has a first draft worth keeping.** The markup was written as a bare text node inside
+`.gmain`, and the words were invisible before the photograph even landed - `.gal .gmain` declares
+`font-size: 0` so whitespace around an `<img>` cannot push it. That is exactly what step 8.16 wrote
+down («in the COLOURED layer the placeholder is not faint, it is INVISIBLE») and answered by choosing
+`.loadnote`, whose own `--fs-14` beats the inherited zero. **The component had recorded both the trap
+and the way out, and the screen still had to be built wrong once to read it.**
+
+## `inventory.mjs --apply` converges in two passes, and the first one looks like success
+
+**Reproduced 25.08.2026** after two component files changed size. `--apply` repairs the `Lines`
+column and writes the per-level summary lines from the rows it read at the START of the run, so the
+summaries are rewritten from pre-repair numbers. First run left «рівень 1: сказано 4763, у таблиці
+4783»; the second closed it. The tool's own comment claims the repair - «`--apply` rewrites them from
+the tables, the same way it rewrites the `Lines` column» - and it does, one pass late.
+
+**Zero looks like:** rows recomputed after the `Lines` rewrite, so one `--apply` is enough. Until
+then anyone running it once sees a tool that printed its repairs and left the file wrong, which is
+harder to notice than a tool that did nothing.
+
+---
+
+## The roadmap panel did not mark the current page - closed 25.08.2026
+
+**Owner's report, and it was one line in `/_nav.js`.** `URL().pathname` keeps percent escapes,
+`location.pathname` was being decoded, so a checkout folder with a SPACE in its name never matched
+its own prefix: no active stage anywhere, and **zero of the declared `NAV_SECTIONS` rendered** on any
+of the 37 pages that carry the panel.
+
+**It is invisible over http**, which is why it survived every gate: the site is served from
+`/stack/`, nothing to escape. Every browser instrument in `tools/` calls `serve()`. `clone-test.mjs`
+opens these pages from `file://` and passed, because it asks whether a page OPENS.
+
+`tools/nav.mjs` now asks the missing question over `file://`, with its wrong versions recorded.
+**Proven red before being believed**: 33 findings on the pre-fix file, 0 after.
+
+**Open, and it belongs to whoever owns `tools/`:** `clone-test.mjs` and `nav.mjs` now stand on the
+same protocol asking different halves of one question. If a third `file://` question ever appears,
+they should be one walk rather than three.
+
+---
+
+## Neither panel held your place across a click - closed 25.08.2026
+
+**Owner's second report on the same panel**, and it was two panels with two different causes. The
+roadmap (`/_nav.js`) had no memory at all - measured at 1280x680, four of the seven registry pages
+overflow their box, `design/overview` drawing 805px of panel into 596. The stand's rail
+(`design/kit/_nav.js`) had `scrollIntoView({block:'center'})`, which RE-CENTRES rather than
+preserves: 4160px of rail in a 900px box, and for the first ten items of a hundred the centre is
+literally zero.
+
+**The rule already existed and had no check under it.** `design/_nav.js` (`uivRailCurrent`) states
+it in a comment: «`scrollLeft` ON THE RAIL, NOT `scrollIntoView()` - the latter scrolls every
+scrollable ancestor». Stand pages load `base.css`, where `html` carries `scroll-behavior: smooth`.
+The prose was right, it was argued for, and the file next door kept the forbidden call for weeks.
+
+Closed by one mechanism in both registries: the offset is remembered per tab and restored before the
+first paint, then corrected by a NUDGE only when the current row would fall outside. `tools/nav.mjs`
+grew questions **D** (the row is inside its box, 150 pages) and **E** (the place survives a click,
+asked as a hot-versus-cold difference). **6 findings before, 0 after, same eight pages.**
+
+**And then a third report found the panel that was actually meant.** `.uiv-side .us-nav`, the
+product's own screen navigator - 143 screens on every coloured screen - had no memory and not even a
+centring: on `coach-home` the row saying where you are sat at **1779..1813 inside a box of 717**. It
+is INJECTED by `uivBar()`, so no `id=` exists for it in any markup, and a subject grepped from html
+could not see it through two passes of fixing the wrong panels. It is discovered from `DESIGN_NAV`
+now. **10 findings before, 0 after.**
+
+**Open, and it is a debt of the SHAPE rather than of the code:** the mechanism exists in THREE files,
+because no file can be reached by all three registries - the root pages do not load the design
+system, the product screens load nothing from the root. The bodies are identical to the character
+and `tools/nav.mjs` question F compares them, proven red on a one-character change. A drift will be
+caught rather than shipped, but one edition would still be better than a good check over three.

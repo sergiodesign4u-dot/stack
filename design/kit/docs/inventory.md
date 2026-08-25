@@ -103,7 +103,7 @@ the unscoped base form, not the component.
 | Скелетон | `skeleton.css` | `.skline`, `.skcard`, `.skbtn` | статус | 860 · fluid | 15 | 355 |
 | Поле | `field.css` | `.fld`, `.cef` | відповідь | – | 137 | 286 |
 | Дія стовпчиком | `stack-action.css` | `.btn--stack`, `.ti`, `.tbadge` | відповідь | – | 134 | 218 |
-| Чекбокс | `checkbox.css` | `.cb`, `.optin` | відповідь | – | 15 | 216 |
+| Чекбокс | `checkbox.css` | `.cb`, `.optin` | відповідь | – | 15 | 236 |
 | Радіо | `radio.css` | `.co-radio`, `.co-opt` | відповідь | fluid | 14 | 217 |
 | Статус-пілюля | `status-pill.css` | `.oh-status`, `.aord-status` | немає: стану немає | – | 14 | 190 |
 | Бейдж | `badge.css` | `.tag` | немає: стану немає | – | 23 | 197 |
@@ -124,7 +124,7 @@ the unscoped base form, not the component.
 > так - у `consolidation.md`.
 
 
-**23 files, 4763 lines.**
+**23 files, 4783 lines.**
 
 ## Molecules (level 2)
 
@@ -139,7 +139,7 @@ the unscoped base form, not the component.
 | Порожній стан | `empty-state.css` | `.emptybox`, `.errbox`, `.empty` | немає: стану немає | fluid | 29 | 189 |
 | Рядок клієнта | `client-row.css` | `.cg`, `.coachbn` | немає: стан hover - це зміна тла рядка списку; рух тут сказав би, що рядок кудись іде, а він лишається | fluid | 6 | 145 |
 | Відгук | `review-item.css` | `.rvitem`, `.rvbody`, `.rvmeta` | немає: стану немає | 620 · 860 · fluid | 4 | 146 |
-| Галерея | `gallery.css` | `.gal` | відповідь | 860 | 4 | 131 |
+| Галерея | `gallery.css` | `.gal` | відповідь | 860 | 4 | 139 |
 | Блок опису | `desc-block.css` | `.pdesc`, `.pd` | немає: стану немає | – | 2 | 131 |
 | Щабель лояльності | `loyalty-rung.css` | `.lrung`, `.lbar`, `.loy`, `.loy-me` | відповідь | 620 · fluid | 39 | 260 |
 | Запитання | `qa-item.css` | `.qaitem` | немає: стану немає | – | 4 | 121 |
@@ -160,7 +160,7 @@ the unscoped base form, not the component.
 | Логотип бренду | `brand-logo.css` | `.brandbox`, `.brandrow` | відповідь | 620 | 5 | 34 |
 | Схожі товари | `related.css` | `.relbox`, `.relrow` | відповідь | fluid | 9 | 14 |
 
-**29 files, 4255 lines.**
+**29 files, 4263 lines.**
 
 ## Organisms (level 3)
 

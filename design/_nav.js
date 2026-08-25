@@ -69,6 +69,17 @@ var DESIGN_NAV = [
   'quiz.html',
   'product.html', 'product-loading.html', 'product-error.html', 'product-oos.html',
   'product-reviews.html', 'product-coach.html',
+  /* 25.08.2026, on the owner's word, and the strings were already written. Voice
+     (stage 05) had declared SIX empty zones for this page - gallery, composition,
+     description, questions, reviews, certificate - and the roll-out built a file
+     for none of them: eleven declared empty zones in `microcopy.md`, six of them
+     this page's, zero screens. A string with no screen is the same defect as a
+     screen with no string, and only one of the two had ever been asked.
+     Two files rather than six, because five of the six arrive TOGETHER: a product
+     just added has no photograph, no composition, no certificate, no question and
+     no review on the same day. `product-noreviews` is the one that stands alone -
+     an established product nobody has written about, which is the common case. */
+  'product-noreviews.html', 'product-nodata.html',
   'auth.html', 'auth-loading.html', 'auth-code.html', 'auth-error.html', 'auth-newuser.html',
   'cart.html', 'cart-empty.html', 'cart-oos.html',
   'checkout.html', 'checkout-loggedin.html', 'checkout-noaddr.html',
@@ -227,6 +238,18 @@ var UIV_EMOJI = {
   '🥛':'jar','🍚':'cup','⚗️':'flask','🧬':'dna','⚡':'bolt','🔥':'flame','💧':'drop','🍫':'bar',
   '💊':'capsule','🧴':'dumbbell','🏷️':'tag','🌿':'leaf','🛡️':'shield','💪':'trending','🏃':'pulse',
   '🎯':'target','✦':'spark','🎓':'cap',
+  /* THE QUIZ, 25.08.2026, and it is the SIXTH time the shape at step 7.22 has
+     arrived: a region that carries emoji and meets no pass. Owner, with a
+     screenshot of step 1 - «а що на квізі роблять іконки емодзі». Reproduced:
+     all six goal marks ALREADY had a row here and were still drawn by whatever
+     face the machine happens to have, because `uivChrome()` names its regions
+     one by one and `.q-opt` was never one of them.
+     Two rows are new. `🌱` takes the leaf that `🌿` takes: one drawing, two
+     jobs - «відновлення» in step 1 and «веган» in step 4 - and the steps are
+     `.q-step` siblings of which exactly one is `.on`, so no reader ever sees
+     both at once. `✅` U+2705 is not the `✓` U+2713 already below it; the same
+     drawing answers both, the way `🔍` and `🔎` do. */
+  '🌱':'leaf','✅':'check',
   /* THE COACH CABINET, step 7.99. Three rows, and only one of them is a new
      drawing decision.
      👥 «Клієнти» and ◈ «Тариф» are the two rows of the coach rail that had no map
@@ -612,6 +635,18 @@ function uivChrome(){
      button and the coach-tier header (🎓). Scoped per element - no other body copy
      is ever touched by the icon swap. */
   document.querySelectorAll('.oosbtn, .coachbox .cbh').forEach(uivIcons);
+  /* the quiz's option rows - `.q-opt .ic` is a 38px plate holding one mark, and
+     the plate is content rather than chrome, so nothing above reached it. Scoped
+     to the plate and not to `.q-opt`, because the row's LABEL must keep its own
+     characters: `1-2 рази на тиждень` carries an en dash, not a glyph.
+     SAID OUT LOUD BECAUSE IT IS NOT THE WHOLE HOLE: measured the same day over
+     343 pages, seventeen marks that this map KNOWS are still letters on EIGHT
+     product screens, and twenty-five pictographs have no row at all on twelve.
+     This call closes the quiz. `content-about`, `content-contacts`,
+     `content-delivery`, `content-faq`, `content-guarantee`, `content-promo`,
+     `content-returns`, `content-reviews`, `search-suggest`, `maintenance` and
+     `system` are still open, and `a11y.md` F1 says 0 about all of them. */
+  document.querySelectorAll('.q-opt .ic').forEach(uivIcons);
   /* the Бонуси counter carries the honey jar, not a star (owner, step 6.8). The
      jar is already the store's own reward shape - the loyalty rung uses it, and
      it fills as lifetime spend grows. Here it stands EMPTY on purpose: a fill
@@ -1468,7 +1503,18 @@ function uivPdp(){
 
   /* gallery: real photo in the main frame, thumbs = crops of the same shot */
   var main = pdp && pdp.querySelector('.gmain');
-  if(main){
+  /* A FRAME THAT SAYS IT HAS NO PHOTOGRAPH DOES NOT GET ONE PAINTED INTO IT -
+     25.08.2026. `product-loading.html:60` already refuses this whole pass for the
+     same reason («it would drop the real product photo into the skeleton»), but
+     refusing `uivPdp()` costs the tabs, the stars, the trust icons, the seal and
+     the ₴ as well - which a product with no photo still has. So the guard sits on
+     the gallery STEP instead of the pass.
+     It asks the same question `gallery.css` asks, and not a new one: step 8.16
+     decided that a frame with no photograph is declared by `.loadnote` being
+     inside it - «NO NEW CLASS IN THE MARKUP, the state IS the note being there» -
+     and `.gal .gmain:has(.loadnote)` is the rule that paints its ground. Two
+     readers, one declaration. */
+  if(main && !main.querySelector('.loadnote')){
     var tag = main.querySelector('.gtag');
     var img = document.createElement('img');
     img.src = UIV_PDP_SHOT;
@@ -2321,6 +2367,47 @@ function uivBar(){
   var frag = document.createDocumentFragment();
   while(tmp.firstChild) frag.appendChild(tmp.firstChild);
   document.body.appendChild(frag);
+
+  /* І ОДРАЗУ ПОВЕРНУТИ ЧИТАЧА ТУДИ, ДЕ ВІН СТОЯВ - 25.08.2026, третій звіт
+     власника про ту саму річ: «боковое меню обновляется и прыгает наверх». Оце
+     і є та панель. `.us-nav` це `overflow-y: auto` зі 143 екранами, згрупованими
+     за флоу, і вона не мала НІ пам'яті, ні хоча б центрування на поточному
+     екрані: кожен клік відкидав її на самий верх списку, тобто на «Головна» у
+     першому флоу, звідки б ви не йшли.
+
+     Два попередні проходи полагодили дві ІНШІ панелі - кореневий маршрут і
+     рейку стенда, - і жоден із них не був тим, що бачив власник. Причина одна:
+     я шукав панель за розміткою (`id="sidebar"`, `id="kitnav"`), а ця
+     ВПОРСКУЄТЬСЯ скриптом, тож у жодному grep по html її немає. Предмет, зібраний
+     з розмітки, мовчки не побачив третину свого класу.
+
+     Стан першим, екран другим: у розгорнутому екрані поточний СТАН лежить
+     всередині поточного екрана, і саме він відповідає на «де я зараз». */
+  keepPlace(document.querySelector('.uiv-side .us-nav'), 'stack:uiv-side',
+    ['.us-st.on', '.us-page.on']);
+}
+
+/* Один із ТРЬОХ однакових до символа примірників (тут, `/_nav.js`,
+   `design/kit/_nav.js`). Спільного файлу, до якого дотягнулись би всі три
+   панелі, немає, тому копії не заборонені, а звіряються: `tools/nav.mjs`,
+   питання F. Аргументи різні, тіло - ні. */
+function keepPlace(box, key, sel){
+  if(!box) return;
+  var saved = null;
+  try { saved = sessionStorage.getItem(key); } catch(e) {}
+  if(saved !== null) box.scrollTop = parseInt(saved, 10) || 0;
+  var cur = null;
+  for(var i = 0; i < sel.length && !cur; i++) cur = box.querySelector(sel[i]);
+  if(cur){
+    var b = box.getBoundingClientRect(), c = cur.getBoundingClientRect(), pad = 16;
+    if(saved === null) box.scrollTop += (c.top - b.top) - (b.height - c.height) / 2;
+    else if(c.bottom > b.bottom) box.scrollTop += (c.bottom - b.bottom) + pad;
+    else if(c.top < b.top) box.scrollTop -= (b.top - c.top) + pad;
+  }
+  box.addEventListener('scroll', function(){
+    if(box.scrollHeight <= box.clientHeight + 1) return;
+    try { sessionStorage.setItem(key, String(Math.round(box.scrollTop))); } catch(e) {}
+  });
 }
 
 /* ============================================================================

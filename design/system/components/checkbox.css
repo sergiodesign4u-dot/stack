@@ -89,8 +89,28 @@
    `aria-checked`.
    `-58%` and not `-50%`: a check is not symmetric about its own box, and half a
    pixel of lift is what puts its inner corner on the square's centre. */
-.cb.on{ position: relative; background: var(--bg-action); border-color: var(--line-action); }
-.cb.on::after{
+/* ---------- WHO CARRIES THE STATE, AND THIS COMPONENT ONLY EVER ANSWERED HALF --
+   Owner, 25.08.2026, with a screenshot of quiz step 4: three rows lit orange and
+   every square still empty. Reproduced in the browser: the row had `.on` and
+   `aria-checked="true"`, and `span.cb` had neither fill nor tick.
+
+   IT IS NOT THE SCREEN'S BUG. There are two idioms in this system and both are
+   legitimate. `wireframes/_nav.js:1996` writes `class="cb on"` - the SQUARE
+   carries the state - and every filter option has worked that way since stage 04.
+   `.q-opt` carries the state on the ROW, and `radio.css:178` grants exactly that
+   for the other control of the same component: `.q-opt.on .co-radio` is written
+   out beside `.co-opt.on .co-radio` and `.pf-lang.on .rc`.
+
+   So the radio half of `.q-opt` was given the row idiom and the checkbox half was
+   not. The screen was right and the system was one selector short - which is the
+   shape the contribution rule describes: a screen declares nothing of its own,
+   and what it lacks is an order for the system.
+
+   Both idioms stay. `.cb.on` keeps working for everything the frozen runtime
+   builds; `.q-opt.on .cb` is added beside it, and the `:active` pair below moves
+   the `.on` from the square to the row for the same reason. */
+.cb.on, .q-opt.on .cb{ position: relative; background: var(--bg-action); border-color: var(--line-action); }
+.cb.on::after, .q-opt.on .cb::after{
   content: '';
   box-sizing: border-box;
   position: absolute;
@@ -124,7 +144,7 @@
    `--bg-action`, exactly like the accent button, and takes that button's pressed
    ground. */
 .fopt:active .cb, .optin:active .cb, .q-opt:active .cb{ background: var(--bg-action-soft); }
-.fopt:active .cb.on, .optin:active .cb.on, .q-opt:active .cb.on{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
+.fopt:active .cb.on, .optin:active .cb.on, .q-opt.on:active .cb{ background: var(--bg-action-pressed); border-color: var(--bg-action-pressed); }
 
 /* ---------- focus - step 7.34, and until then there was nothing to focus ------
    Both names were unreachable, so what a ring looks like here had never come up.

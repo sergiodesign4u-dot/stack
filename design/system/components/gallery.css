@@ -26,7 +26,15 @@
   .gal{ max-width: 33.75rem; margin-inline:auto; width:100%; }
 }
 @media (max-width:859px){
-  .gal{ max-width:min(100%, 430px); margin-inline:auto; }
+  /* `width:100%` was on the >=860 twin and not here, and below 860 `.gal` is a GRID
+     item with `margin-inline:auto` - auto margins consume the free space, which
+     defeats the `stretch` a grid item otherwise gets, so the gallery sized itself
+     to its CONTENT. On every screen built so far the widest content is the
+     thumbnail rail, so the frame looked full width by coincidence of the rail
+     being there. Measured on `product-nodata`, the first screen whose product has
+     no photographs and therefore no rail: `.gal` 96px inside a 358px column, at
+     390. The declaration its own sibling rule already carries. */
+  .gal{ max-width:min(100%, 430px); margin-inline:auto; width:100%; }
   .gal .gthumbs{ justify-content:center; }
 }
 /* No `mix-blend-mode: multiply` here since 2026-08-13, and it was never a blend

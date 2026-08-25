@@ -72,7 +72,10 @@ right but reached in a file the reader it belongs to never opens (U7).
 ## 3. What stage 12 already collected - «хто знайшов» = розкотка
 
 Eighteen agents, 43 pages, **123 questions**, deduped into nine classes in `rollout.md` section F.
-Six classes are closed there. The four that arrive here open:
+Four of the nine are closed there - 1, 2, 6 and 7. **The five that arrive here open**, and the count is
+the table's own: this sentence said «six closed, the four that arrive» until 25.08.2026, which is ten
+against a set of nine and five rows printed underneath it. A number typed beside a list it does not
+match is the same defect this file spends its length on:
 
 | Class | What is still open | Closed by | Closed with |
 |---|---|---|---|
@@ -135,7 +138,7 @@ they were written.
 | K4 | the heading walk's FIRST writing swept every opener, and reported two `h1` on screens that have one | the sweep opens every dialog at once; no reader is ever in that state. The opposite lesson to 13.3, on the same day | **ЗАКРИТО на 13.4** | it reads at rest, because in this product every state is already its own document |
 | K5 | **`quiz.css` reads a colour primitive directly** - the first component in the system to do it | `theme.mjs` question 2 said «none» for stages 08 to 11. Mine, from batch 6 at 12.11, and the stage-12 gate was not re-run after that batch - the same sentence as `inventory.mjs`, on the same commit | `backlog.md`; a new semantic role is the system owner's call | **owner of stage 08** |
 | K6 | **an ADDITION stales its neighbours too**, not only a repair | «a repair stales its own neighbours» was already written down. Batch 6 added a component and left two gates behind it: `inventory.mjs` (found at step 2) and `theme.mjs` (found here) | **ЗАКРИТО**: the rule is generalised in `docs/decisions.md` | – |
-| K7 | contrast: **37 shapes fail, and 36 of them fail in BOTH themes** | the light reading beside the dark one is what separates a harvest from a panic. The largest group is the accent button: white on Signal Orange, 3.13 against 4.5 | `backlog.md`, debt B2 | **owner:** it is a brand decision before it is a bug |
+| K7 | contrast: **37 shapes fail, and 36 of them fail in BOTH themes** | the light reading beside the dark one is what separates a harvest from a panic. The largest group is the accent button: white on Signal Orange, 3.13 against 4.5 | `backlog.md`, debt B2 | **ЗАКРИТО рішенням власника 25.08.2026**: white stays on the accent fill; 25 of the 37 are that one pair and leave the target, B2 now aims at the other 12. `docs/decisions.md` |
 | K8 | the width sweep is clean where it matters and not silent where it is not | above the floor of 360: sideways scroll **0**, element past the edge **0**, one entry in two carriers **0**. Two lines exceed the reading measure | `backlog.md`, debt C6 | **owner** |
 | K9 | every debt now carries the number that has to reach zero | eight debts, eight commands, eight target numbers | **ЗАКРИТО на 13.4** | the table at the foot of `a11y.md` and its twin in `backlog.md` |
 
@@ -222,7 +225,7 @@ one carries an executing step or a named addressee; **0 rows without one**. The 
 is filled as the steps run - a row that reaches step 8 with it still empty is a row this stage did
 not do.
 
-**Closed so far: 38 · Open: 25**, and these two numbers are no longer typed. `node tools/handoff.mjs`
+**Closed so far: 39 · Open: 24**, and these two numbers are no longer typed. `node tools/handoff.mjs`
 question J counts the rows and reads these sentences back, because the one file in this package whose
 whole subject is «a number nobody maintains» was carrying three of them. It said **35 and 28** against
 **37 and 26** on its own tables - a row closed late in a step went into the list of names and not into
@@ -242,10 +245,14 @@ down as three named limits rather than left as a gap.
 advance: without an addressee the first `[?]` stops the work. There is one now, and it is a role
 with a channel rather than a person.
 
-Of the open rows, **11 are addressed to the owner** and cannot be closed by any step of this stage:
-S2, S3, S4, S10, M1, K5, K7, K8, C2, and the three classes of rollout that need a decision rather
-than a document. The eight accessibility debts are counted inside K5, K7 and K8 rather than as rows of their
-own: their register is the table at the foot of `a11y.md`.
+Of the open rows, **12 name an owner** and cannot be closed by any step of this stage: S2, S3, S4,
+S10, M1, K5, K8, C2, E4, and rollout classes 3, 5 and 9, which need a decision rather than a document.
+K7 was the thirteenth and closed on 25.08.2026. **This number is counted, not typed** -
+`node tools/handoff.mjs` prints it from the last two cells of every row - because the sentence that
+stood here said «11» while enumerating twelve and while thirteen rows actually named an owner: it had
+dropped E4 from its own list and then miscounted what was left. The eight accessibility debts are
+counted inside K5, K7 and K8 rather than as rows of their own: their register is the table at the foot
+of `a11y.md`.
 
 ---
 
