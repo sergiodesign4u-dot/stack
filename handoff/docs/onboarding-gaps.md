@@ -61,7 +61,7 @@ row was re-measured.
 | U9 | «Grey owns structure, text and states and is frozen; colour owns the visual layer only. I verified it by diffing `wireframes/goal.html` against `design/goal.html`: four differences, and not one byte of a word» | Confirmed by the corpora: **142 grey files, 142 colour files, 141 registry pages, `wireframes/` 0 changed for the whole of stage 12** | **ЗРОЗУМІВ ПРАВИЛЬНО**, and it reached the rule by measurement rather than by reading a claim about it | – (already true; **крок 5** names the folder once, in the route) |
 | U10 | «Light is primary: it is the bare `:root`; dark is `[data-theme="dark"]` and only the semantic block is redefined. `auto` is deliberately absent» | `theme.js` applies the stored choice in `<head>` and REMOVES the attribute when the mode is not dark; the dark block redefines semantic roles only | **ЗРОЗУМІВ ПРАВИЛЬНО** | **крок 5**, section «ЯКА ТЕМА ГОЛОВНА» |
 | U11 | «No `package.json`, no build, no dependencies; the Next/Tailwind/Medusa stack in `decisions.md` is marked HYPOTHESIS, not a decision. Tomorrow I add no build config» | Confirmed: no `package.json` at root, `.nojekyll` present, `tools/` raise their own static server and Chrome over CDP | **ЗРОЗУМІВ ПРАВИЛЬНО** | **крок 5**, section «МЕЖА ПАКЕТА» |
-| U12 | «If my feature needs a number I do not have, I ship it with `[?]` and put the question in `backlog.md` rather than substituting a median» | This is the rule, verbatim, and the agent reached it from `CLAUDE.md` without being told | **ЗРОЗУМІВ ПРАВИЛЬНО**, and it is the single most important thing a new developer could take away | – |
+| U12 | «If my feature needs a number I do not have, I ship it with `[?]` and put the question in `backlog.md` rather than substituting a median» | This is the rule, verbatim, and the agent reached it from `CLAUDE.md` without being told | **ЗРОЗУМІВ ПРАВИЛЬНО**, and it is the single most important thing a new developer could take away | ЗАКРИТО без роботи: this row is a confirmation, not a commission - the rule already holds and the agent reached it from `CLAUDE.md` without being told | – |
 
 **No row of list 2 came back as ЗРОЗУМІВ НЕПРАВИЛЬНО.** That is stated as a measurement, not as a
 compliment: twelve conclusions, ten exactly right, one right with an unreproducible number (U6), one
@@ -222,8 +222,15 @@ one carries an executing step or a named addressee; **0 rows without one**. The 
 is filled as the steps run - a row that reaches step 8 with it still empty is a row this stage did
 not do.
 
-**Closed so far: 35** - U1, U2, S1, S5-S10 by step 2; M2-M6 by step 3; K1-K4, K6, K9 by step 4;
-G2, G3, R1-R5 by step 5; C1, C3, C4 by step 6; E1, E2, E3, E5, E6, E7 by step 7. **Open: 28.**
+**Closed so far: 38 · Open: 25**, and these two numbers are no longer typed. `node tools/handoff.mjs`
+question J counts the rows and reads these sentences back, because the one file in this package whose
+whole subject is «a number nobody maintains» was carrying three of them. It said **35 and 28** against
+**37 and 26** on its own tables - a row closed late in a step went into the list of names and not into
+the sum. The check now fails the run when the sentence and the table drift apart.
+
+Closed by step: U1, U2, S1, S5-S10 and U12 by step 2 · M2-M6 by step 3 · K1-K4, K6, K9 by step 4 ·
+G2, G3, R1-R5 by step 5 · C1, C3, C4 by step 6 · G1, E1, E2, E3, E5, E6, E7 by step 7 · the
+arithmetic itself by step 8.
 
 **G1 is closed too, and by the exam rather than by an argument.** «How do I create a NEW screen now
 that `wireframes/` is frozen» was list 1's first row; two agents did it, from the prompt alone, and
@@ -239,3 +246,46 @@ Of the open rows, **11 are addressed to the owner** and cannot be closed by any 
 S2, S3, S4, S10, M1, K5, K7, K8, C2, and the three classes of rollout that need a decision rather
 than a document. The eight accessibility debts are counted inside K5, K7 and K8 rather than as rows of their
 own: their register is the table at the foot of `a11y.md`.
+
+---
+
+## The contract checklist, as a table rather than as a feeling
+
+Stage 13, step 8. Every line of the stage pack's «Готово, коли», asked and answered with what was
+measured rather than with a verdict.
+
+| # | The contract says | Answer |
+|---|---|---|
+| 1 | the step-1 audit was done by a SUBAGENT, not by Claude imagining a stranger, and the ban on chat was an explicit line | **yes.** A clean-context agent, forbidden paths named individually, the «read from disk» line in the prompt, and a 45-entry reading log as proof |
+| 2 | both its lists verified row by row with four verdicts, and «deliberate and written nowhere» became a record | **yes.** 3 + 12 rows, every one re-measured. Ten exactly right, one right with an unreproducible number, one right but found in a file its reader never opens |
+| 3 | the spec covers every flow, the roll-call closed with a number, every row names its source, «НЕ ВИРІШЕНО» closed by the owner | **partly, and the part that is open is named.** 5 flows = 5 described + 0 deliberately not; 152 rows, 0 without a source, all resolving mechanically. **The six «НЕ ВИРІШЕНО» rows are open** and addressed to the owner - closing them is a decision, not a document |
+| 4 | no duplicate instead of a reference anywhere in `handoff/`, checked mechanically | **yes.** `node tools/handoff.mjs` questions A-D: 0 colour literals, 0 lengths in `px`, 0 css fragments, 0 copied interface strings against a dictionary of 1691 |
+| 5 | the map is taken from the code and its reverse list is an INVERSION | **yes.** `map.md` is generated by `node tools/map.mjs --write`; nothing in it is typed. The inversion opens in two knees, and in three where a primitive reads another primitive |
+| 6 | the map's idle control closed with numbers | **yes, and it found four dead tokens.** A role no component reads: 2. A primitive no knee reaches: 2. A component on no screen: 0, after the walk was taught to open the panels. All four went to the backlog with the owner named |
+| 7 | every accessibility row has a way to check, and nothing was repaired here | **yes.** 26 rows, 18 confirmed by a run on the day, 8 debts, 0 rows without a command, 0 statuses outside the two words. Not one debt was fixed in this stage; each carries the number that has to reach zero |
+| 8 | README leads, the status table is the only one, and it agrees with `/_nav.js` | **yes.** README rewritten as a route; one status table; row 13 and the registry now say the same thing, which they did not at step 1 - and that contradiction was created BY step 1 |
+| 9 | no more than two clicks from the root to any handoff artefact | **yes, counted.** `handoff.mjs` question I: the page stands in the registry (click 1) and every file under `handoff/` is linked from it (click 2) |
+| 10 | the clean-clone test passed, and what it checked was named | **yes.** HEAD cloned to a temporary directory, opened from `file://` with no server: 0 files missing without a reason, 0 absolute paths, 0 build files, 5 of 5 entry points with their navigation drawn. It found a tool that had run on one machine for four stages |
+| 11 | the examination ran TWICE, by different agents on different features, and the second list is shorter | **NO, and it is written down.** 18 against 16 is the same length. Four of the second sixteen were the first run's holes met with a documented answer, eleven were new territory, and one repeated because it was deliberately left open. **The pack's reading is that the handoff is not finished, and that reading is kept rather than argued away** |
+| 12 | the fate of the examination screens was decided out loud | **yes.** Both sets deleted on the owner's word; the seventeen orders they raised stay in `backlog.md` |
+| 13 | the product outside that fork is unchanged | **yes.** `design/*.html` 0 changed, `design/system/` only its `CLAUDE.md`, `wireframes/` 0 for the whole stage |
+| 14 | critique on two instruments, with «who found it» and «withdrawn on verification» | **partly.** Claude's set is here with both columns. **Codex ran read-only and its result could not be retrieved from this session** - said out loud below rather than compensated for |
+| 15 | every file of `handoff/` has a named reader out of the three | **yes.** Each of the five carries its own «who reads this» table; `one-shot.md` names its two readers in its first paragraph |
+| 16 | the closing ritual | **yes.** `wip` off the registry, README row 13 closed, the section classes on the page, this table, and the record in `docs/decisions.md` |
+
+**14 of 16 fully, 2 named as incomplete.** Neither of the two is repaired by claiming otherwise.
+
+### The half of the critique that is missing, said out loud
+
+**Codex was launched read-only and its findings did not come back to this session.** The plugin
+starts a background task and hands over a task id; retrieving it needs a slash command that only the
+person at the keyboard can run. So the critique of this stage stands on ONE instrument plus the
+detector, not two.
+
+What that costs is nameable rather than vague: Codex owns what is falsifiable in the SOURCE - a path
+a document names and the tree does not have, a token quoted that `tokens.css` does not declare, a
+component named that the inventory does not carry, a count in prose the corpus contradicts. Six of
+those classes have their own instrument here and were run (`paths.mjs`, `links.mjs`, `typo.mjs`,
+`handoff.mjs`, `inventory.mjs`, and question J's arithmetic). The class with no instrument under it is
+**a claim inside `handoff/` that contradicts another claim inside `handoff/`** - and that is exactly
+the class the two examinations of step 7 kept finding by hand.

@@ -38,7 +38,7 @@ page list to maintain here.
 | 10 | Responsive | Done - two breakpoints in `rem`, named by the change and not by a device | [responsive](design/kit/responsive.html) |
 | 11 | Animation | Done - three durations, three curves, all through tokens; reduced motion by overriding the same tokens | [motion](design/kit/motion.html) |
 | 12 | Rollout | Done - the whole MVP scope is in colour, the coverage map green for the first time | [all screens](design/overview.html) |
-| 13 | Handoff | **In progress** - steps 1 to 5 done: the audit, the behaviour spec, the map, the accessibility checklist and this page. Steps 6 to 8 owe the release, the one-shot prompt and two examination runs | [handoff](handoff/handoff.html) |
+| 13 | Handoff | **Done.** An audit by a reader with a clean context, a behaviour spec whose every row names its source, a map generated from the corpus, an accessibility register of 26 rows with a command behind each, a one-shot prompt examined twice by agents who had never seen the repository, and a release that passed a clean-clone test. **25 commissions stay open and every one of them is addressed** | [handoff](handoff/handoff.html) |
 
 This table is the only status board in the repository. `/_nav.js` carries the same state as a
 registry; a third copy would only drift from the other two.

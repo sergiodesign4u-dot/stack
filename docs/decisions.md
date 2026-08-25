@@ -12120,3 +12120,51 @@ to keep and they are the part that was worth building.
 frozen» was the first row of the step-1 auditor's list. Two agents did it from the prompt alone and
 produced eight screens that passed every gate; what they could not do - reach the map, enter the
 rail, open a door from a frozen neighbour - is now three named limits instead of a gap.
+
+---
+
+## Stage 13, step 8 - the close, and the number the closing file got wrong about itself (2026-08-25)
+
+**The critique brought no new reader, by design.** Two sets were already taken and both entered here:
+the roll-out's eighteen subagents from stage 12, and the two examinations of step 7. A third reading
+would have measured the same corpus with the same eyes.
+
+**The most fitting finding of the whole stage was in the file whose subject is exactly that.**
+`onboarding-gaps.md` ends with an idle control counting its own rows and how many are closed, and
+those three numbers were **typed**. They said «35 closed, 28 open» against **37 and 26** on its own
+tables: a row closed late in a step went into the list of names and not into the sum. In the one file
+of the package about «a number nobody maintains», three of them. Question J of `handoff.mjs` now
+counts the rows and reads the sentence back, and it failed the run twice more while being written -
+once because the mark lives in either of the last two cells and it read only the last (13 against
+37), once because step 8's own contract checklist walked into the register (79 against 63). **A
+reader of one column reports the health of that column**, and a table is recognised by what its LAST
+heading says it is for, not by what its first column numbers.
+
+**The design detector raised three anti-patterns and two were withdrawn on verification.** The side
+tab - a thick coloured border down one edge of a callout - is a genuine tell, and in THIS project it
+is already the language: `voice/voice.html` has carried it since stage 05. The incumbent wins over a
+generic warning, and the reason is written beside the withdrawal rather than left implied. The third
+was real: the `.stop` rule was used zero times on the page after the owner's section was rewritten,
+and it went, with its two tokens.
+
+**The contract checklist is a table and not a feeling: 14 of 16 fully, 2 named as incomplete.** The
+two are the ones no wording can fix. The six «НЕ ВИРІШЕНО» rows of `behaviour.md` are open because
+closing them is a decision. And **the two examinations produced 18 rows and 16, which is the same
+length** - the pack says that means the handoff is not finished, and that reading is kept rather than
+argued away, because the honest version of the number is the whole value of having run it twice.
+
+**Codex ran read-only and its result did not return to this session**, so the critique stands on one
+instrument plus the detector rather than two. Said out loud with what it costs: six of Codex's
+classes have their own instrument here and were run; the class left uncovered is «a claim inside
+`handoff/` that contradicts another claim inside `handoff/`», which is precisely what the step-7
+examinations kept finding by hand.
+
+**The ritual.** `wip` off the registry, and nothing carries «Next» after this row - which is the
+correct end rather than a missing badge, because a roadmap that keeps inviting you onward past its
+own last stage does not know it finished. README row 13 closed, and rewritten so it cannot go stale
+the way it did: it enumerated STEPS at step 5 and was two steps out of date by step 7, so it now says
+what the stage IS rather than which of its steps are done.
+
+**63 commissions, 38 closed, 25 open, and all three counted rather than typed.** Of the open, eleven
+are addressed to the product owner through the repository's Issues, and every one of the rest names
+the step or the file that carries it.

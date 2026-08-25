@@ -73,13 +73,14 @@ window.NAV = [
      by «UI + Visual», and two roadmap entries on one page break the active
      highlight. `wip` stays until step 7. */
   { label: 'Розкотка',                   page: 'design/index.html', done: true },
-  /* 13.1: the stage started. `page` stays null until step 5 builds
-     handoff.html; `wip:true` is what makes the walk hang «Next» here rather than
-     jump past a stage whose pages are all still unbuilt. Removed by step 8. */
-  /* 13.5: the page exists. `wip` stays until step 8 - the stage still owes the release,
-     the one-shot prompt and two examination runs, and `wip` is what keeps «Next» here
-     rather than moving it past a stage that is not finished. */
-  { label: 'Хендоф',                     page: 'handoff/handoff.html', done: true, wip: true }
+  /* 13.8: `wip` is OFF and the stage is closed. It went on at 13.1 (before any page
+     existed) and stayed through 13.5, when the page arrived but the release, the
+     prompt and two examinations were still owed - `wip` is the one thing no file in
+     the tree can prove about itself. This is the LAST stage, so nothing carries
+     «Next» after it, and that is the correct end rather than a missing badge: a
+     roadmap that keeps inviting you onward past its own last row does not know it
+     finished. */
+  { label: 'Хендоф',                     page: 'handoff/handoff.html', done: true }
 ];
 
 (function () {

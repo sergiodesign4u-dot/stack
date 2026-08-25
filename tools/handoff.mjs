@@ -220,6 +220,75 @@ if (!mapMissing) {
 say('ЕКРАН БЕЗ РЯДКА В КАРТІ', mapNoRow, p => p + '.html');
 say('РЯДОК КАРТИ БЕЗ ЕКРАНА В РЕЄСТРІ', mapGhost, p => p + '.html');
 
+/* ---------- J: THE COMMISSION'S OWN ARITHMETIC ----------
+   `onboarding-gaps.md` ends with an idle control that counts its own rows and how
+   many of them are closed - and until 13.8 those were three numbers typed by hand
+   into prose, in the one file of the package whose whole subject is «a number
+   nobody maintains». They were wrong: it said «Closed so far: 35 ... Open: 28»
+   against 37 and 26 on the page, because a row closed late in a step was added to
+   the list of names and not to the sum. Exactly the class it exists to record.
+
+   Counted here instead. A FINDING ROW is a row of a table whose first heading is
+   «#» or «Class» - which excludes the isolation checks at the head of the file and
+   the two-row summary of the examinations, neither of which is a commission. A row
+   is CLOSED when its last cell says ЗАКРИТО. Then the three prose numbers are read
+   back and compared, so the sentence and the table cannot drift apart again. */
+const GAPS = join(HO, 'docs/onboarding-gaps.md');
+const gapsMissing = !existsSync(GAPS);
+const gapsBad = [], gapsNoClose = [];
+let gapRows = 0, gapClosed = 0;
+if (!gapsMissing) {
+  const text = readFileSync(GAPS, 'utf8');
+  let inFind = false;
+  for (const l of text.split('\n')) {
+    if (!l.startsWith('| ')) { if (!l.trim()) inFind = false; continue; }
+    if (/^\|\s*[-: ]+\|/.test(l)) continue;
+    const cells = l.split('|').map(x => x.trim()).filter((x, k, a) => k > 0 && k < a.length - 1);
+    if (cells.length < 3) continue;
+    /* A COMMISSION TABLE IS ONE WHOSE LAST HEADING IS «Closed …», and the first
+       writing recognised it by the FIRST heading instead. Step 8 then added the
+       contract checklist - «| # | The contract says | Answer |» - and its sixteen
+       rows walked straight into the register: 79 commissions where there are 63.
+       The first column says what a row is NUMBERED by; the last says what the table
+       is FOR. */
+    if (/^(#|Class)$/i.test(cells[0]) && /^Closed/i.test(cells[cells.length - 1])) { inFind = true; continue; }
+    if (/^(#|Class)$/i.test(cells[0])) { inFind = false; continue; }
+    if (!inFind) continue;
+    gapRows++;
+    /* THE MARK LIVES IN EITHER OF THE LAST TWO CELLS, and the first writing looked
+       only at the last. The file carries two table shapes - «Closed by | Closed
+       with» and «Verdict | Closed by» - so half the closures are written one column
+       from the end, and the check reported 13 closed against 37. A reader of ONE
+       column reports the health of that column. */
+    const tail = cells.slice(-2).join(' ');
+    const last = cells[cells.length - 1];
+    if (/ЗАКРИТО/.test(tail)) gapClosed++;
+    /* an OPEN row is not a defect - the column fills as the steps run. What is a
+       defect at step 8 is a row with neither a closure NOR an addressee, because
+       that is a commission this stage neither did nor handed on. */
+    else if ((!last || last === '-' || last === '\u2013') && !/owner|власник|крок|step/i.test(tail))
+      gapsNoClose.push(cells[0].replace(/\*/g, '').slice(0, 40));
+  }
+  const said = k => {
+    const m = text.match(new RegExp(k + ':?\\*{0,2}\\s*\\*{0,2}(\\d+)'));
+    return m ? Number(m[1]) : null;
+  };
+  const total = (text.match(/=\s*\*\*(\d+)\*\*\. Every/) || [])[1];
+    /* BOTH NUMBERS LIVE IN ONE SENTENCE - «Closed so far: 38 · Open: 25» - so they
+       are read from one pattern. The first writing hunted them separately and the
+       «Open» half matched nothing, which reported «сказано null»: a check that
+       cannot find a claim must say it cannot find it, not compare against null. */
+    const both = text.match(/Closed so far:\s*\*{0,2}(\d+)\*{0,2}\s*·\s*Open:\s*\*{0,2}(\d+)/);
+    const pairs = [['рядків', Number(total), gapRows],
+      ['закрито', both ? Number(both[1]) : 'НЕ ЗНАЙДЕНО В ПРОЗІ', gapClosed],
+      ['відкрито', both ? Number(both[2]) : 'НЕ ЗНАЙДЕНО В ПРОЗІ', gapRows - gapClosed]];
+  for (const [what, s, real] of pairs) if (s !== real) gapsBad.push([what, s, real]);
+  console.log('\nonboarding-gaps.md: рядків-замовлень ' + gapRows + ' · закрито ' + gapClosed +
+    ' · відкрито ' + (gapRows - gapClosed) + ' · без колонки «чим закрито» ' + gapsNoClose.length);
+}
+say('ЧИСЛО В ПРОЗІ РОЗІЙШЛОСЬ ІЗ ТАБЛИЦЯМИ', gapsBad, ([w, s, r]) => w.padEnd(12) + 'сказано ' + s + ', насправді ' + r);
+say('ЗАМОВЛЕННЯ БЕЗ КОЛОНКИ «ЧИМ ЗАКРИТО»', gapsNoClose, x => x);
+
 /* ---------- I: THE ROUTE, MEASURED IN CLICKS ----------
    The stage pack asks for «no more than two clicks from the root index.html to
    any artefact of the handoff», and a sentence like that is worth nothing unless
@@ -340,7 +409,7 @@ console.log('\nдокументів у handoff/: ' + docs.length + ' (' + mds.le
      0  asked everything, found nothing
      1  found something
      2  could not ask - the subject is not on disk yet */
-if (behMissing || mapMissing || a11yMissing || pageMissing) {
+if (behMissing || mapMissing || a11yMissing || pageMissing || gapsMissing) {
   console.log('\nВЕРДИКТ: 2 - предмет неповний' +
     (behMissing ? ', behaviour.md немає (E і F)' : '') + (mapMissing ? ', map.md немає (G)' : '') +
     (a11yMissing ? ', a11y.md немає (H)' : '') + (pageMissing ? ', handoff.html немає (I)' : ''));
@@ -349,4 +418,5 @@ if (behMissing || mapMissing || a11yMissing || pageMissing) {
 process.exit(hex.length || px.length || css.length || copied.length ||
   noSrc.length || badSrc.length || notYet.length || mapNoRow.length || mapGhost.length ||
   noWay.length || ghostTool.length || badStatus.length ||
-  unlinked.length || mdInHtml.length || !inRegistry ? 1 : 0);
+  unlinked.length || mdInHtml.length || !inRegistry ||
+  gapsBad.length || gapsNoClose.length ? 1 : 0);
